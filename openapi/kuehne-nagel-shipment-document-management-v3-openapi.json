@@ -1,0 +1,518 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "ShipmentDocumentManagement",
+    "description" : "Document management (list, download, add and delete) of shipment related documents.\n",
+    "contact" : {
+      "name" : "API Support",
+      "email" : "support.api.ShipmentDocumentManagement@kuehne-nagel.com"
+    },
+    "version" : "v3",
+    "x-api-guideline-version" : "1.11.7",
+    "x-api-id" : "c612c46e-8bc1-4a33-a5fd-cb438e84e605",
+    "x-api-version" : "3.0.1"
+  },
+  "servers" : [ {
+    "url" : "https://gateway.api.kuehne-nagel.com/transport/execution/documentation/shipment/v3"
+  } ],
+  "security" : [ {
+    "default" : [ ]
+  }, {
+    "api_key" : [ ]
+  } ],
+  "tags" : [ {
+    "name" : "Delete",
+    "description" : "Operations to delete shipment documents."
+  }, {
+    "name" : "Download",
+    "description" : "Operations to download shipment document content."
+  }, {
+    "name" : "List",
+    "description" : "Operations to list shipment documents."
+  }, {
+    "name" : "Upload",
+    "description" : "Operations to upload shipment documents."
+  } ],
+  "paths" : {
+    "/shipments/{uniqueShipmentReference}/documents" : {
+      "get" : {
+        "tags" : [ "List" ],
+        "description" : "List all documents for a specific shipment.",
+        "operationId" : "listDocuments",
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/uniqueShipmentReferenceParameter"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "List of documents for the shipment.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ListDocumentsResponse"
+                }
+              }
+            }
+          },
+          "default" : {
+            "$ref" : "#/components/responses/default"
+          }
+        },
+        "security" : [ {
+          "default" : [ ]
+        }, {
+          "api_key" : [ ]
+        } ],
+        "x-auth-type" : "Application & Application User",
+        "x-throttling-tier" : "10KPerMin"
+      },
+      "post" : {
+        "tags" : [ "Upload" ],
+        "description" : "Add a document to a specific shipment.\n\nBefore the document is actually added to the shipment the uploaded content must pass a\nsecurity scan and conversion to [PDF/A](https://en.wikipedia.org/wiki/PDF/A). This is done asynchronously \nand usually only takes a couple of seconds. For the future it is planned to immediately scan and convert the document.\n",
+        "operationId" : "addDocument",
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/uniqueShipmentReferenceParameter"
+        } ],
+        "requestBody" : {
+          "content" : {
+            "multipart/form-data" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/AddDocumentRequest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Request to add a document to the shipment was created. \n\nThe status of the request can be retrieved using the returned link.\n",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/AddDocumentResponse"
+                }
+              }
+            }
+          },
+          "default" : {
+            "$ref" : "#/components/responses/default"
+          }
+        },
+        "security" : [ {
+          "default" : [ ]
+        }, {
+          "api_key" : [ ]
+        } ],
+        "x-auth-type" : "Application & Application User",
+        "x-throttling-tier" : "10KPerMin"
+      }
+    },
+    "/shipments/{uniqueShipmentReference}/documents/{documentId}" : {
+      "get" : {
+        "tags" : [ "List" ],
+        "description" : "Retrieve meta data of a specific shipment document.",
+        "operationId" : "retrieveDocumentDetails",
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/uniqueShipmentReferenceParameter"
+        }, {
+          "$ref" : "#/components/parameters/documentIdParameter"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Meta data of the document.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RetrieveDocumentDetailsResponse"
+                }
+              }
+            }
+          },
+          "default" : {
+            "$ref" : "#/components/responses/default"
+          }
+        },
+        "security" : [ {
+          "default" : [ ]
+        }, {
+          "api_key" : [ ]
+        } ],
+        "x-auth-type" : "Application & Application User",
+        "x-throttling-tier" : "10KPerMin"
+      },
+      "delete" : {
+        "tags" : [ "Delete" ],
+        "description" : "Delete a specific document from a shipment (only applicable if `isDeletable=true` in the document meta data).",
+        "operationId" : "deleteDocument",
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/uniqueShipmentReferenceParameter"
+        }, {
+          "$ref" : "#/components/parameters/documentIdParameter"
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "Document was successfully deleted."
+          },
+          "default" : {
+            "$ref" : "#/components/responses/default"
+          }
+        },
+        "security" : [ {
+          "default" : [ ]
+        }, {
+          "api_key" : [ ]
+        } ],
+        "x-auth-type" : "Application & Application User",
+        "x-throttling-tier" : "10KPerMin"
+      }
+    },
+    "/shipments/{uniqueShipmentReference}/documents/{documentId}/contents" : {
+      "get" : {
+        "tags" : [ "Download" ],
+        "description" : "Download the binary content of a specific shipment document.\n\nThis endpoint always returns exactly one content item (singleton collection, cardinality 1).\n",
+        "operationId" : "downloadDocumentContent",
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/uniqueShipmentReferenceParameter"
+        }, {
+          "$ref" : "#/components/parameters/documentIdParameter"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Binary content of the document.",
+            "headers" : {
+              "Content-Disposition" : {
+                "description" : "Indicates the file should be downloaded as an attachment.",
+                "style" : "simple",
+                "explode" : false,
+                "schema" : {
+                  "type" : "string",
+                  "example" : "attachment; filename=\"document.pdf\""
+                }
+              }
+            },
+            "content" : {
+              "application/octet-stream" : {
+                "schema" : {
+                  "type" : "string",
+                  "format" : "binary"
+                }
+              }
+            }
+          },
+          "default" : {
+            "$ref" : "#/components/responses/default"
+          }
+        },
+        "security" : [ {
+          "default" : [ ]
+        }, {
+          "api_key" : [ ]
+        } ],
+        "x-auth-type" : "Application & Application User",
+        "x-throttling-tier" : "10KPerMin"
+      }
+    },
+    "/shipments/{uniqueShipmentReference}/uploadable-document-types" : {
+      "get" : {
+        "tags" : [ "Upload" ],
+        "description" : "Retrieve the document types that can be used to add a document to the specific shipment.",
+        "operationId" : "retrieveUploadableDocumentTypes",
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/uniqueShipmentReferenceParameter"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Set of document types that can be used to add a document to the specific shipment.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RetrieveUploadableDocumentTypesResponse"
+                }
+              }
+            }
+          },
+          "default" : {
+            "$ref" : "#/components/responses/default"
+          }
+        },
+        "security" : [ {
+          "default" : [ ]
+        }, {
+          "api_key" : [ ]
+        } ],
+        "x-auth-type" : "Application & Application User",
+        "x-throttling-tier" : "10KPerMin"
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "AddDocumentRequest" : {
+        "required" : [ "documentContent", "documentTypeCode" ],
+        "type" : "object",
+        "properties" : {
+          "documentContent" : {
+            "type" : "string",
+            "description" : "Content of the document (preferably a PDF) that should be added to the shipment.\n\nMust have \n* a size of max. 10 MB\n* a supported file extension \n  * pdf\n  * docx/doc\n  * xlsx/xls\n  * png\n  * jpeg/jpg\n  * tiff/tif\n  * rtf\n  * bmp\n* in case of a PDF: no read protection\n",
+            "format" : "binary"
+          },
+          "documentTypeCode" : {
+            "$ref" : "#/components/schemas/DocumentTypeCode"
+          }
+        },
+        "description" : "Request body for adding a document to a shipment."
+      },
+      "AddDocumentResponse" : {
+        "required" : [ "documentId", "self" ],
+        "type" : "object",
+        "properties" : {
+          "documentId" : {
+            "$ref" : "#/components/schemas/DocumentId"
+          },
+          "self" : {
+            "type" : "string",
+            "description" : "URI to retrieve the meta data of the uploaded shipment document.",
+            "format" : "uri",
+            "example" : "https://.../shipments/N4242/documents/Q1234S56"
+          }
+        },
+        "description" : "Response returned after a document upload request has been created."
+      },
+      "CreationDate" : {
+        "type" : "string",
+        "description" : "Timestamp when the document was created.",
+        "format" : "date-time",
+        "example" : "2025-07-15T10:30:00Z"
+      },
+      "DocumentId" : {
+        "maxLength" : 255,
+        "minLength" : 1,
+        "type" : "string",
+        "description" : "Unique identifier of a shipment document.",
+        "example" : "Q1234S56"
+      },
+      "DocumentStatus" : {
+        "maxLength" : 128,
+        "type" : "string",
+        "description" : "Extensible enum:\n* `OK`\n* `PROCESSING_UPLOAD`\n* `PROCESSING_UPLOAD_FAILED`\n",
+        "example" : "OK",
+        "x-extensible-enum" : [ "OK", "PROCESSING_UPLOAD", "PROCESSING_UPLOAD_FAILED" ]
+      },
+      "DocumentSummary" : {
+        "required" : [ "creationDate", "documentId", "documentType", "isDeletable", "isUploadedByCustomer", "status" ],
+        "type" : "object",
+        "properties" : {
+          "creationDate" : {
+            "$ref" : "#/components/schemas/CreationDate"
+          },
+          "documentId" : {
+            "$ref" : "#/components/schemas/DocumentId"
+          },
+          "documentType" : {
+            "$ref" : "#/components/schemas/DocumentType"
+          },
+          "isDeletable" : {
+            "$ref" : "#/components/schemas/IsDeletable"
+          },
+          "isUploadedByCustomer" : {
+            "$ref" : "#/components/schemas/IsUploadedByCustomer"
+          },
+          "status" : {
+            "$ref" : "#/components/schemas/DocumentStatus"
+          }
+        },
+        "description" : "Summary of a shipment document including its metadata and current status."
+      },
+      "DocumentType" : {
+        "required" : [ "code", "name" ],
+        "type" : "object",
+        "properties" : {
+          "code" : {
+            "$ref" : "#/components/schemas/DocumentTypeCode"
+          },
+          "name" : {
+            "$ref" : "#/components/schemas/DocumentTypeName"
+          }
+        },
+        "description" : "Kuehne+Nagel specific classification of shipment documents.",
+        "example" : {
+          "code" : "380",
+          "name" : "Commercial Invoice"
+        }
+      },
+      "DocumentTypeCode" : {
+        "maxLength" : 3,
+        "minLength" : 3,
+        "type" : "string",
+        "description" : "Code of a document type according to the Kuehne+Nagel specific classification.\n\nThe document types allowed for uploading a document can be retrieved via the operation `/shipments/{uniqueShipmentReference}/uploadable-document-types`.\n\nOften uploaded document types:\n* 380 (Commercial Invoice)\n* 271 (Packing List)\n* 944 (Customs Documents)\n* 833 (Export Declaration)\n",
+        "example" : "380"
+      },
+      "DocumentTypeName" : {
+        "maxLength" : 255,
+        "type" : "string",
+        "description" : "Name of a document type according to the Kuehne+Nagel specific classification.",
+        "example" : "Commercial Invoice"
+      },
+      "IsDeletable" : {
+        "type" : "boolean",
+        "description" : "Whether the document can be deleted by the caller.",
+        "example" : true
+      },
+      "IsUploadedByCustomer" : {
+        "type" : "boolean",
+        "description" : "Whether the document was uploaded by a customer.",
+        "example" : true
+      },
+      "ListDocumentsResponse" : {
+        "required" : [ "items" ],
+        "type" : "object",
+        "properties" : {
+          "documents" : {
+            "maxItems" : 512,
+            "type" : "array",
+            "description" : "List of document summaries for the shipment.",
+            "example" : [ {
+              "creationDate" : "2025-07-15T10:30:00Z",
+              "documentId" : "Q1234S56",
+              "documentType" : {
+                "code" : "380",
+                "name" : "Commercial Invoice"
+              },
+              "isDeletable" : true,
+              "isUploadedByCustomer" : true,
+              "status" : "OK"
+            } ],
+            "items" : {
+              "$ref" : "#/components/schemas/DocumentSummary"
+            }
+          }
+        },
+        "description" : "Response containing the list of documents associated with a shipment."
+      },
+      "Problem" : {
+        "required" : [ "detail", "title" ],
+        "type" : "object",
+        "properties" : {
+          "detail" : {
+            "maxLength" : 256,
+            "type" : "string",
+            "description" : "A human readable explanation specific to this occurrence of the problem that is helpful to locate the problem and give advice on how to proceed. Written in English and readable for engineers, usually not suited for non technical stakeholders and not localized.\n",
+            "example" : "Connection to database timed out"
+          },
+          "instance" : {
+            "type" : "string",
+            "description" : "A URI reference that identifies the specific occurrence of the problem, e.g. by adding a fragment identifier or sub-path to the problem type. May be used to locate the root of this problem in the source code.\n",
+            "format" : "uri-reference",
+            "example" : "/problem/connection-error#token-info-read-timed-out"
+          },
+          "status" : {
+            "maximum" : 600,
+            "exclusiveMaximum" : true,
+            "minimum" : 100,
+            "type" : "integer",
+            "description" : "The HTTP status code generated by the origin server for this occurrence of the problem.\n",
+            "format" : "int32",
+            "example" : 503
+          },
+          "title" : {
+            "maxLength" : 128,
+            "type" : "string",
+            "description" : "A short summary of the problem type. Written in English and readable for engineers, usually not suited for non technical stakeholders and not localized.\n",
+            "example" : "Service Unavailable"
+          },
+          "type" : {
+            "type" : "string",
+            "description" : "A URI reference that uniquely identifies the problem type only in the context of the provided API. Opposed to the specification in RFC-7807, it is neither recommended to be dereferencable and point to a human-readable documentation nor globally unique for the problem type.\n",
+            "format" : "uri-reference",
+            "example" : "/problem/connection-error",
+            "default" : "about:blank"
+          }
+        },
+        "description" : "A problem details object as defined by RFC 7807, used to carry error information in HTTP API responses."
+      },
+      "RetrieveDocumentDetailsResponse" : {
+        "description" : "Response containing the detailed metadata of a specific shipment document.",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/DocumentSummary"
+        } ]
+      },
+      "RetrieveUploadableDocumentTypesResponse" : {
+        "required" : [ "uploadableDocumentTypes" ],
+        "type" : "object",
+        "properties" : {
+          "uploadableDocumentTypes" : {
+            "maxItems" : 512,
+            "uniqueItems" : true,
+            "type" : "array",
+            "description" : "List of document types available for uploading to the shipment.",
+            "example" : [ {
+              "code" : "380",
+              "name" : "Commercial Invoice"
+            }, {
+              "code" : "271",
+              "name" : "Packing List"
+            } ],
+            "items" : {
+              "$ref" : "#/components/schemas/DocumentType"
+            }
+          }
+        },
+        "description" : "Response containing the document types that can be uploaded for a specific shipment."
+      }
+    },
+    "responses" : {
+      "default" : {
+        "description" : "An error occurred - please see the HTTP status code and the problem object for more information.",
+        "content" : {
+          "application/problem+json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/Problem"
+            }
+          }
+        }
+      }
+    },
+    "parameters" : {
+      "documentIdParameter" : {
+        "name" : "documentId",
+        "in" : "path",
+        "description" : "Unique identifier of a document",
+        "required" : true,
+        "style" : "simple",
+        "explode" : false,
+        "schema" : {
+          "$ref" : "#/components/schemas/DocumentId"
+        }
+      },
+      "uniqueShipmentReferenceParameter" : {
+        "name" : "uniqueShipmentReference",
+        "in" : "path",
+        "description" : "By default this is the shipment __tracking number__ e.g. `N4242`. \n\nIn case a tracking number is not available a limited set of alternative references can be used.\nPlease use the track and trace API to first search for shipment details (e.g. by a customer specific reference)\nif none of the supported references are available .\n    \nSupported references:\n* __tracking number__\n  * `{trackingNumber}` or `tracking-number:{trackingNumber}`\n  * e.g. `N4242` or `tracking-number:N4242`\n* __booking number__\n  * `booking-number:{bookingNumber}`\n  * e.g. `booking-number:B1`\n* __shipment id__\n  * `shipment-id:{shipmentId}` \n  * e.g. `shipment-id:S1`\n",
+        "required" : true,
+        "style" : "simple",
+        "explode" : false,
+        "schema" : {
+          "maxLength" : 255,
+          "pattern" : "^(tracking-number:|booking-number:|shipment-id:)?[A-Za-z0-9]+$",
+          "type" : "string",
+          "example" : "N4242"
+        }
+      }
+    },
+    "securitySchemes" : {
+      "default" : {
+        "type" : "oauth2",
+        "flows" : {
+          "implicit" : {
+            "authorizationUrl" : "https://gateway.api.kuehne-nagel.com/authorize",
+            "scopes" : { }
+          }
+        }
+      },
+      "api_key" : {
+        "type" : "apiKey",
+        "name" : "apikey",
+        "in" : "header"
+      }
+    }
+  }
+}

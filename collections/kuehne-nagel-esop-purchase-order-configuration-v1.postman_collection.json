@@ -1,0 +1,205 @@
+{
+  "item": [
+    {
+      "id": "933ef291-f83c-4f96-8637-be2bc899b698",
+      "name": "administration-layer",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a8c3a030-c4e8-4fc3-8373-6ae5ac6bc78b",
+          "name": "Read a customer's eSOP order configuration for purchase orders.",
+          "request": {
+            "name": "Read a customer's eSOP order configuration for purchase orders.",
+            "description": {
+              "content": "The order configuration describes the selection of order attributes that are used\nby a customer in their purchase order. It assigns attributes to be either part of\nthe order header or to be part of the order lines. The configuration also describes\nwhich attributes are used to identify order lines and which of the attributes are\noptional or mandatory.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "order-configurations",
+                ":customerCode"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "customerCode",
+                  "description": "(Required) The unique key identifying the customer"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "authUrl",
+                  "value": "https://internal.api.kuehne-nagel.com/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "67dc7d2a-460d-4d76-ae74-0652d74bcfb4",
+              "name": "Order configuration found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order-configurations",
+                    ":customerCode"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerCode",
+                      "description": "(Required) The unique key identifying the customer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"regularAttributes\": [\n    {\n      \"use\": true,\n      \"id\": \"string\",\n      \"reference\": \"J3C\",\n      \"mandatory\": true,\n      \"partOfHeader\": true,\n      \"category\": \"string\",\n      \"partOfKey\": false\n    },\n    {\n      \"use\": false,\n      \"id\": \"string\",\n      \"reference\": \"9N\",\n      \"mandatory\": true,\n      \"partOfHeader\": true,\n      \"category\": \"string\",\n      \"partOfKey\": true\n    }\n  ],\n  \"customerSpecificAttributes\": [\n    {\n      \"use\": true,\n      \"id\": \"string\",\n      \"reference\": \"60\",\n      \"mandatory\": true,\n      \"partOfHeader\": true,\n      \"category\": \"string\",\n      \"referenceLabel\": \"string\"\n    },\n    {\n      \"use\": false,\n      \"id\": \"string\",\n      \"reference\": \"CSU\",\n      \"mandatory\": false,\n      \"partOfHeader\": false,\n      \"category\": \"string\",\n      \"referenceLabel\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3af04467-7a9d-4fb6-97ca-85c558175485",
+              "name": "Default Response for Error Cases",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order-configurations",
+                    ":customerCode"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerCode",
+                      "description": "(Required) The unique key identifying the customer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/problem+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/problem+json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Connection to database timed out\",\n  \"title\": \"Service Unavailable\",\n  \"type\": \"/problem/connection-error\",\n  \"status\": 503,\n  \"instance\": \"/problem/connection-error#token-info-read-timed-out\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://internal.api.kuehne-nagel.com/order-management/purchase-order/customer-configuration/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "authUrl",
+        "value": "https://internal.api.kuehne-nagel.com/authorize"
+      },
+      {
+        "key": "grant_type",
+        "value": "implicit"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "256f1b16-a7ed-4be7-9e6f-2271b74eaa0c",
+    "name": "eSOPPurchaseOrderConfiguration",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "This API is part of the Kuehne+Nagel API layer. Processing of purchase order data depends\non the customer's eSOP order configuration in K+N ESP. This API allows customers to read\ntheir order configuration. To use this API you must be registered and set up in ESP platform.\n\n\nContact Support:\n Name: Kuehne+Nagel ESP Public APIs\n Email: webdev-esp-public-apis@kuehne-nagel.com",
+      "type": "text/plain"
+    }
+  }
+}

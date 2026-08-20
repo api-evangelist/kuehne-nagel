@@ -1,0 +1,175 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "BookingRoad",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "implicit",
+      "authorizationUrl": "https://internal.api.kuehne-nagel.com/authorize",
+      "credentials": {
+        "clientId": "{{clientId}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Master Data",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get master data mapping categories",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://internal.api.kuehne-nagel.com/booking/road/v1/master-data-categories",
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://internal.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Retrieves all available master data categories."
+        },
+        {
+          "info": {
+            "name": "Get master data mapping category details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://internal.api.kuehne-nagel.com/booking/road/v1/master-data-categories/:category",
+            "params": [
+              {
+                "name": "category",
+                "value": "",
+                "type": "path",
+                "description": "Master data category to read from"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://internal.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Retrieves details of one master data category."
+        },
+        {
+          "info": {
+            "name": "Get master data mapping values",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://internal.api.kuehne-nagel.com/booking/road/v1/master-data-categories/:category/values",
+            "params": [
+              {
+                "name": "category",
+                "value": "",
+                "type": "path",
+                "description": "Master data category to read from"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Optional cursor to use with pagination"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Optional limit to the number of results returned to use with pagination"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://internal.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Retrieves all possible values for the given master data category."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Booking Requests",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Booking Request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://internal.api.kuehne-nagel.com/booking/road/v1/bookings",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://internal.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Submits a booking creation request that will be routed to the appropriate business team for processing."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Document Request",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upload Document Request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://internal.api.kuehne-nagel.com/booking/road/v1/document",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://internal.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "## General\nUpload a document for any Road Shipment.\n\n\n### Accepted Document Types\nPDF, TIFF, JPEG, DOCX, XLSX, etc\n\n\n:::tip[Document Extension]\nDo not include the period [ . ] in the document extension in the JSON request. \n:::\n\n### Accepted Document Codes\n| DocumentCode | Document Description                   |\n|:----------:|----------------------------------------|\n| 0.03     | Quality inspection cert                |\n| 0.11     | Temperature timetable                  |\n| 0.12     | Temperat"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

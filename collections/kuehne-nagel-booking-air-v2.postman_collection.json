@@ -1,0 +1,560 @@
+{
+  "item": [
+    {
+      "id": "e377436d-3f00-4c6a-8561-942948edaf13",
+      "name": "booking",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e605aab8-e1b1-4451-816d-2e64d0795bbf",
+          "name": "Update an air booking",
+          "request": {
+            "name": "Update an air booking",
+            "description": {
+              "content": "Update air booking",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "bookings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "trackingNumber",
+                  "value": "<long>",
+                  "description": "The tracking number of a specific KN shipment"
+                },
+                {
+                  "disabled": false,
+                  "key": "uniqueReference",
+                  "value": "<string>",
+                  "description": "The unique reference to identify the shipment"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "authUrl",
+                  "value": "https://gateway.api.kuehne-nagel.com/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"cargo\": {\n    \"description\": \"<string>\",\n    \"isDangerousGoods\": \"<boolean>\",\n    \"weightInKilogram\": \"<double>\",\n    \"numberOfPieces\": \"<integer>\",\n    \"shippersLoadAndCount\": \"<integer>\",\n    \"dimensions\": [\n      {\n        \"heightInCentimeter\": \"<integer>\",\n        \"lengthInCentimeter\": \"<integer>\",\n        \"numberOfPieces\": \"<integer>\",\n        \"widthInCentimeter\": \"<integer>\"\n      }\n    ],\n    \"hsCodes\": [\n      {\n        \"code\": \"<string>\",\n        \"notes\": \"<string>\"\n      },\n      {\n        \"code\": \"<string>\",\n        \"notes\": \"<string>\"\n      }\n    ],\n    \"generalHandlingText\": \"<string>\",\n    \"volumeInCubicMeter\": \"<double>\",\n    \"dangerousGoodsPositions\": [\n      {\n        \"numberOfPackages\": \"<double>\",\n        \"packageType\": \"<string>\",\n        \"overpackNumber\": \"<string>\",\n        \"limitedQuantityGrossWeightInKg\": \"<double>\",\n        \"dangerousGoodsDetails\": [\n          {\n            \"properShippingName\": \"<string>\",\n            \"quantityUoM\": \"<string>\",\n            \"unNumber\": \"<string>\",\n            \"dgClass\": \"<string>\",\n            \"extensionForMixtureOrSolution\": \"<string>\",\n            \"importantDgText\": \"<string>\",\n            \"isEmpty\": false,\n            \"isExceptedQuantity\": false,\n            \"isHot\": false,\n            \"isLimitedQuantity\": false,\n            \"isSalvagePackaging\": false,\n            \"isWaste\": false,\n            \"isLithiumBattery\": false,\n            \"isId8000\": false,\n            \"isDryIceWithoutDg\": false,\n            \"netExplosiveQuantityInKg\": \"<double>\",\n            \"packingGroup\": \"<string>\",\n            \"packingInstruction\": \"<string>\",\n            \"quantityPerPackage\": \"<double>\",\n            \"subsidiaryRisks\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"radioactiveDetails\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"properShippingName\": \"<string>\",\n            \"quantityUoM\": \"<string>\",\n            \"unNumber\": \"<string>\",\n            \"dgClass\": \"<string>\",\n            \"extensionForMixtureOrSolution\": \"<string>\",\n            \"importantDgText\": \"<string>\",\n            \"isEmpty\": false,\n            \"isExceptedQuantity\": false,\n            \"isHot\": false,\n            \"isLimitedQuantity\": false,\n            \"isSalvagePackaging\": false,\n            \"isWaste\": false,\n            \"isLithiumBattery\": false,\n            \"isId8000\": false,\n            \"isDryIceWithoutDg\": false,\n            \"netExplosiveQuantityInKg\": \"<double>\",\n            \"packingGroup\": \"<string>\",\n            \"packingInstruction\": \"<string>\",\n            \"quantityPerPackage\": \"<double>\",\n            \"subsidiaryRisks\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"radioactiveDetails\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      {\n        \"numberOfPackages\": \"<double>\",\n        \"packageType\": \"<string>\",\n        \"overpackNumber\": \"<string>\",\n        \"limitedQuantityGrossWeightInKg\": \"<double>\",\n        \"dangerousGoodsDetails\": [\n          {\n            \"properShippingName\": \"<string>\",\n            \"quantityUoM\": \"<string>\",\n            \"unNumber\": \"<string>\",\n            \"dgClass\": \"<string>\",\n            \"extensionForMixtureOrSolution\": \"<string>\",\n            \"importantDgText\": \"<string>\",\n            \"isEmpty\": false,\n            \"isExceptedQuantity\": false,\n            \"isHot\": false,\n            \"isLimitedQuantity\": false,\n            \"isSalvagePackaging\": false,\n            \"isWaste\": false,\n            \"isLithiumBattery\": false,\n            \"isId8000\": false,\n            \"isDryIceWithoutDg\": false,\n            \"netExplosiveQuantityInKg\": \"<double>\",\n            \"packingGroup\": \"<string>\",\n            \"packingInstruction\": \"<string>\",\n            \"quantityPerPackage\": \"<double>\",\n            \"subsidiaryRisks\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"radioactiveDetails\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"properShippingName\": \"<string>\",\n            \"quantityUoM\": \"<string>\",\n            \"unNumber\": \"<string>\",\n            \"dgClass\": \"<string>\",\n            \"extensionForMixtureOrSolution\": \"<string>\",\n            \"importantDgText\": \"<string>\",\n            \"isEmpty\": false,\n            \"isExceptedQuantity\": false,\n            \"isHot\": false,\n            \"isLimitedQuantity\": false,\n            \"isSalvagePackaging\": false,\n            \"isWaste\": false,\n            \"isLithiumBattery\": false,\n            \"isId8000\": false,\n            \"isDryIceWithoutDg\": false,\n            \"netExplosiveQuantityInKg\": \"<double>\",\n            \"packingGroup\": \"<string>\",\n            \"packingInstruction\": \"<string>\",\n            \"quantityPerPackage\": \"<double>\",\n            \"subsidiaryRisks\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"radioactiveDetails\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      }\n    ]\n  },\n  \"customsClearanceByKn\": \"<boolean>\",\n  \"destination\": {\n    \"buyerAddress\": {\n      \"city\": \"<string>\",\n      \"countryCode\": \"<iso-3166>\",\n      \"name\": \"<string>\",\n      \"name2\": \"<string>\",\n      \"street\": \"<string>\",\n      \"street2\": \"<string>\",\n      \"stateCode\": \"<string>\",\n      \"poBox\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"customerReferences\": [\n        {\n          \"code\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"code\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ]\n    },\n    \"deliveryByKn\": \"<boolean>\",\n    \"airWaybillConsigneeAddress\": {\n      \"city\": \"<string>\",\n      \"countryCode\": \"<iso-3166>\",\n      \"name\": \"<string>\",\n      \"name2\": \"<string>\",\n      \"street\": \"<string>\",\n      \"street2\": \"<string>\",\n      \"stateCode\": \"<string>\",\n      \"poBox\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"customerReferences\": [\n        {\n          \"code\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"code\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ]\n    },\n    \"deliveryContact\": {\n      \"lastName\": \"<string>\",\n      \"email\": \"<email>\",\n      \"firstName\": \"<string>\",\n      \"phone\": \"<string>\"\n    },\n    \"deliveryAddress\": {\n      \"city\": \"<string>\",\n      \"countryCode\": \"<iso-3166>\",\n      \"name\": \"<string>\",\n      \"name2\": \"<string>\",\n      \"street\": \"<string>\",\n      \"street2\": \"<string>\",\n      \"stateCode\": \"<string>\",\n      \"poBox\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"customerReferences\": [\n        {\n          \"code\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"code\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ]\n    },\n    \"importAvailabilityTime\": \"<dateTime>\",\n    \"deliveryHandlingText\": \"<string>\",\n    \"airportCode\": \"<string>\"\n  },\n  \"incoterm\": \"<string>\",\n  \"origin\": {\n    \"exportAvailabilityTime\": \"<dateTime>\",\n    \"sellerAddress\": {\n      \"city\": \"<string>\",\n      \"countryCode\": \"<iso-3166>\",\n      \"name\": \"<string>\",\n      \"name2\": \"<string>\",\n      \"street\": \"<string>\",\n      \"street2\": \"<string>\",\n      \"stateCode\": \"<string>\",\n      \"poBox\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"customerReferences\": [\n        {\n          \"code\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"code\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ]\n    },\n    \"airWaybillShipperAddress\": {\n      \"city\": \"<string>\",\n      \"countryCode\": \"<iso-3166>\",\n      \"name\": \"<string>\",\n      \"name2\": \"<string>\",\n      \"street\": \"<string>\",\n      \"street2\": \"<string>\",\n      \"stateCode\": \"<string>\",\n      \"poBox\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"customerReferences\": [\n        {\n          \"code\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"code\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ]\n    },\n    \"pickupContact\": {\n      \"lastName\": \"<string>\",\n      \"email\": \"<email>\",\n      \"firstName\": \"<string>\",\n      \"phone\": \"<string>\"\n    },\n    \"pickupAddress\": {\n      \"city\": \"<string>\",\n      \"countryCode\": \"<iso-3166>\",\n      \"name\": \"<string>\",\n      \"name2\": \"<string>\",\n      \"street\": \"<string>\",\n      \"street2\": \"<string>\",\n      \"stateCode\": \"<string>\",\n      \"poBox\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"customerReferences\": [\n        {\n          \"code\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"code\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ]\n    },\n    \"pickupByKn\": \"<boolean>\",\n    \"pickupHandlingText\": \"<string>\",\n    \"airportCode\": \"<string>\"\n  },\n  \"uniqueReference\": \"<string>\",\n  \"priceReference\": \"<uuid>\",\n  \"houseAirWaybillNumber\": \"<string>\",\n  \"customerRequiredAirWaybillText\": \"<string>\",\n  \"commercialInvoiceAmount\": {\n    \"amount\": \"<double>\",\n    \"currency\": \"<iso-4217>\"\n  },\n  \"notifyAddress\": {\n    \"city\": \"<string>\",\n    \"countryCode\": \"<iso-3166>\",\n    \"name\": \"<string>\",\n    \"name2\": \"<string>\",\n    \"street\": \"<string>\",\n    \"street2\": \"<string>\",\n    \"stateCode\": \"<string>\",\n    \"poBox\": \"<string>\",\n    \"postalCode\": \"<string>\",\n    \"customerReferences\": [\n      {\n        \"code\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"code\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  },\n  \"notifyContact\": {\n    \"lastName\": \"<string>\",\n    \"email\": \"<email>\",\n    \"firstName\": \"<string>\",\n    \"phone\": \"<string>\"\n  },\n  \"isLetterOfCredit\": false,\n  \"letterOfCreditLatestDepartureDate\": \"<dateTime>\",\n  \"letterOfCreditExpiryDate\": \"<dateTime>\",\n  \"letterOfCreditNumber\": \"<string>\",\n  \"incotermPlace\": \"<string>\",\n  \"freightPayerAddress\": {\n    \"city\": \"<string>\",\n    \"countryCode\": \"<iso-3166>\",\n    \"name\": \"<string>\",\n    \"name2\": \"<string>\",\n    \"street\": \"<string>\",\n    \"street2\": \"<string>\",\n    \"stateCode\": \"<string>\",\n    \"poBox\": \"<string>\",\n    \"postalCode\": \"<string>\",\n    \"customerReferences\": [\n      {\n        \"code\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"code\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  },\n  \"exportQuotationNumber\": \"<string>\",\n  \"customerSpecificAgreementName\": \"<string>\",\n  \"customerReferences\": [\n    {\n      \"code\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"code\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"insuranceAmount\": {\n    \"amount\": \"<double>\",\n    \"currency\": \"<iso-4217>\"\n  },\n  \"includesDefenceCommodity\": \"<boolean>\",\n  \"isImportBooking\": \"<boolean>\",\n  \"knOfficeCode\": \"<string>\",\n  \"product\": \"<string>\",\n  \"serviceType\": \"<string>\",\n  \"tradeControlDetails\": {\n    \"exportControl\": \"<boolean>\",\n    \"exportCustomsClearance\": \"<boolean>\",\n    \"importControl\": \"<boolean>\",\n    \"importCustomsClearance\": \"<boolean>\",\n    \"military\": \"<boolean>\",\n    \"sanctions\": \"<boolean>\",\n    \"transitControl\": \"<boolean>\",\n    \"exportCustomsClearanceDocuments\": \"<string>\",\n    \"importCustomsClearanceDocuments\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6f740686-b4aa-45b0-8128-8344dafd4506",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bookings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "trackingNumber",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "uniqueReference",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"origin\": {\n    \"sellerAddress\": {\n      \"name\": \"Dummy customer Inc.\",\n      \"street\": \"Baoan South Road\",\n      \"city\": \"Shenzhen\",\n      \"countryCode\": \"CN\",\n      \"postalCode\": \"518001\"\n    },\n    \"pickupContact\": {\n      \"email\": \"donotreply@kuehne-nagel.com\",\n      \"firstName\": \"John\",\n      \"lastName\": \"Smith\"\n    },\n    \"pickupAddress\": {\n      \"name\": \"Dummy customer Inc.\",\n      \"street\": \"Baoan South Road\",\n      \"city\": \"Shenzhen\",\n      \"countryCode\": \"CN\",\n      \"postalCode\": \"518001\"\n    },\n    \"exportAvailabilityTime\": \"2021-03-02T10:00:00.000Z\",\n    \"airportCode\": \"SZX\"\n  },\n  \"destination\": {\n    \"buyerAddress\": {\n      \"name\": \"Another dummy customer Inc.\",\n      \"street\": \"Avenue Vincent Negrel\",\n      \"city\": \"La Cadière-dAzur\",\n      \"countryCode\": \"FR\",\n      \"postalCode\": \"83740\"\n    },\n    \"deliveryAddress\": {\n      \"name\": \"Dummy customer Inc.\",\n      \"street\": \"Avenue Vincent Negrel\",\n      \"city\": \"La Cadière-dAzur\",\n      \"countryCode\": \"FR\",\n      \"postalCode\": \"83740\"\n    },\n    \"airportCode\": \"MRS\"\n  },\n  \"cargo\": {\n    \"description\": \"Medical equipment\",\n    \"numberOfPieces\": 10,\n    \"shippersLoadAndCount\": 10,\n    \"dimensions\": [\n      {\n        \"numberOfPieces\": 10,\n        \"heightInCentimeter\": 100,\n        \"lengthInCentimeter\": 200,\n        \"widthInCentimeter\": 100\n      }\n    ],\n    \"weightInKilogram\": 150,\n    \"volumeInCubicMeter\": 2,\n    \"isDangerousGoods\": true,\n    \"dangerousGoodsPositions\": [\n      {\n        \"numberOfPackages\": 10,\n        \"packageType\": \"PKG\",\n        \"overpackNumber\": \"A01\",\n        \"dangerousGoodsDetails\": [\n          {\n            \"properShippingName\": \"Medical equipment\",\n            \"quantityUoM\": \"KG\",\n            \"dgClass\": \"7\",\n            \"importantDgText\": \"Fragile\",\n            \"isEmpty\": false,\n            \"isExceptedQuantity\": false,\n            \"isHot\": false,\n            \"isLimitedQuantity\": false,\n            \"isSalvagePackaging\": false,\n            \"isWaste\": false,\n            \"isLithiumBattery\": false,\n            \"isId8000\": false,\n            \"isDryIceWithoutDg\": false,\n            \"unNumber\": \"2910\"\n          }\n        ]\n      }\n    ]\n  },\n  \"commercialInvoiceAmount\": {\n    \"amount\": 10000,\n    \"currency\": \"EUR\"\n  },\n  \"incoterm\": \"EXW\",\n  \"incotermPlace\": \"Marseille\",\n  \"isImportBooking\": false,\n  \"includesDefenceCommodity\": false,\n  \"product\": \"GEN-PX\",\n  \"serviceType\": \"IATA\",\n  \"insuranceAmount\": {\n    \"amount\": 5000,\n    \"currency\": \"EUR\"\n  },\n  \"customsClearanceByKn\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"trackingNumber\": 1000100123\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4e3bca60-60a8-4a38-963b-9eabc36d981b",
+              "name": "Default error sample response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bookings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "trackingNumber",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "uniqueReference",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/problem+json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"origin\": {\n    \"sellerAddress\": {\n      \"name\": \"Dummy customer Inc.\",\n      \"street\": \"Baoan South Road\",\n      \"city\": \"Shenzhen\",\n      \"countryCode\": \"CN\",\n      \"postalCode\": \"518001\"\n    },\n    \"pickupContact\": {\n      \"email\": \"donotreply@kuehne-nagel.com\",\n      \"firstName\": \"John\",\n      \"lastName\": \"Smith\"\n    },\n    \"pickupAddress\": {\n      \"name\": \"Dummy customer Inc.\",\n      \"street\": \"Baoan South Road\",\n      \"city\": \"Shenzhen\",\n      \"countryCode\": \"CN\",\n      \"postalCode\": \"518001\"\n    },\n    \"exportAvailabilityTime\": \"2021-03-02T10:00:00.000Z\",\n    \"airportCode\": \"SZX\"\n  },\n  \"destination\": {\n    \"buyerAddress\": {\n      \"name\": \"Another dummy customer Inc.\",\n      \"street\": \"Avenue Vincent Negrel\",\n      \"city\": \"La Cadière-dAzur\",\n      \"countryCode\": \"FR\",\n      \"postalCode\": \"83740\"\n    },\n    \"deliveryAddress\": {\n      \"name\": \"Dummy customer Inc.\",\n      \"street\": \"Avenue Vincent Negrel\",\n      \"city\": \"La Cadière-dAzur\",\n      \"countryCode\": \"FR\",\n      \"postalCode\": \"83740\"\n    },\n    \"airportCode\": \"MRS\"\n  },\n  \"cargo\": {\n    \"description\": \"Medical equipment\",\n    \"numberOfPieces\": 10,\n    \"shippersLoadAndCount\": 10,\n    \"dimensions\": [\n      {\n        \"numberOfPieces\": 10,\n        \"heightInCentimeter\": 100,\n        \"lengthInCentimeter\": 200,\n        \"widthInCentimeter\": 100\n      }\n    ],\n    \"weightInKilogram\": 150,\n    \"volumeInCubicMeter\": 2,\n    \"isDangerousGoods\": true,\n    \"dangerousGoodsPositions\": [\n      {\n        \"numberOfPackages\": 10,\n        \"packageType\": \"PKG\",\n        \"overpackNumber\": \"A01\",\n        \"dangerousGoodsDetails\": [\n          {\n            \"properShippingName\": \"Medical equipment\",\n            \"quantityUoM\": \"KG\",\n            \"dgClass\": \"7\",\n            \"importantDgText\": \"Fragile\",\n            \"isEmpty\": false,\n            \"isExceptedQuantity\": false,\n            \"isHot\": false,\n            \"isLimitedQuantity\": false,\n            \"isSalvagePackaging\": false,\n            \"isWaste\": false,\n            \"isLithiumBattery\": false,\n            \"isId8000\": false,\n            \"isDryIceWithoutDg\": false,\n            \"unNumber\": \"2910\"\n          }\n        ]\n      }\n    ]\n  },\n  \"commercialInvoiceAmount\": {\n    \"amount\": 10000,\n    \"currency\": \"EUR\"\n  },\n  \"incoterm\": \"EXW\",\n  \"incotermPlace\": \"Marseille\",\n  \"isImportBooking\": false,\n  \"includesDefenceCommodity\": false,\n  \"product\": \"GEN-PX\",\n  \"serviceType\": \"IATA\",\n  \"insuranceAmount\": {\n    \"amount\": 5000,\n    \"currency\": \"EUR\"\n  },\n  \"customsClearanceByKn\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/problem+json"
+                }
+              ],
+              "body": "{\n  \"type\": \"/problem/validation/invalid-parameter\",\n  \"title\": \"Invalid parameter\",\n  \"status\": 400,\n  \"instance\": \"/request/booking\",\n  \"detail\": \"Update request cannot be processed because affected Shipment couldn’t be determined\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ad9d35bc-ae0b-4224-887f-71ffc92649b7",
+          "name": "Create air booking",
+          "request": {
+            "name": "Create air booking",
+            "description": {
+              "content": "Create air booking",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "bookings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "authUrl",
+                  "value": "https://gateway.api.kuehne-nagel.com/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"cargo\": {\n    \"description\": \"<string>\",\n    \"isDangerousGoods\": \"<boolean>\",\n    \"weightInKilogram\": \"<double>\",\n    \"numberOfPieces\": \"<integer>\",\n    \"shippersLoadAndCount\": \"<integer>\",\n    \"dimensions\": [\n      {\n        \"heightInCentimeter\": \"<integer>\",\n        \"lengthInCentimeter\": \"<integer>\",\n        \"numberOfPieces\": \"<integer>\",\n        \"widthInCentimeter\": \"<integer>\"\n      }\n    ],\n    \"hsCodes\": [\n      {\n        \"code\": \"<string>\",\n        \"notes\": \"<string>\"\n      },\n      {\n        \"code\": \"<string>\",\n        \"notes\": \"<string>\"\n      }\n    ],\n    \"generalHandlingText\": \"<string>\",\n    \"volumeInCubicMeter\": \"<double>\",\n    \"dangerousGoodsPositions\": [\n      {\n        \"numberOfPackages\": \"<double>\",\n        \"packageType\": \"<string>\",\n        \"overpackNumber\": \"<string>\",\n        \"limitedQuantityGrossWeightInKg\": \"<double>\",\n        \"dangerousGoodsDetails\": [\n          {\n            \"properShippingName\": \"<string>\",\n            \"quantityUoM\": \"<string>\",\n            \"unNumber\": \"<string>\",\n            \"dgClass\": \"<string>\",\n            \"extensionForMixtureOrSolution\": \"<string>\",\n            \"importantDgText\": \"<string>\",\n            \"isEmpty\": false,\n            \"isExceptedQuantity\": false,\n            \"isHot\": false,\n            \"isLimitedQuantity\": false,\n            \"isSalvagePackaging\": false,\n            \"isWaste\": false,\n            \"isLithiumBattery\": false,\n            \"isId8000\": false,\n            \"isDryIceWithoutDg\": false,\n            \"netExplosiveQuantityInKg\": \"<double>\",\n            \"packingGroup\": \"<string>\",\n            \"packingInstruction\": \"<string>\",\n            \"quantityPerPackage\": \"<double>\",\n            \"subsidiaryRisks\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"radioactiveDetails\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"properShippingName\": \"<string>\",\n            \"quantityUoM\": \"<string>\",\n            \"unNumber\": \"<string>\",\n            \"dgClass\": \"<string>\",\n            \"extensionForMixtureOrSolution\": \"<string>\",\n            \"importantDgText\": \"<string>\",\n            \"isEmpty\": false,\n            \"isExceptedQuantity\": false,\n            \"isHot\": false,\n            \"isLimitedQuantity\": false,\n            \"isSalvagePackaging\": false,\n            \"isWaste\": false,\n            \"isLithiumBattery\": false,\n            \"isId8000\": false,\n            \"isDryIceWithoutDg\": false,\n            \"netExplosiveQuantityInKg\": \"<double>\",\n            \"packingGroup\": \"<string>\",\n            \"packingInstruction\": \"<string>\",\n            \"quantityPerPackage\": \"<double>\",\n            \"subsidiaryRisks\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"radioactiveDetails\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      {\n        \"numberOfPackages\": \"<double>\",\n        \"packageType\": \"<string>\",\n        \"overpackNumber\": \"<string>\",\n        \"limitedQuantityGrossWeightInKg\": \"<double>\",\n        \"dangerousGoodsDetails\": [\n          {\n            \"properShippingName\": \"<string>\",\n            \"quantityUoM\": \"<string>\",\n            \"unNumber\": \"<string>\",\n            \"dgClass\": \"<string>\",\n            \"extensionForMixtureOrSolution\": \"<string>\",\n            \"importantDgText\": \"<string>\",\n            \"isEmpty\": false,\n            \"isExceptedQuantity\": false,\n            \"isHot\": false,\n            \"isLimitedQuantity\": false,\n            \"isSalvagePackaging\": false,\n            \"isWaste\": false,\n            \"isLithiumBattery\": false,\n            \"isId8000\": false,\n            \"isDryIceWithoutDg\": false,\n            \"netExplosiveQuantityInKg\": \"<double>\",\n            \"packingGroup\": \"<string>\",\n            \"packingInstruction\": \"<string>\",\n            \"quantityPerPackage\": \"<double>\",\n            \"subsidiaryRisks\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"radioactiveDetails\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"properShippingName\": \"<string>\",\n            \"quantityUoM\": \"<string>\",\n            \"unNumber\": \"<string>\",\n            \"dgClass\": \"<string>\",\n            \"extensionForMixtureOrSolution\": \"<string>\",\n            \"importantDgText\": \"<string>\",\n            \"isEmpty\": false,\n            \"isExceptedQuantity\": false,\n            \"isHot\": false,\n            \"isLimitedQuantity\": false,\n            \"isSalvagePackaging\": false,\n            \"isWaste\": false,\n            \"isLithiumBattery\": false,\n            \"isId8000\": false,\n            \"isDryIceWithoutDg\": false,\n            \"netExplosiveQuantityInKg\": \"<double>\",\n            \"packingGroup\": \"<string>\",\n            \"packingInstruction\": \"<string>\",\n            \"quantityPerPackage\": \"<double>\",\n            \"subsidiaryRisks\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"radioactiveDetails\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      }\n    ]\n  },\n  \"customsClearanceByKn\": \"<boolean>\",\n  \"destination\": {\n    \"buyerAddress\": {\n      \"city\": \"<string>\",\n      \"countryCode\": \"<iso-3166>\",\n      \"name\": \"<string>\",\n      \"name2\": \"<string>\",\n      \"street\": \"<string>\",\n      \"street2\": \"<string>\",\n      \"stateCode\": \"<string>\",\n      \"poBox\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"customerReferences\": [\n        {\n          \"code\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"code\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ]\n    },\n    \"deliveryByKn\": \"<boolean>\",\n    \"airWaybillConsigneeAddress\": {\n      \"city\": \"<string>\",\n      \"countryCode\": \"<iso-3166>\",\n      \"name\": \"<string>\",\n      \"name2\": \"<string>\",\n      \"street\": \"<string>\",\n      \"street2\": \"<string>\",\n      \"stateCode\": \"<string>\",\n      \"poBox\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"customerReferences\": [\n        {\n          \"code\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"code\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ]\n    },\n    \"deliveryContact\": {\n      \"lastName\": \"<string>\",\n      \"email\": \"<email>\",\n      \"firstName\": \"<string>\",\n      \"phone\": \"<string>\"\n    },\n    \"deliveryAddress\": {\n      \"city\": \"<string>\",\n      \"countryCode\": \"<iso-3166>\",\n      \"name\": \"<string>\",\n      \"name2\": \"<string>\",\n      \"street\": \"<string>\",\n      \"street2\": \"<string>\",\n      \"stateCode\": \"<string>\",\n      \"poBox\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"customerReferences\": [\n        {\n          \"code\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"code\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ]\n    },\n    \"importAvailabilityTime\": \"<dateTime>\",\n    \"deliveryHandlingText\": \"<string>\",\n    \"airportCode\": \"<string>\"\n  },\n  \"incoterm\": \"<string>\",\n  \"origin\": {\n    \"exportAvailabilityTime\": \"<dateTime>\",\n    \"sellerAddress\": {\n      \"city\": \"<string>\",\n      \"countryCode\": \"<iso-3166>\",\n      \"name\": \"<string>\",\n      \"name2\": \"<string>\",\n      \"street\": \"<string>\",\n      \"street2\": \"<string>\",\n      \"stateCode\": \"<string>\",\n      \"poBox\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"customerReferences\": [\n        {\n          \"code\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"code\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ]\n    },\n    \"airWaybillShipperAddress\": {\n      \"city\": \"<string>\",\n      \"countryCode\": \"<iso-3166>\",\n      \"name\": \"<string>\",\n      \"name2\": \"<string>\",\n      \"street\": \"<string>\",\n      \"street2\": \"<string>\",\n      \"stateCode\": \"<string>\",\n      \"poBox\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"customerReferences\": [\n        {\n          \"code\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"code\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ]\n    },\n    \"pickupContact\": {\n      \"lastName\": \"<string>\",\n      \"email\": \"<email>\",\n      \"firstName\": \"<string>\",\n      \"phone\": \"<string>\"\n    },\n    \"pickupAddress\": {\n      \"city\": \"<string>\",\n      \"countryCode\": \"<iso-3166>\",\n      \"name\": \"<string>\",\n      \"name2\": \"<string>\",\n      \"street\": \"<string>\",\n      \"street2\": \"<string>\",\n      \"stateCode\": \"<string>\",\n      \"poBox\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"customerReferences\": [\n        {\n          \"code\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"code\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ]\n    },\n    \"pickupByKn\": \"<boolean>\",\n    \"pickupHandlingText\": \"<string>\",\n    \"airportCode\": \"<string>\"\n  },\n  \"uniqueReference\": \"<string>\",\n  \"priceReference\": \"<uuid>\",\n  \"houseAirWaybillNumber\": \"<string>\",\n  \"customerRequiredAirWaybillText\": \"<string>\",\n  \"commercialInvoiceAmount\": {\n    \"amount\": \"<double>\",\n    \"currency\": \"<iso-4217>\"\n  },\n  \"notifyAddress\": {\n    \"city\": \"<string>\",\n    \"countryCode\": \"<iso-3166>\",\n    \"name\": \"<string>\",\n    \"name2\": \"<string>\",\n    \"street\": \"<string>\",\n    \"street2\": \"<string>\",\n    \"stateCode\": \"<string>\",\n    \"poBox\": \"<string>\",\n    \"postalCode\": \"<string>\",\n    \"customerReferences\": [\n      {\n        \"code\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"code\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  },\n  \"notifyContact\": {\n    \"lastName\": \"<string>\",\n    \"email\": \"<email>\",\n    \"firstName\": \"<string>\",\n    \"phone\": \"<string>\"\n  },\n  \"isLetterOfCredit\": false,\n  \"letterOfCreditLatestDepartureDate\": \"<dateTime>\",\n  \"letterOfCreditExpiryDate\": \"<dateTime>\",\n  \"letterOfCreditNumber\": \"<string>\",\n  \"incotermPlace\": \"<string>\",\n  \"freightPayerAddress\": {\n    \"city\": \"<string>\",\n    \"countryCode\": \"<iso-3166>\",\n    \"name\": \"<string>\",\n    \"name2\": \"<string>\",\n    \"street\": \"<string>\",\n    \"street2\": \"<string>\",\n    \"stateCode\": \"<string>\",\n    \"poBox\": \"<string>\",\n    \"postalCode\": \"<string>\",\n    \"customerReferences\": [\n      {\n        \"code\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      {\n        \"code\": \"<string>\",\n        \"value\": \"<string>\"\n      }\n    ]\n  },\n  \"exportQuotationNumber\": \"<string>\",\n  \"customerSpecificAgreementName\": \"<string>\",\n  \"customerReferences\": [\n    {\n      \"code\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    {\n      \"code\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  ],\n  \"insuranceAmount\": {\n    \"amount\": \"<double>\",\n    \"currency\": \"<iso-4217>\"\n  },\n  \"includesDefenceCommodity\": \"<boolean>\",\n  \"isImportBooking\": \"<boolean>\",\n  \"knOfficeCode\": \"<string>\",\n  \"product\": \"<string>\",\n  \"serviceType\": \"<string>\",\n  \"tradeControlDetails\": {\n    \"exportControl\": \"<boolean>\",\n    \"exportCustomsClearance\": \"<boolean>\",\n    \"importControl\": \"<boolean>\",\n    \"importCustomsClearance\": \"<boolean>\",\n    \"military\": \"<boolean>\",\n    \"sanctions\": \"<boolean>\",\n    \"transitControl\": \"<boolean>\",\n    \"exportCustomsClearanceDocuments\": \"<string>\",\n    \"importCustomsClearanceDocuments\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7cc20773-5878-4182-8589-2af678d7f9b0",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bookings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"origin\": {\n    \"sellerAddress\": {\n      \"name\": \"Dummy customer Inc.\",\n      \"street\": \"Baoan South Road\",\n      \"city\": \"Shenzhen\",\n      \"countryCode\": \"CN\",\n      \"postalCode\": \"518001\"\n    },\n    \"pickupContact\": {\n      \"email\": \"donotreply@kuehne-nagel.com\",\n      \"firstName\": \"John\",\n      \"lastName\": \"Smith\"\n    },\n    \"pickupAddress\": {\n      \"name\": \"Dummy customer Inc.\",\n      \"street\": \"Baoan South Road\",\n      \"city\": \"Shenzhen\",\n      \"countryCode\": \"CN\",\n      \"postalCode\": \"518001\"\n    },\n    \"exportAvailabilityTime\": \"2021-03-02T10:00:00.000Z\",\n    \"airportCode\": \"SZX\"\n  },\n  \"destination\": {\n    \"buyerAddress\": {\n      \"name\": \"Another dummy customer Inc.\",\n      \"street\": \"Avenue Vincent Negrel\",\n      \"city\": \"La Cadière-dAzur\",\n      \"countryCode\": \"FR\",\n      \"postalCode\": \"83740\"\n    },\n    \"deliveryAddress\": {\n      \"name\": \"Dummy customer Inc.\",\n      \"street\": \"Avenue Vincent Negrel\",\n      \"city\": \"La Cadière-dAzur\",\n      \"countryCode\": \"FR\",\n      \"postalCode\": \"83740\"\n    },\n    \"airportCode\": \"MRS\"\n  },\n  \"cargo\": {\n    \"description\": \"Medical equipment\",\n    \"numberOfPieces\": 10,\n    \"shippersLoadAndCount\": 10,\n    \"dimensions\": [\n      {\n        \"numberOfPieces\": 10,\n        \"heightInCentimeter\": 100,\n        \"lengthInCentimeter\": 200,\n        \"widthInCentimeter\": 100\n      }\n    ],\n    \"weightInKilogram\": 150,\n    \"volumeInCubicMeter\": 2,\n    \"isDangerousGoods\": true,\n    \"dangerousGoodsPositions\": [\n      {\n        \"numberOfPackages\": 10,\n        \"packageType\": \"PKG\",\n        \"overpackNumber\": \"A01\",\n        \"dangerousGoodsDetails\": [\n          {\n            \"properShippingName\": \"Medical equipment\",\n            \"quantityUoM\": \"KG\",\n            \"dgClass\": \"7\",\n            \"importantDgText\": \"Fragile\",\n            \"isEmpty\": false,\n            \"isExceptedQuantity\": false,\n            \"isHot\": false,\n            \"isLimitedQuantity\": false,\n            \"isSalvagePackaging\": false,\n            \"isWaste\": false,\n            \"isLithiumBattery\": false,\n            \"isId8000\": false,\n            \"isDryIceWithoutDg\": false,\n            \"unNumber\": \"2910\"\n          }\n        ]\n      }\n    ]\n  },\n  \"commercialInvoiceAmount\": {\n    \"amount\": 10000,\n    \"currency\": \"EUR\"\n  },\n  \"incoterm\": \"EXW\",\n  \"incotermPlace\": \"Marseille\",\n  \"isImportBooking\": false,\n  \"includesDefenceCommodity\": false,\n  \"product\": \"GEN-PX\",\n  \"serviceType\": \"IATA\",\n  \"insuranceAmount\": {\n    \"amount\": 5000,\n    \"currency\": \"EUR\"\n  },\n  \"customsClearanceByKn\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"trackingNumber\": 1000100123\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "af06b53c-fa85-4dc8-96c5-54821108c6e7",
+              "name": "Default error sample response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bookings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/problem+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"origin\": {\n    \"sellerAddress\": {\n      \"name\": \"Dummy customer Inc.\",\n      \"street\": \"Baoan South Road\",\n      \"city\": \"Shenzhen\",\n      \"countryCode\": \"CN\",\n      \"postalCode\": \"518001\"\n    },\n    \"pickupContact\": {\n      \"email\": \"donotreply@kuehne-nagel.com\",\n      \"firstName\": \"John\",\n      \"lastName\": \"Smith\"\n    },\n    \"pickupAddress\": {\n      \"name\": \"Dummy customer Inc.\",\n      \"street\": \"Baoan South Road\",\n      \"city\": \"Shenzhen\",\n      \"countryCode\": \"CN\",\n      \"postalCode\": \"518001\"\n    },\n    \"exportAvailabilityTime\": \"2021-03-02T10:00:00.000Z\",\n    \"airportCode\": \"SZX\"\n  },\n  \"destination\": {\n    \"buyerAddress\": {\n      \"name\": \"Another dummy customer Inc.\",\n      \"street\": \"Avenue Vincent Negrel\",\n      \"city\": \"La Cadière-dAzur\",\n      \"countryCode\": \"FR\",\n      \"postalCode\": \"83740\"\n    },\n    \"deliveryAddress\": {\n      \"name\": \"Dummy customer Inc.\",\n      \"street\": \"Avenue Vincent Negrel\",\n      \"city\": \"La Cadière-dAzur\",\n      \"countryCode\": \"FR\",\n      \"postalCode\": \"83740\"\n    },\n    \"airportCode\": \"MRS\"\n  },\n  \"cargo\": {\n    \"description\": \"Medical equipment\",\n    \"numberOfPieces\": 10,\n    \"shippersLoadAndCount\": 10,\n    \"dimensions\": [\n      {\n        \"numberOfPieces\": 10,\n        \"heightInCentimeter\": 100,\n        \"lengthInCentimeter\": 200,\n        \"widthInCentimeter\": 100\n      }\n    ],\n    \"weightInKilogram\": 150,\n    \"volumeInCubicMeter\": 2,\n    \"isDangerousGoods\": true,\n    \"dangerousGoodsPositions\": [\n      {\n        \"numberOfPackages\": 10,\n        \"packageType\": \"PKG\",\n        \"overpackNumber\": \"A01\",\n        \"dangerousGoodsDetails\": [\n          {\n            \"properShippingName\": \"Medical equipment\",\n            \"quantityUoM\": \"KG\",\n            \"dgClass\": \"7\",\n            \"importantDgText\": \"Fragile\",\n            \"isEmpty\": false,\n            \"isExceptedQuantity\": false,\n            \"isHot\": false,\n            \"isLimitedQuantity\": false,\n            \"isSalvagePackaging\": false,\n            \"isWaste\": false,\n            \"isLithiumBattery\": false,\n            \"isId8000\": false,\n            \"isDryIceWithoutDg\": false,\n            \"unNumber\": \"2910\"\n          }\n        ]\n      }\n    ]\n  },\n  \"commercialInvoiceAmount\": {\n    \"amount\": 10000,\n    \"currency\": \"EUR\"\n  },\n  \"incoterm\": \"EXW\",\n  \"incotermPlace\": \"Marseille\",\n  \"isImportBooking\": false,\n  \"includesDefenceCommodity\": false,\n  \"product\": \"GEN-PX\",\n  \"serviceType\": \"IATA\",\n  \"insuranceAmount\": {\n    \"amount\": 5000,\n    \"currency\": \"EUR\"\n  },\n  \"customsClearanceByKn\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/problem+json"
+                }
+              ],
+              "body": "{\n  \"type\": \"/problem/validation/invalid-parameter\",\n  \"title\": \"Invalid parameter\",\n  \"status\": 400,\n  \"instance\": \"/request/booking\",\n  \"detail\": \"Update request cannot be processed because affected Shipment couldn’t be determined\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0a561bbc-faa9-474a-9cf2-04f38196d7ff",
+          "name": "Delete air booking",
+          "request": {
+            "name": "Delete air booking",
+            "description": {
+              "content": "Delete air booking",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "bookings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "trackingNumber",
+                  "value": "<long>",
+                  "description": "The tracking number of a specific KN shipment"
+                },
+                {
+                  "disabled": false,
+                  "key": "uniqueReference",
+                  "value": "<string>",
+                  "description": "The unique reference to identify the shipment"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/problem+json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "authUrl",
+                  "value": "https://gateway.api.kuehne-nagel.com/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "19f46fc7-f1e8-4170-a021-f30568cfdb83",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bookings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "trackingNumber",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "uniqueReference",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "bfaac1bd-2f7d-478e-87b3-5b915c28a722",
+              "name": "Default error sample response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bookings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "trackingNumber",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "uniqueReference",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/problem+json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/problem+json"
+                }
+              ],
+              "body": "{\n  \"type\": \"problem/unauthorized\",\n  \"title\": \"Customer is not authorized\",\n  \"status\": 401,\n  \"detail\": \"The customer is not authorized to make this request\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://gateway.api.kuehne-nagel.com/booking/air/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "authUrl",
+        "value": "https://gateway.api.kuehne-nagel.com/authorize"
+      },
+      {
+        "key": "grant_type",
+        "value": "implicit"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "13d21798-c3a2-4aee-977f-86dd60711c41",
+    "name": "BookingAir",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Kuehne+Nagel Air Booking API is used to communicate with B2B platforms. It supports the airfreight booking process. The API is used to request and receive bookings (optionally using price references).\n\nContact Support:\n Name: Book API Support",
+      "type": "text/plain"
+    }
+  }
+}

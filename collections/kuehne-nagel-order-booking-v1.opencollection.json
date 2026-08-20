@@ -1,0 +1,117 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "OrderBooking",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "implicit",
+      "authorizationUrl": "https://internal.api.kuehne-nagel.com/authorize",
+      "credentials": {
+        "clientId": "{{clientId}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "booking",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create and request a booking",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://internal.api.kuehne-nagel.com/order-management/order-booking/v1/bookings",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://internal.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "The authenticated API Client requests to add a new booking. The client\ncan refer to existing order lines or create new order lines on the fly.\nThe booking is created with unique booking number `shippersReference`, `bookingNumber`, `customerCode`\nand `supplierCode`. In one single booking, order lines from several different\npurchase orders of a single customer can be allocated. After a successful\ncreation the booking is updated with the booking attributes and the API brings\nthe booking in the \"Boo"
+        },
+        {
+          "info": {
+            "name": "Update an existing booking",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://internal.api.kuehne-nagel.com/order-management/order-booking/v1/bookings/:shippersReference",
+            "params": [
+              {
+                "name": "shippersReference",
+                "value": "",
+                "type": "path",
+                "description": "The shippers reference identifies a booking from a shippers point of view."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://internal.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "After finding the existing booking by its `shippersReference` the\nauthenticated API Client updates the booking. The eSOP configuration\ndefines the permission for the business party's role to update a booking.\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "process-state",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Read an existing process state by processStateId",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://internal.api.kuehne-nagel.com/order-management/order-booking/v1/process-states/:processStateId",
+            "params": [
+              {
+                "name": "processStateId",
+                "value": "",
+                "type": "path",
+                "description": "The processStateIdParam identifies an booking process state."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://internal.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "The successful creation of the booking starts an async process. The current state of the process can be\nrequested via this endpoint.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

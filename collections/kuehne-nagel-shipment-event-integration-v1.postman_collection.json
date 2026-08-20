@@ -1,0 +1,209 @@
+{
+  "item": [
+    {
+      "id": "47e12817-bea4-482b-9411-ce3ba749966a",
+      "name": "Post event",
+      "description": {
+        "content": "Post event description",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "70830820-717a-41e0-a3b6-7ce8f467c0bb",
+          "name": "Validate external event entry message for shipment",
+          "request": {
+            "name": "Validate external event entry message for shipment",
+            "description": {
+              "content": "This API operation is to validate incoming event entry for shipment from 3rd parties. The request must be in JSON format and include a filled in form.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "shipments",
+                "events",
+                "entries"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/problem+json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "authUrl",
+                  "value": "https://internal.api.kuehne-nagel.com/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customerCode\": \"<string>\",\n  \"eventCode\": \"<string>\",\n  \"eventDate\": \"<datetime>\",\n  \"eventTimezone\": \"<string>\",\n  \"reasonCode\": \"<string>\",\n  \"responsibleParty\": \"<string>\",\n  \"shipmentNumber\": \"<string>\",\n  \"insertUser\": \"<string>\",\n  \"modeOfTransport\": \"<string>\",\n  \"movementType\": \"<string>\",\n  \"locationCode\": \"<string>\",\n  \"shipmentStop\": \"<string>\",\n  \"reasonNote\": \"<string>\",\n  \"eventNote\": \"<string>\",\n  \"additions\": [\n    {\n      \"qualifier\": {\n        \"code\": \"<string>\"\n      },\n      \"type\": \"<string>\",\n      \"values\": [\n        \"<string>\"\n      ]\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d8ac6ede-a0d7-45c5-8fe7-13b8b7da23c1",
+              "name": "Event successfully created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipments",
+                    "events",
+                    "entries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"insertUser\": \"john.doe\",\n  \"customerCode\": \"CHSGI42\",\n  \"modeOfTransport\": \"ROAD\",\n  \"movementType\": \"D2D\",\n  \"shipmentNumber\": \"AI23000917\",\n  \"eventCode\": \"0500\",\n  \"eventDate\": \"2019-07-30T06:43:40.252Z\",\n  \"eventTimezone\": \"Europe/Amsterdam\",\n  \"locationCode\": \"NL_3274_KM_HDW_0000217626_544380_033\",\n  \"shipmentStop\": \"0\",\n  \"reasonCode\": \"1005\",\n  \"reasonNote\": \"FreeTextForReasonNote\",\n  \"eventNote\": \"FreeTextForEventNote\",\n  \"responsibleParty\": \"CARRIER\",\n  \"additions\": [\n    {\n      \"type\": \"references\",\n      \"qualifier\": {\n        \"code\": \"TID\"\n      },\n      \"values\": [\n        \"4503054933\",\n        \"7890605\"\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4f06b577-ce91-4eb2-8155-733e9b61b206",
+              "name": "error occurred - see status code and problem object for more information.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipments",
+                    "events",
+                    "entries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/problem+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"insertUser\": \"john.doe\",\n  \"customerCode\": \"CHSGI42\",\n  \"modeOfTransport\": \"ROAD\",\n  \"movementType\": \"D2D\",\n  \"shipmentNumber\": \"AI23000917\",\n  \"eventCode\": \"0500\",\n  \"eventDate\": \"2019-07-30T06:43:40.252Z\",\n  \"eventTimezone\": \"Europe/Amsterdam\",\n  \"locationCode\": \"NL_3274_KM_HDW_0000217626_544380_033\",\n  \"shipmentStop\": \"0\",\n  \"reasonCode\": \"1005\",\n  \"reasonNote\": \"FreeTextForReasonNote\",\n  \"eventNote\": \"FreeTextForEventNote\",\n  \"responsibleParty\": \"CARRIER\",\n  \"additions\": [\n    {\n      \"type\": \"references\",\n      \"qualifier\": {\n        \"code\": \"TID\"\n      },\n      \"values\": [\n        \"4503054933\",\n        \"7890605\"\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/problem+json"
+                }
+              ],
+              "body": "{\n  \"code\": \"ERR003\",\n  \"title\": \"Bad Request\",\n  \"status\": 400,\n  \"detail\": \"The request is not valid. Please check for missing or invalid values.\",\n  \"instance\": \"/shipments/events/entries\",\n  \"timestamp\": 1714648020821,\n  \"details\": [\n    {\n      \"title\": \"Missing Parameter\",\n      \"detail\": \"'<fieldName>' is missing!\"\n    },\n    {\n      \"title\": \"Invalid Parameter\",\n      \"detail\": \"'<fieldName>' is invalid! <details of validation>\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://internal.api.kuehne-nagel.com/integration/event/shipment/event-integration/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "authUrl",
+        "value": "https://internal.api.kuehne-nagel.com/authorize"
+      },
+      {
+        "key": "grant_type",
+        "value": "implicit"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "13837a43-f97d-49ad-8da5-72962fdb059a",
+    "name": "ShipmentEventIntegration",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "This API allows to get, view and validate incoming events for shipments from the 3rd parties (raft.ai app).\n\nContact Support:\n Name: Team Pegasus\n Email: TLL-FYIT-PEGASUS@kuehne-nagel.com",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,5251 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "B2B-OldKAIExtractAPI",
+    "version": "0.1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "implicit",
+      "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+      "credentials": {
+        "clientId": "{{clientId}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Default",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/metrics",
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Endpoint that serves Prometheus metrics."
+        },
+        {
+          "info": {
+            "name": "Get Health",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/health",
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Health check endpoint to verify if the service is running."
+        },
+        {
+          "info": {
+            "name": "Get Healthz",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/healthz",
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Health check endpoint to verify if the service is running."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "process-file",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Post Process File V2",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v2/process-file/",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              },
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Post Process File V2"
+        },
+        {
+          "info": {
+            "name": "Post Process File Async V2",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v2/async/process-file/",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              },
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Post Process File Async V2"
+        },
+        {
+          "info": {
+            "name": "Post Process File V3",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/workspaces/:workspace_id/process-file",
+            "headers": [
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Process a file and return extraction results using a specific prompt version."
+        },
+        {
+          "info": {
+            "name": "Post Process File With Prompt V3",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/workspaces/:workspace_id/process-file-with-prompt",
+            "headers": [
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Process a file with a custom prompt string and return extraction results."
+        },
+        {
+          "info": {
+            "name": "Post Process File V3 Api Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/api-key-auth/workspaces/:workspace_id/process-file",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Process a file using API key authentication with a specific prompt version."
+        },
+        {
+          "info": {
+            "name": "Post Process File With Prompt V3 Api Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/api-key-auth/workspaces/:workspace_id/process-file-with-prompt",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Process a file with a custom prompt string using API key authentication."
+        },
+        {
+          "info": {
+            "name": "Post Process File Async V3 Api Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/api-key-auth/workspaces/:workspace_id/async/process-file",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Process a file asynchronously using the Gemini LLM model with API key authentication.\n\nWhen enable_mep_output is set to True, the API will send a notification to the\nMEP connector upon successful completion of the async processing job."
+        },
+        {
+          "info": {
+            "name": "Post Process File Verified V3 Api Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/api-key-auth/workspaces/:workspace_id/process-file-verified",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Process a file multiple times concurrently for enhanced reliability using API key authentication.\n\nThis endpoint executes the same file processing operation multiple times concurrently\nusing different AI model sessions to ensure consistency and reliability of results\nfor production use cases requiring high confidence.\n\nThe endpoint:\n- Accepts a num_runs parameter (1-5) specifying the number of parallel executions\n- Executes multiple instances of the same file processing operation in parallel\n- E"
+        },
+        {
+          "info": {
+            "name": "Post Process File Base64 V3",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/workspaces/:workspace_id/process-file-base64",
+            "headers": [
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Process a file from base64 content and return extraction results using a specific prompt version."
+        },
+        {
+          "info": {
+            "name": "Post Process File With Prompt Base64 V3",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/workspaces/:workspace_id/process-file-with-prompt-base64",
+            "headers": [
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Process a file from base64 content with a custom prompt string and return extraction results."
+        },
+        {
+          "info": {
+            "name": "Post Process File Base64 V3 Api Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/api-key-auth/workspaces/:workspace_id/process-file-base64",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Process a file from base64 content using API key authentication with a specific prompt version."
+        },
+        {
+          "info": {
+            "name": "Post Process File With Prompt Base64 V3 Api Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/api-key-auth/workspaces/:workspace_id/process-file-with-prompt-base64",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Process a base64 encoded file with a custom prompt string using API key authentication."
+        },
+        {
+          "info": {
+            "name": "Post Async Process File Base64 V3 Api Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/api-key-auth/workspaces/:workspace_id/async/process-file-base64",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Process a file from base64 content asynchronously using API key authentication with a specific prompt version."
+        },
+        {
+          "info": {
+            "name": "Post Process File Verified Base64 V3",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/workspaces/:workspace_id/process-file-verified-base64",
+            "headers": [
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Process a file from base64 content multiple times concurrently for verification using a specific prompt version."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "process-zip",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Post Process Zip V2",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v2/process-zip/",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              },
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Post Process Zip V2"
+        },
+        {
+          "info": {
+            "name": "Post Process Zip Async V2",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v2/async/process-zip/",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              },
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Post Process Zip Async V2"
+        },
+        {
+          "info": {
+            "name": "Post Process Zip V3",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/workspaces/:workspace_id/process-zip",
+            "headers": [
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Process a zip file using a specific prompt version and return extraction\nresults for all contained documents."
+        },
+        {
+          "info": {
+            "name": "Post Process Zip With Prompt V3",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/workspaces/:workspace_id/process-zip-with-prompt",
+            "headers": [
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Process a zip file with a custom prompt string and return extraction results."
+        },
+        {
+          "info": {
+            "name": "Post Process Zip V3 Api Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/api-key-auth/workspaces/:workspace_id/process-zip",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Process a zip file using API key authentication with a specific prompt version."
+        },
+        {
+          "info": {
+            "name": "Post Process Zip With Prompt V3 Api Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/api-key-auth/workspaces/:workspace_id/process-zip-with-prompt",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Process a zip file with a custom prompt string using API key authentication."
+        },
+        {
+          "info": {
+            "name": "Post Process Zip Async V3 Api Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/api-key-auth/workspaces/:workspace_id/async/process-zip",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Process a zip file asynchronously using API key authentication.\n\nWhen enable_mep_output is set to True, the API will send a notification to the\nMEP connector upon successful completion of the async processing job."
+        },
+        {
+          "info": {
+            "name": "Post Process Zip Base64 V3",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/workspaces/:workspace_id/process-zip-base64",
+            "headers": [
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Process a zip file from base64 content using a specific prompt version and return extraction results for all contained documents."
+        },
+        {
+          "info": {
+            "name": "Post Process Zip With Prompt Base64 V3",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/workspaces/:workspace_id/process-zip-with-prompt-base64",
+            "headers": [
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Process a zip file from base64 content with a custom prompt string and return extraction results."
+        },
+        {
+          "info": {
+            "name": "Post Process Zip Base64 V3 Api Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/api-key-auth/workspaces/:workspace_id/process-zip-base64",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Process a zip file from base64 content using API key authentication with a specific prompt version."
+        },
+        {
+          "info": {
+            "name": "Post Process Zip With Prompt Base64 V3 Api Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/api-key-auth/workspaces/:workspace_id/process-zip-with-prompt-base64",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Process a base64 encoded zip file with a custom prompt string using API key authentication."
+        },
+        {
+          "info": {
+            "name": "Post Async Process Zip Base64 V3 Api Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/api-key-auth/workspaces/:workspace_id/async/process-zip-base64",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Process a zip file from base64 content asynchronously using API key authentication with a specific prompt version."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "usage-statistics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Usage Statistics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v2/usage-statistics/",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              },
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "timeframe",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Get Usage Statistics"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "api-keys",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Api Keys",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v2/workspaces/api-keys/",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "List all API keys for a workspace."
+        },
+        {
+          "info": {
+            "name": "Create Api Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v2/workspaces/api-keys/",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Create Api Key"
+        },
+        {
+          "info": {
+            "name": "Get Api Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v2/workspaces/api-keys/:key_id",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "key_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Get details of a specific API key by ID."
+        },
+        {
+          "info": {
+            "name": "Update Api Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v2/workspaces/api-keys/:key_id",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "key_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Update API key description by ID."
+        },
+        {
+          "info": {
+            "name": "Delete Api Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v2/workspaces/api-keys/:key_id",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "key_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Delete an API key from the workspace by ID."
+        },
+        {
+          "info": {
+            "name": "List Api Keys V3",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/workspaces/:workspace_id/api-keys",
+            "headers": [
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "List API keys in a workspace"
+        },
+        {
+          "info": {
+            "name": "Create Api Key V3",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/workspaces/:workspace_id/api-keys",
+            "headers": [
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Create a new API key for a workspace identified by UUID. API keys expire after 90 days by default."
+        },
+        {
+          "info": {
+            "name": "Get Api Key V3",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/workspaces/:workspace_id/api-keys/:key_id",
+            "headers": [
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "key_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Get details of a specific API key in a workspace"
+        },
+        {
+          "info": {
+            "name": "Update Api Key V3",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/workspaces/:workspace_id/api-keys/:key_id",
+            "headers": [
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "key_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Update API key description by ID for a workspace identified by UUID."
+        },
+        {
+          "info": {
+            "name": "Delete Api Key V3",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/workspaces/:workspace_id/api-keys/:key_id",
+            "headers": [
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "key_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Delete an API key in a workspace"
+        },
+        {
+          "info": {
+            "name": "Rotate Api Key V3",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/workspaces/:workspace_id/api-keys/:key_id/rotate",
+            "headers": [
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "key_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Rotate an API key by creating a new one and deactivating the old one. New key expires after 90 days by default."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "workspaces",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Workspace By Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v2/workspaces/id/:workspace_id",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Get workspace by ID."
+        },
+        {
+          "info": {
+            "name": "Get Workspace By Name",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v2/workspaces/name/:workspace_name",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_name",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Get workspace by name."
+        },
+        {
+          "info": {
+            "name": "List Workspaces V3",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/workspaces",
+            "headers": [
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "List all workspaces available for the authenticated user."
+        },
+        {
+          "info": {
+            "name": "Create Workspace V3",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/workspaces",
+            "headers": [
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Create a new workspace."
+        },
+        {
+          "info": {
+            "name": "Get Workspace V3",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/workspaces/:workspace_id",
+            "headers": [
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Get detailed information about a specific workspace identified by UUID."
+        },
+        {
+          "info": {
+            "name": "Delete Workspace V3",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/workspaces/:workspace_id",
+            "headers": [
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Delete a workspace identified by UUID. By default, performs soft delete, set hard_delete=True for permanent deletion."
+        },
+        {
+          "info": {
+            "name": "Update Workspace Public Status V3",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/workspaces/:workspace_id/public-status",
+            "headers": [
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Update the public status of a workspace. Requires WORKSPACE_OWNER role."
+        },
+        {
+          "info": {
+            "name": "Update Workspace Dataset Collection V3",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/workspaces/:workspace_id/dataset-collection",
+            "headers": [
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Update the dataset collection setting for a workspace.\n\nWhen enabled, successful extractions will have their inputs and outputs\ncaptured and stored in S3 for use in fine-tuning datasets.\n\n**Requires GLOBAL_ADMIN role.**"
+        },
+        {
+          "info": {
+            "name": "Get Usage Statistics V3",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/workspaces/:workspace_id/usage-statistics",
+            "headers": [
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "timeframe",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "period",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Get usage statistics for a workspace identified by UUID.\n\nYou can either specify start_date/end_date manually or use the period parameter\nfor common time periods like 'current_month', 'previous_month', 'last_two_months'."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "jobs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Job Status V3 Api Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/api-key-auth/workspaces/:workspace_id/jobs/:tracking_id",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "tracking_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Get the status of an asynchronous job using API key authentication."
+        },
+        {
+          "info": {
+            "name": "Get Job Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/jobs/:tracking_id",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              },
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "tracking_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Get Job Status"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "prompts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Prompts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/workspaces/:workspace_id/prompts",
+            "headers": [
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "List all prompts available for a workspace identified by UUID."
+        },
+        {
+          "info": {
+            "name": "Create Prompt",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/workspaces/:workspace_id/prompts",
+            "headers": [
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Create a new prompt in the workspace."
+        },
+        {
+          "info": {
+            "name": "Get Prompt",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/workspaces/:workspace_id/prompts/:prompt_id",
+            "headers": [
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "prompt_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "all_versions",
+                "value": "",
+                "type": "query",
+                "description": "Include all prompt versions instead of filtered set"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Get detailed information about a specific prompt identified by UUID."
+        },
+        {
+          "info": {
+            "name": "Update Prompt",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/workspaces/:workspace_id/prompts/:prompt_id",
+            "headers": [
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "prompt_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Update an existing prompt."
+        },
+        {
+          "info": {
+            "name": "Delete Prompt",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/workspaces/:workspace_id/prompts/:prompt_id",
+            "headers": [
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "prompt_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Delete a prompt. By default performs soft delete,\nset hard_delete=True for permanent deletion."
+        },
+        {
+          "info": {
+            "name": "List Prompts Api Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/api-key-auth/workspaces/:workspace_id/prompts",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "List all prompts available for a workspace using API key authentication."
+        },
+        {
+          "info": {
+            "name": "Create Prompt Api Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/api-key-auth/workspaces/:workspace_id/prompts",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Create a new prompt in the workspace using API key authentication."
+        },
+        {
+          "info": {
+            "name": "Get Prompt Api Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/api-key-auth/workspaces/:workspace_id/prompts/:prompt_id",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "prompt_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "all_versions",
+                "value": "",
+                "type": "query",
+                "description": "Include all prompt versions instead of filtered set"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Get detailed information about a specific prompt using API key authentication."
+        },
+        {
+          "info": {
+            "name": "Update Prompt Api Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/api-key-auth/workspaces/:workspace_id/prompts/:prompt_id",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "prompt_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Update an existing prompt using API key authentication."
+        },
+        {
+          "info": {
+            "name": "Delete Prompt Api Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/api-key-auth/workspaces/:workspace_id/prompts/:prompt_id",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "prompt_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Delete a prompt using API key authentication. By default performs soft delete,\nset hard_delete=True for permanent deletion."
+        },
+        {
+          "info": {
+            "name": "Post Generate Prompt V3",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/workspaces/:workspace_id/generate-prompt",
+            "headers": [
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Generate an extraction prompt from an example document and desired output.\n\nThis endpoint analyzes an example document and the expected extraction output to\nautomatically generate a prompt that can be used for similar documents. This helps\nusers bootstrap their extraction workflows without manually writing prompts.\n\n**Key Features:**\n- Accepts all supported file formats (PDF, images, text, JSON, Excel)\n- Validates expected output as JSON\n- Uses AI to generate optimized extraction prompts\n- Does "
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "quotas",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Workspace Quota Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/workspaces/:workspace_id/quota/status",
+            "headers": [
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Get current quota status for a workspace.\n\nReturns tier-based usage information (standard, premium, preview tiers)\nalong with legacy sync/async information for backward compatibility.\n\nTier usage shows:\n- standard: Usage for flash_25_lite, flash_25, claude_haiku_45\n- premium: Usage for pro_25\n- preview: Usage for flash_3, flash_35, pro_31\n\nAccessible by workspace members and global administrators via SSO only."
+        },
+        {
+          "info": {
+            "name": "Get Workspace Quota Limits",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/workspaces/:workspace_id/quota",
+            "headers": [
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Get quota limits for a workspace.\n\nReturns tier-based limits (standard, premium, preview) along with\nlegacy sync/async limits for backward compatibility.\n\nAccessible by workspace members and global administrators."
+        },
+        {
+          "info": {
+            "name": "Update Workspace Quota Limits",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/workspaces/:workspace_id/quota",
+            "headers": [
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Update quota limits for a workspace.\n\nSupports both tier-based limits (new) and legacy sync/async limits (deprecated).\nTier-based quotas are recommended as the sync/async distinction is being removed.\n\nOnly global administrators can update quota limits.\nLimits are applied immediately."
+        },
+        {
+          "info": {
+            "name": "Reset Workspace Quota To Defaults",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/workspaces/:workspace_id/quota",
+            "headers": [
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Reset workspace quota to default values.\n\nOnly global administrators can reset quotas.\nThis sets all limits back to system defaults:\n\nTier-based limits:\n- Standard tier: 1000 daily / 30000 monthly\n- Premium tier: 50 daily / 1000 monthly\n- Preview tier: 50 daily / 150 monthly\n\nLegacy limits (deprecated):\n- Daily standard: 100 requests\n- Monthly standard: 3000 requests\n- Daily async: 1000 requests\n- Monthly async: 30000 requests"
+        },
+        {
+          "info": {
+            "name": "Get Workspace Quota Status V3 Api Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/api-key-auth/workspaces/:workspace_id/quota/status",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Get current quota status for a workspace using API key authentication.\n\nReturns tier-based usage information (standard, premium, preview tiers)\nalong with legacy sync/async information for backward compatibility.\n\nAccessible by workspace members via API key authentication."
+        },
+        {
+          "info": {
+            "name": "Get Workspace Quota Limits V3 Api Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/api-key-auth/workspaces/:workspace_id/quota",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Get quota limits for a workspace using API key authentication.\n\nReturns tier-based limits (standard, premium, preview) along with\nlegacy sync/async limits for backward compatibility.\n\nAccessible by workspace members via API key authentication."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "schemas",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Schemas V3",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/workspaces/:workspace_id/schemas",
+            "headers": [
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "List all schemas available for a workspace identified by UUID."
+        },
+        {
+          "info": {
+            "name": "Create Schema V3",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/workspaces/:workspace_id/schemas",
+            "headers": [
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Create a new schema in the workspace."
+        },
+        {
+          "info": {
+            "name": "Get Schema V3",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/workspaces/:workspace_id/schemas/:schema_id",
+            "headers": [
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "schema_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Get detailed information about a specific schema."
+        },
+        {
+          "info": {
+            "name": "Update Schema V3",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/workspaces/:workspace_id/schemas/:schema_id",
+            "headers": [
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "schema_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Update an existing schema."
+        },
+        {
+          "info": {
+            "name": "Delete Schema V3",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/workspaces/:workspace_id/schemas/:schema_id",
+            "headers": [
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "schema_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Delete a schema. By default performs soft delete, set hard_delete=True for permanent deletion."
+        },
+        {
+          "info": {
+            "name": "List Schemas Api Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/api-key-auth/workspaces/:workspace_id/schemas",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "List all schemas available for a workspace using API key authentication."
+        },
+        {
+          "info": {
+            "name": "Get Schema Api Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/api-key-auth/workspaces/:workspace_id/schemas/:schema_id",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "schema_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Get detailed information about a specific schema using API key authentication."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "test-cases",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Test Cases",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/workspaces/:workspace_id/test-cases",
+            "headers": [
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "List all test cases available for a workspace identified by UUID."
+        },
+        {
+          "info": {
+            "name": "Create Test Case",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/workspaces/:workspace_id/test-cases",
+            "headers": [
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Create a new test case in a workspace."
+        },
+        {
+          "info": {
+            "name": "Get Test Case",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/workspaces/:workspace_id/test-cases/:test_case_id",
+            "headers": [
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "test_case_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Get detailed information about a specific test case."
+        },
+        {
+          "info": {
+            "name": "Update Test Case V3",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/workspaces/:workspace_id/test-cases/:test_case_id",
+            "headers": [
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "test_case_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Update an existing test case."
+        },
+        {
+          "info": {
+            "name": "Delete Test Case V3",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/workspaces/:workspace_id/test-cases/:test_case_id",
+            "headers": [
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "test_case_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Delete a test case. By default, performs soft delete,\nset hard_delete=True for permanent deletion."
+        },
+        {
+          "info": {
+            "name": "List Test Cases Api Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/api-key-auth/workspaces/:workspace_id/test-cases",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "List all test cases available for a workspace using API key authentication."
+        },
+        {
+          "info": {
+            "name": "Create Test Case Api Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/api-key-auth/workspaces/:workspace_id/test-cases",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Create a new test case in a workspace using API key authentication."
+        },
+        {
+          "info": {
+            "name": "Get Test Case Api Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/api-key-auth/workspaces/:workspace_id/test-cases/:test_case_id",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "test_case_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Get detailed information about a specific test case using API key authentication."
+        },
+        {
+          "info": {
+            "name": "Update Test Case Api Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/api-key-auth/workspaces/:workspace_id/test-cases/:test_case_id",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "test_case_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Update an existing test case using API key authentication."
+        },
+        {
+          "info": {
+            "name": "Delete Test Case Api Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/api-key-auth/workspaces/:workspace_id/test-cases/:test_case_id",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "test_case_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Delete a test case using API key authentication. By default, performs soft delete, set hard_delete=True for permanent deletion."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "tags",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/workspaces/:workspace_id/tags",
+            "headers": [
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "List all tags available for a workspace identified by UUID."
+        },
+        {
+          "info": {
+            "name": "Create Tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/workspaces/:workspace_id/tags",
+            "headers": [
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Create a new tag in the workspace."
+        },
+        {
+          "info": {
+            "name": "Get Tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/workspaces/:workspace_id/tags/:tag_id",
+            "headers": [
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "tag_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Get detailed information about a specific tag identified by UUID."
+        },
+        {
+          "info": {
+            "name": "Update Tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/workspaces/:workspace_id/tags/:tag_id",
+            "headers": [
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "tag_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Update an existing tag."
+        },
+        {
+          "info": {
+            "name": "Delete Tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/workspaces/:workspace_id/tags/:tag_id",
+            "headers": [
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "tag_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Delete a tag. By default, performs soft delete, set hard_delete=True for permanent deletion."
+        },
+        {
+          "info": {
+            "name": "List Tags Api Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/api-key-auth/workspaces/:workspace_id/tags",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "List all tags available for a workspace using API key authentication."
+        },
+        {
+          "info": {
+            "name": "Create Tag Api Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/api-key-auth/workspaces/:workspace_id/tags",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Create a new tag in the workspace using API key authentication."
+        },
+        {
+          "info": {
+            "name": "Get Tag Api Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/api-key-auth/workspaces/:workspace_id/tags/:tag_id",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "tag_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Get detailed information about a specific tag using API key authentication."
+        },
+        {
+          "info": {
+            "name": "Update Tag Api Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/api-key-auth/workspaces/:workspace_id/tags/:tag_id",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "tag_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Update an existing tag using API key authentication."
+        },
+        {
+          "info": {
+            "name": "Delete Tag Api Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/api-key-auth/workspaces/:workspace_id/tags/:tag_id",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "tag_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Delete a tag using API key authentication. By default, performs soft delete, set hard_delete=True for permanent deletion."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "prompt-tags",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Assign Tag To Version",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/workspaces/:workspace_id/prompts/:prompt_id/versions/:version_id/tags/:tag_id",
+            "headers": [
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "prompt_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tag_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Assign a tag to a specific prompt version."
+        },
+        {
+          "info": {
+            "name": "Remove Tag From Version",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/workspaces/:workspace_id/prompts/:prompt_id/versions/:version_id/tags/:tag_id",
+            "headers": [
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "prompt_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tag_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Remove a tag from a specific prompt version."
+        },
+        {
+          "info": {
+            "name": "List Version Tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/workspaces/:workspace_id/prompts/:prompt_id/versions/:version_id/tags",
+            "headers": [
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "prompt_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "List all tags assigned to a specific prompt version."
+        },
+        {
+          "info": {
+            "name": "Get Version By Tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/workspaces/:workspace_id/prompts/:prompt_id/tags/:tag_name/version",
+            "headers": [
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "prompt_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tag_name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Get a prompt version by its tag name (e.g., 'latest', 'production', etc.)."
+        },
+        {
+          "info": {
+            "name": "Assign Tag To Version Api Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/api-key-auth/workspaces/:workspace_id/prompts/:prompt_id/versions/:version_id/tags/:tag_id",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "prompt_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tag_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Assign a tag to a specific prompt version using API key authentication."
+        },
+        {
+          "info": {
+            "name": "Remove Tag From Version Api Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/api-key-auth/workspaces/:workspace_id/prompts/:prompt_id/versions/:version_id/tags/:tag_id",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "prompt_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tag_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Remove a tag from a specific prompt version using API key authentication."
+        },
+        {
+          "info": {
+            "name": "List Version Tags Api Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/api-key-auth/workspaces/:workspace_id/prompts/:prompt_id/versions/:version_id/tags",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "prompt_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "List all tags assigned to a specific prompt version using API key authentication."
+        },
+        {
+          "info": {
+            "name": "Get Version By Tag Api Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/api-key-auth/workspaces/:workspace_id/prompts/:prompt_id/tags/:tag_name/version",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "prompt_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tag_name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Get a prompt version by its tag name using API key authentication."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "test-sets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Test Sets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/workspaces/:workspace_id/test-sets",
+            "headers": [
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "List all test sets available for a workspace identified by UUID."
+        },
+        {
+          "info": {
+            "name": "Create Test Set",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/workspaces/:workspace_id/test-sets",
+            "headers": [
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Create a new test set in a workspace."
+        },
+        {
+          "info": {
+            "name": "Get Test Set",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/workspaces/:workspace_id/test-sets/:test_set_id",
+            "headers": [
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "test_set_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Get detailed information about a specific test set."
+        },
+        {
+          "info": {
+            "name": "Update Test Set",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/workspaces/:workspace_id/test-sets/:test_set_id",
+            "headers": [
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "test_set_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Update an existing test set."
+        },
+        {
+          "info": {
+            "name": "Delete Test Set",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/workspaces/:workspace_id/test-sets/:test_set_id",
+            "headers": [
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "test_set_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Delete a test set. By default, performs soft delete,\nset hard_delete=True for permanent deletion."
+        },
+        {
+          "info": {
+            "name": "Add Test Case To Test Set",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/workspaces/:workspace_id/test-sets/:test_set_id/test-cases/:test_case_id",
+            "headers": [
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "test_set_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "test_case_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Add a test case to a test set."
+        },
+        {
+          "info": {
+            "name": "Remove Test Case From Test Set",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/workspaces/:workspace_id/test-sets/:test_set_id/test-cases/:test_case_id",
+            "headers": [
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "test_set_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "test_case_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Remove a test case from a test set."
+        },
+        {
+          "info": {
+            "name": "Evaluate Test Set",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/workspaces/:workspace_id/test-sets/:test_set_id/evaluate/:prompt_version_id",
+            "headers": [
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "test_set_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "prompt_version_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Evaluate all test cases in a test set against a specific prompt version."
+        },
+        {
+          "info": {
+            "name": "List Test Sets Api Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/api-key-auth/workspaces/:workspace_id/test-sets",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "List all test sets available for a workspace using API key authentication."
+        },
+        {
+          "info": {
+            "name": "Create Test Set Api Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/api-key-auth/workspaces/:workspace_id/test-sets",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Create a new test set in a workspace using API key authentication."
+        },
+        {
+          "info": {
+            "name": "Get Test Set Api Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/api-key-auth/workspaces/:workspace_id/test-sets/:test_set_id",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "test_set_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Get detailed information about a specific test set using API key authentication."
+        },
+        {
+          "info": {
+            "name": "Update Test Set Api Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/api-key-auth/workspaces/:workspace_id/test-sets/:test_set_id",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "test_set_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Update an existing test set using API key authentication."
+        },
+        {
+          "info": {
+            "name": "Delete Test Set Api Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/api-key-auth/workspaces/:workspace_id/test-sets/:test_set_id",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "test_set_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Delete a test set using API key authentication. By default, performs soft delete, set hard_delete=True for permanent deletion."
+        },
+        {
+          "info": {
+            "name": "Add Test Case To Test Set Api Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/api-key-auth/workspaces/:workspace_id/test-sets/:test_set_id/test-cases/:test_case_id",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "test_set_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "test_case_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Add a test case to a test set using API key authentication."
+        },
+        {
+          "info": {
+            "name": "Remove Test Case From Test Set Api Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/api-key-auth/workspaces/:workspace_id/test-sets/:test_set_id/test-cases/:test_case_id",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "test_set_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "test_case_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Remove a test case from a test set using API key authentication."
+        },
+        {
+          "info": {
+            "name": "Evaluate Test Set Api Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/api-key-auth/workspaces/:workspace_id/test-sets/:test_set_id/evaluate/:prompt_version_id",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "test_set_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "prompt_version_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Evaluate all test cases in a test set against a specific prompt version using API key authentication."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "documents",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Documents V3",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/workspaces/:workspace_id/documents",
+            "headers": [
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of documents to skip"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of documents to return"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "List all documents available for a workspace identified by UUID."
+        },
+        {
+          "info": {
+            "name": "Upload Document V3",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/workspaces/:workspace_id/documents",
+            "headers": [
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Upload a new document to a workspace identified by UUID."
+        },
+        {
+          "info": {
+            "name": "Get Document V3",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/workspaces/:workspace_id/documents/:document_id",
+            "headers": [
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "document_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Get detailed information about a specific document."
+        },
+        {
+          "info": {
+            "name": "Delete Document V3",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/workspaces/:workspace_id/documents/:document_id",
+            "headers": [
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "document_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Delete a document from a workspace. By default, performs soft delete,\nset hard_delete=True for permanent deletion including S3 file removal."
+        },
+        {
+          "info": {
+            "name": "List Documents Api Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/api-key-auth/workspaces/:workspace_id/documents",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of documents to skip"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of documents to return"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "List all documents available for a workspace using API key authentication."
+        },
+        {
+          "info": {
+            "name": "Upload Document Api Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/api-key-auth/workspaces/:workspace_id/documents",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Upload a new document to a workspace using API key authentication."
+        },
+        {
+          "info": {
+            "name": "Get Document Api Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/api-key-auth/workspaces/:workspace_id/documents/:document_id",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "document_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Get detailed information about a specific document using API key authentication."
+        },
+        {
+          "info": {
+            "name": "Delete Document Api Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/api-key-auth/workspaces/:workspace_id/documents/:document_id",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "document_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Delete a document from a workspace using API key authentication.\nBy default, performs soft delete, set hard_delete=True for permanent deletion including S3 file removal."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "export",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Export Json To Excel V3",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/workspaces/:workspace_id/export/json-to-excel",
+            "headers": [
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Convert JSON data to Excel format and return as downloadable file."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Workspace Users",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/workspaces/:workspace_id/users",
+            "headers": [
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "List all users in a workspace with their roles."
+        },
+        {
+          "info": {
+            "name": "Add User To Workspace",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/workspaces/:workspace_id/users",
+            "headers": [
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Add a user to workspace with specified role."
+        },
+        {
+          "info": {
+            "name": "Update User Role In Workspace",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/workspaces/:workspace_id/users/:user_id/role",
+            "headers": [
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Update a user's role in a workspace."
+        },
+        {
+          "info": {
+            "name": "Remove User From Workspace",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/workspaces/:workspace_id/users/:user_id",
+            "headers": [
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Remove a user from a workspace."
+        },
+        {
+          "info": {
+            "name": "Get Current User In Workspace",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/workspaces/:workspace_id/users/get-current-user",
+            "headers": [
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Get current authenticated user's information in the context of a specific workspace."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "tools",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Available Tools",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/workspaces/:workspace_id/tools",
+            "headers": [
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Get a list of all available tools that can be used with LLM processing.\n\nThis includes both local tools and tools from registered MCP servers."
+        },
+        {
+          "info": {
+            "name": "Get Available Tools Api Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/api-key-auth/workspaces/:workspace_id/tools",
+            "headers": [
+              {
+                "name": "x-api-key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Get a list of all available tools that can be used with LLM processing (API key auth).\n\nThis includes both local tools and tools from registered MCP servers."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "background-tasks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Background Tasks Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/background-tasks",
+            "headers": [
+              {
+                "name": "x-auth-request-email",
+                "value": ""
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Get the status of all background tasks.\n\nThis endpoint allows global administrators to monitor scheduled background tasks,\nincluding their execution history and current status.\n\n**Authentication**: SSO-only (requires x-auth-request-email header)\n**Authorization**: Global administrator role required\n\nReturns:\n    TaskStatusResponse containing information about all scheduled tasks"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "config",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Supported File Types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0/v3/config/supported-file-types",
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Return the list of supported file types for document processing.\n\nThis endpoint is public and does not require authentication.\nIt provides the canonical list of file types that can be processed by the API.\n\nReturns:\n    file_types: List of file type names (e.g., [\"PDF\", \"DOCX\", \"PNG\"])\n    extensions: List of file extensions (e.g., [\".pdf\", \".docx\", \".png\"])"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

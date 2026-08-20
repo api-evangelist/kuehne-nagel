@@ -1,0 +1,1911 @@
+{
+  "openapi" : "3.0.3",
+  "info" : {
+    "title" : "OrderBooking",
+    "description" : "This API is part of the Kuehne+Nagel API layer. It handles bookings\nprimarily for external partners. To use this API you must be registered and set\nup as an API user. Access to the booking API depends on the Task Owner in the customer's\neSOP booking configuration.\n",
+    "contact" : {
+      "name" : "Kuehne+Nagel ESP Public APIs",
+      "url" : "https://esp.kuehne-nagel.com",
+      "email" : "webdev-esp-public-apis@kuehne-nagel.com"
+    },
+    "version" : "v1",
+    "x-api-version" : "1.2.0",
+    "x-api-id" : "3f19e4be-68bc-4529-8140-b14d0e5e59ae",
+    "x-api-guideline-version" : "1.11.2"
+  },
+  "servers" : [ {
+    "url" : "https://internal.api.kuehne-nagel.com/order-management/order-booking/v1"
+  } ],
+  "security" : [ {
+    "default" : [ ]
+  } ],
+  "paths" : {
+    "/bookings" : {
+      "post" : {
+        "tags" : [ "booking" ],
+        "summary" : "Create and request a booking",
+        "description" : "The authenticated API Client requests to add a new booking. The client\ncan refer to existing order lines or create new order lines on the fly.\nThe booking is created with unique booking number `shippersReference`, `bookingNumber`, `customerCode`\nand `supplierCode`. In one single booking, order lines from several different\npurchase orders of a single customer can be allocated. After a successful\ncreation the booking is updated with the booking attributes and the API brings\nthe booking in the \"Booking Requested\" state.\n",
+        "operationId" : "createBooking",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Booking"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Booking created",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/BookingCreated"
+                }
+              }
+            }
+          },
+          "default" : {
+            "$ref" : "#/components/responses/default"
+          }
+        },
+        "security" : [ {
+          "default" : [ ]
+        } ],
+        "x-auth-type" : "Application & Application User",
+        "x-throttling-tier" : "10KPerMin"
+      }
+    },
+    "/bookings/{shippersReference}" : {
+      "put" : {
+        "tags" : [ "booking" ],
+        "summary" : "Update an existing booking",
+        "description" : "After finding the existing booking by its `shippersReference` the\nauthenticated API Client updates the booking. The eSOP configuration\ndefines the permission for the business party's role to update a booking.\n",
+        "operationId" : "updateBooking",
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/ShippersReferenceParam"
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Booking"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "202" : {
+            "description" : "Update of booking successfully ordered",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/BookingAccepted"
+                }
+              }
+            }
+          },
+          "default" : {
+            "$ref" : "#/components/responses/default"
+          }
+        },
+        "security" : [ {
+          "default" : [ ]
+        } ],
+        "x-auth-type" : "Application & Application User",
+        "x-throttling-tier" : "10KPerMin"
+      }
+    },
+    "/process-states/{processStateId}" : {
+      "get" : {
+        "tags" : [ "process-state" ],
+        "summary" : "Read an existing process state by processStateId",
+        "description" : "The successful creation of the booking starts an async process. The current state of the process can be\nrequested via this endpoint.\n",
+        "operationId" : "readProcessState",
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/ProcessStateIdParam"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Process state found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ProcessStateResponse"
+                }
+              }
+            }
+          },
+          "default" : {
+            "$ref" : "#/components/responses/default"
+          }
+        },
+        "security" : [ {
+          "default" : [ ]
+        } ],
+        "x-auth-type" : "Application & Application User",
+        "x-throttling-tier" : "10KPerMin"
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "Booking" : {
+        "required" : [ "bookingType", "customerCode", "shippersReference", "supplierCode" ],
+        "type" : "object",
+        "properties" : {
+          "bookingType" : {
+            "type" : "string",
+            "x-extensible-enum" : [ "AIR", "FCL", "LCL" ]
+          },
+          "shippersReference" : {
+            "$ref" : "#/components/schemas/ShippersReference"
+          },
+          "customerCode" : {
+            "$ref" : "#/components/schemas/CustomerCode"
+          },
+          "supplierCode" : {
+            "$ref" : "#/components/schemas/SupplierCode"
+          },
+          "factoryCode" : {
+            "$ref" : "#/components/schemas/FactoryCode"
+          },
+          "cargoInformation" : {
+            "$ref" : "#/components/schemas/CargoInformation"
+          },
+          "termsOfTrade" : {
+            "$ref" : "#/components/schemas/TermsOfTrade"
+          },
+          "insuranceByKn" : {
+            "type" : "boolean",
+            "description" : "Indicates whether insurance coverage is in place through KN"
+          },
+          "letterOfCredit" : {
+            "$ref" : "#/components/schemas/LetterOfCredit"
+          },
+          "remarks" : {
+            "maxLength" : 1024,
+            "minLength" : 1,
+            "type" : "string",
+            "description" : "General comment or additional information related to the booking"
+          },
+          "documentToRelease" : {
+            "pattern" : "FCR|SWB|BOL|HAWB",
+            "type" : "string",
+            "description" : "Indicates which document will be released"
+          },
+          "masterCommodity" : {
+            "maxLength" : 1024,
+            "minLength" : 1,
+            "type" : "string",
+            "description" : "Indicates the main commodity of the booking"
+          },
+          "references" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/ReferenceDataPerAddressTypeCode"
+            }
+          },
+          "pickupRequestDetails" : {
+            "$ref" : "#/components/schemas/PickUpDeliveryDetails"
+          },
+          "purchaseOrderAllocations" : {
+            "maxItems" : 999,
+            "minItems" : 0,
+            "type" : "array",
+            "description" : "The orders and their lines that are allocated to the booking.",
+            "items" : {
+              "$ref" : "#/components/schemas/PurchaseOrder"
+            }
+          }
+        },
+        "description" : "Abstract base schema for the booking types AirBooking, LclBooking and FclBooking.",
+        "discriminator" : {
+          "propertyName" : "bookingType",
+          "mapping" : {
+            "AIR" : "#/components/schemas/AirBooking",
+            "FCL" : "#/components/schemas/FclBooking",
+            "LCL" : "#/components/schemas/LclBooking"
+          }
+        }
+      },
+      "UnLocationCode" : {
+        "pattern" : "^[A-Z]{2}[A-Z0-9]{3}$",
+        "type" : "string",
+        "description" : "Standardized code for trade and transport locations including seaports and airports",
+        "example" : "DEHAM"
+      },
+      "AirRoutingInformation" : {
+        "type" : "object",
+        "properties" : {
+          "airportOfDeparture" : {
+            "$ref" : "#/components/schemas/UnLocationCode"
+          },
+          "airportOfArrival" : {
+            "$ref" : "#/components/schemas/UnLocationCode"
+          }
+        }
+      },
+      "CountryCode" : {
+        "pattern" : "^AD|AE|AF|AG|AI|AL|AM|AO|AQ|AR|AS|AT|AU|AW|AX|AZ|BA|BB|BD|BE|BF|BG|BH|BI|BJ|BL|BM|BN|BO|BQ|BR|BS|BT|BV|BW|BY|BZ|CA|CC|CD|CF|CG|CH|CI|CK|CL|CM|CN|CO|CR|CU|CV|CW|CX|CY|CZ|DE|DJ|DK|DM|DO|DZ|EC|EE|EG|EH|ER|ES|ET|FI|FJ|FK|FM|FO|FR|GA|GB|GD|GE|GF|GG|GH|GI|GL|GM|GN|GP|GQ|GR|GS|GT|GU|GW|GY|HK|HM|HN|HR|HT|HU|IC|ID|IE|IL|IM|IN|IO|IQ|IR|IS|IT|JE|JM|JO|JP|KE|KG|KH|KI|KM|KN|KP|KR|KW|KY|KZ|LA|LB|LC|LI|LK|LR|LS|LT|LU|LV|LY|MA|MC|MD|ME|MF|MG|MH|MK|ML|MM|MN|MO|MP|MQ|MR|MS|MT|MU|MV|MW|MX|MY|MZ|NA|NC|NE|NF|NG|NI|NL|NO|NP|NR|NU|NZ|OM|PA|PE|PF|PG|PH|PK|PL|PM|PN|PR|PS|PT|PW|PY|QA|RE|RO|RS|RU|RW|SA|SB|SC|SD|SE|SG|SH|SI|SJ|SK|SL|SM|SN|SO|SR|SS|ST|SV|SX|SY|SZ|TC|TD|TF|TG|TH|TJ|TK|TL|TM|TN|TO|TR|TT|TV|TW|TZ|UA|UG|UM|US|UY|UZ|VA|VC|VE|VG|VI|VN|VU|WF|WS|XK|YE|YT|ZA|ZM|ZW$",
+        "type" : "string",
+        "format" : "iso-3166",
+        "example" : "DE"
+      },
+      "PostalAddress" : {
+        "type" : "object",
+        "properties" : {
+          "address1" : {
+            "maxLength" : 255,
+            "minLength" : 1,
+            "type" : "string"
+          },
+          "address2" : {
+            "maxLength" : 255,
+            "minLength" : 1,
+            "type" : "string"
+          },
+          "zipCode" : {
+            "maxLength" : 12,
+            "minLength" : 1,
+            "type" : "string"
+          },
+          "city" : {
+            "maxLength" : 255,
+            "minLength" : 1,
+            "type" : "string"
+          },
+          "countryCode" : {
+            "$ref" : "#/components/schemas/CountryCode"
+          }
+        }
+      },
+      "Address" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/PostalAddress"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "name" : {
+              "maxLength" : 255,
+              "minLength" : 1,
+              "type" : "string"
+            }
+          }
+        } ]
+      },
+      "AddressTypeCode" : {
+        "maxLength" : 3,
+        "minLength" : 2,
+        "type" : "string"
+      },
+      "AddressWithType" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/Address"
+        }, {
+          "required" : [ "addressTypeCode" ],
+          "type" : "object",
+          "properties" : {
+            "addressTypeCode" : {
+              "$ref" : "#/components/schemas/AddressTypeCode"
+            }
+          }
+        } ]
+      },
+      "BookingAddresses" : {
+        "type" : "object",
+        "properties" : {
+          "shipper" : {
+            "$ref" : "#/components/schemas/Address"
+          },
+          "consignee" : {
+            "$ref" : "#/components/schemas/Address"
+          },
+          "additionalAddresses" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/AddressWithType"
+            }
+          }
+        }
+      },
+      "AirBookingAddresses" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/BookingAddresses"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "seller" : {
+              "$ref" : "#/components/schemas/Address"
+            },
+            "buyer" : {
+              "$ref" : "#/components/schemas/Address"
+            }
+          }
+        } ]
+      },
+      "Weight" : {
+        "required" : [ "amountInKilogram" ],
+        "type" : "object",
+        "properties" : {
+          "amountInKilogram" : {
+            "multipleOf" : 0.01,
+            "maximum" : 999999,
+            "minimum" : 0.01,
+            "type" : "number",
+            "format" : "decimal"
+          }
+        },
+        "description" : "Weight in kilogram"
+      },
+      "Packages" : {
+        "required" : [ "amount", "packageType" ],
+        "type" : "object",
+        "properties" : {
+          "amount" : {
+            "maximum" : 999999,
+            "minimum" : 1,
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "packageType" : {
+            "pattern" : "BAG|BAR|BLK|BOX|CRT|CTN|IBC|PKG|PLT|SLP",
+            "type" : "string",
+            "description" : "Package types: Bag (bag), Bar (bar), Bulk Grain (blk), Box (box), Carton (ctn),\nIntermediate Bulk Container (ibc), Package (pkg), Pallet (plt), Slip Sheet (slp)\n"
+          }
+        }
+      },
+      "PositiveInteger" : {
+        "maximum" : 999999,
+        "minimum" : 1,
+        "type" : "integer",
+        "format" : "int32"
+      },
+      "IntegerDimension" : {
+        "required" : [ "amountInCentimeter" ],
+        "type" : "object",
+        "properties" : {
+          "amountInCentimeter" : {
+            "$ref" : "#/components/schemas/PositiveInteger"
+          }
+        }
+      },
+      "IntegerHeight" : {
+        "description" : "Height in centimeter",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/IntegerDimension"
+        } ]
+      },
+      "IntegerWidth" : {
+        "description" : "Width in centimeter",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/IntegerDimension"
+        } ]
+      },
+      "IntegerLength" : {
+        "description" : "Length in centimeter",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/IntegerDimension"
+        } ]
+      },
+      "AirPackageInformation" : {
+        "type" : "object",
+        "properties" : {
+          "weight" : {
+            "$ref" : "#/components/schemas/Weight"
+          },
+          "packages" : {
+            "$ref" : "#/components/schemas/Packages"
+          },
+          "height" : {
+            "$ref" : "#/components/schemas/IntegerHeight"
+          },
+          "width" : {
+            "$ref" : "#/components/schemas/IntegerWidth"
+          },
+          "length" : {
+            "$ref" : "#/components/schemas/IntegerLength"
+          }
+        }
+      },
+      "DateTime" : {
+        "type" : "string",
+        "format" : "date-time"
+      },
+      "Email" : {
+        "type" : "string",
+        "format" : "email"
+      },
+      "MediumLengthString" : {
+        "maxLength" : 255,
+        "minLength" : 1,
+        "type" : "string"
+      },
+      "PickUpDeliveryDetails" : {
+        "type" : "object",
+        "properties" : {
+          "address" : {
+            "$ref" : "#/components/schemas/Address"
+          },
+          "email" : {
+            "$ref" : "#/components/schemas/Email"
+          },
+          "phone" : {
+            "$ref" : "#/components/schemas/MediumLengthString"
+          },
+          "plannedDate" : {
+            "$ref" : "#/components/schemas/DateTime"
+          }
+        }
+      },
+      "ProductDetails" : {
+        "type" : "object",
+        "properties" : {
+          "productGroupCode" : {
+            "$ref" : "#/components/schemas/MediumLengthString"
+          },
+          "productCode" : {
+            "$ref" : "#/components/schemas/MediumLengthString"
+          }
+        }
+      },
+      "Temperature" : {
+        "required" : [ "amountInDegreeCelsius" ],
+        "type" : "object",
+        "properties" : {
+          "amountInDegreeCelsius" : {
+            "maximum" : 99.9,
+            "minimum" : -99.9,
+            "type" : "number",
+            "format" : "decimal"
+          }
+        },
+        "description" : "Temperature in degrees celsius"
+      },
+      "TemperatureControl" : {
+        "type" : "object",
+        "properties" : {
+          "minTemperature" : {
+            "$ref" : "#/components/schemas/Temperature"
+          },
+          "maxTemperature" : {
+            "$ref" : "#/components/schemas/Temperature"
+          }
+        }
+      },
+      "AirBooking" : {
+        "description" : "A booking specialized for Airfreight Transport",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/Booking"
+        }, {
+          "$ref" : "#/components/schemas/AirRoutingInformation"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "addresses" : {
+              "$ref" : "#/components/schemas/AirBookingAddresses"
+            },
+            "packageInformation" : {
+              "maxItems" : 30,
+              "minItems" : 1,
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/components/schemas/AirPackageInformation"
+              }
+            },
+            "plannedArrivalAtAirportDate" : {
+              "$ref" : "#/components/schemas/DateTime"
+            },
+            "exportAvailabilityDate" : {
+              "$ref" : "#/components/schemas/DateTime"
+            },
+            "deliveryRequestDetails" : {
+              "$ref" : "#/components/schemas/PickUpDeliveryDetails"
+            },
+            "quotationNumber" : {
+              "maxLength" : 35,
+              "minLength" : 1,
+              "type" : "string"
+            },
+            "serviceLevelAgreement" : {
+              "maxLength" : 35,
+              "minLength" : 1,
+              "type" : "string"
+            },
+            "productDetails" : {
+              "$ref" : "#/components/schemas/ProductDetails"
+            },
+            "temperatureControl" : {
+              "$ref" : "#/components/schemas/TemperatureControl"
+            }
+          }
+        } ]
+      },
+      "SeaRoutingInformation" : {
+        "type" : "object",
+        "properties" : {
+          "portOfLoading" : {
+            "$ref" : "#/components/schemas/UnLocationCode"
+          },
+          "portOfDischarge" : {
+            "$ref" : "#/components/schemas/UnLocationCode"
+          }
+        }
+      },
+      "SeaBooking" : {
+        "description" : "Abstract base schema for the sea booking types LclBooking and FclBooking.",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/Booking"
+        }, {
+          "$ref" : "#/components/schemas/SeaRoutingInformation"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "addresses" : {
+              "$ref" : "#/components/schemas/BookingAddresses"
+            },
+            "cargoReadinessDate" : {
+              "type" : "string",
+              "description" : "Represents the date when the cargo is expected to be ready for shipment",
+              "format" : "date"
+            }
+          }
+        } ]
+      },
+      "ContainerNumber" : {
+        "maxLength" : 11,
+        "minLength" : 1,
+        "pattern" : "^[A-Za-z]{3}[A-Za-z][0-9]{7}$|^[0-9]{1,3}$",
+        "type" : "string",
+        "example" : "ABCU1234567"
+      },
+      "Volume" : {
+        "required" : [ "amountInCubicMeter" ],
+        "type" : "object",
+        "properties" : {
+          "amountInCubicMeter" : {
+            "multipleOf" : 0.001,
+            "maximum" : 99999,
+            "minimum" : 0.001,
+            "type" : "number",
+            "format" : "decimal"
+          }
+        },
+        "description" : "Volume in cubic meter"
+      },
+      "NonEmptyString" : {
+        "minLength" : 1,
+        "type" : "string"
+      },
+      "ReferenceDataPerAddressTypeCode" : {
+        "required" : [ "addressTypeCode", "referenceCodeToValue" ],
+        "type" : "object",
+        "properties" : {
+          "addressTypeCode" : {
+            "$ref" : "#/components/schemas/AddressTypeCode"
+          },
+          "referenceCodeToValue" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "$ref" : "#/components/schemas/NonEmptyString"
+            }
+          }
+        },
+        "description" : "ReferenceDataPerAddressTypeCode allows the user to store arbitrary key/values pairs where\nkeys and values are strings.\n"
+      },
+      "Humidity" : {
+        "required" : [ "amountInPercent" ],
+        "type" : "object",
+        "properties" : {
+          "amountInPercent" : {
+            "maximum" : 100,
+            "minimum" : 0,
+            "type" : "number",
+            "format" : "decimal"
+          }
+        },
+        "description" : "Humidity in percent"
+      },
+      "Ventilation" : {
+        "required" : [ "amountInCubicMeterPerHour" ],
+        "type" : "object",
+        "properties" : {
+          "amountInCubicMeterPerHour" : {
+            "maximum" : 999999,
+            "minimum" : 0,
+            "type" : "number",
+            "format" : "decimal"
+          }
+        },
+        "description" : "Ventilation in cubic meter per hour"
+      },
+      "AtmosphereSettings" : {
+        "type" : "object",
+        "properties" : {
+          "temperature" : {
+            "$ref" : "#/components/schemas/Temperature"
+          },
+          "humidity" : {
+            "$ref" : "#/components/schemas/Humidity"
+          },
+          "ventilation" : {
+            "$ref" : "#/components/schemas/Ventilation"
+          }
+        }
+      },
+      "Container" : {
+        "type" : "object",
+        "properties" : {
+          "containerNumber" : {
+            "$ref" : "#/components/schemas/ContainerNumber"
+          },
+          "containerType" : {
+            "maxLength" : 4,
+            "minLength" : 3,
+            "type" : "string",
+            "example" : "22B0"
+          },
+          "weight" : {
+            "$ref" : "#/components/schemas/Weight"
+          },
+          "volume" : {
+            "$ref" : "#/components/schemas/Volume"
+          },
+          "packages" : {
+            "$ref" : "#/components/schemas/Packages"
+          },
+          "references" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/ReferenceDataPerAddressTypeCode"
+            }
+          },
+          "atmosphereSettings" : {
+            "$ref" : "#/components/schemas/AtmosphereSettings"
+          },
+          "sealNumber" : {
+            "maxLength" : 17,
+            "minLength" : 1,
+            "pattern" : "^[a-zA-Z0-9]{1,17}$",
+            "type" : "string",
+            "example" : "TH169581"
+          }
+        }
+      },
+      "FclBooking" : {
+        "description" : "A booking specialized for Full Container Load Transport.",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/SeaBooking"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "containers" : {
+              "maxItems" : 30,
+              "minItems" : 0,
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/components/schemas/Container"
+              }
+            }
+          }
+        } ]
+      },
+      "LclBooking" : {
+        "description" : "A booking specialized for Less than Container Load Transport.",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/SeaBooking"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "totalWeight" : {
+              "$ref" : "#/components/schemas/Weight"
+            },
+            "totalVolume" : {
+              "$ref" : "#/components/schemas/Volume"
+            },
+            "totalPackages" : {
+              "$ref" : "#/components/schemas/Packages"
+            }
+          }
+        } ]
+      },
+      "ShippersReference" : {
+        "maxLength" : 35,
+        "minLength" : 1,
+        "type" : "string"
+      },
+      "CustomerCode" : {
+        "pattern" : "^[A-Z]{5}[0-9]{2}$",
+        "type" : "string",
+        "description" : "Unique identifier assigned to a customer",
+        "example" : "DEHAM01"
+      },
+      "SupplierCode" : {
+        "maxLength" : 70,
+        "minLength" : 1,
+        "type" : "string",
+        "description" : "Unique identifier assigned to a supplier"
+      },
+      "FactoryCode" : {
+        "maxLength" : 255,
+        "minLength" : 1,
+        "type" : "string",
+        "description" : "Unique identifier assigned to a factory"
+      },
+      "CargoInformation" : {
+        "type" : "object",
+        "properties" : {
+          "dangerousGoods" : {
+            "type" : "boolean",
+            "description" : "Indicates if the freight contains dangerous goods"
+          },
+          "batteries" : {
+            "type" : "boolean",
+            "description" : "Indicates if the freight contains batteries"
+          },
+          "batteriesRemarks" : {
+            "maxLength" : 1024,
+            "minLength" : 1,
+            "type" : "string",
+            "description" : "Further details for the contained batteries"
+          },
+          "woodenPackagingMaterial" : {
+            "type" : "boolean",
+            "description" : "Indicates if the freight contains wooden packaging material"
+          }
+        }
+      },
+      "Incoterm" : {
+        "pattern" : "^CFR|CIF|CIP|CPT|CTO|DAF|DAP|DAT|DCT|DDP|DDU|DEQ|DES|DIC|DIT|DPU|EXQ|EXW|FAS|FCA|FOB|FOC|FOT|PRC|PUO$",
+        "type" : "string",
+        "description" : "Internationally recognized delivery terms for commercial contracts published by the ICC"
+      },
+      "TermsOfTrade" : {
+        "type" : "object",
+        "properties" : {
+          "incoterm" : {
+            "$ref" : "#/components/schemas/Incoterm"
+          },
+          "location" : {
+            "maxLength" : 35,
+            "minLength" : 1,
+            "type" : "string",
+            "description" : "Specifies the location where the incoterm standards are applied"
+          }
+        }
+      },
+      "LetterOfCredit" : {
+        "type" : "object",
+        "properties" : {
+          "letterOfCreditNumber" : {
+            "maxLength" : 35,
+            "minLength" : 1,
+            "type" : "string",
+            "description" : "Unique identification number associated with the letter of credit"
+          },
+          "letterOfCreditExpiryDate" : {
+            "type" : "string",
+            "description" : "Denotes the date on which the letter of credit expires",
+            "format" : "date"
+          }
+        },
+        "description" : "Financial instrument guaranteeing payment to the exporter upon satisfactory delivery of goods"
+      },
+      "OrderAddress" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/Address"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "state" : {
+              "$ref" : "#/components/schemas/NonEmptyString"
+            },
+            "stateCode" : {
+              "$ref" : "#/components/schemas/NonEmptyString"
+            },
+            "postBox" : {
+              "$ref" : "#/components/schemas/NonEmptyString"
+            },
+            "identifier" : {
+              "$ref" : "#/components/schemas/NonEmptyString"
+            }
+          }
+        } ]
+      },
+      "ContactInformation" : {
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "$ref" : "#/components/schemas/NonEmptyString"
+          },
+          "email" : {
+            "$ref" : "#/components/schemas/Email"
+          },
+          "phone" : {
+            "$ref" : "#/components/schemas/NonEmptyString"
+          },
+          "mobile" : {
+            "$ref" : "#/components/schemas/NonEmptyString"
+          },
+          "fax" : {
+            "$ref" : "#/components/schemas/NonEmptyString"
+          }
+        }
+      },
+      "AdditionalParty" : {
+        "type" : "object",
+        "properties" : {
+          "partyCode" : {
+            "$ref" : "#/components/schemas/NonEmptyString"
+          },
+          "address" : {
+            "$ref" : "#/components/schemas/OrderAddress"
+          },
+          "contactInformation" : {
+            "minItems" : 0,
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/ContactInformation"
+            }
+          }
+        }
+      },
+      "BusinessParty" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/AdditionalParty"
+        }, {
+          "required" : [ "partyCode" ],
+          "type" : "object"
+        } ]
+      },
+      "Parties" : {
+        "required" : [ "customer", "supplier" ],
+        "type" : "object",
+        "properties" : {
+          "customer" : {
+            "$ref" : "#/components/schemas/BusinessParty"
+          },
+          "supplier" : {
+            "$ref" : "#/components/schemas/BusinessParty"
+          },
+          "factory" : {
+            "$ref" : "#/components/schemas/BusinessParty"
+          },
+          "additionalParties" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "$ref" : "#/components/schemas/AdditionalParty"
+            }
+          }
+        }
+      },
+      "Date" : {
+        "type" : "string",
+        "format" : "date"
+      },
+      "OrderIdentificationKeyAttributes" : {
+        "type" : "object",
+        "properties" : {
+          "purchaseOrderDate" : {
+            "$ref" : "#/components/schemas/Date"
+          },
+          "orderNumber" : {
+            "$ref" : "#/components/schemas/NonEmptyString"
+          },
+          "orderDate" : {
+            "$ref" : "#/components/schemas/Date"
+          },
+          "invoiceNumber" : {
+            "$ref" : "#/components/schemas/NonEmptyString"
+          },
+          "invoiceDate" : {
+            "$ref" : "#/components/schemas/Date"
+          },
+          "shipmentId" : {
+            "$ref" : "#/components/schemas/NonEmptyString"
+          },
+          "shipmentDate" : {
+            "$ref" : "#/components/schemas/Date"
+          },
+          "contractNumber" : {
+            "$ref" : "#/components/schemas/NonEmptyString"
+          },
+          "contractDate" : {
+            "$ref" : "#/components/schemas/Date"
+          },
+          "salesOrderNumber" : {
+            "$ref" : "#/components/schemas/NonEmptyString"
+          },
+          "salesOrderDate" : {
+            "$ref" : "#/components/schemas/Date"
+          },
+          "deliveryNoteNumber" : {
+            "$ref" : "#/components/schemas/NonEmptyString"
+          },
+          "deliveryNoteDate" : {
+            "$ref" : "#/components/schemas/Date"
+          },
+          "warehouseReceiptNumber" : {
+            "$ref" : "#/components/schemas/NonEmptyString"
+          },
+          "warehouseReceiptDate" : {
+            "$ref" : "#/components/schemas/Date"
+          },
+          "commercialInvoiceNumber" : {
+            "$ref" : "#/components/schemas/NonEmptyString"
+          },
+          "commercialInvoiceDate" : {
+            "$ref" : "#/components/schemas/Date"
+          },
+          "packingListNumber" : {
+            "$ref" : "#/components/schemas/NonEmptyString"
+          },
+          "packingListDate" : {
+            "$ref" : "#/components/schemas/Date"
+          },
+          "deliveryTicketNumber" : {
+            "$ref" : "#/components/schemas/NonEmptyString"
+          },
+          "deliveryTicketDate" : {
+            "$ref" : "#/components/schemas/Date"
+          },
+          "proformaInvoiceNumber" : {
+            "$ref" : "#/components/schemas/NonEmptyString"
+          },
+          "proformaInvoiceDate" : {
+            "$ref" : "#/components/schemas/Date"
+          },
+          "transactionId" : {
+            "$ref" : "#/components/schemas/NonEmptyString"
+          },
+          "transactionDate" : {
+            "$ref" : "#/components/schemas/Date"
+          },
+          "orderReleaseNumber" : {
+            "$ref" : "#/components/schemas/NonEmptyString"
+          },
+          "orderReleaseDate" : {
+            "$ref" : "#/components/schemas/Date"
+          },
+          "raisedBy" : {
+            "$ref" : "#/components/schemas/NonEmptyString"
+          },
+          "supplierReference" : {
+            "$ref" : "#/components/schemas/NonEmptyString"
+          },
+          "workOrderNumber" : {
+            "$ref" : "#/components/schemas/NonEmptyString"
+          },
+          "proformaOrderNumber" : {
+            "$ref" : "#/components/schemas/NonEmptyString"
+          },
+          "allocationNumber" : {
+            "$ref" : "#/components/schemas/NonEmptyString"
+          },
+          "supplierOrderNumber" : {
+            "$ref" : "#/components/schemas/NonEmptyString"
+          }
+        }
+      },
+      "ItemIdentificationAttributes" : {
+        "type" : "object",
+        "properties" : {
+          "europeanArticleNumber" : {
+            "$ref" : "#/components/schemas/NonEmptyString"
+          },
+          "lotNumber" : {
+            "$ref" : "#/components/schemas/NonEmptyString"
+          },
+          "catalogueNumber" : {
+            "$ref" : "#/components/schemas/NonEmptyString"
+          },
+          "partNumber" : {
+            "$ref" : "#/components/schemas/NonEmptyString"
+          },
+          "packUniversalProductCode" : {
+            "$ref" : "#/components/schemas/NonEmptyString"
+          },
+          "materialNumber" : {
+            "$ref" : "#/components/schemas/NonEmptyString"
+          },
+          "productNumber" : {
+            "$ref" : "#/components/schemas/NonEmptyString"
+          },
+          "lineNumber" : {
+            "$ref" : "#/components/schemas/NonEmptyString"
+          },
+          "itemNumber" : {
+            "$ref" : "#/components/schemas/NonEmptyString"
+          },
+          "factoryItemNumber" : {
+            "$ref" : "#/components/schemas/NonEmptyString"
+          },
+          "supplierItemNumber" : {
+            "$ref" : "#/components/schemas/NonEmptyString"
+          },
+          "articleNumber" : {
+            "$ref" : "#/components/schemas/NonEmptyString"
+          },
+          "barcode" : {
+            "$ref" : "#/components/schemas/NonEmptyString"
+          },
+          "stockKeepingUnitNumber" : {
+            "$ref" : "#/components/schemas/NonEmptyString"
+          },
+          "globalLocationNumber" : {
+            "$ref" : "#/components/schemas/NonEmptyString"
+          },
+          "batchNumber" : {
+            "$ref" : "#/components/schemas/NonEmptyString"
+          },
+          "universalProductCode" : {
+            "$ref" : "#/components/schemas/NonEmptyString"
+          }
+        }
+      },
+      "ItemAttributes" : {
+        "type" : "object",
+        "properties" : {
+          "style" : {
+            "$ref" : "#/components/schemas/NonEmptyString"
+          },
+          "color" : {
+            "$ref" : "#/components/schemas/NonEmptyString"
+          },
+          "shade" : {
+            "$ref" : "#/components/schemas/NonEmptyString"
+          },
+          "size" : {
+            "$ref" : "#/components/schemas/NonEmptyString"
+          },
+          "hsCode" : {
+            "$ref" : "#/components/schemas/NonEmptyString"
+          },
+          "hsCodeOrigin" : {
+            "$ref" : "#/components/schemas/NonEmptyString"
+          },
+          "hsCodeDestination" : {
+            "$ref" : "#/components/schemas/NonEmptyString"
+          },
+          "commodity" : {
+            "$ref" : "#/components/schemas/NonEmptyString"
+          },
+          "countryOfOrigin" : {
+            "$ref" : "#/components/schemas/CountryCode"
+          }
+        }
+      },
+      "Integer" : {
+        "type" : "integer",
+        "format" : "int32"
+      },
+      "Money" : {
+        "required" : [ "amount" ],
+        "type" : "object",
+        "properties" : {
+          "amount" : {
+            "minimum" : 0,
+            "type" : "number",
+            "format" : "decimal"
+          },
+          "currency" : {
+            "pattern" : "[A-Z]{3}",
+            "type" : "string",
+            "format" : "iso-4217"
+          }
+        }
+      },
+      "DateWindow" : {
+        "type" : "object",
+        "properties" : {
+          "startDate" : {
+            "$ref" : "#/components/schemas/Date"
+          },
+          "endDate" : {
+            "$ref" : "#/components/schemas/Date"
+          }
+        }
+      },
+      "Quantity" : {
+        "required" : [ "amount", "unit" ],
+        "type" : "object",
+        "properties" : {
+          "amount" : {
+            "minimum" : 0,
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "unit" : {
+            "maxLength" : 10,
+            "minLength" : 1,
+            "type" : "string"
+          }
+        }
+      },
+      "Dimension" : {
+        "required" : [ "amountInCentimeter" ],
+        "type" : "object",
+        "properties" : {
+          "amountInCentimeter" : {
+            "multipleOf" : 0.1,
+            "maximum" : 999999,
+            "minimum" : 0.1,
+            "type" : "number",
+            "format" : "decimal"
+          }
+        }
+      },
+      "Length" : {
+        "description" : "Length in centimeter with up to 1 decimal place",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/Dimension"
+        } ]
+      },
+      "Width" : {
+        "description" : "Width in centimeter with up to 1 decimal place",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/Dimension"
+        } ]
+      },
+      "Height" : {
+        "description" : "Height in centimeter with up to 1 decimal place",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/Dimension"
+        } ]
+      },
+      "OrderAttributes" : {
+        "properties" : {
+          "orderIdentification" : {
+            "allOf" : [ {
+              "$ref" : "#/components/schemas/OrderIdentificationKeyAttributes"
+            }, {
+              "type" : "object",
+              "properties" : {
+                "orderType" : {
+                  "$ref" : "#/components/schemas/NonEmptyString"
+                },
+                "rebuyerOrder" : {
+                  "type" : "boolean"
+                },
+                "xdocksOrder" : {
+                  "type" : "boolean"
+                }
+              }
+            } ]
+          },
+          "itemIdentification" : {
+            "$ref" : "#/components/schemas/ItemIdentificationAttributes"
+          },
+          "itemAttributes" : {
+            "$ref" : "#/components/schemas/ItemAttributes"
+          },
+          "productCategories" : {
+            "type" : "object",
+            "properties" : {
+              "productCategory" : {
+                "$ref" : "#/components/schemas/NonEmptyString"
+              },
+              "productClass" : {
+                "$ref" : "#/components/schemas/NonEmptyString"
+              },
+              "productSegment" : {
+                "$ref" : "#/components/schemas/NonEmptyString"
+              },
+              "productFamily" : {
+                "$ref" : "#/components/schemas/NonEmptyString"
+              },
+              "gender" : {
+                "$ref" : "#/components/schemas/NonEmptyString"
+              },
+              "materialGroup" : {
+                "$ref" : "#/components/schemas/NonEmptyString"
+              },
+              "productGroup" : {
+                "$ref" : "#/components/schemas/NonEmptyString"
+              },
+              "schedulingLine" : {
+                "$ref" : "#/components/schemas/NonEmptyString"
+              },
+              "setAndSequenceNumber" : {
+                "$ref" : "#/components/schemas/NonEmptyString"
+              },
+              "stockCategory" : {
+                "$ref" : "#/components/schemas/NonEmptyString"
+              },
+              "composition" : {
+                "$ref" : "#/components/schemas/NonEmptyString"
+              },
+              "seriesName" : {
+                "$ref" : "#/components/schemas/NonEmptyString"
+              },
+              "seriesNumber" : {
+                "$ref" : "#/components/schemas/NonEmptyString"
+              }
+            }
+          },
+          "productHandling" : {
+            "type" : "object",
+            "properties" : {
+              "dangerousGoods" : {
+                "type" : "boolean"
+              },
+              "polyamideAndMelamine" : {
+                "type" : "boolean"
+              },
+              "imoDangerousGoodsCode" : {
+                "$ref" : "#/components/schemas/NonEmptyString"
+              },
+              "oversizeIndicator" : {
+                "type" : "boolean"
+              },
+              "overweightIndicator" : {
+                "type" : "boolean"
+              },
+              "productionLeadDuration" : {
+                "$ref" : "#/components/schemas/NonEmptyString"
+              },
+              "selfInspect" : {
+                "type" : "boolean"
+              }
+            }
+          },
+          "orderPromotions" : {
+            "type" : "object",
+            "properties" : {
+              "season" : {
+                "$ref" : "#/components/schemas/NonEmptyString"
+              },
+              "advertisementCode" : {
+                "$ref" : "#/components/schemas/NonEmptyString"
+              },
+              "advertisementDate" : {
+                "$ref" : "#/components/schemas/Date"
+              },
+              "campaign" : {
+                "$ref" : "#/components/schemas/NonEmptyString"
+              },
+              "cancelDate" : {
+                "$ref" : "#/components/schemas/Date"
+              },
+              "eventCode" : {
+                "$ref" : "#/components/schemas/NonEmptyString"
+              },
+              "processingDate" : {
+                "$ref" : "#/components/schemas/Date"
+              },
+              "catalogueStatus" : {
+                "$ref" : "#/components/schemas/NonEmptyString"
+              },
+              "catalogueEdition" : {
+                "$ref" : "#/components/schemas/NonEmptyString"
+              }
+            }
+          },
+          "orderHandling" : {
+            "type" : "object",
+            "properties" : {
+              "notes1Internal" : {
+                "$ref" : "#/components/schemas/NonEmptyString"
+              },
+              "notes2Internal" : {
+                "$ref" : "#/components/schemas/NonEmptyString"
+              },
+              "orderHandlingNotes" : {
+                "$ref" : "#/components/schemas/NonEmptyString"
+              },
+              "termsAndConditionsNotes" : {
+                "$ref" : "#/components/schemas/NonEmptyString"
+              },
+              "supplierNote" : {
+                "$ref" : "#/components/schemas/NonEmptyString"
+              },
+              "factoryNote" : {
+                "$ref" : "#/components/schemas/NonEmptyString"
+              },
+              "priorityFlag" : {
+                "type" : "boolean"
+              },
+              "orderReleased" : {
+                "type" : "boolean"
+              },
+              "fumigationRequired" : {
+                "type" : "boolean"
+              },
+              "qualityCheckRequired" : {
+                "type" : "boolean"
+              },
+              "qualityCheckPassed" : {
+                "type" : "boolean"
+              },
+              "serviceLevel" : {
+                "$ref" : "#/components/schemas/NonEmptyString"
+              },
+              "orderStatus" : {
+                "$ref" : "#/components/schemas/NonEmptyString"
+              },
+              "warehouseReceiptStatus" : {
+                "$ref" : "#/components/schemas/NonEmptyString"
+              },
+              "deliveryCompleteStatus" : {
+                "type" : "boolean"
+              },
+              "typeOfCertificateRequired" : {
+                "$ref" : "#/components/schemas/NonEmptyString"
+              }
+            }
+          },
+          "orderTerms" : {
+            "type" : "object",
+            "properties" : {
+              "dutyPercentage" : {
+                "$ref" : "#/components/schemas/Integer"
+              },
+              "paymentMethod" : {
+                "$ref" : "#/components/schemas/NonEmptyString"
+              },
+              "paymentTerms" : {
+                "$ref" : "#/components/schemas/NonEmptyString"
+              },
+              "letterOfCreditNumber" : {
+                "$ref" : "#/components/schemas/NonEmptyString"
+              },
+              "letterOfCredit" : {
+                "$ref" : "#/components/schemas/Money"
+              },
+              "letterOfCreditDate" : {
+                "$ref" : "#/components/schemas/Date"
+              }
+            }
+          },
+          "divisions" : {
+            "type" : "object",
+            "properties" : {
+              "divisionCode" : {
+                "$ref" : "#/components/schemas/NonEmptyString"
+              },
+              "division" : {
+                "$ref" : "#/components/schemas/NonEmptyString"
+              },
+              "businessUnit" : {
+                "$ref" : "#/components/schemas/NonEmptyString"
+              },
+              "purchasingGroup" : {
+                "$ref" : "#/components/schemas/NonEmptyString"
+              },
+              "sourceChannel" : {
+                "$ref" : "#/components/schemas/NonEmptyString"
+              },
+              "company" : {
+                "$ref" : "#/components/schemas/NonEmptyString"
+              },
+              "costCenter" : {
+                "$ref" : "#/components/schemas/NonEmptyString"
+              },
+              "operatingCompany" : {
+                "$ref" : "#/components/schemas/NonEmptyString"
+              },
+              "purchaseOffice" : {
+                "$ref" : "#/components/schemas/NonEmptyString"
+              },
+              "section" : {
+                "$ref" : "#/components/schemas/NonEmptyString"
+              },
+              "department" : {
+                "$ref" : "#/components/schemas/NonEmptyString"
+              },
+              "brand" : {
+                "$ref" : "#/components/schemas/NonEmptyString"
+              },
+              "buyer" : {
+                "$ref" : "#/components/schemas/NonEmptyString"
+              },
+              "merchandiser" : {
+                "$ref" : "#/components/schemas/NonEmptyString"
+              },
+              "departmentCode" : {
+                "$ref" : "#/components/schemas/NonEmptyString"
+              },
+              "merchandiseCategory" : {
+                "$ref" : "#/components/schemas/NonEmptyString"
+              },
+              "supplyPlanner" : {
+                "$ref" : "#/components/schemas/NonEmptyString"
+              },
+              "tradingTeam" : {
+                "$ref" : "#/components/schemas/NonEmptyString"
+              }
+            }
+          },
+          "transportation" : {
+            "type" : "object",
+            "properties" : {
+              "modeOfTransportation" : {
+                "pattern" : "SEA|AIR",
+                "type" : "string"
+              },
+              "portOfEntry" : {
+                "$ref" : "#/components/schemas/UnLocationCode"
+              },
+              "portOfLoading" : {
+                "$ref" : "#/components/schemas/UnLocationCode"
+              },
+              "portOfDischarge" : {
+                "$ref" : "#/components/schemas/UnLocationCode"
+              },
+              "placeOfDelivery" : {
+                "$ref" : "#/components/schemas/NonEmptyString"
+              },
+              "countryOfDeparture" : {
+                "$ref" : "#/components/schemas/CountryCode"
+              },
+              "countryOfDestination" : {
+                "$ref" : "#/components/schemas/CountryCode"
+              },
+              "incoterms" : {
+                "$ref" : "#/components/schemas/Incoterm"
+              },
+              "incotermsLocation" : {
+                "$ref" : "#/components/schemas/NonEmptyString"
+              },
+              "carrier" : {
+                "$ref" : "#/components/schemas/NonEmptyString"
+              },
+              "carrierContract" : {
+                "$ref" : "#/components/schemas/NonEmptyString"
+              },
+              "shipmentType" : {
+                "pattern" : "LCL|FCL|BCM",
+                "type" : "string"
+              },
+              "movement" : {
+                "$ref" : "#/components/schemas/NonEmptyString"
+              },
+              "totalNumberOfContainers" : {
+                "$ref" : "#/components/schemas/Integer"
+              },
+              "containerType" : {
+                "$ref" : "#/components/schemas/NonEmptyString"
+              },
+              "dayOfDeliveryDate" : {
+                "$ref" : "#/components/schemas/Date"
+              },
+              "originalDayOfDeliveryDate" : {
+                "$ref" : "#/components/schemas/Date"
+              },
+              "bookingWindow" : {
+                "$ref" : "#/components/schemas/DateWindow"
+              },
+              "originalBookingWindow" : {
+                "$ref" : "#/components/schemas/DateWindow"
+              },
+              "originDeliveryWindow" : {
+                "$ref" : "#/components/schemas/DateWindow"
+              },
+              "originalOriginDeliveryWindow" : {
+                "$ref" : "#/components/schemas/DateWindow"
+              },
+              "shippingWindow" : {
+                "$ref" : "#/components/schemas/DateWindow"
+              },
+              "originalShippingWindow" : {
+                "$ref" : "#/components/schemas/DateWindow"
+              },
+              "arrivalWindow" : {
+                "$ref" : "#/components/schemas/DateWindow"
+              },
+              "originalArrivalWindow" : {
+                "$ref" : "#/components/schemas/DateWindow"
+              },
+              "destinationDeliveryWindow" : {
+                "$ref" : "#/components/schemas/DateWindow"
+              },
+              "originalDestinationDeliveryWindow" : {
+                "$ref" : "#/components/schemas/DateWindow"
+              }
+            }
+          },
+          "itemDetails" : {
+            "type" : "object",
+            "properties" : {
+              "orderedQuantity" : {
+                "$ref" : "#/components/schemas/Quantity"
+              },
+              "itemNetWeight" : {
+                "$ref" : "#/components/schemas/Weight"
+              },
+              "originalOrderedQuantity" : {
+                "$ref" : "#/components/schemas/Quantity"
+              },
+              "packSize" : {
+                "$ref" : "#/components/schemas/Integer"
+              }
+            }
+          },
+          "packageDetails" : {
+            "type" : "object",
+            "properties" : {
+              "quantityPerPackage" : {
+                "$ref" : "#/components/schemas/Integer"
+              },
+              "expectedNumberOfPackages" : {
+                "$ref" : "#/components/schemas/Packages"
+              },
+              "expectedPackageWeight" : {
+                "$ref" : "#/components/schemas/Weight"
+              },
+              "expectedPackageVolume" : {
+                "$ref" : "#/components/schemas/Volume"
+              },
+              "packageLength" : {
+                "$ref" : "#/components/schemas/Length"
+              },
+              "packageWidth" : {
+                "$ref" : "#/components/schemas/Width"
+              },
+              "packageHeight" : {
+                "$ref" : "#/components/schemas/Height"
+              },
+              "itemPackaged" : {
+                "type" : "boolean"
+              }
+            }
+          },
+          "packingStructure" : {
+            "type" : "object",
+            "properties" : {
+              "quantityPerInnerPackage" : {
+                "$ref" : "#/components/schemas/Integer"
+              },
+              "numberOfInnerPerOuter" : {
+                "$ref" : "#/components/schemas/Integer"
+              },
+              "numberOfPackagesPerPallet" : {
+                "$ref" : "#/components/schemas/Integer"
+              }
+            }
+          },
+          "pricing" : {
+            "type" : "object",
+            "properties" : {
+              "totalOrderValue" : {
+                "$ref" : "#/components/schemas/Money"
+              },
+              "buyingPrice" : {
+                "$ref" : "#/components/schemas/Money"
+              },
+              "buyingPriceBase" : {
+                "$ref" : "#/components/schemas/NonEmptyString"
+              },
+              "sellingPrice" : {
+                "$ref" : "#/components/schemas/Money"
+              },
+              "ticketRetailPrice" : {
+                "$ref" : "#/components/schemas/Money"
+              },
+              "msrp" : {
+                "$ref" : "#/components/schemas/Money"
+              },
+              "originalBuyingPrice" : {
+                "$ref" : "#/components/schemas/Money"
+              }
+            }
+          },
+          "destinationWarehouseHandling" : {
+            "type" : "object",
+            "properties" : {
+              "casesPerPalletLayer" : {
+                "$ref" : "#/components/schemas/Integer"
+              },
+              "layersPerPallet" : {
+                "$ref" : "#/components/schemas/Integer"
+              },
+              "packType" : {
+                "$ref" : "#/components/schemas/NonEmptyString"
+              },
+              "putawayUnitCode" : {
+                "$ref" : "#/components/schemas/NonEmptyString"
+              },
+              "putawayUnitName" : {
+                "$ref" : "#/components/schemas/NonEmptyString"
+              }
+            }
+          },
+          "customerSpecific" : {
+            "type" : "object",
+            "properties" : {
+              "string1" : {
+                "$ref" : "#/components/schemas/NonEmptyString"
+              },
+              "string2" : {
+                "$ref" : "#/components/schemas/NonEmptyString"
+              },
+              "string3" : {
+                "$ref" : "#/components/schemas/NonEmptyString"
+              },
+              "string4" : {
+                "$ref" : "#/components/schemas/NonEmptyString"
+              },
+              "string5" : {
+                "$ref" : "#/components/schemas/NonEmptyString"
+              },
+              "string6" : {
+                "$ref" : "#/components/schemas/NonEmptyString"
+              },
+              "string7" : {
+                "$ref" : "#/components/schemas/NonEmptyString"
+              },
+              "string8" : {
+                "$ref" : "#/components/schemas/NonEmptyString"
+              },
+              "string9" : {
+                "$ref" : "#/components/schemas/NonEmptyString"
+              },
+              "string10" : {
+                "$ref" : "#/components/schemas/NonEmptyString"
+              },
+              "bool1" : {
+                "type" : "boolean"
+              },
+              "bool2" : {
+                "type" : "boolean"
+              },
+              "bool3" : {
+                "type" : "boolean"
+              },
+              "bool4" : {
+                "type" : "boolean"
+              },
+              "bool5" : {
+                "type" : "boolean"
+              },
+              "bool6" : {
+                "type" : "boolean"
+              },
+              "bool7" : {
+                "type" : "boolean"
+              },
+              "bool8" : {
+                "type" : "boolean"
+              },
+              "bool9" : {
+                "type" : "boolean"
+              },
+              "bool10" : {
+                "type" : "boolean"
+              }
+            },
+            "description" : "This section of order attributes contains the customer specific order attributes as defined by the customer's order configuration.\n"
+          }
+        }
+      },
+      "PackageInformation" : {
+        "type" : "object",
+        "properties" : {
+          "weight" : {
+            "$ref" : "#/components/schemas/Weight"
+          },
+          "volume" : {
+            "$ref" : "#/components/schemas/Volume"
+          },
+          "packages" : {
+            "$ref" : "#/components/schemas/Packages"
+          },
+          "height" : {
+            "$ref" : "#/components/schemas/Height"
+          },
+          "width" : {
+            "$ref" : "#/components/schemas/Width"
+          },
+          "length" : {
+            "$ref" : "#/components/schemas/Length"
+          },
+          "containerNumber" : {
+            "$ref" : "#/components/schemas/ContainerNumber"
+          },
+          "containerLoadingSequence" : {
+            "$ref" : "#/components/schemas/PositiveInteger"
+          }
+        }
+      },
+      "PurchaseOrderLineAllocation" : {
+        "required" : [ "orderLine", "packageInformation", "quantity" ],
+        "type" : "object",
+        "properties" : {
+          "orderLine" : {
+            "$ref" : "#/components/schemas/OrderAttributes"
+          },
+          "quantity" : {
+            "$ref" : "#/components/schemas/Quantity"
+          },
+          "packageInformation" : {
+            "$ref" : "#/components/schemas/PackageInformation"
+          }
+        }
+      },
+      "PurchaseOrder" : {
+        "required" : [ "parties", "purchaseOrderNumber" ],
+        "type" : "object",
+        "properties" : {
+          "purchaseOrderNumber" : {
+            "$ref" : "#/components/schemas/NonEmptyString"
+          },
+          "parties" : {
+            "$ref" : "#/components/schemas/Parties"
+          },
+          "orderHeader" : {
+            "$ref" : "#/components/schemas/OrderAttributes"
+          },
+          "purchaseOrderLineAllocations" : {
+            "minItems" : 0,
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/PurchaseOrderLineAllocation"
+            }
+          }
+        }
+      },
+      "Problem" : {
+        "required" : [ "detail", "title" ],
+        "type" : "object",
+        "properties" : {
+          "type" : {
+            "type" : "string",
+            "description" : "A URI reference that uniquely identifies the problem type only in the context of the provided API. Opposed to the specification in RFC-7807, it is neither recommended to be dereferencable and point to a human-readable documentation nor globally unique for the problem type.\n",
+            "format" : "uri-reference",
+            "example" : "/problem/connection-error",
+            "default" : "about:blank"
+          },
+          "title" : {
+            "type" : "string",
+            "description" : "A short summary of the problem type. Written in English and readable for engineers, usually not suited for non technical stakeholders and not localized.\n",
+            "example" : "Service Unavailable"
+          },
+          "status" : {
+            "maximum" : 600,
+            "exclusiveMaximum" : true,
+            "minimum" : 100,
+            "type" : "integer",
+            "description" : "The HTTP status code generated by the origin server for this occurrence of the problem.\n",
+            "format" : "int32",
+            "example" : 503
+          },
+          "detail" : {
+            "type" : "string",
+            "description" : "A human readable explanation specific to this occurrence of the problem that is helpful to locate the problem and give advice on how to proceed. Written in English and readable for engineers, usually not suited for non technical stakeholders and not localized.\n",
+            "example" : "Connection to database timed out"
+          },
+          "instance" : {
+            "type" : "string",
+            "description" : "A URI reference that identifies the specific occurrence of the problem, e.g. by adding a fragment identifier or sub-path to the problem type. May be used to locate the root of this problem in the source code.\n",
+            "format" : "uri-reference",
+            "example" : "/problem/connection-error#token-info-read-timed-out"
+          }
+        }
+      },
+      "BookingNumber" : {
+        "maxLength" : 12,
+        "minLength" : 12,
+        "type" : "string",
+        "example" : "CN1234567890"
+      },
+      "ProcessStateId" : {
+        "type" : "string",
+        "description" : "Unique identifier of the requested operation",
+        "format" : "uuid",
+        "example" : "930f1d05-5be4-4496-bb2b-3f40e60b3749"
+      },
+      "BookingCreated" : {
+        "required" : [ "bookingNumber", "processStateId" ],
+        "type" : "object",
+        "properties" : {
+          "bookingNumber" : {
+            "$ref" : "#/components/schemas/BookingNumber"
+          },
+          "processStateId" : {
+            "$ref" : "#/components/schemas/ProcessStateId"
+          }
+        },
+        "description" : "BookingCreated confirms that the booking is created. Further asynchronous operations like the\norder line allocation are scheduled for the booking. It identifies the booking and the request regarding that booking.\n"
+      },
+      "BookingAccepted" : {
+        "required" : [ "bookingNumber", "processStateId" ],
+        "type" : "object",
+        "properties" : {
+          "bookingNumber" : {
+            "$ref" : "#/components/schemas/BookingNumber"
+          },
+          "processStateId" : {
+            "$ref" : "#/components/schemas/ProcessStateId"
+          }
+        },
+        "description" : "BookingAccepted is a positive confirmation of an asynchronous booking\nrelated request. It identifies the booking and the request regarding\nthat booking.\n"
+      },
+      "ProcessState" : {
+        "type" : "string",
+        "x-extensible-enum" : [ "IN_PROGRESS", "FINISHED", "ABORTED" ]
+      },
+      "ProcessStep" : {
+        "type" : "string",
+        "x-extensible-enum" : [ "BOOKING_CREATED", "ORDERS_IMPORTED", "BOOKING_IN_CREATION_VALIDATED", "EXCEPTIONS_EVALUATED", "BOOKING_REQUESTED" ]
+      },
+      "ProcessError" : {
+        "type" : "string"
+      },
+      "ProcessStateResponse" : {
+        "required" : [ "errors", "lastFinishedProcessStep", "processState", "processStateId" ],
+        "type" : "object",
+        "properties" : {
+          "bookingNumber" : {
+            "$ref" : "#/components/schemas/BookingNumber"
+          },
+          "processStateId" : {
+            "$ref" : "#/components/schemas/ProcessStateId"
+          },
+          "processState" : {
+            "$ref" : "#/components/schemas/ProcessState"
+          },
+          "lastFinishedProcessStep" : {
+            "$ref" : "#/components/schemas/ProcessStep"
+          },
+          "errors" : {
+            "minItems" : 0,
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/ProcessError"
+            }
+          }
+        }
+      }
+    },
+    "responses" : {
+      "default" : {
+        "description" : "Default Response for Error Cases",
+        "content" : {
+          "application/problem+json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/Problem"
+            }
+          }
+        }
+      }
+    },
+    "parameters" : {
+      "ShippersReferenceParam" : {
+        "name" : "shippersReference",
+        "in" : "path",
+        "description" : "The shippers reference identifies a booking from a shippers point of view.",
+        "required" : true,
+        "style" : "simple",
+        "explode" : false,
+        "schema" : {
+          "$ref" : "#/components/schemas/ShippersReference"
+        }
+      },
+      "ProcessStateIdParam" : {
+        "name" : "processStateId",
+        "in" : "path",
+        "description" : "The processStateIdParam identifies an booking process state.",
+        "required" : true,
+        "style" : "simple",
+        "explode" : false,
+        "schema" : {
+          "$ref" : "#/components/schemas/ProcessStateId"
+        }
+      }
+    },
+    "securitySchemes" : {
+      "default" : {
+        "type" : "oauth2",
+        "flows" : {
+          "implicit" : {
+            "authorizationUrl" : "https://internal.api.kuehne-nagel.com/authorize",
+            "scopes" : { }
+          }
+        }
+      }
+    }
+  }
+}

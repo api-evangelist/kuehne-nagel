@@ -1,0 +1,50 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "B2B-CustomsEDI",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "apikey",
+      "value": "{{apikey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "POST /order",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://gateway.api.kuehne-nagel.com/b2b/customs/edi/v1/order",
+        "auth": {
+          "type": "apikey",
+          "key": "apikey",
+          "value": "{{apikey}}",
+          "placement": "header"
+        }
+      }
+    },
+    {
+      "info": {
+        "name": "POST /document",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://gateway.api.kuehne-nagel.com/b2b/customs/edi/v1/document",
+        "auth": {
+          "type": "apikey",
+          "key": "apikey",
+          "value": "{{apikey}}",
+          "placement": "header"
+        }
+      }
+    }
+  ],
+  "bundled": true
+}

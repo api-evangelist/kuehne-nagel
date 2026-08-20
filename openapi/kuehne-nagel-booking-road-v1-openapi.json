@@ -1,0 +1,1117 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "BookingRoad",
+    "description" : "Interface for sending external booking requests to KN Road",
+    "contact" : {
+      "name" : "Global Road API Support",
+      "url" : "https://home.kuehne-nagel.com/en/service-request-api-road?lead_topic=api-support-road",
+      "email" : "GLOBAL.API.ROAD.Support@kuehne-nagel.com"
+    },
+    "version" : "v1",
+    "x-api-id" : "7c78465d-bd97-48d0-8b1f-1230281a0bef",
+    "x-api-guideline-version" : "1.9.4"
+  },
+  "servers" : [ {
+    "url" : "https://internal.api.kuehne-nagel.com/booking/road/v1"
+  } ],
+  "security" : [ {
+    "default" : [ ]
+  }, {
+    "api_key" : [ ]
+  } ],
+  "tags" : [ {
+    "name" : "Master Data"
+  }, {
+    "name" : "Booking Requests"
+  }, {
+    "name" : "Document Request"
+  } ],
+  "paths" : {
+    "/master-data-categories" : {
+      "get" : {
+        "tags" : [ "Master Data" ],
+        "summary" : "Get master data mapping categories",
+        "description" : "Retrieves all available master data categories.",
+        "operationId" : "getMasterDataCategories",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/MasterDataCategoryList"
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Unexpected error",
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : { }
+                }
+              }
+            }
+          }
+        },
+        "deprecated" : false,
+        "security" : [ {
+          "default" : [ ]
+        }, {
+          "api_key" : [ ]
+        } ],
+        "x-throttling-tier" : "10KPerMin",
+        "x-auth-type" : "Application & Application User"
+      }
+    },
+    "/master-data-categories/{category}" : {
+      "get" : {
+        "tags" : [ "Master Data" ],
+        "summary" : "Get master data mapping category details",
+        "description" : "Retrieves details of one master data category.",
+        "operationId" : "getMasterDataCategoryDetails",
+        "parameters" : [ {
+          "name" : "category",
+          "in" : "path",
+          "description" : "Master data category to read from",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "maxLength" : 20,
+            "minLength" : 1,
+            "type" : "string"
+          },
+          "example" : ""
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/MasterDataCategory"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Requested category does not exist.",
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : { }
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Unexpected error",
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : { }
+                }
+              }
+            }
+          }
+        },
+        "deprecated" : false,
+        "security" : [ {
+          "default" : [ ]
+        }, {
+          "api_key" : [ ]
+        } ],
+        "x-throttling-tier" : "10KPerMin",
+        "x-auth-type" : "Application & Application User"
+      }
+    },
+    "/master-data-categories/{category}/values" : {
+      "get" : {
+        "tags" : [ "Master Data" ],
+        "summary" : "Get master data mapping values",
+        "description" : "Retrieves all possible values for the given master data category.",
+        "operationId" : "getMasterDataValues",
+        "parameters" : [ {
+          "name" : "category",
+          "in" : "path",
+          "description" : "Master data category to read from",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "maxLength" : 20,
+            "minLength" : 1,
+            "type" : "string"
+          },
+          "example" : ""
+        }, {
+          "name" : "cursor",
+          "in" : "query",
+          "description" : "Optional cursor to use with pagination",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "maxLength" : 100,
+            "minLength" : 1,
+            "type" : "string"
+          }
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "Optional limit to the number of results returned to use with pagination",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "maximum" : 1000,
+            "minimum" : 1,
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Ok",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/MasterDataValues"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Requested category does not exist.",
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : { }
+                }
+              }
+            }
+          },
+          "500" : {
+            "description" : "Unexpected error",
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : { }
+                }
+              }
+            }
+          }
+        },
+        "deprecated" : false,
+        "security" : [ {
+          "default" : [ ]
+        }, {
+          "api_key" : [ ]
+        } ],
+        "x-throttling-tier" : "10KPerMin",
+        "x-auth-type" : "Application & Application User"
+      }
+    },
+    "/bookings" : {
+      "post" : {
+        "tags" : [ "Booking Requests" ],
+        "summary" : "Create Booking Request",
+        "description" : "Submits a booking creation request that will be routed to the appropriate business team for processing.",
+        "operationId" : "createBooking",
+        "parameters" : [ ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/BookingRequest"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Unexpected error",
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : { }
+                }
+              }
+            }
+          },
+          "201" : {
+            "description" : "Booking created",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/BookingResponse"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Request has invalid format or missing components",
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : { }
+                }
+              }
+            }
+          },
+          "403" : {
+            "description" : "Request not accepted due to restrictions on user",
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : { }
+                }
+              }
+            }
+          }
+        },
+        "deprecated" : false,
+        "security" : [ {
+          "default" : [ ]
+        }, {
+          "api_key" : [ ]
+        } ],
+        "x-throttling-tier" : "10KPerMin",
+        "x-auth-type" : "Application & Application User"
+      }
+    },
+    "/document" : {
+      "post" : {
+        "tags" : [ "Document Request" ],
+        "summary" : "Upload Document Request",
+        "description" : "## General\nUpload a document for any Road Shipment.\n\n\n### Accepted Document Types\nPDF, TIFF, JPEG, DOCX, XLSX, etc\n\n\n:::tip[Document Extension]\nDo not include the period [ . ] in the document extension in the JSON request. \n:::\n\n### Accepted Document Codes\n| DocumentCode | Document Description                   |\n|:----------:|----------------------------------------|\n| 0.03     | Quality inspection cert                |\n| 0.11     | Temperature timetable                  |\n| 0.12     | Temperature readout                    |\n| 0.53     | Safety data sheet                      |\n| 105      | Purchase order                         |\n| 131      | Declaration of Undertaking             |\n| 167      | Carta Porte                            |\n| 171      | pick up notice                         |\n| 260      | Certificate of Conformity              |\n| 263      | Certificate of Analysis                |\n| 270      | Delivery note                          |\n| 271      | Packing list                           |\n| 325      | Proforma invoice                       |\n| 340      | Shipper/vendor docs                    |\n| 342      | Export cargo instructions              |\n| 351      | Notice of shipment                     |\n| 380      | Commercial invoice                     |\n| 387      | Temperature readout                    |\n| 388      | Temp readout depot                     |\n| 390      | DG Declaration                         |\n| 510      | Client documents                       |\n| 515      | Pallet list out signed                 |\n| 516      | Transport order signed                 |\n| 517      | CMR                                    |\n| 521      | Delivery Note                          |\n| 522      | Driver delivery manifest signed        |\n| 523      | Consignment note signed                |\n| 546      | Subsequent POD with differences        |\n| 630      | Shipping order                         |\n| 640      | Delivery order                         |\n| 707      | Bill of lading copy                    |\n| 821      | Despatch note T1                       |\n| 825      | Transit accompany doc                  |\n| 833      | Export declaration                     |\n| 860      | Certificate of Origin                  |\n| 929      | Customs entry                          |\n| 944      | Customs documents                      |\n| 953      | Eur1                                   |\n| 990      | Power of Attorney                      |\n| 913      | Customs declaration                    |\n\n\n",
+        "operationId" : "uploadDocument",
+        "parameters" : [ ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "required" : [ "base64EncodedDocument", "bookingID", "customerId", "customerKey", "documentCode", "documentExtension" ],
+                "type" : "object",
+                "properties" : {
+                  "customerId" : {
+                    "type" : "string",
+                    "description" : "Key or code indicating customer or customer sub-entity. Negotiated with Kuehne + Nagel ahead of time."
+                  },
+                  "customerKey" : {
+                    "type" : "string",
+                    "description" : "Additional key or code indicating customer or customer sub-entity. Negotiated with Kuehne + Nagel ahead of time."
+                  },
+                  "documentCode" : {
+                    "type" : "string",
+                    "description" : "See accepted codes in the API description."
+                  },
+                  "documentExtension" : {
+                    "type" : "string",
+                    "description" : "API supports PDF, TIFF, JPEG, EML, XLSX. Do not include the period in the extension."
+                  },
+                  "bookingID" : {
+                    "type" : "string",
+                    "description" : "Unique identifier for a submitted booking. Also referred to as a CommRef. The booking endpoint will return this value in the response."
+                  },
+                  "base64EncodedDocument" : {
+                    "type" : "string",
+                    "description" : "The content of the document, encoded as a Base64 string. This allows binary files (e.g., PDF, DOCX, PNG) to be transmitted over the API as plain text within a JSON object."
+                  }
+                }
+              },
+              "example" : {
+                "customerID" : "1234",
+                "customerKey" : "12345-54251-525114",
+                "documentCode" : "340",
+                "documentExtension" : "pdf",
+                "bookingID" : "RAPI000812521",
+                "base64EncodedDocument" : "BASE64EncodedDocument5854sdf51sd5f4sd35f486435s4das51dasfgdf"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "required" : [ "transactionID", "uploadConfirmationID", "uploadIsSuccessful" ],
+                  "type" : "object",
+                  "properties" : {
+                    "errorMessage" : {
+                      "type" : "string",
+                      "description" : "Successful bookings will not have an error message.",
+                      "nullable" : true
+                    },
+                    "uploadConfirmationID" : {
+                      "type" : "string",
+                      "description" : "Unique Identifier for a successful document upload."
+                    },
+                    "uploadIsSuccessful" : {
+                      "type" : "boolean",
+                      "description" : "True or false indicator if the document upload request is successful."
+                    },
+                    "transactionID" : {
+                      "type" : "string",
+                      "description" : "A unique identifier used for troubleshooting"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "deprecated" : false,
+        "security" : [ {
+          "default" : [ ]
+        }, {
+          "api_key" : [ ]
+        } ],
+        "x-throttling-tier" : "10KPerMin",
+        "x-auth-type" : "Application & Application User"
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "MasterDataCategory" : {
+        "required" : [ "name", "values" ],
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "maxLength" : 20,
+            "minLength" : 1,
+            "type" : "string",
+            "example" : "reference-types"
+          },
+          "values" : {
+            "maxLength" : 200,
+            "minLength" : 1,
+            "type" : "string",
+            "example" : ".../master-data-categories/<category-name>/values"
+          }
+        }
+      },
+      "MasterDataCategoryList" : {
+        "required" : [ "items" ],
+        "type" : "object",
+        "properties" : {
+          "items" : {
+            "maxItems" : 100,
+            "type" : "array",
+            "items" : {
+              "maxLength" : 20,
+              "minLength" : 1,
+              "type" : "string",
+              "example" : "reference-types"
+            }
+          }
+        }
+      },
+      "MasterDataMapping" : {
+        "required" : [ "description", "value" ],
+        "type" : "object",
+        "properties" : {
+          "value" : {
+            "maxLength" : 50,
+            "minLength" : 1,
+            "type" : "string",
+            "example" : "MTQ"
+          },
+          "description" : {
+            "maxLength" : 250,
+            "type" : "string",
+            "example" : "cubic metre"
+          }
+        }
+      },
+      "MasterDataValues" : {
+        "required" : [ "items" ],
+        "type" : "object",
+        "properties" : {
+          "self" : {
+            "maxLength" : 200,
+            "minLength" : 1,
+            "type" : "string",
+            "example" : ".../bookings?cursor=<self-position>"
+          },
+          "first" : {
+            "maxLength" : 200,
+            "minLength" : 1,
+            "type" : "string",
+            "example" : ".../bookings?cursor=<first-position>"
+          },
+          "prev" : {
+            "maxLength" : 200,
+            "minLength" : 1,
+            "type" : "string",
+            "example" : ".../bookings?cursor=<prev-position>"
+          },
+          "next" : {
+            "maxLength" : 200,
+            "minLength" : 1,
+            "type" : "string",
+            "example" : ".../bookings?cursor=<next-position>"
+          },
+          "last" : {
+            "maxLength" : 200,
+            "minLength" : 1,
+            "type" : "string",
+            "example" : ".../bookings?cursor=<last-position>"
+          },
+          "items" : {
+            "maxItems" : 1000,
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/MasterDataMapping"
+            }
+          }
+        }
+      },
+      "BookingRequest" : {
+        "required" : [ "cargoItems", "consigneeParty", "customerId", "customerKey", "deliveryLocation", "pickupLocation", "shipperParty" ],
+        "type" : "object",
+        "properties" : {
+          "customerId" : {
+            "maxLength" : 50,
+            "minLength" : 1,
+            "type" : "string",
+            "description" : "Key or code indicating customer or customer sub-entity. Negotiated with Kuehne + Nagel ahead of time.",
+            "example" : "CustomerBranchWest"
+          },
+          "customerKey" : {
+            "maxLength" : 50,
+            "minLength" : 1,
+            "type" : "string",
+            "description" : "Additional key or code indicating customer or customer sub-entity. Negotiated with Kuehne + Nagel ahead of time."
+          },
+          "bookingFlags" : {
+            "$ref" : "#/components/schemas/BookingFlagsModel"
+          },
+          "bookingOptions" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/BookingOptionsModel"
+            }
+          },
+          "dangerousGoodsPackageCount" : {
+            "maximum" : 999999,
+            "minimum" : 0,
+            "type" : "integer",
+            "description" : "Denotes whether the cargo booking contains any dangerous goods, and if so, in what quantity.",
+            "format" : "int32",
+            "default" : 0
+          },
+          "incoterm" : {
+            "$ref" : "#/components/schemas/IncoTermModel"
+          },
+          "totalMonetaryValue" : {
+            "$ref" : "#/components/schemas/MonetaryValueModel"
+          },
+          "shipperParty" : {
+            "$ref" : "#/components/schemas/PartyModel"
+          },
+          "consigneeParty" : {
+            "$ref" : "#/components/schemas/PartyModel"
+          },
+          "billToParty" : {
+            "$ref" : "#/components/schemas/PartyModel"
+          },
+          "notifyParty" : {
+            "$ref" : "#/components/schemas/PartyModel"
+          },
+          "pickupLocation" : {
+            "$ref" : "#/components/schemas/LocationModel"
+          },
+          "deliveryLocation" : {
+            "$ref" : "#/components/schemas/LocationModel"
+          },
+          "cargoItems" : {
+            "maxItems" : 100,
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/CargoItemModel"
+            }
+          }
+        }
+      },
+      "ContactModel" : {
+        "required" : [ "name" ],
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string"
+          },
+          "phone" : {
+            "type" : "string"
+          },
+          "mobilePhone" : {
+            "type" : "string"
+          },
+          "email" : {
+            "type" : "string"
+          }
+        }
+      },
+      "Problem" : {
+        "required" : [ "detail", "title" ],
+        "type" : "object",
+        "properties" : {
+          "type" : {
+            "type" : "string",
+            "description" : "A URI reference that uniquely identifies the problem type only in the context of the provided API. Opposed to the specification in RFC-7807, it is neither recommended to be dereferencable and point to a human-readable documentation nor globally unique for the problem type.\n",
+            "format" : "uri-reference",
+            "example" : "/problem/container-unavailable",
+            "default" : "about:blank"
+          },
+          "title" : {
+            "maxLength" : 128,
+            "type" : "string",
+            "description" : "A short summary of the problem type. Written in English and readable for engineers, usually not suited for non technical stakeholders and not localized.\n",
+            "example" : "The requested container is not available."
+          },
+          "status" : {
+            "maximum" : 600,
+            "exclusiveMaximum" : true,
+            "minimum" : 100,
+            "type" : "integer",
+            "description" : "The HTTP status code generated by the origin server for this occurrence of the problem.\n",
+            "format" : "int32",
+            "example" : 409
+          },
+          "detail" : {
+            "maxLength" : 256,
+            "type" : "string",
+            "description" : "A human readable explanation specific to this occurrence of the problem that is helpful to locate the problem and give advice on how to proceed. Written in English and readable for engineers, usually not suited for non technical stakeholders and not localized.\n",
+            "example" : "The requested container is already in use during the requested period."
+          },
+          "instance" : {
+            "type" : "string",
+            "description" : "A URI reference that identifies the specific occurrence of the problem, e.g. by adding a fragment identifier or sub-path to the problem type. May be used to locate the root of this problem in the source code.\n",
+            "format" : "uri-reference",
+            "example" : "/problem/container-unavailable#SKNU1234569"
+          }
+        }
+      },
+      "BookingResponse" : {
+        "required" : [ "bookingID", "bookingIsSuccessful", "errorMessage", "shipmentLabel", "transactionID" ],
+        "type" : "object",
+        "properties" : {
+          "errorMessage" : {
+            "minLength" : 0,
+            "type" : "string",
+            "description" : "Indicates problems with current booking request, if any. If booking was successful, will be blank.",
+            "example" : ""
+          },
+          "bookingID" : {
+            "maxLength" : 12,
+            "minLength" : 0,
+            "type" : "string",
+            "description" : "Unique identifier for the submitted booking. If booking was unsuccessful, will be blank.",
+            "example" : "RAPI00000500"
+          },
+          "transactionID" : {
+            "minLength" : 1,
+            "type" : "string",
+            "description" : "Unique identifier for the API transaction, used for debugging.",
+            "example" : "800100"
+          },
+          "bookingIsSuccessful" : {
+            "type" : "boolean",
+            "description" : "Indicates whether the booking was successful"
+          },
+          "shipmentLabel" : {
+            "$ref" : "#/components/schemas/LabelResponse"
+          }
+        }
+      },
+      "LabelResponse" : {
+        "required" : [ "barcodeValue", "labelPdfBase64Encoded" ],
+        "type" : "object",
+        "properties" : {
+          "barcodeValue" : {
+            "type" : "array",
+            "description" : "List of generates barcode values for the booking, represented on the related label. If booking was unsuccessful, will be empty.",
+            "items" : {
+              "maxLength" : 20,
+              "minLength" : 0,
+              "type" : "string",
+              "example" : "840482858000000000"
+            }
+          },
+          "labelPdfBase64Encoded" : {
+            "minLength" : 0,
+            "type" : "string",
+            "description" : "Base64 encoded label PDF, automatically generated with booking details and barcodes. If booking was unsuccessful, will be blank."
+          },
+          "labelZpl" : {
+            "type" : "array",
+            "description" : "Optional ZPL based label format.",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        }
+      },
+      "BookingFlagsModel" : {
+        "type" : "object",
+        "properties" : {
+          "appointmentRequired" : {
+            "type" : "boolean",
+            "default" : false
+          },
+          "tailLiftRequired" : {
+            "type" : "boolean",
+            "default" : false
+          },
+          "highValue" : {
+            "type" : "boolean",
+            "default" : false
+          },
+          "oversizedGoods" : {
+            "type" : "boolean",
+            "default" : false
+          },
+          "privateConsignee" : {
+            "type" : "boolean",
+            "default" : false
+          },
+          "insurance" : {
+            "type" : "boolean",
+            "default" : false
+          }
+        },
+        "description" : "Collection of flags denoting various conditions that apply to cargo booking as a whole."
+      },
+      "BookingOptionsModel" : {
+        "required" : [ "code" ],
+        "type" : "object",
+        "properties" : {
+          "code" : {
+            "maxLength" : 3,
+            "minLength" : 1,
+            "type" : "string",
+            "description" : "Option code determined by master data \"booking-options\" category. Call endpoint  /master-data-categories/booking-options/values for possible values.",
+            "example" : "RA"
+          },
+          "value" : {
+            "minLength" : 0,
+            "type" : "string",
+            "description" : "Optional value to accompany an option code. Not every option code requires a value, but when one is needed, this field supplies the relevant additional details.",
+            "example" : "17"
+          }
+        },
+        "description" : "A single free-form option for the booking. Allows for enabling or specifying many different types of details, chosen from a pre-defined list of options and pre-negotiated with Kuehne + Nagel. Not every option code requires a value to be entered alongside."
+      },
+      "IncoTermModel" : {
+        "type" : "object",
+        "properties" : {
+          "code" : {
+            "maxLength" : 3,
+            "minLength" : 1,
+            "type" : "string",
+            "description" : "Incoterm code determined by master data \"incoterms\" category. Call endpoint /master-data-categories/incoterms/values for possible values.",
+            "example" : "CTO"
+          },
+          "location" : {
+            "maxLength" : 35,
+            "type" : "string",
+            "example" : "hub1"
+          }
+        },
+        "description" : "Denotes incoterms that apply to the cargo booking as a whole."
+      },
+      "MonetaryValueModel" : {
+        "required" : [ "totalValue", "valueCurrency" ],
+        "type" : "object",
+        "properties" : {
+          "totalValue" : {
+            "multipleOf" : 0.01,
+            "maximum" : 99999999.99,
+            "minimum" : 0,
+            "type" : "number",
+            "format" : "double"
+          },
+          "valueCurrency" : {
+            "maxLength" : 3,
+            "minLength" : 1,
+            "type" : "string",
+            "description" : "Currency code determined by master data \"currencies\" category. Call endpoint /master-data-categories/currencies/values for possible values.",
+            "example" : "EUR"
+          }
+        }
+      },
+      "PartyModel" : {
+        "required" : [ "address" ],
+        "type" : "object",
+        "properties" : {
+          "address" : {
+            "$ref" : "#/components/schemas/AddressModel"
+          },
+          "references" : {
+            "maxItems" : 100,
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/ReferenceModel"
+            }
+          }
+        },
+        "description" : "A party, involved with the cargo booking. Often represents a Freight Payer, a Shipper, a Consignee, or a Bill-To party, to name a few. Negotiate with Kuehne + Nagel ahead of time to determine which parties are important for your specific transactions."
+      },
+      "AddressModel" : {
+        "required" : [ "city", "countryCode", "name1", "postalCode", "street1" ],
+        "type" : "object",
+        "properties" : {
+          "name1" : {
+            "maxLength" : 35,
+            "minLength" : 1,
+            "type" : "string",
+            "description" : "Name or title of the party or location."
+          },
+          "name2" : {
+            "maxLength" : 35,
+            "type" : "string",
+            "description" : "Additional name or title information."
+          },
+          "street1" : {
+            "maxLength" : 35,
+            "minLength" : 1,
+            "type" : "string",
+            "description" : "Street address or PO box."
+          },
+          "street2" : {
+            "maxLength" : 35,
+            "type" : "string",
+            "description" : "Unit numbers, or additional street address information which did not fit in Street1."
+          },
+          "city" : {
+            "maxLength" : 35,
+            "minLength" : 1,
+            "type" : "string",
+            "description" : "Full city name."
+          },
+          "stateProvinceCode" : {
+            "maxLength" : 3,
+            "minLength" : 1,
+            "type" : "string",
+            "description" : "State/Province code determined by master data \"region-codes\" category. Call endpoint /master-data-categories/region-codes/values for possible values.",
+            "example" : "HH"
+          },
+          "postalCode" : {
+            "maxLength" : 12,
+            "type" : "string",
+            "description" : "Postal or zip code in native format for the country.",
+            "example" : "20354"
+          },
+          "countryCode" : {
+            "maxLength" : 2,
+            "minLength" : 1,
+            "type" : "string",
+            "description" : "Country code determined by master data \"country-codes\" category. Call endpoint /master-data-categories/country-codes/values for possible values.",
+            "example" : "DE"
+          }
+        },
+        "description" : "A named address, representing a party or location involved with the freight booking request."
+      },
+      "ReferenceModel" : {
+        "required" : [ "code", "value" ],
+        "type" : "object",
+        "properties" : {
+          "code" : {
+            "maxLength" : 3,
+            "minLength" : 1,
+            "type" : "string",
+            "description" : "Reference type determined by master data \"reference-types\" category. Call endpoint /master-data-categories/reference-types/values for possible values.",
+            "example" : "SRN"
+          },
+          "value" : {
+            "maxLength" : 35,
+            "type" : "string"
+          }
+        },
+        "description" : "A shipping reference associated with either the named address, or the cargo booking as a whole."
+      },
+      "LocationModel" : {
+        "required" : [ "address", "contact" ],
+        "type" : "object",
+        "properties" : {
+          "address" : {
+            "$ref" : "#/components/schemas/AddressModel"
+          },
+          "requestDate" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "REQUIRED FOR PICKUP LOCATION. The requested date in which a transport should arrive at a waypoint, or is expected at a waypoint. Formatted based on YYYY-MM-DD."
+          },
+          "requestBeginTime" : {
+            "maxLength" : 14,
+            "minLength" : 6,
+            "type" : "string",
+            "description" : "An optional addition to the Request Date to define the earliest time in the day expected. Formatted based on a 24-hour clock, with timezone information appended to the end.",
+            "format" : "time",
+            "example" : "13:30:00Z"
+          },
+          "requestEndTime" : {
+            "maxLength" : 14,
+            "minLength" : 6,
+            "type" : "string",
+            "description" : "An optional addition to the Request Date to define the latest time in the day expected. Formatted based on a 24-hour clock, with timezone information appended to the end.",
+            "format" : "time",
+            "example" : "19:00:00+01:00"
+          },
+          "additionalInformation" : {
+            "maxLength" : 210,
+            "type" : "string",
+            "description" : "Any additional instructions relevant to the waypoint or to the transport at this particular waypoint."
+          },
+          "contact" : {
+            "$ref" : "#/components/schemas/ContactModel"
+          }
+        },
+        "description" : "One location that comprises the overall journey of a freight booking request."
+      },
+      "CargoItemModel" : {
+        "required" : [ "description", "packageCount", "packageType", "weight", "weightUom" ],
+        "type" : "object",
+        "properties" : {
+          "description" : {
+            "maxLength" : 20,
+            "minLength" : 1,
+            "type" : "string",
+            "description" : "A short summary or identifier of the item being shipped."
+          },
+          "marksAndNumbers" : {
+            "maxLength" : 17,
+            "type" : "string",
+            "description" : "Additional identifiers or labels applied to the item."
+          },
+          "stackable" : {
+            "type" : "boolean",
+            "default" : false
+          },
+          "packageCount" : {
+            "maximum" : 999999,
+            "minimum" : 0,
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "packageType" : {
+            "maxLength" : 3,
+            "minLength" : 1,
+            "type" : "string",
+            "description" : "Package type determined by master data \"package-types\" category. Call endpoint /master-data-categories/package-types/values for possible values.",
+            "example" : "CAS"
+          },
+          "weight" : {
+            "maximum" : 100000,
+            "minimum" : 0,
+            "type" : "number",
+            "format" : "double"
+          },
+          "weightUom" : {
+            "maxLength" : 3,
+            "minLength" : 1,
+            "type" : "string",
+            "description" : "Weight Unit of Measurement determined by master data \"uoms\" category. Call endpoint /master-data-categories/uoms/values for possible values.",
+            "example" : "KGM"
+          },
+          "volume" : {
+            "maximum" : 100000,
+            "minimum" : 0,
+            "type" : "number",
+            "format" : "double"
+          },
+          "volumeUom" : {
+            "maxLength" : 3,
+            "minLength" : 1,
+            "type" : "string",
+            "description" : "Volume Unit of Measurement determined by master data \"uoms\" category. Call endpoint /master-data-categories/uoms/values for possible values.",
+            "example" : "LTR"
+          },
+          "dimensionLength" : {
+            "maximum" : 10000,
+            "minimum" : 0,
+            "type" : "number",
+            "format" : "double"
+          },
+          "dimensionWidth" : {
+            "maximum" : 10000,
+            "minimum" : 0,
+            "type" : "number",
+            "format" : "double"
+          },
+          "dimensionHeight" : {
+            "maximum" : 10000,
+            "minimum" : 0,
+            "type" : "number",
+            "format" : "double"
+          },
+          "dimensionsUom" : {
+            "maxLength" : 3,
+            "minLength" : 1,
+            "type" : "string",
+            "description" : "Dimensions Unit of Measurement determined by master data \"uoms\" category. Call endpoint /master-data-categories/uoms/values for possible values.",
+            "example" : "M"
+          },
+          "monetaryValue" : {
+            "$ref" : "#/components/schemas/MonetaryValueModel"
+          },
+          "barcodeValue" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string",
+              "description" : "Provide a list of barcode values to be used on the shipping label",
+              "nullable" : true
+            }
+          },
+          "dangerousGoodsInformation" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/DangerousGoodsInformationModel"
+            }
+          }
+        },
+        "description" : "One component of the cargo booking request, in which individual items of the same type are grouped together for shipping as a unit."
+      },
+      "DangerousGoodsInformationModel" : {
+        "type" : "object",
+        "properties" : {
+          "numberOfPackages" : {
+            "maximum" : 999999,
+            "minimum" : 0,
+            "type" : "integer",
+            "description" : "Number of packages classified as dangerous goods in the cargo item.",
+            "format" : "int32",
+            "default" : 0
+          },
+          "numberOfPackagesType" : {
+            "maxLength" : 3,
+            "minLength" : 1,
+            "type" : "string",
+            "description" : "Package type determined by master data \"package-types\" category. Call endpoint /master-data-categories/package-types/values for possible values.",
+            "example" : "CAS"
+          },
+          "quantity" : {
+            "maximum" : 100000,
+            "minimum" : 0,
+            "type" : "number",
+            "format" : "double"
+          },
+          "quantityUOM" : {
+            "maxLength" : 3,
+            "minLength" : 1,
+            "type" : "string",
+            "description" : "Package type determined by master data \"package-types\" category. Call endpoint /master-data-categories/package-types/values for possible values.",
+            "example" : "CAS"
+          },
+          "netExplosiveQuantity" : {
+            "maximum" : 100000,
+            "minimum" : 0,
+            "type" : "number",
+            "format" : "double"
+          },
+          "netExplosiveQuantityUOM" : {
+            "maxLength" : 3,
+            "minLength" : 1,
+            "type" : "string",
+            "description" : "Package type determined by master data \"package-types\" category. Call endpoint /master-data-categories/package-types/values for possible values.",
+            "example" : "CAS"
+          },
+          "unNumber" : {
+            "maxLength" : 10,
+            "minLength" : 1,
+            "type" : "string",
+            "description" : "United nations organisation number.",
+            "example" : "3066"
+          },
+          "properShippingName" : {
+            "maxLength" : 160,
+            "minLength" : 1,
+            "type" : "string"
+          },
+          "technicalName" : {
+            "maxLength" : 160,
+            "minLength" : 1,
+            "type" : "string"
+          },
+          "transportCategory" : {
+            "maxLength" : 10,
+            "minLength" : 1,
+            "type" : "string",
+            "example" : "5.1"
+          },
+          "packingGroup" : {
+            "maxLength" : 10,
+            "minLength" : 1,
+            "type" : "string",
+            "example" : "III"
+          },
+          "tunnelRestrictionCode" : {
+            "maxLength" : 10,
+            "minLength" : 1,
+            "type" : "string",
+            "example" : "B"
+          },
+          "mainRisk" : {
+            "maxLength" : 10,
+            "minLength" : 1,
+            "type" : "string"
+          },
+          "subsidiaryRisks" : {
+            "maxItems" : 3,
+            "type" : "array",
+            "description" : "List of additional, subsidiary risks of the dangerous cargo.",
+            "items" : {
+              "maxLength" : 10,
+              "minLength" : 1,
+              "type" : "string"
+            }
+          },
+          "limitedQuantity" : {
+            "type" : "boolean",
+            "default" : false
+          },
+          "exceptedQuantity" : {
+            "type" : "boolean",
+            "default" : false
+          },
+          "environmentallyHazardous" : {
+            "type" : "boolean",
+            "default" : false
+          }
+        },
+        "description" : "Denotes various details related to dangerous goods contained within the cargo item. Most fields within are optional, and as much as possible should be included if relevant."
+      }
+    },
+    "securitySchemes" : {
+      "default" : {
+        "type" : "oauth2",
+        "flows" : {
+          "implicit" : {
+            "authorizationUrl" : "https://internal.api.kuehne-nagel.com/authorize",
+            "scopes" : { }
+          }
+        }
+      },
+      "api_key" : {
+        "type" : "apiKey",
+        "name" : "apikey",
+        "in" : "header"
+      }
+    }
+  }
+}

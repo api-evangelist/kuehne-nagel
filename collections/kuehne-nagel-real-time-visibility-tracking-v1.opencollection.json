@@ -1,0 +1,120 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "RealTimeVisibility-Tracking",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "implicit",
+      "authorizationUrl": "https://internal.api.kuehne-nagel.com/authorize",
+      "credentials": {
+        "clientId": "{{clientId}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "cargoItems",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieves assets of a shipment. If the asset's type is UNKNOWN, it may be any type except CONTAINER or PACKAGE.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://internal.api.kuehne-nagel.com/real-time-visibility/tracking/v1/cargo-items",
+            "params": [
+              {
+                "name": "trackingNumber",
+                "value": "",
+                "type": "query",
+                "description": "Shipment identifier"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The cursor value after which data is retrieved (excluding the cursor itself). This value should be skipped when fetching first cursor."
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "Page size value."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://internal.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Retrieves assets belonging to a shipment. If the asset's type is UNKNOWN, it may be any type except CONTAINER or PACKAGE."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "telemetry",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieves telemetry assigned to an asset (PACKAGE/CONTAINER/UNKNOWN).",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://internal.api.kuehne-nagel.com/real-time-visibility/tracking/v1/cargo-items/:cargoItemId/telemetries",
+            "params": [
+              {
+                "name": "cargoItemId",
+                "value": "",
+                "type": "path",
+                "description": "Asset identifier"
+              },
+              {
+                "name": "types",
+                "value": "GEO,BATTERY,LIGHT",
+                "type": "query",
+                "description": "Telemetry types, separated by commas"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The cursor value after which data is retrieved (excluding the cursor itself). This value should be skipped when fetching first cursor."
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "Page size value."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://internal.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Retrieves telemetry for an asset."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

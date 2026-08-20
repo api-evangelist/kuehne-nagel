@@ -1,0 +1,1197 @@
+{
+  "item": [
+    {
+      "id": "16231e2e-8d74-4ad9-980f-9c7a6e1f253c",
+      "name": "Delete",
+      "description": {
+        "content": "Operations to delete shipment documents.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "dd7114f7-29aa-4048-bfe6-ca070201b60e",
+          "name": "delete Document",
+          "request": {
+            "name": "delete Document",
+            "description": {
+              "content": "Delete a specific document from a shipment (only applicable if `isDeletable=true` in the document meta data).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "shipments",
+                ":uniqueShipmentReference",
+                "documents",
+                ":documentId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "uniqueShipmentReference",
+                  "description": "(Required) By default this is the shipment __tracking number__ e.g. `N4242`. \n\nIn case a tracking number is not available a limited set of alternative references can be used.\nPlease use the track and trace API to first search for shipment details (e.g. by a customer specific reference)\nif none of the supported references are available .\n    \nSupported references:\n* __tracking number__\n  * `{trackingNumber}` or `tracking-number:{trackingNumber}`\n  * e.g. `N4242` or `tracking-number:N4242`\n* __booking number__\n  * `booking-number:{bookingNumber}`\n  * e.g. `booking-number:B1`\n* __shipment id__\n  * `shipment-id:{shipmentId}` \n  * e.g. `shipment-id:S1`\n"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "documentId",
+                  "description": "(Required) Unique identifier of a document"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/problem+json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "authUrl",
+                  "value": "https://gateway.api.kuehne-nagel.com/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e8b81d8b-a640-4325-b058-2bbc9b6bf42e",
+              "name": "Document was successfully deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipments",
+                    ":uniqueShipmentReference",
+                    "documents",
+                    ":documentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "uniqueShipmentReference",
+                      "description": "(Required) By default this is the shipment __tracking number__ e.g. `N4242`. \n\nIn case a tracking number is not available a limited set of alternative references can be used.\nPlease use the track and trace API to first search for shipment details (e.g. by a customer specific reference)\nif none of the supported references are available .\n    \nSupported references:\n* __tracking number__\n  * `{trackingNumber}` or `tracking-number:{trackingNumber}`\n  * e.g. `N4242` or `tracking-number:N4242`\n* __booking number__\n  * `booking-number:{bookingNumber}`\n  * e.g. `booking-number:B1`\n* __shipment id__\n  * `shipment-id:{shipmentId}` \n  * e.g. `shipment-id:S1`\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "documentId",
+                      "description": "(Required) Unique identifier of a document"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c380fd0b-6e96-49a4-9977-f73d8f1ab510",
+              "name": "An error occurred - please see the HTTP status code and the problem object for more information.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipments",
+                    ":uniqueShipmentReference",
+                    "documents",
+                    ":documentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "uniqueShipmentReference",
+                      "description": "(Required) By default this is the shipment __tracking number__ e.g. `N4242`. \n\nIn case a tracking number is not available a limited set of alternative references can be used.\nPlease use the track and trace API to first search for shipment details (e.g. by a customer specific reference)\nif none of the supported references are available .\n    \nSupported references:\n* __tracking number__\n  * `{trackingNumber}` or `tracking-number:{trackingNumber}`\n  * e.g. `N4242` or `tracking-number:N4242`\n* __booking number__\n  * `booking-number:{bookingNumber}`\n  * e.g. `booking-number:B1`\n* __shipment id__\n  * `shipment-id:{shipmentId}` \n  * e.g. `shipment-id:S1`\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "documentId",
+                      "description": "(Required) Unique identifier of a document"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/problem+json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/problem+json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Connection to database timed out\",\n  \"title\": \"Service Unavailable\",\n  \"instance\": \"/problem/connection-error#token-info-read-timed-out\",\n  \"status\": 503,\n  \"type\": \"/problem/connection-error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "585998d8-e25c-4b23-9efd-c5bc838c9529",
+      "name": "Download",
+      "description": {
+        "content": "Operations to download shipment document content.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6a5681c5-be12-4aea-aa4c-f4e0ac196234",
+          "name": "download Document Content",
+          "request": {
+            "name": "download Document Content",
+            "description": {
+              "content": "Download the binary content of a specific shipment document.\n\nThis endpoint always returns exactly one content item (singleton collection, cardinality 1).\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "shipments",
+                ":uniqueShipmentReference",
+                "documents",
+                ":documentId",
+                "contents"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "uniqueShipmentReference",
+                  "description": "(Required) By default this is the shipment __tracking number__ e.g. `N4242`. \n\nIn case a tracking number is not available a limited set of alternative references can be used.\nPlease use the track and trace API to first search for shipment details (e.g. by a customer specific reference)\nif none of the supported references are available .\n    \nSupported references:\n* __tracking number__\n  * `{trackingNumber}` or `tracking-number:{trackingNumber}`\n  * e.g. `N4242` or `tracking-number:N4242`\n* __booking number__\n  * `booking-number:{bookingNumber}`\n  * e.g. `booking-number:B1`\n* __shipment id__\n  * `shipment-id:{shipmentId}` \n  * e.g. `shipment-id:S1`\n"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "documentId",
+                  "description": "(Required) Unique identifier of a document"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/octet-stream"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "authUrl",
+                  "value": "https://gateway.api.kuehne-nagel.com/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "93739e49-ff5f-4797-86a8-07da47250830",
+              "name": "Binary content of the document.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipments",
+                    ":uniqueShipmentReference",
+                    "documents",
+                    ":documentId",
+                    "contents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "uniqueShipmentReference",
+                      "description": "(Required) By default this is the shipment __tracking number__ e.g. `N4242`. \n\nIn case a tracking number is not available a limited set of alternative references can be used.\nPlease use the track and trace API to first search for shipment details (e.g. by a customer specific reference)\nif none of the supported references are available .\n    \nSupported references:\n* __tracking number__\n  * `{trackingNumber}` or `tracking-number:{trackingNumber}`\n  * e.g. `N4242` or `tracking-number:N4242`\n* __booking number__\n  * `booking-number:{bookingNumber}`\n  * e.g. `booking-number:B1`\n* __shipment id__\n  * `shipment-id:{shipmentId}` \n  * e.g. `shipment-id:S1`\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "documentId",
+                      "description": "(Required) Unique identifier of a document"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/octet-stream"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Indicates the file should be downloaded as an attachment.",
+                  "key": "Content-Disposition",
+                  "value": "attachment; filename=\"document.pdf\""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/octet-stream"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4b906a25-ae7f-48c9-8eb2-f4fa9be606df",
+              "name": "An error occurred - please see the HTTP status code and the problem object for more information.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipments",
+                    ":uniqueShipmentReference",
+                    "documents",
+                    ":documentId",
+                    "contents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "uniqueShipmentReference",
+                      "description": "(Required) By default this is the shipment __tracking number__ e.g. `N4242`. \n\nIn case a tracking number is not available a limited set of alternative references can be used.\nPlease use the track and trace API to first search for shipment details (e.g. by a customer specific reference)\nif none of the supported references are available .\n    \nSupported references:\n* __tracking number__\n  * `{trackingNumber}` or `tracking-number:{trackingNumber}`\n  * e.g. `N4242` or `tracking-number:N4242`\n* __booking number__\n  * `booking-number:{bookingNumber}`\n  * e.g. `booking-number:B1`\n* __shipment id__\n  * `shipment-id:{shipmentId}` \n  * e.g. `shipment-id:S1`\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "documentId",
+                      "description": "(Required) Unique identifier of a document"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/problem+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/problem+json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Connection to database timed out\",\n  \"title\": \"Service Unavailable\",\n  \"instance\": \"/problem/connection-error#token-info-read-timed-out\",\n  \"status\": 503,\n  \"type\": \"/problem/connection-error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "444e4087-c158-4387-93eb-45eae6ab0a4e",
+      "name": "List",
+      "description": {
+        "content": "Operations to list shipment documents.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "735e0195-95d7-4406-bd70-2335e2469893",
+          "name": "list Documents",
+          "request": {
+            "name": "list Documents",
+            "description": {
+              "content": "List all documents for a specific shipment.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "shipments",
+                ":uniqueShipmentReference",
+                "documents"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "uniqueShipmentReference",
+                  "description": "(Required) By default this is the shipment __tracking number__ e.g. `N4242`. \n\nIn case a tracking number is not available a limited set of alternative references can be used.\nPlease use the track and trace API to first search for shipment details (e.g. by a customer specific reference)\nif none of the supported references are available .\n    \nSupported references:\n* __tracking number__\n  * `{trackingNumber}` or `tracking-number:{trackingNumber}`\n  * e.g. `N4242` or `tracking-number:N4242`\n* __booking number__\n  * `booking-number:{bookingNumber}`\n  * e.g. `booking-number:B1`\n* __shipment id__\n  * `shipment-id:{shipmentId}` \n  * e.g. `shipment-id:S1`\n"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "authUrl",
+                  "value": "https://gateway.api.kuehne-nagel.com/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "11db6b86-5d74-4e2c-9d7b-09bb24038cef",
+              "name": "List of documents for the shipment.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipments",
+                    ":uniqueShipmentReference",
+                    "documents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "uniqueShipmentReference",
+                      "description": "(Required) By default this is the shipment __tracking number__ e.g. `N4242`. \n\nIn case a tracking number is not available a limited set of alternative references can be used.\nPlease use the track and trace API to first search for shipment details (e.g. by a customer specific reference)\nif none of the supported references are available .\n    \nSupported references:\n* __tracking number__\n  * `{trackingNumber}` or `tracking-number:{trackingNumber}`\n  * e.g. `N4242` or `tracking-number:N4242`\n* __booking number__\n  * `booking-number:{bookingNumber}`\n  * e.g. `booking-number:B1`\n* __shipment id__\n  * `shipment-id:{shipmentId}` \n  * e.g. `shipment-id:S1`\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"documents\": [\n    {\n      \"creationDate\": \"2025-07-15T10:30:00Z\",\n      \"documentId\": \"Q1234S56\",\n      \"documentType\": {\n        \"code\": \"380\",\n        \"name\": \"Commercial Invoice\"\n      },\n      \"isDeletable\": true,\n      \"isUploadedByCustomer\": true,\n      \"status\": \"OK\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7def6be3-14af-45f1-a179-969d3491e982",
+              "name": "An error occurred - please see the HTTP status code and the problem object for more information.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipments",
+                    ":uniqueShipmentReference",
+                    "documents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "uniqueShipmentReference",
+                      "description": "(Required) By default this is the shipment __tracking number__ e.g. `N4242`. \n\nIn case a tracking number is not available a limited set of alternative references can be used.\nPlease use the track and trace API to first search for shipment details (e.g. by a customer specific reference)\nif none of the supported references are available .\n    \nSupported references:\n* __tracking number__\n  * `{trackingNumber}` or `tracking-number:{trackingNumber}`\n  * e.g. `N4242` or `tracking-number:N4242`\n* __booking number__\n  * `booking-number:{bookingNumber}`\n  * e.g. `booking-number:B1`\n* __shipment id__\n  * `shipment-id:{shipmentId}` \n  * e.g. `shipment-id:S1`\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/problem+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/problem+json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Connection to database timed out\",\n  \"title\": \"Service Unavailable\",\n  \"instance\": \"/problem/connection-error#token-info-read-timed-out\",\n  \"status\": 503,\n  \"type\": \"/problem/connection-error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1c5641f4-d358-47e0-bcd9-3e25bbceedf2",
+          "name": "retrieve Document Details",
+          "request": {
+            "name": "retrieve Document Details",
+            "description": {
+              "content": "Retrieve meta data of a specific shipment document.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "shipments",
+                ":uniqueShipmentReference",
+                "documents",
+                ":documentId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "uniqueShipmentReference",
+                  "description": "(Required) By default this is the shipment __tracking number__ e.g. `N4242`. \n\nIn case a tracking number is not available a limited set of alternative references can be used.\nPlease use the track and trace API to first search for shipment details (e.g. by a customer specific reference)\nif none of the supported references are available .\n    \nSupported references:\n* __tracking number__\n  * `{trackingNumber}` or `tracking-number:{trackingNumber}`\n  * e.g. `N4242` or `tracking-number:N4242`\n* __booking number__\n  * `booking-number:{bookingNumber}`\n  * e.g. `booking-number:B1`\n* __shipment id__\n  * `shipment-id:{shipmentId}` \n  * e.g. `shipment-id:S1`\n"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "documentId",
+                  "description": "(Required) Unique identifier of a document"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "authUrl",
+                  "value": "https://gateway.api.kuehne-nagel.com/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "24e3fc25-3ff7-4272-acc0-dd1978f37b28",
+              "name": "Meta data of the document.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipments",
+                    ":uniqueShipmentReference",
+                    "documents",
+                    ":documentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "uniqueShipmentReference",
+                      "description": "(Required) By default this is the shipment __tracking number__ e.g. `N4242`. \n\nIn case a tracking number is not available a limited set of alternative references can be used.\nPlease use the track and trace API to first search for shipment details (e.g. by a customer specific reference)\nif none of the supported references are available .\n    \nSupported references:\n* __tracking number__\n  * `{trackingNumber}` or `tracking-number:{trackingNumber}`\n  * e.g. `N4242` or `tracking-number:N4242`\n* __booking number__\n  * `booking-number:{bookingNumber}`\n  * e.g. `booking-number:B1`\n* __shipment id__\n  * `shipment-id:{shipmentId}` \n  * e.g. `shipment-id:S1`\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "documentId",
+                      "description": "(Required) Unique identifier of a document"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"creationDate\": \"2025-07-15T10:30:00Z\",\n  \"documentId\": \"Q1234S56\",\n  \"documentType\": {\n    \"code\": \"380\",\n    \"name\": \"Commercial Invoice\"\n  },\n  \"isDeletable\": true,\n  \"isUploadedByCustomer\": true,\n  \"status\": \"OK\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d5b2c3fb-ff72-4e73-983d-acdf1f0bbd66",
+              "name": "An error occurred - please see the HTTP status code and the problem object for more information.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipments",
+                    ":uniqueShipmentReference",
+                    "documents",
+                    ":documentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "uniqueShipmentReference",
+                      "description": "(Required) By default this is the shipment __tracking number__ e.g. `N4242`. \n\nIn case a tracking number is not available a limited set of alternative references can be used.\nPlease use the track and trace API to first search for shipment details (e.g. by a customer specific reference)\nif none of the supported references are available .\n    \nSupported references:\n* __tracking number__\n  * `{trackingNumber}` or `tracking-number:{trackingNumber}`\n  * e.g. `N4242` or `tracking-number:N4242`\n* __booking number__\n  * `booking-number:{bookingNumber}`\n  * e.g. `booking-number:B1`\n* __shipment id__\n  * `shipment-id:{shipmentId}` \n  * e.g. `shipment-id:S1`\n"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "documentId",
+                      "description": "(Required) Unique identifier of a document"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/problem+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/problem+json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Connection to database timed out\",\n  \"title\": \"Service Unavailable\",\n  \"instance\": \"/problem/connection-error#token-info-read-timed-out\",\n  \"status\": 503,\n  \"type\": \"/problem/connection-error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "78244292-4aac-4d91-8f5a-8ef860f59af7",
+      "name": "Upload",
+      "description": {
+        "content": "Operations to upload shipment documents.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c7803582-c213-4064-ba37-c22e70ace8dc",
+          "name": "add Document",
+          "request": {
+            "name": "add Document",
+            "description": {
+              "content": "Add a document to a specific shipment.\n\nBefore the document is actually added to the shipment the uploaded content must pass a\nsecurity scan and conversion to [PDF/A](https://en.wikipedia.org/wiki/PDF/A). This is done asynchronously \nand usually only takes a couple of seconds. For the future it is planned to immediately scan and convert the document.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "shipments",
+                ":uniqueShipmentReference",
+                "documents"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "uniqueShipmentReference",
+                  "description": "(Required) By default this is the shipment __tracking number__ e.g. `N4242`. \n\nIn case a tracking number is not available a limited set of alternative references can be used.\nPlease use the track and trace API to first search for shipment details (e.g. by a customer specific reference)\nif none of the supported references are available .\n    \nSupported references:\n* __tracking number__\n  * `{trackingNumber}` or `tracking-number:{trackingNumber}`\n  * e.g. `N4242` or `tracking-number:N4242`\n* __booking number__\n  * `booking-number:{bookingNumber}`\n  * e.g. `booking-number:B1`\n* __shipment id__\n  * `shipment-id:{shipmentId}` \n  * e.g. `shipment-id:S1`\n"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "authUrl",
+                  "value": "https://gateway.api.kuehne-nagel.com/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            },
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "documentContent",
+                  "type": "file",
+                  "description": "(Required) Content of the document (preferably a PDF) that should be added to the shipment.\n\nMust have \n* a size of max. 10 MB\n* a supported file extension \n  * pdf\n  * docx/doc\n  * xlsx/xls\n  * png\n  * jpeg/jpg\n  * tiff/tif\n  * rtf\n  * bmp\n* in case of a PDF: no read protection\n"
+                },
+                {
+                  "key": "documentTypeCode",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "(Required) "
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "510fa1a5-815c-455b-b5de-326af59c314e",
+              "name": "Request to add a document to the shipment was created. \n\nThe status of the request can be retrieved using the returned link.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipments",
+                    ":uniqueShipmentReference",
+                    "documents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "uniqueShipmentReference",
+                      "description": "(Required) By default this is the shipment __tracking number__ e.g. `N4242`. \n\nIn case a tracking number is not available a limited set of alternative references can be used.\nPlease use the track and trace API to first search for shipment details (e.g. by a customer specific reference)\nif none of the supported references are available .\n    \nSupported references:\n* __tracking number__\n  * `{trackingNumber}` or `tracking-number:{trackingNumber}`\n  * e.g. `N4242` or `tracking-number:N4242`\n* __booking number__\n  * `booking-number:{bookingNumber}`\n  * e.g. `booking-number:B1`\n* __shipment id__\n  * `shipment-id:{shipmentId}` \n  * e.g. `shipment-id:S1`\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) Content of the document (preferably a PDF) that should be added to the shipment.\n\nMust have \n* a size of max. 10 MB\n* a supported file extension \n  * pdf\n  * docx/doc\n  * xlsx/xls\n  * png\n  * jpeg/jpg\n  * tiff/tif\n  * rtf\n  * bmp\n* in case of a PDF: no read protection\n",
+                        "type": "text/plain"
+                      },
+                      "key": "documentContent",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "documentTypeCode",
+                      "value": "380",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"documentId\": \"Q1234S56\",\n  \"self\": \"https://.../shipments/N4242/documents/Q1234S56\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cfefd855-d54a-4c36-af5d-7bf5f5db6e5b",
+              "name": "An error occurred - please see the HTTP status code and the problem object for more information.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipments",
+                    ":uniqueShipmentReference",
+                    "documents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "uniqueShipmentReference",
+                      "description": "(Required) By default this is the shipment __tracking number__ e.g. `N4242`. \n\nIn case a tracking number is not available a limited set of alternative references can be used.\nPlease use the track and trace API to first search for shipment details (e.g. by a customer specific reference)\nif none of the supported references are available .\n    \nSupported references:\n* __tracking number__\n  * `{trackingNumber}` or `tracking-number:{trackingNumber}`\n  * e.g. `N4242` or `tracking-number:N4242`\n* __booking number__\n  * `booking-number:{bookingNumber}`\n  * e.g. `booking-number:B1`\n* __shipment id__\n  * `shipment-id:{shipmentId}` \n  * e.g. `shipment-id:S1`\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/problem+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) Content of the document (preferably a PDF) that should be added to the shipment.\n\nMust have \n* a size of max. 10 MB\n* a supported file extension \n  * pdf\n  * docx/doc\n  * xlsx/xls\n  * png\n  * jpeg/jpg\n  * tiff/tif\n  * rtf\n  * bmp\n* in case of a PDF: no read protection\n",
+                        "type": "text/plain"
+                      },
+                      "key": "documentContent",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "documentTypeCode",
+                      "value": "380",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/problem+json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Connection to database timed out\",\n  \"title\": \"Service Unavailable\",\n  \"instance\": \"/problem/connection-error#token-info-read-timed-out\",\n  \"status\": 503,\n  \"type\": \"/problem/connection-error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "566a27f5-ceac-4d3c-b7b8-dc952aa8d34c",
+          "name": "retrieve Uploadable Document Types",
+          "request": {
+            "name": "retrieve Uploadable Document Types",
+            "description": {
+              "content": "Retrieve the document types that can be used to add a document to the specific shipment.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "shipments",
+                ":uniqueShipmentReference",
+                "uploadable-document-types"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "uniqueShipmentReference",
+                  "description": "(Required) By default this is the shipment __tracking number__ e.g. `N4242`. \n\nIn case a tracking number is not available a limited set of alternative references can be used.\nPlease use the track and trace API to first search for shipment details (e.g. by a customer specific reference)\nif none of the supported references are available .\n    \nSupported references:\n* __tracking number__\n  * `{trackingNumber}` or `tracking-number:{trackingNumber}`\n  * e.g. `N4242` or `tracking-number:N4242`\n* __booking number__\n  * `booking-number:{bookingNumber}`\n  * e.g. `booking-number:B1`\n* __shipment id__\n  * `shipment-id:{shipmentId}` \n  * e.g. `shipment-id:S1`\n"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "authUrl",
+                  "value": "https://gateway.api.kuehne-nagel.com/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "4255b5d4-b77f-4252-8f38-d596930bd840",
+              "name": "Set of document types that can be used to add a document to the specific shipment.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipments",
+                    ":uniqueShipmentReference",
+                    "uploadable-document-types"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "uniqueShipmentReference",
+                      "description": "(Required) By default this is the shipment __tracking number__ e.g. `N4242`. \n\nIn case a tracking number is not available a limited set of alternative references can be used.\nPlease use the track and trace API to first search for shipment details (e.g. by a customer specific reference)\nif none of the supported references are available .\n    \nSupported references:\n* __tracking number__\n  * `{trackingNumber}` or `tracking-number:{trackingNumber}`\n  * e.g. `N4242` or `tracking-number:N4242`\n* __booking number__\n  * `booking-number:{bookingNumber}`\n  * e.g. `booking-number:B1`\n* __shipment id__\n  * `shipment-id:{shipmentId}` \n  * e.g. `shipment-id:S1`\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"uploadableDocumentTypes\": [\n    {\n      \"code\": \"380\",\n      \"name\": \"Commercial Invoice\"\n    },\n    {\n      \"code\": \"271\",\n      \"name\": \"Packing List\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9788e581-b5ec-47a6-83ee-1904e5626659",
+              "name": "An error occurred - please see the HTTP status code and the problem object for more information.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipments",
+                    ":uniqueShipmentReference",
+                    "uploadable-document-types"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "uniqueShipmentReference",
+                      "description": "(Required) By default this is the shipment __tracking number__ e.g. `N4242`. \n\nIn case a tracking number is not available a limited set of alternative references can be used.\nPlease use the track and trace API to first search for shipment details (e.g. by a customer specific reference)\nif none of the supported references are available .\n    \nSupported references:\n* __tracking number__\n  * `{trackingNumber}` or `tracking-number:{trackingNumber}`\n  * e.g. `N4242` or `tracking-number:N4242`\n* __booking number__\n  * `booking-number:{bookingNumber}`\n  * e.g. `booking-number:B1`\n* __shipment id__\n  * `shipment-id:{shipmentId}` \n  * e.g. `shipment-id:S1`\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/problem+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/problem+json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Connection to database timed out\",\n  \"title\": \"Service Unavailable\",\n  \"instance\": \"/problem/connection-error#token-info-read-timed-out\",\n  \"status\": 503,\n  \"type\": \"/problem/connection-error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://gateway.api.kuehne-nagel.com/transport/execution/documentation/shipment/v3",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "authUrl",
+        "value": "https://gateway.api.kuehne-nagel.com/authorize"
+      },
+      {
+        "key": "grant_type",
+        "value": "implicit"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "21c060a8-ca2a-42a9-a24e-345cb088ae6f",
+    "name": "ShipmentDocumentManagement",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Document management (list, download, add and delete) of shipment related documents.\n\n\nContact Support:\n Name: API Support\n Email: support.api.ShipmentDocumentManagement@kuehne-nagel.com",
+      "type": "text/plain"
+    }
+  }
+}

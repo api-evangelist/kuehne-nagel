@@ -1,0 +1,121 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "BookingAir",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "implicit",
+      "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+      "credentials": {
+        "clientId": "{{clientId}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "booking",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create air booking",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.api.kuehne-nagel.com/booking/air/v2/bookings",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Create air booking"
+        },
+        {
+          "info": {
+            "name": "Update an air booking",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://gateway.api.kuehne-nagel.com/booking/air/v2/bookings",
+            "params": [
+              {
+                "name": "trackingNumber",
+                "value": "",
+                "type": "query",
+                "description": "The tracking number of a specific KN shipment"
+              },
+              {
+                "name": "uniqueReference",
+                "value": "",
+                "type": "query",
+                "description": "The unique reference to identify the shipment"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Update air booking"
+        },
+        {
+          "info": {
+            "name": "Delete air booking",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://gateway.api.kuehne-nagel.com/booking/air/v2/bookings",
+            "params": [
+              {
+                "name": "trackingNumber",
+                "value": "",
+                "type": "query",
+                "description": "The tracking number of a specific KN shipment"
+              },
+              {
+                "name": "uniqueReference",
+                "value": "",
+                "type": "query",
+                "description": "The unique reference to identify the shipment"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Delete air booking"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

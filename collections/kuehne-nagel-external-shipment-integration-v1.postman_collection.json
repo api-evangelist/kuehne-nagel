@@ -1,0 +1,1029 @@
+{
+  "item": [
+    {
+      "id": "14b343be-8758-43fc-ab57-3ab1fcecbe91",
+      "name": "ExternalShipment",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "43f911ad-ec06-4517-8e74-a3e321e97015",
+          "name": "Import shipment message",
+          "request": {
+            "name": "Import shipment message",
+            "description": {
+              "content": "Import shipment message",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "customers",
+                ":customerCode",
+                "shipments",
+                ":shipmentNumber"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "customerCode",
+                  "description": "(Required) The customer code"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "shipmentNumber",
+                  "description": "(Required) The shipment number"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "authUrl",
+                  "value": "https://internal.api.kuehne-nagel.com/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"additions\": [\n    {\n      \"references\": [\n        {\n          \"qualifier\": \"<string>\",\n          \"values\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        },\n        {\n          \"qualifier\": \"<string>\",\n          \"values\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        }\n      ],\n      \"monetaryValues\": [\n        {\n          \"currencyCode\": \"<string>\",\n          \"qualifier\": \"<string>\",\n          \"value\": \"<double>\"\n        },\n        {\n          \"currencyCode\": \"<string>\",\n          \"qualifier\": \"<string>\",\n          \"value\": \"<double>\"\n        }\n      ],\n      \"flags\": [\n        {\n          \"qualifier\": \"<string>\",\n          \"value\": \"<boolean>\"\n        },\n        {\n          \"qualifier\": \"<string>\",\n          \"value\": \"<boolean>\"\n        }\n      ],\n      \"notes\": [\n        {\n          \"qualifier\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"qualifier\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"references\": [\n        {\n          \"qualifier\": \"<string>\",\n          \"values\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        },\n        {\n          \"qualifier\": \"<string>\",\n          \"values\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        }\n      ],\n      \"monetaryValues\": [\n        {\n          \"currencyCode\": \"<string>\",\n          \"qualifier\": \"<string>\",\n          \"value\": \"<double>\"\n        },\n        {\n          \"currencyCode\": \"<string>\",\n          \"qualifier\": \"<string>\",\n          \"value\": \"<double>\"\n        }\n      ],\n      \"flags\": [\n        {\n          \"qualifier\": \"<string>\",\n          \"value\": \"<boolean>\"\n        },\n        {\n          \"qualifier\": \"<string>\",\n          \"value\": \"<boolean>\"\n        }\n      ],\n      \"notes\": [\n        {\n          \"qualifier\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"qualifier\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ]\n    }\n  ],\n  \"locations\": [\n    {\n      \"countryCode\": \"<string>\",\n      \"locationCode\": \"<string>\",\n      \"locationType\": \"<string>\",\n      \"timeZone\": \"<string>\",\n      \"name1\": \"<string>\",\n      \"name2\": \"<string>\",\n      \"street1\": \"<string>\",\n      \"street2\": \"<string>\",\n      \"regionName\": \"<string>\",\n      \"regionCode\": \"<string>\",\n      \"city\": \"<string>\",\n      \"postalCode\": \"<string>\"\n    }\n  ],\n  \"requestTime\": \"<dateTime>\",\n  \"stops\": [\n    {\n      \"locationCode\": \"<string>\",\n      \"sequenceNumber\": \"<integer>\",\n      \"type\": \"<string>\",\n      \"linkedPackages\": [\n        {\n          \"externalPackageNumber\": \"<string>\"\n        },\n        {\n          \"externalPackageNumber\": \"<string>\"\n        }\n      ],\n      \"linkedOrders\": [\n        {\n          \"externalOrderNumber\": \"<string>\"\n        },\n        {\n          \"externalOrderNumber\": \"<string>\"\n        }\n      ],\n      \"plannedArrival\": \"<string>\",\n      \"plannedDeparture\": \"<string>\"\n    },\n    {\n      \"locationCode\": \"<string>\",\n      \"sequenceNumber\": \"<integer>\",\n      \"type\": \"<string>\",\n      \"linkedPackages\": [\n        {\n          \"externalPackageNumber\": \"<string>\"\n        },\n        {\n          \"externalPackageNumber\": \"<string>\"\n        }\n      ],\n      \"linkedOrders\": [\n        {\n          \"externalOrderNumber\": \"<string>\"\n        },\n        {\n          \"externalOrderNumber\": \"<string>\"\n        }\n      ],\n      \"plannedArrival\": \"<string>\",\n      \"plannedDeparture\": \"<string>\"\n    }\n  ],\n  \"transportMode\": \"<string>\",\n  \"perspective\": \"<string>\",\n  \"transportService\": \"<string>\",\n  \"plannedStartDate\": \"<dateTime>\",\n  \"plannedFinishDate\": \"<dateTime>\",\n  \"grossWeight\": {\n    \"uom\": \"<string>\",\n    \"value\": \"<double>\"\n  },\n  \"volume\": {\n    \"uom\": \"<string>\",\n    \"value\": \"<double>\"\n  },\n  \"packageCount\": \"<integer>\",\n  \"movementType\": \"<string>\",\n  \"incoterm\": \"<string>\",\n  \"isTempControlled\": \"<boolean>\",\n  \"isDangerousGoods\": \"<boolean>\",\n  \"commercialValue\": {\n    \"amount\": \"<double>\",\n    \"currencyCode\": \"<string>\"\n  },\n  \"orders\": [\n    {\n      \"externalOrderNumber\": \"<string>\"\n    },\n    {\n      \"externalOrderNumber\": \"<string>\"\n    }\n  ],\n  \"contacts\": [\n    {\n      \"code\": \"<string>\",\n      \"email\": \"<email>\",\n      \"type\": \"<string>\",\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"phone\": \"<string>\",\n      \"fax\": \"<string>\"\n    },\n    {\n      \"code\": \"<string>\",\n      \"email\": \"<email>\",\n      \"type\": \"<string>\",\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"phone\": \"<string>\",\n      \"fax\": \"<string>\"\n    }\n  ],\n  \"plannedCosts\": [\n    {\n      \"amount\": \"<double>\",\n      \"currencyCode\": \"<string>\",\n      \"type\": \"<string>\",\n      \"code\": \"<string>\"\n    },\n    {\n      \"amount\": \"<double>\",\n      \"currencyCode\": \"<string>\",\n      \"type\": \"<string>\",\n      \"code\": \"<string>\"\n    }\n  ],\n  \"linkedPackages\": [\n    {\n      \"count\": \"<integer>\",\n      \"externalPackageNumber\": \"<string>\",\n      \"type\": \"<string>\",\n      \"externalEquipmentNumber\": \"<string>\",\n      \"unitGrossWeight\": {\n        \"uom\": \"<string>\",\n        \"value\": \"<double>\"\n      },\n      \"unitGrossVolume\": {\n        \"uom\": \"<string>\",\n        \"value\": \"<double>\"\n      },\n      \"length\": {\n        \"uom\": \"<string>\",\n        \"value\": \"<double>\"\n      },\n      \"width\": {\n        \"uom\": \"<string>\",\n        \"value\": \"<double>\"\n      },\n      \"height\": {\n        \"uom\": \"<string>\",\n        \"value\": \"<double>\"\n      },\n      \"additions\": [\n        {\n          \"references\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"monetaryValues\": [\n            {\n              \"currencyCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"currencyCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"flags\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"notes\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"references\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"monetaryValues\": [\n            {\n              \"currencyCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"currencyCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"flags\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"notes\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ]\n    },\n    {\n      \"count\": \"<integer>\",\n      \"externalPackageNumber\": \"<string>\",\n      \"type\": \"<string>\",\n      \"externalEquipmentNumber\": \"<string>\",\n      \"unitGrossWeight\": {\n        \"uom\": \"<string>\",\n        \"value\": \"<double>\"\n      },\n      \"unitGrossVolume\": {\n        \"uom\": \"<string>\",\n        \"value\": \"<double>\"\n      },\n      \"length\": {\n        \"uom\": \"<string>\",\n        \"value\": \"<double>\"\n      },\n      \"width\": {\n        \"uom\": \"<string>\",\n        \"value\": \"<double>\"\n      },\n      \"height\": {\n        \"uom\": \"<string>\",\n        \"value\": \"<double>\"\n      },\n      \"additions\": [\n        {\n          \"references\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"monetaryValues\": [\n            {\n              \"currencyCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"currencyCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"flags\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"notes\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"references\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"monetaryValues\": [\n            {\n              \"currencyCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"currencyCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"flags\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"notes\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ]\n    }\n  ],\n  \"linkedEquipments\": [\n    {\n      \"externalEquipmentNumber\": \"<string>\",\n      \"type\": {\n        \"code\": \"<string>\",\n        \"name\": \"<string>\",\n        \"teuEquivalent\": \"<integer>\",\n        \"temperature\": {\n          \"name\": \"<string>\",\n          \"min\": {\n            \"uom\": \"<string>\",\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"max\": {\n            \"uom\": \"<string>\",\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"length\": {\n          \"uom\": \"<string>\",\n          \"value\": \"<double>\"\n        },\n        \"width\": {\n          \"uom\": \"<string>\",\n          \"value\": \"<double>\"\n        },\n        \"height\": {\n          \"uom\": \"<string>\",\n          \"value\": \"<double>\"\n        }\n      }\n    },\n    {\n      \"externalEquipmentNumber\": \"<string>\",\n      \"type\": {\n        \"code\": \"<string>\",\n        \"name\": \"<string>\",\n        \"teuEquivalent\": \"<integer>\",\n        \"temperature\": {\n          \"name\": \"<string>\",\n          \"min\": {\n            \"uom\": \"<string>\",\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"max\": {\n            \"uom\": \"<string>\",\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"length\": {\n          \"uom\": \"<string>\",\n          \"value\": \"<double>\"\n        },\n        \"width\": {\n          \"uom\": \"<string>\",\n          \"value\": \"<double>\"\n        },\n        \"height\": {\n          \"uom\": \"<string>\",\n          \"value\": \"<double>\"\n        }\n      }\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "caabfd4b-3e1b-426b-b919-8157c37b913b",
+              "name": "Shipment import message successfully queued.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":customerCode",
+                    "shipments",
+                    ":shipmentNumber"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerCode",
+                      "description": "(Required) The customer code"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "shipmentNumber",
+                      "description": "(Required) The shipment number"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"additions\": [\n    {\n      \"references\": [\n        {\n          \"qualifier\": \"<string>\",\n          \"values\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        },\n        {\n          \"qualifier\": \"<string>\",\n          \"values\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        }\n      ],\n      \"monetaryValues\": [\n        {\n          \"currencyCode\": \"<string>\",\n          \"qualifier\": \"<string>\",\n          \"value\": \"<double>\"\n        },\n        {\n          \"currencyCode\": \"<string>\",\n          \"qualifier\": \"<string>\",\n          \"value\": \"<double>\"\n        }\n      ],\n      \"flags\": [\n        {\n          \"qualifier\": \"<string>\",\n          \"value\": \"<boolean>\"\n        },\n        {\n          \"qualifier\": \"<string>\",\n          \"value\": \"<boolean>\"\n        }\n      ],\n      \"notes\": [\n        {\n          \"qualifier\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"qualifier\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"references\": [\n        {\n          \"qualifier\": \"<string>\",\n          \"values\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        },\n        {\n          \"qualifier\": \"<string>\",\n          \"values\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        }\n      ],\n      \"monetaryValues\": [\n        {\n          \"currencyCode\": \"<string>\",\n          \"qualifier\": \"<string>\",\n          \"value\": \"<double>\"\n        },\n        {\n          \"currencyCode\": \"<string>\",\n          \"qualifier\": \"<string>\",\n          \"value\": \"<double>\"\n        }\n      ],\n      \"flags\": [\n        {\n          \"qualifier\": \"<string>\",\n          \"value\": \"<boolean>\"\n        },\n        {\n          \"qualifier\": \"<string>\",\n          \"value\": \"<boolean>\"\n        }\n      ],\n      \"notes\": [\n        {\n          \"qualifier\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"qualifier\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ]\n    }\n  ],\n  \"locations\": [\n    {\n      \"countryCode\": \"<string>\",\n      \"locationCode\": \"<string>\",\n      \"locationType\": \"<string>\",\n      \"timeZone\": \"<string>\",\n      \"name1\": \"<string>\",\n      \"name2\": \"<string>\",\n      \"street1\": \"<string>\",\n      \"street2\": \"<string>\",\n      \"regionName\": \"<string>\",\n      \"regionCode\": \"<string>\",\n      \"city\": \"<string>\",\n      \"postalCode\": \"<string>\"\n    }\n  ],\n  \"requestTime\": \"<dateTime>\",\n  \"stops\": [\n    {\n      \"locationCode\": \"<string>\",\n      \"sequenceNumber\": \"<integer>\",\n      \"type\": \"<string>\",\n      \"linkedPackages\": [\n        {\n          \"externalPackageNumber\": \"<string>\"\n        },\n        {\n          \"externalPackageNumber\": \"<string>\"\n        }\n      ],\n      \"linkedOrders\": [\n        {\n          \"externalOrderNumber\": \"<string>\"\n        },\n        {\n          \"externalOrderNumber\": \"<string>\"\n        }\n      ],\n      \"plannedArrival\": \"<string>\",\n      \"plannedDeparture\": \"<string>\"\n    },\n    {\n      \"locationCode\": \"<string>\",\n      \"sequenceNumber\": \"<integer>\",\n      \"type\": \"<string>\",\n      \"linkedPackages\": [\n        {\n          \"externalPackageNumber\": \"<string>\"\n        },\n        {\n          \"externalPackageNumber\": \"<string>\"\n        }\n      ],\n      \"linkedOrders\": [\n        {\n          \"externalOrderNumber\": \"<string>\"\n        },\n        {\n          \"externalOrderNumber\": \"<string>\"\n        }\n      ],\n      \"plannedArrival\": \"<string>\",\n      \"plannedDeparture\": \"<string>\"\n    }\n  ],\n  \"transportMode\": \"<string>\",\n  \"perspective\": \"<string>\",\n  \"transportService\": \"<string>\",\n  \"plannedStartDate\": \"<dateTime>\",\n  \"plannedFinishDate\": \"<dateTime>\",\n  \"grossWeight\": {\n    \"uom\": \"<string>\",\n    \"value\": \"<double>\"\n  },\n  \"volume\": {\n    \"uom\": \"<string>\",\n    \"value\": \"<double>\"\n  },\n  \"packageCount\": \"<integer>\",\n  \"movementType\": \"<string>\",\n  \"incoterm\": \"<string>\",\n  \"isTempControlled\": \"<boolean>\",\n  \"isDangerousGoods\": \"<boolean>\",\n  \"commercialValue\": {\n    \"amount\": \"<double>\",\n    \"currencyCode\": \"<string>\"\n  },\n  \"orders\": [\n    {\n      \"externalOrderNumber\": \"<string>\"\n    },\n    {\n      \"externalOrderNumber\": \"<string>\"\n    }\n  ],\n  \"contacts\": [\n    {\n      \"code\": \"<string>\",\n      \"email\": \"<email>\",\n      \"type\": \"<string>\",\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"phone\": \"<string>\",\n      \"fax\": \"<string>\"\n    },\n    {\n      \"code\": \"<string>\",\n      \"email\": \"<email>\",\n      \"type\": \"<string>\",\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"phone\": \"<string>\",\n      \"fax\": \"<string>\"\n    }\n  ],\n  \"plannedCosts\": [\n    {\n      \"amount\": \"<double>\",\n      \"currencyCode\": \"<string>\",\n      \"type\": \"<string>\",\n      \"code\": \"<string>\"\n    },\n    {\n      \"amount\": \"<double>\",\n      \"currencyCode\": \"<string>\",\n      \"type\": \"<string>\",\n      \"code\": \"<string>\"\n    }\n  ],\n  \"linkedPackages\": [\n    {\n      \"count\": \"<integer>\",\n      \"externalPackageNumber\": \"<string>\",\n      \"type\": \"<string>\",\n      \"externalEquipmentNumber\": \"<string>\",\n      \"unitGrossWeight\": {\n        \"uom\": \"<string>\",\n        \"value\": \"<double>\"\n      },\n      \"unitGrossVolume\": {\n        \"uom\": \"<string>\",\n        \"value\": \"<double>\"\n      },\n      \"length\": {\n        \"uom\": \"<string>\",\n        \"value\": \"<double>\"\n      },\n      \"width\": {\n        \"uom\": \"<string>\",\n        \"value\": \"<double>\"\n      },\n      \"height\": {\n        \"uom\": \"<string>\",\n        \"value\": \"<double>\"\n      },\n      \"additions\": [\n        {\n          \"references\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"monetaryValues\": [\n            {\n              \"currencyCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"currencyCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"flags\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"notes\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"references\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"monetaryValues\": [\n            {\n              \"currencyCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"currencyCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"flags\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"notes\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ]\n    },\n    {\n      \"count\": \"<integer>\",\n      \"externalPackageNumber\": \"<string>\",\n      \"type\": \"<string>\",\n      \"externalEquipmentNumber\": \"<string>\",\n      \"unitGrossWeight\": {\n        \"uom\": \"<string>\",\n        \"value\": \"<double>\"\n      },\n      \"unitGrossVolume\": {\n        \"uom\": \"<string>\",\n        \"value\": \"<double>\"\n      },\n      \"length\": {\n        \"uom\": \"<string>\",\n        \"value\": \"<double>\"\n      },\n      \"width\": {\n        \"uom\": \"<string>\",\n        \"value\": \"<double>\"\n      },\n      \"height\": {\n        \"uom\": \"<string>\",\n        \"value\": \"<double>\"\n      },\n      \"additions\": [\n        {\n          \"references\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"monetaryValues\": [\n            {\n              \"currencyCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"currencyCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"flags\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"notes\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"references\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"monetaryValues\": [\n            {\n              \"currencyCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"currencyCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"flags\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"notes\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ]\n    }\n  ],\n  \"linkedEquipments\": [\n    {\n      \"externalEquipmentNumber\": \"<string>\",\n      \"type\": {\n        \"code\": \"<string>\",\n        \"name\": \"<string>\",\n        \"teuEquivalent\": \"<integer>\",\n        \"temperature\": {\n          \"name\": \"<string>\",\n          \"min\": {\n            \"uom\": \"<string>\",\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"max\": {\n            \"uom\": \"<string>\",\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"length\": {\n          \"uom\": \"<string>\",\n          \"value\": \"<double>\"\n        },\n        \"width\": {\n          \"uom\": \"<string>\",\n          \"value\": \"<double>\"\n        },\n        \"height\": {\n          \"uom\": \"<string>\",\n          \"value\": \"<double>\"\n        }\n      }\n    },\n    {\n      \"externalEquipmentNumber\": \"<string>\",\n      \"type\": {\n        \"code\": \"<string>\",\n        \"name\": \"<string>\",\n        \"teuEquivalent\": \"<integer>\",\n        \"temperature\": {\n          \"name\": \"<string>\",\n          \"min\": {\n            \"uom\": \"<string>\",\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"max\": {\n            \"uom\": \"<string>\",\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"length\": {\n          \"uom\": \"<string>\",\n          \"value\": \"<double>\"\n        },\n        \"width\": {\n          \"uom\": \"<string>\",\n          \"value\": \"<double>\"\n        },\n        \"height\": {\n          \"uom\": \"<string>\",\n          \"value\": \"<double>\"\n        }\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"uuid\": \"4510c67f-818c-4d70-9867-5df6864a77a3\",\n  \"shipmentNumber\": \"ML0374691\",\n  \"customerCode\": \"CUSTEXP\",\n  \"requestTime\": \"2024-08-30T07:15:20.885Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9ef1733f-c818-484e-b579-b1fb0dd321de",
+              "name": "Bad Request - The request was invalid or cannot be processed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":customerCode",
+                    "shipments",
+                    ":shipmentNumber"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerCode",
+                      "description": "(Required) The customer code"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "shipmentNumber",
+                      "description": "(Required) The shipment number"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/problem+json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"additions\": [\n    {\n      \"references\": [\n        {\n          \"qualifier\": \"<string>\",\n          \"values\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        },\n        {\n          \"qualifier\": \"<string>\",\n          \"values\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        }\n      ],\n      \"monetaryValues\": [\n        {\n          \"currencyCode\": \"<string>\",\n          \"qualifier\": \"<string>\",\n          \"value\": \"<double>\"\n        },\n        {\n          \"currencyCode\": \"<string>\",\n          \"qualifier\": \"<string>\",\n          \"value\": \"<double>\"\n        }\n      ],\n      \"flags\": [\n        {\n          \"qualifier\": \"<string>\",\n          \"value\": \"<boolean>\"\n        },\n        {\n          \"qualifier\": \"<string>\",\n          \"value\": \"<boolean>\"\n        }\n      ],\n      \"notes\": [\n        {\n          \"qualifier\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"qualifier\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"references\": [\n        {\n          \"qualifier\": \"<string>\",\n          \"values\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        },\n        {\n          \"qualifier\": \"<string>\",\n          \"values\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        }\n      ],\n      \"monetaryValues\": [\n        {\n          \"currencyCode\": \"<string>\",\n          \"qualifier\": \"<string>\",\n          \"value\": \"<double>\"\n        },\n        {\n          \"currencyCode\": \"<string>\",\n          \"qualifier\": \"<string>\",\n          \"value\": \"<double>\"\n        }\n      ],\n      \"flags\": [\n        {\n          \"qualifier\": \"<string>\",\n          \"value\": \"<boolean>\"\n        },\n        {\n          \"qualifier\": \"<string>\",\n          \"value\": \"<boolean>\"\n        }\n      ],\n      \"notes\": [\n        {\n          \"qualifier\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"qualifier\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ]\n    }\n  ],\n  \"locations\": [\n    {\n      \"countryCode\": \"<string>\",\n      \"locationCode\": \"<string>\",\n      \"locationType\": \"<string>\",\n      \"timeZone\": \"<string>\",\n      \"name1\": \"<string>\",\n      \"name2\": \"<string>\",\n      \"street1\": \"<string>\",\n      \"street2\": \"<string>\",\n      \"regionName\": \"<string>\",\n      \"regionCode\": \"<string>\",\n      \"city\": \"<string>\",\n      \"postalCode\": \"<string>\"\n    }\n  ],\n  \"requestTime\": \"<dateTime>\",\n  \"stops\": [\n    {\n      \"locationCode\": \"<string>\",\n      \"sequenceNumber\": \"<integer>\",\n      \"type\": \"<string>\",\n      \"linkedPackages\": [\n        {\n          \"externalPackageNumber\": \"<string>\"\n        },\n        {\n          \"externalPackageNumber\": \"<string>\"\n        }\n      ],\n      \"linkedOrders\": [\n        {\n          \"externalOrderNumber\": \"<string>\"\n        },\n        {\n          \"externalOrderNumber\": \"<string>\"\n        }\n      ],\n      \"plannedArrival\": \"<string>\",\n      \"plannedDeparture\": \"<string>\"\n    },\n    {\n      \"locationCode\": \"<string>\",\n      \"sequenceNumber\": \"<integer>\",\n      \"type\": \"<string>\",\n      \"linkedPackages\": [\n        {\n          \"externalPackageNumber\": \"<string>\"\n        },\n        {\n          \"externalPackageNumber\": \"<string>\"\n        }\n      ],\n      \"linkedOrders\": [\n        {\n          \"externalOrderNumber\": \"<string>\"\n        },\n        {\n          \"externalOrderNumber\": \"<string>\"\n        }\n      ],\n      \"plannedArrival\": \"<string>\",\n      \"plannedDeparture\": \"<string>\"\n    }\n  ],\n  \"transportMode\": \"<string>\",\n  \"perspective\": \"<string>\",\n  \"transportService\": \"<string>\",\n  \"plannedStartDate\": \"<dateTime>\",\n  \"plannedFinishDate\": \"<dateTime>\",\n  \"grossWeight\": {\n    \"uom\": \"<string>\",\n    \"value\": \"<double>\"\n  },\n  \"volume\": {\n    \"uom\": \"<string>\",\n    \"value\": \"<double>\"\n  },\n  \"packageCount\": \"<integer>\",\n  \"movementType\": \"<string>\",\n  \"incoterm\": \"<string>\",\n  \"isTempControlled\": \"<boolean>\",\n  \"isDangerousGoods\": \"<boolean>\",\n  \"commercialValue\": {\n    \"amount\": \"<double>\",\n    \"currencyCode\": \"<string>\"\n  },\n  \"orders\": [\n    {\n      \"externalOrderNumber\": \"<string>\"\n    },\n    {\n      \"externalOrderNumber\": \"<string>\"\n    }\n  ],\n  \"contacts\": [\n    {\n      \"code\": \"<string>\",\n      \"email\": \"<email>\",\n      \"type\": \"<string>\",\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"phone\": \"<string>\",\n      \"fax\": \"<string>\"\n    },\n    {\n      \"code\": \"<string>\",\n      \"email\": \"<email>\",\n      \"type\": \"<string>\",\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"phone\": \"<string>\",\n      \"fax\": \"<string>\"\n    }\n  ],\n  \"plannedCosts\": [\n    {\n      \"amount\": \"<double>\",\n      \"currencyCode\": \"<string>\",\n      \"type\": \"<string>\",\n      \"code\": \"<string>\"\n    },\n    {\n      \"amount\": \"<double>\",\n      \"currencyCode\": \"<string>\",\n      \"type\": \"<string>\",\n      \"code\": \"<string>\"\n    }\n  ],\n  \"linkedPackages\": [\n    {\n      \"count\": \"<integer>\",\n      \"externalPackageNumber\": \"<string>\",\n      \"type\": \"<string>\",\n      \"externalEquipmentNumber\": \"<string>\",\n      \"unitGrossWeight\": {\n        \"uom\": \"<string>\",\n        \"value\": \"<double>\"\n      },\n      \"unitGrossVolume\": {\n        \"uom\": \"<string>\",\n        \"value\": \"<double>\"\n      },\n      \"length\": {\n        \"uom\": \"<string>\",\n        \"value\": \"<double>\"\n      },\n      \"width\": {\n        \"uom\": \"<string>\",\n        \"value\": \"<double>\"\n      },\n      \"height\": {\n        \"uom\": \"<string>\",\n        \"value\": \"<double>\"\n      },\n      \"additions\": [\n        {\n          \"references\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"monetaryValues\": [\n            {\n              \"currencyCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"currencyCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"flags\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"notes\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"references\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"monetaryValues\": [\n            {\n              \"currencyCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"currencyCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"flags\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"notes\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ]\n    },\n    {\n      \"count\": \"<integer>\",\n      \"externalPackageNumber\": \"<string>\",\n      \"type\": \"<string>\",\n      \"externalEquipmentNumber\": \"<string>\",\n      \"unitGrossWeight\": {\n        \"uom\": \"<string>\",\n        \"value\": \"<double>\"\n      },\n      \"unitGrossVolume\": {\n        \"uom\": \"<string>\",\n        \"value\": \"<double>\"\n      },\n      \"length\": {\n        \"uom\": \"<string>\",\n        \"value\": \"<double>\"\n      },\n      \"width\": {\n        \"uom\": \"<string>\",\n        \"value\": \"<double>\"\n      },\n      \"height\": {\n        \"uom\": \"<string>\",\n        \"value\": \"<double>\"\n      },\n      \"additions\": [\n        {\n          \"references\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"monetaryValues\": [\n            {\n              \"currencyCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"currencyCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"flags\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"notes\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"references\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"monetaryValues\": [\n            {\n              \"currencyCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"currencyCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"flags\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"notes\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ]\n    }\n  ],\n  \"linkedEquipments\": [\n    {\n      \"externalEquipmentNumber\": \"<string>\",\n      \"type\": {\n        \"code\": \"<string>\",\n        \"name\": \"<string>\",\n        \"teuEquivalent\": \"<integer>\",\n        \"temperature\": {\n          \"name\": \"<string>\",\n          \"min\": {\n            \"uom\": \"<string>\",\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"max\": {\n            \"uom\": \"<string>\",\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"length\": {\n          \"uom\": \"<string>\",\n          \"value\": \"<double>\"\n        },\n        \"width\": {\n          \"uom\": \"<string>\",\n          \"value\": \"<double>\"\n        },\n        \"height\": {\n          \"uom\": \"<string>\",\n          \"value\": \"<double>\"\n        }\n      }\n    },\n    {\n      \"externalEquipmentNumber\": \"<string>\",\n      \"type\": {\n        \"code\": \"<string>\",\n        \"name\": \"<string>\",\n        \"teuEquivalent\": \"<integer>\",\n        \"temperature\": {\n          \"name\": \"<string>\",\n          \"min\": {\n            \"uom\": \"<string>\",\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"max\": {\n            \"uom\": \"<string>\",\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"length\": {\n          \"uom\": \"<string>\",\n          \"value\": \"<double>\"\n        },\n        \"width\": {\n          \"uom\": \"<string>\",\n          \"value\": \"<double>\"\n        },\n        \"height\": {\n          \"uom\": \"<string>\",\n          \"value\": \"<double>\"\n        }\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/problem+json"
+                }
+              ],
+              "body": "{\n  \"code\": \"ERR001\",\n  \"title\": \"Missing request body\",\n  \"status\": 400,\n  \"detail\": \"No body was sent in the request.\",\n  \"instance\": \"/v1/shipments\",\n  \"timestamp\": 1714648020821\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "eca1ebcd-f4bb-442c-839b-bad8dd909804",
+              "name": "Unsupported Media Type - The request content type is not supported.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":customerCode",
+                    "shipments",
+                    ":shipmentNumber"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerCode",
+                      "description": "(Required) The customer code"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "shipmentNumber",
+                      "description": "(Required) The shipment number"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/problem+json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"additions\": [\n    {\n      \"references\": [\n        {\n          \"qualifier\": \"<string>\",\n          \"values\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        },\n        {\n          \"qualifier\": \"<string>\",\n          \"values\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        }\n      ],\n      \"monetaryValues\": [\n        {\n          \"currencyCode\": \"<string>\",\n          \"qualifier\": \"<string>\",\n          \"value\": \"<double>\"\n        },\n        {\n          \"currencyCode\": \"<string>\",\n          \"qualifier\": \"<string>\",\n          \"value\": \"<double>\"\n        }\n      ],\n      \"flags\": [\n        {\n          \"qualifier\": \"<string>\",\n          \"value\": \"<boolean>\"\n        },\n        {\n          \"qualifier\": \"<string>\",\n          \"value\": \"<boolean>\"\n        }\n      ],\n      \"notes\": [\n        {\n          \"qualifier\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"qualifier\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"references\": [\n        {\n          \"qualifier\": \"<string>\",\n          \"values\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        },\n        {\n          \"qualifier\": \"<string>\",\n          \"values\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        }\n      ],\n      \"monetaryValues\": [\n        {\n          \"currencyCode\": \"<string>\",\n          \"qualifier\": \"<string>\",\n          \"value\": \"<double>\"\n        },\n        {\n          \"currencyCode\": \"<string>\",\n          \"qualifier\": \"<string>\",\n          \"value\": \"<double>\"\n        }\n      ],\n      \"flags\": [\n        {\n          \"qualifier\": \"<string>\",\n          \"value\": \"<boolean>\"\n        },\n        {\n          \"qualifier\": \"<string>\",\n          \"value\": \"<boolean>\"\n        }\n      ],\n      \"notes\": [\n        {\n          \"qualifier\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"qualifier\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ]\n    }\n  ],\n  \"locations\": [\n    {\n      \"countryCode\": \"<string>\",\n      \"locationCode\": \"<string>\",\n      \"locationType\": \"<string>\",\n      \"timeZone\": \"<string>\",\n      \"name1\": \"<string>\",\n      \"name2\": \"<string>\",\n      \"street1\": \"<string>\",\n      \"street2\": \"<string>\",\n      \"regionName\": \"<string>\",\n      \"regionCode\": \"<string>\",\n      \"city\": \"<string>\",\n      \"postalCode\": \"<string>\"\n    }\n  ],\n  \"requestTime\": \"<dateTime>\",\n  \"stops\": [\n    {\n      \"locationCode\": \"<string>\",\n      \"sequenceNumber\": \"<integer>\",\n      \"type\": \"<string>\",\n      \"linkedPackages\": [\n        {\n          \"externalPackageNumber\": \"<string>\"\n        },\n        {\n          \"externalPackageNumber\": \"<string>\"\n        }\n      ],\n      \"linkedOrders\": [\n        {\n          \"externalOrderNumber\": \"<string>\"\n        },\n        {\n          \"externalOrderNumber\": \"<string>\"\n        }\n      ],\n      \"plannedArrival\": \"<string>\",\n      \"plannedDeparture\": \"<string>\"\n    },\n    {\n      \"locationCode\": \"<string>\",\n      \"sequenceNumber\": \"<integer>\",\n      \"type\": \"<string>\",\n      \"linkedPackages\": [\n        {\n          \"externalPackageNumber\": \"<string>\"\n        },\n        {\n          \"externalPackageNumber\": \"<string>\"\n        }\n      ],\n      \"linkedOrders\": [\n        {\n          \"externalOrderNumber\": \"<string>\"\n        },\n        {\n          \"externalOrderNumber\": \"<string>\"\n        }\n      ],\n      \"plannedArrival\": \"<string>\",\n      \"plannedDeparture\": \"<string>\"\n    }\n  ],\n  \"transportMode\": \"<string>\",\n  \"perspective\": \"<string>\",\n  \"transportService\": \"<string>\",\n  \"plannedStartDate\": \"<dateTime>\",\n  \"plannedFinishDate\": \"<dateTime>\",\n  \"grossWeight\": {\n    \"uom\": \"<string>\",\n    \"value\": \"<double>\"\n  },\n  \"volume\": {\n    \"uom\": \"<string>\",\n    \"value\": \"<double>\"\n  },\n  \"packageCount\": \"<integer>\",\n  \"movementType\": \"<string>\",\n  \"incoterm\": \"<string>\",\n  \"isTempControlled\": \"<boolean>\",\n  \"isDangerousGoods\": \"<boolean>\",\n  \"commercialValue\": {\n    \"amount\": \"<double>\",\n    \"currencyCode\": \"<string>\"\n  },\n  \"orders\": [\n    {\n      \"externalOrderNumber\": \"<string>\"\n    },\n    {\n      \"externalOrderNumber\": \"<string>\"\n    }\n  ],\n  \"contacts\": [\n    {\n      \"code\": \"<string>\",\n      \"email\": \"<email>\",\n      \"type\": \"<string>\",\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"phone\": \"<string>\",\n      \"fax\": \"<string>\"\n    },\n    {\n      \"code\": \"<string>\",\n      \"email\": \"<email>\",\n      \"type\": \"<string>\",\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"phone\": \"<string>\",\n      \"fax\": \"<string>\"\n    }\n  ],\n  \"plannedCosts\": [\n    {\n      \"amount\": \"<double>\",\n      \"currencyCode\": \"<string>\",\n      \"type\": \"<string>\",\n      \"code\": \"<string>\"\n    },\n    {\n      \"amount\": \"<double>\",\n      \"currencyCode\": \"<string>\",\n      \"type\": \"<string>\",\n      \"code\": \"<string>\"\n    }\n  ],\n  \"linkedPackages\": [\n    {\n      \"count\": \"<integer>\",\n      \"externalPackageNumber\": \"<string>\",\n      \"type\": \"<string>\",\n      \"externalEquipmentNumber\": \"<string>\",\n      \"unitGrossWeight\": {\n        \"uom\": \"<string>\",\n        \"value\": \"<double>\"\n      },\n      \"unitGrossVolume\": {\n        \"uom\": \"<string>\",\n        \"value\": \"<double>\"\n      },\n      \"length\": {\n        \"uom\": \"<string>\",\n        \"value\": \"<double>\"\n      },\n      \"width\": {\n        \"uom\": \"<string>\",\n        \"value\": \"<double>\"\n      },\n      \"height\": {\n        \"uom\": \"<string>\",\n        \"value\": \"<double>\"\n      },\n      \"additions\": [\n        {\n          \"references\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"monetaryValues\": [\n            {\n              \"currencyCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"currencyCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"flags\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"notes\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"references\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"monetaryValues\": [\n            {\n              \"currencyCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"currencyCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"flags\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"notes\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ]\n    },\n    {\n      \"count\": \"<integer>\",\n      \"externalPackageNumber\": \"<string>\",\n      \"type\": \"<string>\",\n      \"externalEquipmentNumber\": \"<string>\",\n      \"unitGrossWeight\": {\n        \"uom\": \"<string>\",\n        \"value\": \"<double>\"\n      },\n      \"unitGrossVolume\": {\n        \"uom\": \"<string>\",\n        \"value\": \"<double>\"\n      },\n      \"length\": {\n        \"uom\": \"<string>\",\n        \"value\": \"<double>\"\n      },\n      \"width\": {\n        \"uom\": \"<string>\",\n        \"value\": \"<double>\"\n      },\n      \"height\": {\n        \"uom\": \"<string>\",\n        \"value\": \"<double>\"\n      },\n      \"additions\": [\n        {\n          \"references\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"monetaryValues\": [\n            {\n              \"currencyCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"currencyCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"flags\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"notes\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"references\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"monetaryValues\": [\n            {\n              \"currencyCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"currencyCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"flags\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"notes\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ]\n    }\n  ],\n  \"linkedEquipments\": [\n    {\n      \"externalEquipmentNumber\": \"<string>\",\n      \"type\": {\n        \"code\": \"<string>\",\n        \"name\": \"<string>\",\n        \"teuEquivalent\": \"<integer>\",\n        \"temperature\": {\n          \"name\": \"<string>\",\n          \"min\": {\n            \"uom\": \"<string>\",\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"max\": {\n            \"uom\": \"<string>\",\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"length\": {\n          \"uom\": \"<string>\",\n          \"value\": \"<double>\"\n        },\n        \"width\": {\n          \"uom\": \"<string>\",\n          \"value\": \"<double>\"\n        },\n        \"height\": {\n          \"uom\": \"<string>\",\n          \"value\": \"<double>\"\n        }\n      }\n    },\n    {\n      \"externalEquipmentNumber\": \"<string>\",\n      \"type\": {\n        \"code\": \"<string>\",\n        \"name\": \"<string>\",\n        \"teuEquivalent\": \"<integer>\",\n        \"temperature\": {\n          \"name\": \"<string>\",\n          \"min\": {\n            \"uom\": \"<string>\",\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"max\": {\n            \"uom\": \"<string>\",\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"length\": {\n          \"uom\": \"<string>\",\n          \"value\": \"<double>\"\n        },\n        \"width\": {\n          \"uom\": \"<string>\",\n          \"value\": \"<double>\"\n        },\n        \"height\": {\n          \"uom\": \"<string>\",\n          \"value\": \"<double>\"\n        }\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unsupported Media Type",
+              "code": 415,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/problem+json"
+                }
+              ],
+              "body": "{\n  \"code\": \"ERR002\",\n  \"title\": \"Unsupported content type\",\n  \"status\": 415,\n  \"detail\": \"Content type must be 'application/json'.\",\n  \"instance\": \"/v1/shipments\",\n  \"timestamp\": 1714648020821\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "97895331-569d-4131-b88f-3936ac1750f8",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":customerCode",
+                    "shipments",
+                    ":shipmentNumber"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerCode",
+                      "description": "(Required) The customer code"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "shipmentNumber",
+                      "description": "(Required) The shipment number"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/problem+json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"additions\": [\n    {\n      \"references\": [\n        {\n          \"qualifier\": \"<string>\",\n          \"values\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        },\n        {\n          \"qualifier\": \"<string>\",\n          \"values\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        }\n      ],\n      \"monetaryValues\": [\n        {\n          \"currencyCode\": \"<string>\",\n          \"qualifier\": \"<string>\",\n          \"value\": \"<double>\"\n        },\n        {\n          \"currencyCode\": \"<string>\",\n          \"qualifier\": \"<string>\",\n          \"value\": \"<double>\"\n        }\n      ],\n      \"flags\": [\n        {\n          \"qualifier\": \"<string>\",\n          \"value\": \"<boolean>\"\n        },\n        {\n          \"qualifier\": \"<string>\",\n          \"value\": \"<boolean>\"\n        }\n      ],\n      \"notes\": [\n        {\n          \"qualifier\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"qualifier\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"references\": [\n        {\n          \"qualifier\": \"<string>\",\n          \"values\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        },\n        {\n          \"qualifier\": \"<string>\",\n          \"values\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        }\n      ],\n      \"monetaryValues\": [\n        {\n          \"currencyCode\": \"<string>\",\n          \"qualifier\": \"<string>\",\n          \"value\": \"<double>\"\n        },\n        {\n          \"currencyCode\": \"<string>\",\n          \"qualifier\": \"<string>\",\n          \"value\": \"<double>\"\n        }\n      ],\n      \"flags\": [\n        {\n          \"qualifier\": \"<string>\",\n          \"value\": \"<boolean>\"\n        },\n        {\n          \"qualifier\": \"<string>\",\n          \"value\": \"<boolean>\"\n        }\n      ],\n      \"notes\": [\n        {\n          \"qualifier\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"qualifier\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ]\n    }\n  ],\n  \"locations\": [\n    {\n      \"countryCode\": \"<string>\",\n      \"locationCode\": \"<string>\",\n      \"locationType\": \"<string>\",\n      \"timeZone\": \"<string>\",\n      \"name1\": \"<string>\",\n      \"name2\": \"<string>\",\n      \"street1\": \"<string>\",\n      \"street2\": \"<string>\",\n      \"regionName\": \"<string>\",\n      \"regionCode\": \"<string>\",\n      \"city\": \"<string>\",\n      \"postalCode\": \"<string>\"\n    }\n  ],\n  \"requestTime\": \"<dateTime>\",\n  \"stops\": [\n    {\n      \"locationCode\": \"<string>\",\n      \"sequenceNumber\": \"<integer>\",\n      \"type\": \"<string>\",\n      \"linkedPackages\": [\n        {\n          \"externalPackageNumber\": \"<string>\"\n        },\n        {\n          \"externalPackageNumber\": \"<string>\"\n        }\n      ],\n      \"linkedOrders\": [\n        {\n          \"externalOrderNumber\": \"<string>\"\n        },\n        {\n          \"externalOrderNumber\": \"<string>\"\n        }\n      ],\n      \"plannedArrival\": \"<string>\",\n      \"plannedDeparture\": \"<string>\"\n    },\n    {\n      \"locationCode\": \"<string>\",\n      \"sequenceNumber\": \"<integer>\",\n      \"type\": \"<string>\",\n      \"linkedPackages\": [\n        {\n          \"externalPackageNumber\": \"<string>\"\n        },\n        {\n          \"externalPackageNumber\": \"<string>\"\n        }\n      ],\n      \"linkedOrders\": [\n        {\n          \"externalOrderNumber\": \"<string>\"\n        },\n        {\n          \"externalOrderNumber\": \"<string>\"\n        }\n      ],\n      \"plannedArrival\": \"<string>\",\n      \"plannedDeparture\": \"<string>\"\n    }\n  ],\n  \"transportMode\": \"<string>\",\n  \"perspective\": \"<string>\",\n  \"transportService\": \"<string>\",\n  \"plannedStartDate\": \"<dateTime>\",\n  \"plannedFinishDate\": \"<dateTime>\",\n  \"grossWeight\": {\n    \"uom\": \"<string>\",\n    \"value\": \"<double>\"\n  },\n  \"volume\": {\n    \"uom\": \"<string>\",\n    \"value\": \"<double>\"\n  },\n  \"packageCount\": \"<integer>\",\n  \"movementType\": \"<string>\",\n  \"incoterm\": \"<string>\",\n  \"isTempControlled\": \"<boolean>\",\n  \"isDangerousGoods\": \"<boolean>\",\n  \"commercialValue\": {\n    \"amount\": \"<double>\",\n    \"currencyCode\": \"<string>\"\n  },\n  \"orders\": [\n    {\n      \"externalOrderNumber\": \"<string>\"\n    },\n    {\n      \"externalOrderNumber\": \"<string>\"\n    }\n  ],\n  \"contacts\": [\n    {\n      \"code\": \"<string>\",\n      \"email\": \"<email>\",\n      \"type\": \"<string>\",\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"phone\": \"<string>\",\n      \"fax\": \"<string>\"\n    },\n    {\n      \"code\": \"<string>\",\n      \"email\": \"<email>\",\n      \"type\": \"<string>\",\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"phone\": \"<string>\",\n      \"fax\": \"<string>\"\n    }\n  ],\n  \"plannedCosts\": [\n    {\n      \"amount\": \"<double>\",\n      \"currencyCode\": \"<string>\",\n      \"type\": \"<string>\",\n      \"code\": \"<string>\"\n    },\n    {\n      \"amount\": \"<double>\",\n      \"currencyCode\": \"<string>\",\n      \"type\": \"<string>\",\n      \"code\": \"<string>\"\n    }\n  ],\n  \"linkedPackages\": [\n    {\n      \"count\": \"<integer>\",\n      \"externalPackageNumber\": \"<string>\",\n      \"type\": \"<string>\",\n      \"externalEquipmentNumber\": \"<string>\",\n      \"unitGrossWeight\": {\n        \"uom\": \"<string>\",\n        \"value\": \"<double>\"\n      },\n      \"unitGrossVolume\": {\n        \"uom\": \"<string>\",\n        \"value\": \"<double>\"\n      },\n      \"length\": {\n        \"uom\": \"<string>\",\n        \"value\": \"<double>\"\n      },\n      \"width\": {\n        \"uom\": \"<string>\",\n        \"value\": \"<double>\"\n      },\n      \"height\": {\n        \"uom\": \"<string>\",\n        \"value\": \"<double>\"\n      },\n      \"additions\": [\n        {\n          \"references\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"monetaryValues\": [\n            {\n              \"currencyCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"currencyCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"flags\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"notes\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"references\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"monetaryValues\": [\n            {\n              \"currencyCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"currencyCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"flags\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"notes\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ]\n    },\n    {\n      \"count\": \"<integer>\",\n      \"externalPackageNumber\": \"<string>\",\n      \"type\": \"<string>\",\n      \"externalEquipmentNumber\": \"<string>\",\n      \"unitGrossWeight\": {\n        \"uom\": \"<string>\",\n        \"value\": \"<double>\"\n      },\n      \"unitGrossVolume\": {\n        \"uom\": \"<string>\",\n        \"value\": \"<double>\"\n      },\n      \"length\": {\n        \"uom\": \"<string>\",\n        \"value\": \"<double>\"\n      },\n      \"width\": {\n        \"uom\": \"<string>\",\n        \"value\": \"<double>\"\n      },\n      \"height\": {\n        \"uom\": \"<string>\",\n        \"value\": \"<double>\"\n      },\n      \"additions\": [\n        {\n          \"references\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"monetaryValues\": [\n            {\n              \"currencyCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"currencyCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"flags\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"notes\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"references\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"monetaryValues\": [\n            {\n              \"currencyCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"currencyCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"flags\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"notes\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ]\n    }\n  ],\n  \"linkedEquipments\": [\n    {\n      \"externalEquipmentNumber\": \"<string>\",\n      \"type\": {\n        \"code\": \"<string>\",\n        \"name\": \"<string>\",\n        \"teuEquivalent\": \"<integer>\",\n        \"temperature\": {\n          \"name\": \"<string>\",\n          \"min\": {\n            \"uom\": \"<string>\",\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"max\": {\n            \"uom\": \"<string>\",\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"length\": {\n          \"uom\": \"<string>\",\n          \"value\": \"<double>\"\n        },\n        \"width\": {\n          \"uom\": \"<string>\",\n          \"value\": \"<double>\"\n        },\n        \"height\": {\n          \"uom\": \"<string>\",\n          \"value\": \"<double>\"\n        }\n      }\n    },\n    {\n      \"externalEquipmentNumber\": \"<string>\",\n      \"type\": {\n        \"code\": \"<string>\",\n        \"name\": \"<string>\",\n        \"teuEquivalent\": \"<integer>\",\n        \"temperature\": {\n          \"name\": \"<string>\",\n          \"min\": {\n            \"uom\": \"<string>\",\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"max\": {\n            \"uom\": \"<string>\",\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"length\": {\n          \"uom\": \"<string>\",\n          \"value\": \"<double>\"\n        },\n        \"width\": {\n          \"uom\": \"<string>\",\n          \"value\": \"<double>\"\n        },\n        \"height\": {\n          \"uom\": \"<string>\",\n          \"value\": \"<double>\"\n        }\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/problem+json"
+                }
+              ],
+              "body": "{\n  \"code\": \"ERR006\",\n  \"title\": \"Internal server error\",\n  \"status\": 500,\n  \"detail\": \"An unexpected error occurred. Please contact support with reference: 0191fb2a-c8ad-7607-8a06-144400c6fce5\",\n  \"instance\": \"/v1/shipments\",\n  \"timestamp\": 1714648020821\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3b316003-8ce3-443c-81f8-a278e9818bef",
+              "name": "Service Unavailable.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":customerCode",
+                    "shipments",
+                    ":shipmentNumber"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerCode",
+                      "description": "(Required) The customer code"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "shipmentNumber",
+                      "description": "(Required) The shipment number"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/problem+json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"additions\": [\n    {\n      \"references\": [\n        {\n          \"qualifier\": \"<string>\",\n          \"values\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        },\n        {\n          \"qualifier\": \"<string>\",\n          \"values\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        }\n      ],\n      \"monetaryValues\": [\n        {\n          \"currencyCode\": \"<string>\",\n          \"qualifier\": \"<string>\",\n          \"value\": \"<double>\"\n        },\n        {\n          \"currencyCode\": \"<string>\",\n          \"qualifier\": \"<string>\",\n          \"value\": \"<double>\"\n        }\n      ],\n      \"flags\": [\n        {\n          \"qualifier\": \"<string>\",\n          \"value\": \"<boolean>\"\n        },\n        {\n          \"qualifier\": \"<string>\",\n          \"value\": \"<boolean>\"\n        }\n      ],\n      \"notes\": [\n        {\n          \"qualifier\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"qualifier\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"references\": [\n        {\n          \"qualifier\": \"<string>\",\n          \"values\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        },\n        {\n          \"qualifier\": \"<string>\",\n          \"values\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        }\n      ],\n      \"monetaryValues\": [\n        {\n          \"currencyCode\": \"<string>\",\n          \"qualifier\": \"<string>\",\n          \"value\": \"<double>\"\n        },\n        {\n          \"currencyCode\": \"<string>\",\n          \"qualifier\": \"<string>\",\n          \"value\": \"<double>\"\n        }\n      ],\n      \"flags\": [\n        {\n          \"qualifier\": \"<string>\",\n          \"value\": \"<boolean>\"\n        },\n        {\n          \"qualifier\": \"<string>\",\n          \"value\": \"<boolean>\"\n        }\n      ],\n      \"notes\": [\n        {\n          \"qualifier\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"qualifier\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ]\n    }\n  ],\n  \"locations\": [\n    {\n      \"countryCode\": \"<string>\",\n      \"locationCode\": \"<string>\",\n      \"locationType\": \"<string>\",\n      \"timeZone\": \"<string>\",\n      \"name1\": \"<string>\",\n      \"name2\": \"<string>\",\n      \"street1\": \"<string>\",\n      \"street2\": \"<string>\",\n      \"regionName\": \"<string>\",\n      \"regionCode\": \"<string>\",\n      \"city\": \"<string>\",\n      \"postalCode\": \"<string>\"\n    }\n  ],\n  \"requestTime\": \"<dateTime>\",\n  \"stops\": [\n    {\n      \"locationCode\": \"<string>\",\n      \"sequenceNumber\": \"<integer>\",\n      \"type\": \"<string>\",\n      \"linkedPackages\": [\n        {\n          \"externalPackageNumber\": \"<string>\"\n        },\n        {\n          \"externalPackageNumber\": \"<string>\"\n        }\n      ],\n      \"linkedOrders\": [\n        {\n          \"externalOrderNumber\": \"<string>\"\n        },\n        {\n          \"externalOrderNumber\": \"<string>\"\n        }\n      ],\n      \"plannedArrival\": \"<string>\",\n      \"plannedDeparture\": \"<string>\"\n    },\n    {\n      \"locationCode\": \"<string>\",\n      \"sequenceNumber\": \"<integer>\",\n      \"type\": \"<string>\",\n      \"linkedPackages\": [\n        {\n          \"externalPackageNumber\": \"<string>\"\n        },\n        {\n          \"externalPackageNumber\": \"<string>\"\n        }\n      ],\n      \"linkedOrders\": [\n        {\n          \"externalOrderNumber\": \"<string>\"\n        },\n        {\n          \"externalOrderNumber\": \"<string>\"\n        }\n      ],\n      \"plannedArrival\": \"<string>\",\n      \"plannedDeparture\": \"<string>\"\n    }\n  ],\n  \"transportMode\": \"<string>\",\n  \"perspective\": \"<string>\",\n  \"transportService\": \"<string>\",\n  \"plannedStartDate\": \"<dateTime>\",\n  \"plannedFinishDate\": \"<dateTime>\",\n  \"grossWeight\": {\n    \"uom\": \"<string>\",\n    \"value\": \"<double>\"\n  },\n  \"volume\": {\n    \"uom\": \"<string>\",\n    \"value\": \"<double>\"\n  },\n  \"packageCount\": \"<integer>\",\n  \"movementType\": \"<string>\",\n  \"incoterm\": \"<string>\",\n  \"isTempControlled\": \"<boolean>\",\n  \"isDangerousGoods\": \"<boolean>\",\n  \"commercialValue\": {\n    \"amount\": \"<double>\",\n    \"currencyCode\": \"<string>\"\n  },\n  \"orders\": [\n    {\n      \"externalOrderNumber\": \"<string>\"\n    },\n    {\n      \"externalOrderNumber\": \"<string>\"\n    }\n  ],\n  \"contacts\": [\n    {\n      \"code\": \"<string>\",\n      \"email\": \"<email>\",\n      \"type\": \"<string>\",\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"phone\": \"<string>\",\n      \"fax\": \"<string>\"\n    },\n    {\n      \"code\": \"<string>\",\n      \"email\": \"<email>\",\n      \"type\": \"<string>\",\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"phone\": \"<string>\",\n      \"fax\": \"<string>\"\n    }\n  ],\n  \"plannedCosts\": [\n    {\n      \"amount\": \"<double>\",\n      \"currencyCode\": \"<string>\",\n      \"type\": \"<string>\",\n      \"code\": \"<string>\"\n    },\n    {\n      \"amount\": \"<double>\",\n      \"currencyCode\": \"<string>\",\n      \"type\": \"<string>\",\n      \"code\": \"<string>\"\n    }\n  ],\n  \"linkedPackages\": [\n    {\n      \"count\": \"<integer>\",\n      \"externalPackageNumber\": \"<string>\",\n      \"type\": \"<string>\",\n      \"externalEquipmentNumber\": \"<string>\",\n      \"unitGrossWeight\": {\n        \"uom\": \"<string>\",\n        \"value\": \"<double>\"\n      },\n      \"unitGrossVolume\": {\n        \"uom\": \"<string>\",\n        \"value\": \"<double>\"\n      },\n      \"length\": {\n        \"uom\": \"<string>\",\n        \"value\": \"<double>\"\n      },\n      \"width\": {\n        \"uom\": \"<string>\",\n        \"value\": \"<double>\"\n      },\n      \"height\": {\n        \"uom\": \"<string>\",\n        \"value\": \"<double>\"\n      },\n      \"additions\": [\n        {\n          \"references\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"monetaryValues\": [\n            {\n              \"currencyCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"currencyCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"flags\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"notes\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"references\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"monetaryValues\": [\n            {\n              \"currencyCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"currencyCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"flags\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"notes\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ]\n    },\n    {\n      \"count\": \"<integer>\",\n      \"externalPackageNumber\": \"<string>\",\n      \"type\": \"<string>\",\n      \"externalEquipmentNumber\": \"<string>\",\n      \"unitGrossWeight\": {\n        \"uom\": \"<string>\",\n        \"value\": \"<double>\"\n      },\n      \"unitGrossVolume\": {\n        \"uom\": \"<string>\",\n        \"value\": \"<double>\"\n      },\n      \"length\": {\n        \"uom\": \"<string>\",\n        \"value\": \"<double>\"\n      },\n      \"width\": {\n        \"uom\": \"<string>\",\n        \"value\": \"<double>\"\n      },\n      \"height\": {\n        \"uom\": \"<string>\",\n        \"value\": \"<double>\"\n      },\n      \"additions\": [\n        {\n          \"references\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"monetaryValues\": [\n            {\n              \"currencyCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"currencyCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"flags\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"notes\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"references\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"monetaryValues\": [\n            {\n              \"currencyCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"currencyCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"flags\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"notes\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ]\n    }\n  ],\n  \"linkedEquipments\": [\n    {\n      \"externalEquipmentNumber\": \"<string>\",\n      \"type\": {\n        \"code\": \"<string>\",\n        \"name\": \"<string>\",\n        \"teuEquivalent\": \"<integer>\",\n        \"temperature\": {\n          \"name\": \"<string>\",\n          \"min\": {\n            \"uom\": \"<string>\",\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"max\": {\n            \"uom\": \"<string>\",\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"length\": {\n          \"uom\": \"<string>\",\n          \"value\": \"<double>\"\n        },\n        \"width\": {\n          \"uom\": \"<string>\",\n          \"value\": \"<double>\"\n        },\n        \"height\": {\n          \"uom\": \"<string>\",\n          \"value\": \"<double>\"\n        }\n      }\n    },\n    {\n      \"externalEquipmentNumber\": \"<string>\",\n      \"type\": {\n        \"code\": \"<string>\",\n        \"name\": \"<string>\",\n        \"teuEquivalent\": \"<integer>\",\n        \"temperature\": {\n          \"name\": \"<string>\",\n          \"min\": {\n            \"uom\": \"<string>\",\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"max\": {\n            \"uom\": \"<string>\",\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"length\": {\n          \"uom\": \"<string>\",\n          \"value\": \"<double>\"\n        },\n        \"width\": {\n          \"uom\": \"<string>\",\n          \"value\": \"<double>\"\n        },\n        \"height\": {\n          \"uom\": \"<string>\",\n          \"value\": \"<double>\"\n        }\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/problem+json"
+                }
+              ],
+              "body": "{\n  \"code\": \"ERR005\",\n  \"title\": \"Service Unavailable\",\n  \"status\": 503,\n  \"detail\": \"Service Unavailable, please try again later\",\n  \"instance\": \"/v1/shipments\",\n  \"timestamp\": 1714648020821\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2bb7e8ed-6d6e-4c9e-b383-9a44503a0cc2",
+              "name": "Error occurred - see status code and problem object for more information.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":customerCode",
+                    "shipments",
+                    ":shipmentNumber"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerCode",
+                      "description": "(Required) The customer code"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "shipmentNumber",
+                      "description": "(Required) The shipment number"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/problem+json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"additions\": [\n    {\n      \"references\": [\n        {\n          \"qualifier\": \"<string>\",\n          \"values\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        },\n        {\n          \"qualifier\": \"<string>\",\n          \"values\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        }\n      ],\n      \"monetaryValues\": [\n        {\n          \"currencyCode\": \"<string>\",\n          \"qualifier\": \"<string>\",\n          \"value\": \"<double>\"\n        },\n        {\n          \"currencyCode\": \"<string>\",\n          \"qualifier\": \"<string>\",\n          \"value\": \"<double>\"\n        }\n      ],\n      \"flags\": [\n        {\n          \"qualifier\": \"<string>\",\n          \"value\": \"<boolean>\"\n        },\n        {\n          \"qualifier\": \"<string>\",\n          \"value\": \"<boolean>\"\n        }\n      ],\n      \"notes\": [\n        {\n          \"qualifier\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"qualifier\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"references\": [\n        {\n          \"qualifier\": \"<string>\",\n          \"values\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        },\n        {\n          \"qualifier\": \"<string>\",\n          \"values\": [\n            \"<string>\",\n            \"<string>\"\n          ]\n        }\n      ],\n      \"monetaryValues\": [\n        {\n          \"currencyCode\": \"<string>\",\n          \"qualifier\": \"<string>\",\n          \"value\": \"<double>\"\n        },\n        {\n          \"currencyCode\": \"<string>\",\n          \"qualifier\": \"<string>\",\n          \"value\": \"<double>\"\n        }\n      ],\n      \"flags\": [\n        {\n          \"qualifier\": \"<string>\",\n          \"value\": \"<boolean>\"\n        },\n        {\n          \"qualifier\": \"<string>\",\n          \"value\": \"<boolean>\"\n        }\n      ],\n      \"notes\": [\n        {\n          \"qualifier\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"qualifier\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ]\n    }\n  ],\n  \"locations\": [\n    {\n      \"countryCode\": \"<string>\",\n      \"locationCode\": \"<string>\",\n      \"locationType\": \"<string>\",\n      \"timeZone\": \"<string>\",\n      \"name1\": \"<string>\",\n      \"name2\": \"<string>\",\n      \"street1\": \"<string>\",\n      \"street2\": \"<string>\",\n      \"regionName\": \"<string>\",\n      \"regionCode\": \"<string>\",\n      \"city\": \"<string>\",\n      \"postalCode\": \"<string>\"\n    }\n  ],\n  \"requestTime\": \"<dateTime>\",\n  \"stops\": [\n    {\n      \"locationCode\": \"<string>\",\n      \"sequenceNumber\": \"<integer>\",\n      \"type\": \"<string>\",\n      \"linkedPackages\": [\n        {\n          \"externalPackageNumber\": \"<string>\"\n        },\n        {\n          \"externalPackageNumber\": \"<string>\"\n        }\n      ],\n      \"linkedOrders\": [\n        {\n          \"externalOrderNumber\": \"<string>\"\n        },\n        {\n          \"externalOrderNumber\": \"<string>\"\n        }\n      ],\n      \"plannedArrival\": \"<string>\",\n      \"plannedDeparture\": \"<string>\"\n    },\n    {\n      \"locationCode\": \"<string>\",\n      \"sequenceNumber\": \"<integer>\",\n      \"type\": \"<string>\",\n      \"linkedPackages\": [\n        {\n          \"externalPackageNumber\": \"<string>\"\n        },\n        {\n          \"externalPackageNumber\": \"<string>\"\n        }\n      ],\n      \"linkedOrders\": [\n        {\n          \"externalOrderNumber\": \"<string>\"\n        },\n        {\n          \"externalOrderNumber\": \"<string>\"\n        }\n      ],\n      \"plannedArrival\": \"<string>\",\n      \"plannedDeparture\": \"<string>\"\n    }\n  ],\n  \"transportMode\": \"<string>\",\n  \"perspective\": \"<string>\",\n  \"transportService\": \"<string>\",\n  \"plannedStartDate\": \"<dateTime>\",\n  \"plannedFinishDate\": \"<dateTime>\",\n  \"grossWeight\": {\n    \"uom\": \"<string>\",\n    \"value\": \"<double>\"\n  },\n  \"volume\": {\n    \"uom\": \"<string>\",\n    \"value\": \"<double>\"\n  },\n  \"packageCount\": \"<integer>\",\n  \"movementType\": \"<string>\",\n  \"incoterm\": \"<string>\",\n  \"isTempControlled\": \"<boolean>\",\n  \"isDangerousGoods\": \"<boolean>\",\n  \"commercialValue\": {\n    \"amount\": \"<double>\",\n    \"currencyCode\": \"<string>\"\n  },\n  \"orders\": [\n    {\n      \"externalOrderNumber\": \"<string>\"\n    },\n    {\n      \"externalOrderNumber\": \"<string>\"\n    }\n  ],\n  \"contacts\": [\n    {\n      \"code\": \"<string>\",\n      \"email\": \"<email>\",\n      \"type\": \"<string>\",\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"phone\": \"<string>\",\n      \"fax\": \"<string>\"\n    },\n    {\n      \"code\": \"<string>\",\n      \"email\": \"<email>\",\n      \"type\": \"<string>\",\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"phone\": \"<string>\",\n      \"fax\": \"<string>\"\n    }\n  ],\n  \"plannedCosts\": [\n    {\n      \"amount\": \"<double>\",\n      \"currencyCode\": \"<string>\",\n      \"type\": \"<string>\",\n      \"code\": \"<string>\"\n    },\n    {\n      \"amount\": \"<double>\",\n      \"currencyCode\": \"<string>\",\n      \"type\": \"<string>\",\n      \"code\": \"<string>\"\n    }\n  ],\n  \"linkedPackages\": [\n    {\n      \"count\": \"<integer>\",\n      \"externalPackageNumber\": \"<string>\",\n      \"type\": \"<string>\",\n      \"externalEquipmentNumber\": \"<string>\",\n      \"unitGrossWeight\": {\n        \"uom\": \"<string>\",\n        \"value\": \"<double>\"\n      },\n      \"unitGrossVolume\": {\n        \"uom\": \"<string>\",\n        \"value\": \"<double>\"\n      },\n      \"length\": {\n        \"uom\": \"<string>\",\n        \"value\": \"<double>\"\n      },\n      \"width\": {\n        \"uom\": \"<string>\",\n        \"value\": \"<double>\"\n      },\n      \"height\": {\n        \"uom\": \"<string>\",\n        \"value\": \"<double>\"\n      },\n      \"additions\": [\n        {\n          \"references\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"monetaryValues\": [\n            {\n              \"currencyCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"currencyCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"flags\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"notes\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"references\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"monetaryValues\": [\n            {\n              \"currencyCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"currencyCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"flags\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"notes\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ]\n    },\n    {\n      \"count\": \"<integer>\",\n      \"externalPackageNumber\": \"<string>\",\n      \"type\": \"<string>\",\n      \"externalEquipmentNumber\": \"<string>\",\n      \"unitGrossWeight\": {\n        \"uom\": \"<string>\",\n        \"value\": \"<double>\"\n      },\n      \"unitGrossVolume\": {\n        \"uom\": \"<string>\",\n        \"value\": \"<double>\"\n      },\n      \"length\": {\n        \"uom\": \"<string>\",\n        \"value\": \"<double>\"\n      },\n      \"width\": {\n        \"uom\": \"<string>\",\n        \"value\": \"<double>\"\n      },\n      \"height\": {\n        \"uom\": \"<string>\",\n        \"value\": \"<double>\"\n      },\n      \"additions\": [\n        {\n          \"references\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"monetaryValues\": [\n            {\n              \"currencyCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"currencyCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"flags\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"notes\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"references\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"values\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"monetaryValues\": [\n            {\n              \"currencyCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"currencyCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"flags\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"notes\": [\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"qualifier\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ]\n    }\n  ],\n  \"linkedEquipments\": [\n    {\n      \"externalEquipmentNumber\": \"<string>\",\n      \"type\": {\n        \"code\": \"<string>\",\n        \"name\": \"<string>\",\n        \"teuEquivalent\": \"<integer>\",\n        \"temperature\": {\n          \"name\": \"<string>\",\n          \"min\": {\n            \"uom\": \"<string>\",\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"max\": {\n            \"uom\": \"<string>\",\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"length\": {\n          \"uom\": \"<string>\",\n          \"value\": \"<double>\"\n        },\n        \"width\": {\n          \"uom\": \"<string>\",\n          \"value\": \"<double>\"\n        },\n        \"height\": {\n          \"uom\": \"<string>\",\n          \"value\": \"<double>\"\n        }\n      }\n    },\n    {\n      \"externalEquipmentNumber\": \"<string>\",\n      \"type\": {\n        \"code\": \"<string>\",\n        \"name\": \"<string>\",\n        \"teuEquivalent\": \"<integer>\",\n        \"temperature\": {\n          \"name\": \"<string>\",\n          \"min\": {\n            \"uom\": \"<string>\",\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"max\": {\n            \"uom\": \"<string>\",\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"length\": {\n          \"uom\": \"<string>\",\n          \"value\": \"<double>\"\n        },\n        \"width\": {\n          \"uom\": \"<string>\",\n          \"value\": \"<double>\"\n        },\n        \"height\": {\n          \"uom\": \"<string>\",\n          \"value\": \"<double>\"\n        }\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/problem+json"
+                }
+              ],
+              "body": "{\n  \"code\": {},\n  \"detail\": \"The requested container is already in use during the requested period.\",\n  \"instance\": \"/shipments\",\n  \"status\": 409,\n  \"timestamp\": 1714648020821,\n  \"title\": \"The requested container is not available.\",\n  \"details\": [\n    {\n      \"detail\": \"The requested container is already in use during the requested period.\",\n      \"title\": \"The requested container is not available.\"\n    }\n  ],\n  \"requestIdentifier\": {\n    \"customerCode\": \"strings\",\n    \"shipmentNumber\": \"string\",\n    \"requestTime\": \"2004-09-25T10:32:26.772Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9e941a1d-6e91-42f9-8546-f21a66f4794b",
+          "name": "Import shipment delete message",
+          "request": {
+            "name": "Import shipment delete message",
+            "description": {
+              "content": "Import shipment delete message",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "customers",
+                ":customerCode",
+                "shipments",
+                ":shipmentNumber"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "customerCode",
+                  "description": "(Required) The customer code"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "shipmentNumber",
+                  "description": "(Required) The shipment number"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "authUrl",
+                  "value": "https://internal.api.kuehne-nagel.com/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"requestTime\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b9e9ec69-c3b6-4163-b255-f5bab0386ab5",
+              "name": "Shipment delete message successfully queued.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":customerCode",
+                    "shipments",
+                    ":shipmentNumber"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerCode",
+                      "description": "(Required) The customer code"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "shipmentNumber",
+                      "description": "(Required) The shipment number"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"requestTime\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"uuid\": \"4510c67f-818c-4d70-9867-5df6864a77a3\",\n  \"shipmentNumber\": \"ML0374691\",\n  \"customerCode\": \"CUSTEXP\",\n  \"requestTime\": \"2024-08-30T07:15:20.885Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e2cdbcb6-81ba-44a2-a162-eebf59a9dab4",
+              "name": "Bad Request - The request was invalid or cannot be processed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":customerCode",
+                    "shipments",
+                    ":shipmentNumber"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerCode",
+                      "description": "(Required) The customer code"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "shipmentNumber",
+                      "description": "(Required) The shipment number"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/problem+json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"requestTime\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/problem+json"
+                }
+              ],
+              "body": "{\n  \"code\": \"ERR001\",\n  \"title\": \"Missing request body\",\n  \"status\": 400,\n  \"detail\": \"No body was sent in the request.\",\n  \"instance\": \"/v1/shipments\",\n  \"timestamp\": 1714648020821\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3e6fd5c5-4e3e-4162-a73d-aaf95930e7aa",
+              "name": "Unsupported Media Type - The request content type is not supported.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":customerCode",
+                    "shipments",
+                    ":shipmentNumber"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerCode",
+                      "description": "(Required) The customer code"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "shipmentNumber",
+                      "description": "(Required) The shipment number"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/problem+json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"requestTime\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unsupported Media Type",
+              "code": 415,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/problem+json"
+                }
+              ],
+              "body": "{\n  \"code\": \"ERR002\",\n  \"title\": \"Unsupported content type\",\n  \"status\": 415,\n  \"detail\": \"Content type must be 'application/json'.\",\n  \"instance\": \"/v1/shipments\",\n  \"timestamp\": 1714648020821\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2a942375-2225-40db-b5f4-f222948a2b44",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":customerCode",
+                    "shipments",
+                    ":shipmentNumber"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerCode",
+                      "description": "(Required) The customer code"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "shipmentNumber",
+                      "description": "(Required) The shipment number"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/problem+json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"requestTime\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/problem+json"
+                }
+              ],
+              "body": "{\n  \"code\": \"ERR006\",\n  \"title\": \"Internal server error\",\n  \"status\": 500,\n  \"detail\": \"An unexpected error occurred. Please contact support with reference: 0191fb2a-c8ad-7607-8a06-144400c6fce5\",\n  \"instance\": \"/v1/shipments\",\n  \"timestamp\": 1714648020821\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b0b2259b-e5ea-42f0-9d33-bfe19ed8d220",
+              "name": "Service Unavailable.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":customerCode",
+                    "shipments",
+                    ":shipmentNumber"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerCode",
+                      "description": "(Required) The customer code"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "shipmentNumber",
+                      "description": "(Required) The shipment number"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/problem+json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"requestTime\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/problem+json"
+                }
+              ],
+              "body": "{\n  \"code\": \"ERR005\",\n  \"title\": \"Service Unavailable\",\n  \"status\": 503,\n  \"detail\": \"Service Unavailable, please try again later\",\n  \"instance\": \"/v1/shipments\",\n  \"timestamp\": 1714648020821\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "68e81526-4fe9-47b5-9d68-401e4c5e5fc4",
+              "name": "Error occurred - see status code and problem object for more information.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":customerCode",
+                    "shipments",
+                    ":shipmentNumber"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerCode",
+                      "description": "(Required) The customer code"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "shipmentNumber",
+                      "description": "(Required) The shipment number"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/problem+json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"requestTime\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/problem+json"
+                }
+              ],
+              "body": "{\n  \"code\": {},\n  \"detail\": \"The requested container is already in use during the requested period.\",\n  \"instance\": \"/shipments\",\n  \"status\": 409,\n  \"timestamp\": 1714648020821,\n  \"title\": \"The requested container is not available.\",\n  \"details\": [\n    {\n      \"detail\": \"The requested container is already in use during the requested period.\",\n      \"title\": \"The requested container is not available.\"\n    }\n  ],\n  \"requestIdentifier\": {\n    \"customerCode\": \"strings\",\n    \"shipmentNumber\": \"string\",\n    \"requestTime\": \"2004-09-25T10:32:26.772Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://internal.api.kuehne-nagel.com/integration/external/shipment/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "authUrl",
+        "value": "https://internal.api.kuehne-nagel.com/authorize"
+      },
+      {
+        "key": "grant_type",
+        "value": "implicit"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "18126d83-39df-4e16-8e6f-56b78fd136ed",
+    "name": "ExternalShipmentIntegration",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Import shipment messages using this API\n\nContact Support:\n Name: Team Pegasus\n Email: TLL-FYIT-PEGASUS-MAINTENANCE@kuehne-nagel.com",
+      "type": "text/plain"
+    }
+  }
+}

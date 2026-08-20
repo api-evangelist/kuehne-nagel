@@ -1,0 +1,225 @@
+{
+  "item": [
+    {
+      "id": "39785bd7-1703-4d63-b847-ae51e3255f0c",
+      "name": "Events",
+      "description": {
+        "content": "Event operations",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6550dd42-5380-4e9d-949f-edb6f2fae886",
+          "name": "Publish events.",
+          "request": {
+            "name": "Publish events.",
+            "description": {
+              "content": "Publish one or more Equipment Events This endpoint allows clients to submit new `EquipmentEvent`s to Kuehne+Nagel's system. These events provide updates on equipment status as defined by the DCSA standard. **Note: In the current version, only one event at a time is accepted.**\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "events"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) ",
+                "key": "partyName",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "authUrl",
+                  "value": "https://internal.api.kuehne-nagel.com/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"metadata\": \"<object>\",\n  \"payload\": \"<object>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7d2b6f5b-d9ba-4db5-a166-90f40c28d265",
+              "name": "Successful operation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "partyName",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"metadata\": {\n    \"eventType\": \"EQUIPMENT\",\n    \"publisher\": {\n      \"partyName\": \"Evergreen Marine Corporation\",\n      \"carrierCode\": \"EGLV\",\n      \"carrierCodeListProvider\": \"NMFTA\"\n    },\n    \"publisherRole\": \"CA\"\n  },\n  \"payload\": {\n    \"eventClassifierCode\": \"ACT\",\n    \"eventDateTime\": \"2025-01-02T07:41:00+08:30\",\n    \"equipmentEventTypeCode\": \"GTOT\",\n    \"equipmentReference\": \"APZU4812090\",\n    \"isoEquipmentCode\": \"22GP\",\n    \"emptyIndicatorCode\": \"LADEN\",\n    \"eventLocation\": {\n      \"locationType\": \"UNLO\",\n      \"locationName\": \"Customer XYZ Warehouse\",\n      \"unLocationCode\": \"FRPAR\"\n    },\n    \"isTransshipmentMove\": false,\n    \"transportCall\": {\n      \"transportCallReference\": \"123456\",\n      \"modeOfTransport\": \"TRUCK\",\n      \"location\": {\n        \"locationType\": \"UNLO\",\n        \"locationName\": \"Customer XYZ Warehouse\",\n        \"unLocationCode\": \"FRPAR\"\n      },\n      \"facilityTypeCode\": \"CLOC\",\n      \"licensePlate\": \"983-XZA-483\"\n    },\n    \"relatedDocumentReferences\": [\n      {\n        \"type\": \"BKG\",\n        \"value\": \"ABC123059\"\n      },\n      {\n        \"type\": \"TRD\",\n        \"value\": \"85943567\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"metadata\": {\n    \"eventCreatedDateTime\": \"2021-01-09T14:12:56+01:00\",\n    \"eventId\": \"3cecb101-7a1a-43a4-9d62-e88a131651e2\",\n    \"eventType\": \"EQUIPMENT\",\n    \"publisher\": {\n      \"carrierCode\": \"MMCU\",\n      \"carrierCodeListProvider\": \"NMFTA\",\n      \"partyName\": \"Asseco Denmark\"\n    },\n    \"publisherRole\": \"SVP\"\n  },\n  \"payload\": {\n    \"emptyIndicatorCode\": \"EMPTY\",\n    \"equipmentEventTypeCode\": \"LOAD\",\n    \"equipmentReference\": \"APZU4812090\",\n    \"eventClassifierCode\": \"ACT\",\n    \"eventDateTime\": \"2019-11-12T07:41:00+08:30\",\n    \"eventLocation\": {\n      \"locationType\": \"UNLO\",\n      \"unLocationCode\": \"FRPAR\",\n      \"locationName\": \"Eiffel Tower\"\n    },\n    \"relatedDocumentReferences\": [\n      {\n        \"type\": \"BKG\",\n        \"value\": \"ABC123059\"\n      },\n      {\n        \"type\": \"TRD\",\n        \"value\": \"85943567\"\n      }\n    ],\n    \"isoEquipmentCode\": \"22GP\",\n    \"isTransshipmentMove\": true,\n    \"facilityTypeCode\": \"POTE\",\n    \"transportCall\": {\n      \"location\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"transportCallReference\": \"987e4567\",\n      \"transportCallSequenceNumber\": 2,\n      \"facilityTypeCode\": \"POTE\",\n      \"modeOfTransport\": \"VESSEL\"\n    },\n    \"references\": [\n      {\n        \"type\": \"EQ\",\n        \"value\": \"APZU4812090\"\n      }\n    ],\n    \"seals\": [\n      {\n        \"number\": \"<string>\",\n        \"source\": \"CUS\",\n        \"type\": \"WIR\"\n      },\n      {\n        \"number\": \"<string>\",\n        \"source\": \"CUS\",\n        \"type\": \"WIR\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "031ffaf0-b618-4a3e-9987-6abc0cb7154d",
+              "name": "Unexpected error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "partyName",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/problem+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"metadata\": {\n    \"eventType\": \"EQUIPMENT\",\n    \"publisher\": {\n      \"partyName\": \"Evergreen Marine Corporation\",\n      \"carrierCode\": \"EGLV\",\n      \"carrierCodeListProvider\": \"NMFTA\"\n    },\n    \"publisherRole\": \"CA\"\n  },\n  \"payload\": {\n    \"eventClassifierCode\": \"ACT\",\n    \"eventDateTime\": \"2025-01-02T07:41:00+08:30\",\n    \"equipmentEventTypeCode\": \"GTOT\",\n    \"equipmentReference\": \"APZU4812090\",\n    \"isoEquipmentCode\": \"22GP\",\n    \"emptyIndicatorCode\": \"LADEN\",\n    \"eventLocation\": {\n      \"locationType\": \"UNLO\",\n      \"locationName\": \"Customer XYZ Warehouse\",\n      \"unLocationCode\": \"FRPAR\"\n    },\n    \"isTransshipmentMove\": false,\n    \"transportCall\": {\n      \"transportCallReference\": \"123456\",\n      \"modeOfTransport\": \"TRUCK\",\n      \"location\": {\n        \"locationType\": \"UNLO\",\n        \"locationName\": \"Customer XYZ Warehouse\",\n        \"unLocationCode\": \"FRPAR\"\n      },\n      \"facilityTypeCode\": \"CLOC\",\n      \"licensePlate\": \"983-XZA-483\"\n    },\n    \"relatedDocumentReferences\": [\n      {\n        \"type\": \"BKG\",\n        \"value\": \"ABC123059\"\n      },\n      {\n        \"type\": \"TRD\",\n        \"value\": \"85943567\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/problem+json"
+                }
+              ],
+              "body": "{\n  \"errorDateTime\": \"2019-11-12T07:41:00+08:30\",\n  \"errors\": [\n    {\n      \"detail\": \"The request did not contain one of the required query parameters.\",\n      \"title\": \"invalidQuery\"\n    },\n    {\n      \"detail\": \"The request did not contain one of the required query parameters.\",\n      \"title\": \"invalidQuery\"\n    }\n  ],\n  \"httpMethod\": \"POST\",\n  \"requestUri\": \"https://dcsa.org/dcsa/tnt/v1/events\",\n  \"statusCode\": 400,\n  \"statusCodeText\": \"Bad Request\",\n  \"title\": \"The requested container is not available.\",\n  \"detail\": \"The requested container is already in use during the requested period.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://internal.api.kuehne-nagel.com/integration/external/event/container/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "authUrl",
+        "value": "https://internal.api.kuehne-nagel.com/authorize"
+      },
+      {
+        "key": "grant_type",
+        "value": "implicit"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "2199ee3a-eb7d-421d-a040-212ce660442f",
+    "name": "OceanEventInbox",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Ocean Event Inbox API enables service providers to seamlessly submit container event data for shipments booked with Kuehne+Nagel, following the Digital Container Shipping Association standards. This API facilitates real-time, interoperable status updates by allowing providers to share equipment events directly with Kuehne+Nagel systems.\n\nContact Support:\n Name: Kuehne+Nagel's Shipment Tracking Services Support\n Email: rgs.st.ops@kuehne-nagel.com",
+      "type": "text/plain"
+    }
+  }
+}

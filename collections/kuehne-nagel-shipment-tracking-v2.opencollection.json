@@ -1,0 +1,131 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "ShipmentTracking",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "implicit",
+      "authorizationUrl": "https://internal.api.kuehne-nagel.com/authorize",
+      "credentials": {
+        "clientId": "{{clientId}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "shipment",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "loadShipmentsForCustomerReference",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://internal.api.kuehne-nagel.com/track-trace/shipment/v2/shipments",
+            "params": [
+              {
+                "name": "reference",
+                "value": "",
+                "type": "query",
+                "description": "Customer reference to search for shipments. The reference must match completely."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://internal.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Retrieve a list of shipments for the given customer reference (exact match required)."
+        },
+        {
+          "info": {
+            "name": "searchShipments",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://internal.api.kuehne-nagel.com/track-trace/shipment/v2/shipments-search",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://internal.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Search for shipments with optional filters. Supports pagination via the request body. Returns shipments ordered by creation date descending."
+        },
+        {
+          "info": {
+            "name": "loadShipmentHistory",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://internal.api.kuehne-nagel.com/track-trace/shipment/v2/shipments/:shipmentId/history-records",
+            "params": [
+              {
+                "name": "shipmentId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://internal.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Retrieve the milestone change history for a shipment, ordered by update time descending."
+        },
+        {
+          "info": {
+            "name": "loadShipmentForUniqueReference",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://internal.api.kuehne-nagel.com/track-trace/shipment/v2/shipments/:uniqueShipmentReference",
+            "params": [
+              {
+                "name": "uniqueShipmentReference",
+                "value": "",
+                "type": "path",
+                "description": "By default this is the shipment __tracking number__ e.g. `N4242`. \n\nIn case a tracking number is not available, the shipment id can be used.\n\nSupported references:\n* __tracking number__\n  * `{trackingNumber}` or `tracking-number:{trackingNumber}`\n  * e.g. `N4242` or `tracking-number:N4242`\n* __shipment id__\n  * `shipment-id:{shipmentId}` \n  * e.g. `shipment-id:19101910`\n"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://internal.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Retrieve a specific shipment with an unique reference like shipmentId or trackingNumber."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

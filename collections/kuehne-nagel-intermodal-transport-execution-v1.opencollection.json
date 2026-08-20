@@ -1,0 +1,269 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "IntermodalTransportExecution",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "implicit",
+      "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+      "credentials": {
+        "clientId": "{{clientId}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Assigned Consignments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve assigned consignments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.api.kuehne-nagel.com/transport/execution/pickup-and-delivery/sea/v1/assigned-consignments",
+            "headers": [
+              {
+                "name": "X-KN-Country-Code",
+                "value": ""
+              },
+              {
+                "name": "X-KN-Request-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Leave the cursor parameter empty to fetch newly assigned consignments and/or new updates to previously assigned consignments are returned. Provide a specific cursor value when you want to reprocess consignments from previous API calls."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Retrieves assigned consignments for a subcontractor from a specific Kuehne+Nagel Intermodal department.\n\n**Note:** A 204 No Content response (with no body) is returned when there are no new or updated consignments available. Refer to the API Guide in the Documents section for details.\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Job Documents",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve job-related documents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://gateway.api.kuehne-nagel.com/transport/execution/pickup-and-delivery/sea/v1/job-documents/:jobId",
+            "headers": [
+              {
+                "name": "X-KN-Country-Code",
+                "value": ""
+              },
+              {
+                "name": "X-KN-Request-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "jobId",
+                "value": "",
+                "type": "path",
+                "description": "A unique identifier of the Job. This value can be found in consignment.job.id from AssignedConsignment response."
+              },
+              {
+                "name": "documentCode",
+                "value": "",
+                "type": "query",
+                "description": "Unique ID of a document type as per Kuehne+Nagel. \n"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Retrieves available documents associated with a specific job ID and matching the parameters from a Kuehne+Nagel Intermodal department."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Job Status",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Update job status",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.api.kuehne-nagel.com/transport/execution/pickup-and-delivery/sea/v1/job-status/:jobId",
+            "headers": [
+              {
+                "name": "X-KN-Country-Code",
+                "value": ""
+              },
+              {
+                "name": "X-KN-Request-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "jobId",
+                "value": "",
+                "type": "path",
+                "description": "A unique identifier of the Job. This value can be found in consignment.job.id from AssignedConsignment response."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Creates and updates the status of jobs associated with the Kuehne+Nagel Intermodal department."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "GPS Tracking",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Submit GPS tracking data",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.api.kuehne-nagel.com/transport/execution/pickup-and-delivery/sea/v1/gps-tracking/:jobId",
+            "headers": [
+              {
+                "name": "X-KN-Country-Code",
+                "value": ""
+              },
+              {
+                "name": "X-KN-Request-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "jobId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the assigned consignment job. This value can be found in consignment.job.id from the AssignedConsignment response."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Submits GPS tracking data for a specific job."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Proof of Delivery",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Submit proof of delivery",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://gateway.api.kuehne-nagel.com/transport/execution/pickup-and-delivery/sea/v1/proof-of-deliveries/:jobId/:waypointId",
+            "headers": [
+              {
+                "name": "X-KN-Country-Code",
+                "value": ""
+              },
+              {
+                "name": "X-KN-Request-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "jobId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the assigned consignment job. This value can be found in consignment.job.id from the AssignedConsignment response."
+              },
+              {
+                "name": "waypointId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier of the assigned consignment job waypoint. This value can be found in consignment.job.waypoint.id from the AssignedConsignment response."
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://gateway.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Submits proof of delivery for a specific waypoint."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

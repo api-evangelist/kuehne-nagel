@@ -1,0 +1,55 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "eSOPPurchaseOrderConfiguration",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "implicit",
+      "authorizationUrl": "https://internal.api.kuehne-nagel.com/authorize",
+      "credentials": {
+        "clientId": "{{clientId}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "administration-layer",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Read a customer's eSOP order configuration for purchase orders.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://internal.api.kuehne-nagel.com/order-management/purchase-order/customer-configuration/v1/order-configurations/:customerCode",
+            "params": [
+              {
+                "name": "customerCode",
+                "value": "",
+                "type": "path",
+                "description": "The unique key identifying the customer"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://internal.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "The order configuration describes the selection of order attributes that are used\nby a customer in their purchase order. It assigns attributes to be either part of\nthe order header or to be part of the order lines. The configuration also describes\nwhich attributes are used to identify order lines and which of the attributes are\noptional or mandatory.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,424 @@
+{
+  "openapi" : "3.0.3",
+  "info" : {
+    "title" : "ShipmentEventIntegration",
+    "description" : "This API allows to get, view and validate incoming events for shipments from the 3rd parties (raft.ai app).",
+    "termsOfService" : "https://api-guidelines.int.kn/restful-api-guidelines/current/index.html",
+    "contact" : {
+      "name" : "Team Pegasus",
+      "url" : "https://home.kuehne-nagel.com/en/service-request-api",
+      "email" : "TLL-FYIT-PEGASUS@kuehne-nagel.com"
+    },
+    "version" : "v1",
+    "x-project-id" : "Public Event Entry service API",
+    "x-api-id" : "8f77e208-8906-4227-8dd9-57a0b0048b53",
+    "x-api-guideline-version" : "1.9.4",
+    "x-api-version" : "1.0.1"
+  },
+  "servers" : [ {
+    "url" : "https://internal.api.kuehne-nagel.com/integration/event/shipment/event-integration/v1"
+  } ],
+  "security" : [ {
+    "default" : [ ]
+  }, {
+    "api_key" : [ ]
+  } ],
+  "tags" : [ {
+    "name" : "Post event",
+    "description" : "Post event description"
+  } ],
+  "paths" : {
+    "/shipments/events/entries" : {
+      "post" : {
+        "tags" : [ "Post event" ],
+        "summary" : "Validate external event entry message for shipment",
+        "description" : "This API operation is to validate incoming event entry for shipment from 3rd parties. The request must be in JSON format and include a filled in form.",
+        "operationId" : "ShipmentsEntries",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/PostEventRequest"
+              },
+              "examples" : {
+                "example1" : {
+                  "$ref" : "#/components/examples/shipment-event-entries-request-post-event-success"
+                }
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Event successfully created."
+          },
+          "default" : {
+            "description" : "error occurred - see status code and problem object for more information.",
+            "content" : {
+              "application/problem+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Problem"
+                },
+                "examples" : {
+                  "example1" : {
+                    "$ref" : "#/components/examples/shipment-event-entries-response-400-bad-request-1"
+                  },
+                  "example5" : {
+                    "$ref" : "#/components/examples/shipment-event-entries-response-400-business-rule-violation"
+                  },
+                  "example6" : {
+                    "$ref" : "#/components/examples/shipment-event-entries-response-401-unauthorized"
+                  },
+                  "example7" : {
+                    "$ref" : "#/components/examples/shipment-event-entries-response-404-not-found"
+                  },
+                  "example8" : {
+                    "$ref" : "#/components/examples/shipment-event-entries-response-415-unsupported-media"
+                  },
+                  "example9" : {
+                    "$ref" : "#/components/examples/shipment-event-entries-response-503-service-unavailable"
+                  },
+                  "example10" : {
+                    "$ref" : "#/components/examples/shipment-event-entries-response-500-internal-server-error"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "default" : [ ]
+        }, {
+          "api_key" : [ ]
+        } ],
+        "x-throttling-tier" : "50KPerMin",
+        "x-auth-type" : "Application & Application User"
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "ProblemDetail" : {
+        "type" : "object",
+        "properties" : {
+          "title" : {
+            "maxLength" : 128,
+            "type" : "string",
+            "description" : "A short summary of the problem type. Written in English and readable for engineers, usually not suited for non technical stakeholders and not localized.\n",
+            "example" : "The requested container is not available."
+          },
+          "detail" : {
+            "maxLength" : 256,
+            "type" : "string",
+            "description" : "A human readable explanation specific to this occurrence of the problem that is helpful to locate the problem and give advice on how to proceed.\n",
+            "example" : "The requested container is already in use during the requested period."
+          }
+        }
+      },
+      "Problem" : {
+        "required" : [ "code", "detail", "timestamp", "title" ],
+        "type" : "object",
+        "properties" : {
+          "code" : {
+            "maxLength" : 6,
+            "type" : "string",
+            "description" : "Error code identifying the issue.",
+            "example" : "ERR001"
+          },
+          "title" : {
+            "maxLength" : 128,
+            "type" : "string",
+            "description" : "A short summary of the problem type. Written in English and readable for engineers, usually not suited for non technical stakeholders and not localized.\n",
+            "example" : "The requested container is not available."
+          },
+          "status" : {
+            "maximum" : 600,
+            "exclusiveMaximum" : true,
+            "minimum" : 100,
+            "type" : "integer",
+            "description" : "The HTTP status code generated by the origin server for this occurrence of the problem.\n",
+            "format" : "int32",
+            "example" : 409
+          },
+          "detail" : {
+            "maxLength" : 256,
+            "type" : "string",
+            "description" : "A human readable explanation specific to this occurrence of the problem that is helpful to locate the problem and give advice on how to proceed.\n",
+            "example" : "The requested container is already in use during the requested period."
+          },
+          "instance" : {
+            "type" : "string",
+            "description" : "A URI reference that identifies the specific occurrence of the problem.",
+            "format" : "uri-reference",
+            "example" : "/shipments/events/entries"
+          },
+          "timestamp" : {
+            "type" : "integer",
+            "description" : "The Unix Epoch time in milliseconds at which the event described  by the error occurred.\n",
+            "format" : "bigint",
+            "example" : 1714648020821
+          },
+          "details" : {
+            "maxItems" : 100,
+            "minItems" : 1,
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/ProblemDetail"
+            }
+          }
+        }
+      },
+      "PostEventRequest" : {
+        "required" : [ "customerCode", "eventCode", "eventDate", "eventTimezone", "reasonCode", "responsibleParty", "shipmentNumber" ],
+        "type" : "object",
+        "properties" : {
+          "insertUser" : {
+            "maxLength" : 50,
+            "minLength" : 1,
+            "type" : "string",
+            "description" : "User that is inserting the event"
+          },
+          "customerCode" : {
+            "maxLength" : 7,
+            "minLength" : 7,
+            "type" : "string",
+            "description" : "Customer code"
+          },
+          "modeOfTransport" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Mode of transport",
+            "x-extensible-enum" : [ "AIR", "SEA", "ROAD", "PARCEL", "CEP", "RAIL" ]
+          },
+          "movementType" : {
+            "maxLength" : 10,
+            "type" : "string",
+            "description" : "Movement Type",
+            "x-extensible-enum" : [ "D2D", "P2D", "D2P", "P2P", "H2D", "D2H", "H2P", "P2H", "H2H", "INVALID" ]
+          },
+          "shipmentNumber" : {
+            "maxLength" : 128,
+            "type" : "string",
+            "description" : "Shipment number"
+          },
+          "eventCode" : {
+            "maxLength" : 4,
+            "minLength" : 4,
+            "type" : "string",
+            "description" : "Event code"
+          },
+          "eventDate" : {
+            "type" : "string",
+            "description" : "Event Time",
+            "format" : "datetime"
+          },
+          "eventTimezone" : {
+            "maxLength" : 101,
+            "type" : "string",
+            "description" : "Local timezone of Event"
+          },
+          "locationCode" : {
+            "maxLength" : 101,
+            "type" : "string",
+            "description" : "Location code for event"
+          },
+          "shipmentStop" : {
+            "maxLength" : 101,
+            "type" : "string",
+            "description" : "Stop number for shipment location"
+          },
+          "reasonCode" : {
+            "maxLength" : 4,
+            "minLength" : 4,
+            "type" : "string",
+            "description" : "Reason code for event"
+          },
+          "reasonNote" : {
+            "maxLength" : 101,
+            "type" : "string",
+            "description" : "Free text for reason note"
+          },
+          "eventNote" : {
+            "maxLength" : 101,
+            "type" : "string",
+            "description" : "Free text for Event note"
+          },
+          "responsibleParty" : {
+            "maxLength" : 40,
+            "type" : "string",
+            "description" : "Responsible party"
+          },
+          "additions" : {
+            "maxItems" : 100,
+            "minItems" : 1,
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Addition"
+            }
+          }
+        },
+        "description" : "Event entry message for shipment as sent in the request."
+      },
+      "Addition" : {
+        "required" : [ "qualifier", "type", "values" ],
+        "type" : "object",
+        "properties" : {
+          "type" : {
+            "maxLength" : 100,
+            "type" : "string",
+            "description" : "Addition Type"
+          },
+          "qualifier" : {
+            "required" : [ "code" ],
+            "type" : "object",
+            "properties" : {
+              "code" : {
+                "maxLength" : 100,
+                "type" : "string"
+              }
+            }
+          },
+          "values" : {
+            "maxItems" : 100,
+            "minItems" : 1,
+            "type" : "array",
+            "items" : {
+              "maxLength" : 100,
+              "type" : "string"
+            }
+          }
+        },
+        "description" : "An auxiliary business information, not represented by a dedicated field that can be added to any BO"
+      }
+    },
+    "examples" : {
+      "shipment-event-entries-response-400-bad-request-1" : {
+        "summary" : "Bad Request",
+        "value" : {
+          "code" : "ERR003",
+          "title" : "Bad Request",
+          "status" : 400,
+          "detail" : "The request is not valid. Please check for missing or invalid values.",
+          "instance" : "/shipments/events/entries",
+          "timestamp" : 1714648020821,
+          "details" : [ {
+            "title" : "Missing Parameter",
+            "detail" : "'<fieldName>' is missing!"
+          }, {
+            "title" : "Invalid Parameter",
+            "detail" : "'<fieldName>' is invalid! <details of validation>"
+          } ]
+        }
+      },
+      "shipment-event-entries-response-400-business-rule-violation" : {
+        "summary" : "Business rule violation",
+        "value" : {
+          "code" : "ERR004",
+          "title" : "Business rule violation",
+          "status" : 400,
+          "detail" : "Shipment number for this customer code not found!",
+          "instance" : "/shipments/events/entries",
+          "timestamp" : 1714648020821
+        }
+      },
+      "shipment-event-entries-response-401-unauthorized" : {
+        "summary" : "Unauthorized",
+        "value" : {
+          "code" : "ERR001",
+          "title" : "Unauthorized",
+          "status" : 401,
+          "detail" : "User is not authenticated.",
+          "instance" : "/shipments/events/entries",
+          "timestamp" : 1714648020821
+        }
+      },
+      "shipment-event-entries-response-404-not-found" : {
+        "summary" : "Not found",
+        "value" : {
+          "code" : "ERR007",
+          "title" : "Not Found",
+          "status" : 404,
+          "detail" : "Requested resource not found.",
+          "instance" : "/shipments/events/entries",
+          "timestamp" : 1714648020821
+        }
+      },
+      "shipment-event-entries-response-415-unsupported-media" : {
+        "summary" : "Unsupported media type",
+        "value" : {
+          "code" : "ERR002",
+          "title" : "Unsupported media type",
+          "status" : 415,
+          "detail" : "Unsupported content type (Content type must be 'application/json)",
+          "instance" : "/shipments/events/entries",
+          "timestamp" : 1714648020821
+        }
+      },
+      "shipment-event-entries-response-503-service-unavailable" : {
+        "summary" : "Service Temporarily Unavailable",
+        "value" : {
+          "code" : "ERR005",
+          "title" : "Service Temporarily Unavailable",
+          "status" : 503,
+          "detail" : "Service temporarily unavailable.",
+          "instance" : "/shipments/events/entries",
+          "timestamp" : 1714648020821
+        }
+      },
+      "shipment-event-entries-response-500-internal-server-error" : {
+        "summary" : "Internal Server Error",
+        "value" : {
+          "code" : "ERR006",
+          "title" : "Internal Server Error",
+          "status" : 500,
+          "detail" : "An un-expected error occurred.",
+          "instance" : "/shipments/events/entries",
+          "timestamp" : 1714648020821
+        }
+      },
+      "shipment-event-entries-request-post-event-success" : {
+        "summary" : "Successful Request",
+        "value" : {
+          "insertUser" : "john.doe",
+          "customerCode" : "CHSGI42",
+          "modeOfTransport" : "ROAD",
+          "movementType" : "D2D",
+          "shipmentNumber" : "AI23000917",
+          "eventCode" : "0500",
+          "eventDate" : "2019-07-30T06:43:40.252Z",
+          "eventTimezone" : "Europe/Amsterdam",
+          "locationCode" : "NL_3274_KM_HDW_0000217626_544380_033",
+          "shipmentStop" : "0",
+          "reasonCode" : "1005",
+          "reasonNote" : "FreeTextForReasonNote",
+          "eventNote" : "FreeTextForEventNote",
+          "responsibleParty" : "CARRIER",
+          "additions" : [ {
+            "type" : "references",
+            "qualifier" : {
+              "code" : "TID"
+            },
+            "values" : [ "4503054933", "7890605" ]
+          } ]
+        }
+      }
+    },
+    "securitySchemes" : {
+      "default" : {
+        "type" : "oauth2",
+        "flows" : {
+          "implicit" : {
+            "authorizationUrl" : "https://internal.api.kuehne-nagel.com/authorize",
+            "scopes" : { }
+          }
+        }
+      },
+      "api_key" : {
+        "type" : "apiKey",
+        "name" : "apikey",
+        "in" : "header"
+      }
+    }
+  }
+}

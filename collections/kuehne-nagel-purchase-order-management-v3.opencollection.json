@@ -1,0 +1,152 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PurchaseOrderManagement",
+    "version": "v3"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "implicit",
+      "authorizationUrl": "https://internal.api.kuehne-nagel.com/authorize",
+      "credentials": {
+        "clientId": "{{clientId}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "purchase-order-layer",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Used by customers to create new purchase orders in ESP.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://internal.api.kuehne-nagel.com/order-management/purchase-order/v3/customers/:customerCode/purchase-orders",
+            "params": [
+              {
+                "name": "customerCode",
+                "value": "",
+                "type": "path",
+                "description": "The unique key of the customer who created the purchase order."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://internal.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "The customer identified by the `customerCode` creates new distinct\npurchase orders. Each requested purchase order is identified by its\n`purchaseOrderNumber` property. In background processing of bulk orders\neach single purchase order is treated as a separate transaction. The\nstatus of purchase orders can be queried with the `readPurchaseOrders`\noperation.\n\n*Bulk Order Limits:*\n\n- The size of a bulk request is limited by the total number of purchase\n  order lines per request. The upper limit is i"
+        },
+        {
+          "info": {
+            "name": "Used by customers to update existing purchase orders.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://internal.api.kuehne-nagel.com/order-management/purchase-order/v3/customers/:customerCode/purchase-orders",
+            "params": [
+              {
+                "name": "customerCode",
+                "value": "",
+                "type": "path",
+                "description": "The unique key of the customer who created the purchase order."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://internal.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "The customer identified by the `customerCode` updates one or more of his\nown orders. Updating a purchase order does not allow to delete values\nthat are already part of the purchase order. It is only possible to\nchange or add values. Key attributes of business parties and order lines\ncannot be changed. Purchase orders to be updated are identified by the\n`purchaseOrderNumber` property of the elements of the `purchaseOrders`\narray. Order lines that are added or updated are identified by their key\na"
+        },
+        {
+          "info": {
+            "name": "Used by business parties linked to a purchase order to read one or more existing purchase orders.\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://internal.api.kuehne-nagel.com/order-management/purchase-order/v3/customers/:customerCode/purchase-orders-search",
+            "params": [
+              {
+                "name": "customerCode",
+                "value": "",
+                "type": "path",
+                "description": "The unique key of the customer who created the purchase order."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://internal.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "Reading purchase orders is accessible to all business parties that are linked as\n`parties` to the requested purchase order. The information provided as a response\ndepends on the permissions for the business party's role.\n\nIf the request does not fail completely, the response contains the\npurchase order for each successful read or a problem description for a\nfailed read of a single order. \n\n*Bulk Order Limits:*\n\n- The size of a bulk request is limited by the total number of purchase\n  orders. The"
+        },
+        {
+          "info": {
+            "name": "Used by customers to cancel all or only a selection of order lines from one or more purchase orders.\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://internal.api.kuehne-nagel.com/order-management/purchase-order/v3/customers/:customerCode/purchase-orders-cancellations",
+            "params": [
+              {
+                "name": "customerCode",
+                "value": "",
+                "type": "path",
+                "description": "The unique key of the customer who created the purchase order."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "implicit",
+              "authorizationUrl": "https://internal.api.kuehne-nagel.com/authorize",
+              "credentials": {
+                "clientId": "{{clientId}}"
+              }
+            }
+          },
+          "docs": "The orders and any affected lines are referenced in the request body.\n\nA single order line is identified by a JSON object that contains only\nthe order attributes that are key attributes in the customer's order\nconfiguration.\n\nTo cancel a complete order, i.e. all order lines of that order, the\nattribute `orderLines` is omitted.\n\nIn background processing of bulk orders each single purchase order is\ntreated as a separate transaction. The status of purchase orders can be\nqueried with the `readPurcha"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,782 @@
+{
+  "item": [
+    {
+      "id": "b6f57a96-2d13-4721-a418-18ecd52e612b",
+      "name": "shipment",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8e1fc530-51ae-4a9e-818b-21f0bc5118de",
+          "name": "load Shipments For Customer Reference",
+          "request": {
+            "name": "load Shipments For Customer Reference",
+            "description": {
+              "content": "Retrieve a list of shipments for the given customer reference (exact match required).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "shipments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "reference",
+                  "value": "<string>",
+                  "description": "(Required) Customer reference to search for shipments. The reference must match completely."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "authUrl",
+                  "value": "https://internal.api.kuehne-nagel.com/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "6b8e2469-3fca-4c0e-a095-dcde71d191d8",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "reference",
+                      "value": "reference"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"shipments\": [\n    {\n      \"shipmentId\": 19101910,\n      \"trackingNumber\": \"1056143482TK\",\n      \"modeOfTransport\": \"SEA\",\n      \"currentStage\": \"BOOKED\",\n      \"shipmentCreationDateTime\": \"2024-11-14T09:28:11Z\",\n      \"self\": \"https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2/shipments/shipment-id:19101910\"\n    },\n    {\n      \"shipmentId\": 19101910,\n      \"trackingNumber\": \"1056143482TK\",\n      \"modeOfTransport\": \"SEA\",\n      \"currentStage\": \"BOOKED\",\n      \"shipmentCreationDateTime\": \"2024-11-14T09:28:11Z\",\n      \"self\": \"https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2/shipments/shipment-id:19101910\"\n    }\n  ],\n  \"page\": {\n    \"totalElements\": 150,\n    \"totalPages\": 8,\n    \"currentPage\": 0,\n    \"size\": 20,\n    \"actualSize\": 20,\n    \"hasNext\": true,\n    \"hasPrevious\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a9d240df-d852-4c08-a705-c0d5194b9e98",
+              "name": "An error occurred - please see the HTTP status code and the problem object for more information.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "reference",
+                      "value": "reference"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/problem+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/problem+json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Connection to database timed out\",\n  \"title\": \"Service Unavailable\",\n  \"type\": \"/problem/connection-error\",\n  \"status\": 503,\n  \"instance\": \"/problem/connection-error#token-info-read-timed-out\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "597fa072-763b-4ac7-a527-6a6613cbb3ab",
+          "name": "search Shipments",
+          "request": {
+            "name": "search Shipments",
+            "description": {
+              "content": "Search for shipments with optional filters. Supports pagination via the request body. Returns shipments ordered by creation date descending.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "shipments-search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "authUrl",
+                  "value": "https://internal.api.kuehne-nagel.com/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"pagination\": {\n    \"page\": 0,\n    \"size\": 20\n  },\n  \"filters\": {\n    \"reference\": \"<string>\",\n    \"modesOfTransport\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"stages\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"date\": {\n      \"type\": \"<string>\",\n      \"from\": \"<date>\",\n      \"to\": \"<date>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1f38930c-f3c5-4ea7-bca4-e1597fd98410",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipments-search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"pagination\": {\n    \"page\": 0,\n    \"size\": 20\n  },\n  \"filters\": {\n    \"reference\": \"MY-REF-123\",\n    \"modesOfTransport\": [\n      \"AIR\"\n    ],\n    \"stages\": [\n      \"BOOKED\"\n    ],\n    \"date\": {\n      \"type\": \"CURRENT\",\n      \"from\": \"2025-05-19\",\n      \"to\": \"2025-05-25\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"shipments\": [\n    {\n      \"shipmentId\": 19101910,\n      \"trackingNumber\": \"1056143482TK\",\n      \"modeOfTransport\": \"SEA\",\n      \"currentStage\": \"BOOKED\",\n      \"shipmentCreationDateTime\": \"2024-11-14T09:28:11Z\",\n      \"self\": \"https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2/shipments/shipment-id:19101910\"\n    },\n    {\n      \"shipmentId\": 19101910,\n      \"trackingNumber\": \"1056143482TK\",\n      \"modeOfTransport\": \"SEA\",\n      \"currentStage\": \"BOOKED\",\n      \"shipmentCreationDateTime\": \"2024-11-14T09:28:11Z\",\n      \"self\": \"https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2/shipments/shipment-id:19101910\"\n    }\n  ],\n  \"page\": {\n    \"totalElements\": 150,\n    \"totalPages\": 8,\n    \"currentPage\": 0,\n    \"size\": 20,\n    \"actualSize\": 20,\n    \"hasNext\": true,\n    \"hasPrevious\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "281e14b8-f6bf-458d-9241-905a1f5ff0c6",
+              "name": "Bad request. Possible reasons - unknown date filter type, or invalid date format (expected YYYY-MM-DD).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipments-search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/problem+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"pagination\": {\n    \"page\": 0,\n    \"size\": 20\n  },\n  \"filters\": {\n    \"reference\": \"MY-REF-123\",\n    \"modesOfTransport\": [\n      \"AIR\"\n    ],\n    \"stages\": [\n      \"BOOKED\"\n    ],\n    \"date\": {\n      \"type\": \"CURRENT\",\n      \"from\": \"2025-05-19\",\n      \"to\": \"2025-05-25\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/problem+json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Connection to database timed out\",\n  \"title\": \"Service Unavailable\",\n  \"type\": \"/problem/connection-error\",\n  \"status\": 503,\n  \"instance\": \"/problem/connection-error#token-info-read-timed-out\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fc1c5174-4132-4416-84ac-b265967f5fad",
+              "name": "Unprocessable entity. The request is well-formed but violates business rules. Possible reasons - date filter present but neither 'from' nor 'to' specified.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipments-search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/problem+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"pagination\": {\n    \"page\": 0,\n    \"size\": 20\n  },\n  \"filters\": {\n    \"reference\": \"MY-REF-123\",\n    \"modesOfTransport\": [\n      \"AIR\"\n    ],\n    \"stages\": [\n      \"BOOKED\"\n    ],\n    \"date\": {\n      \"type\": \"CURRENT\",\n      \"from\": \"2025-05-19\",\n      \"to\": \"2025-05-25\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/problem+json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Connection to database timed out\",\n  \"title\": \"Service Unavailable\",\n  \"type\": \"/problem/connection-error\",\n  \"status\": 503,\n  \"instance\": \"/problem/connection-error#token-info-read-timed-out\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "20befe63-a34a-4955-8303-21c7dd029110",
+              "name": "An error occurred - please see the HTTP status code and the problem object for more information.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipments-search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/problem+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"pagination\": {\n    \"page\": 0,\n    \"size\": 20\n  },\n  \"filters\": {\n    \"reference\": \"MY-REF-123\",\n    \"modesOfTransport\": [\n      \"AIR\"\n    ],\n    \"stages\": [\n      \"BOOKED\"\n    ],\n    \"date\": {\n      \"type\": \"CURRENT\",\n      \"from\": \"2025-05-19\",\n      \"to\": \"2025-05-25\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/problem+json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Connection to database timed out\",\n  \"title\": \"Service Unavailable\",\n  \"type\": \"/problem/connection-error\",\n  \"status\": 503,\n  \"instance\": \"/problem/connection-error#token-info-read-timed-out\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9fe157ad-ab2e-41a3-ad43-f6e70c216eed",
+          "name": "load Shipment History",
+          "request": {
+            "name": "load Shipment History",
+            "description": {
+              "content": "Retrieve the milestone change history for a shipment, ordered by update time descending.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "shipments",
+                ":shipmentId",
+                "history-records"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "shipmentId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "authUrl",
+                  "value": "https://internal.api.kuehne-nagel.com/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "3ef969b7-f60a-4284-8745-43355c7f1842",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipments",
+                    ":shipmentId",
+                    "history-records"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "shipmentId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"shipmentId\": 19101910,\n  \"trackingNumber\": \"1056143482TK\",\n  \"milestones\": [\n    {\n      \"type\": \"ROUTE_LOCATION_MILESTONE\",\n      \"key\": {\n        \"routeLocationType\": \"ORIGIN\",\n        \"locationMilestoneType\": \"CARGO_PICKED_UP\",\n        \"transportInformationMilestoneType\": \"BOOKING_CONFIRMATION\"\n      },\n      \"location\": {\n        \"locationCode\": \"DEHAM\",\n        \"unLocationCode\": \"DEHAM\",\n        \"locationName\": \"Hamburg\",\n        \"stateCode\": \"GA\",\n        \"countryCode\": \"DE\",\n        \"countryName\": \"Germany\"\n      },\n      \"newMilestoneDateTime\": {\n        \"dateTime\": \"2023-04-25T01:00:02Z\",\n        \"condition\": \"ACTUAL\"\n      },\n      \"oldMilestoneDateTime\": {\n        \"dateTime\": \"2023-04-25T01:00:02Z\",\n        \"condition\": \"ACTUAL\"\n      },\n      \"remarks\": \"Delay due to port congestion\",\n      \"updatedAt\": \"2023-04-25T01:00:02Z\"\n    },\n    {\n      \"type\": \"ROUTE_LOCATION_MILESTONE\",\n      \"key\": {\n        \"routeLocationType\": \"ORIGIN\",\n        \"locationMilestoneType\": \"CARGO_PICKED_UP\",\n        \"transportInformationMilestoneType\": \"BOOKING_CONFIRMATION\"\n      },\n      \"location\": {\n        \"locationCode\": \"DEHAM\",\n        \"unLocationCode\": \"DEHAM\",\n        \"locationName\": \"Hamburg\",\n        \"stateCode\": \"GA\",\n        \"countryCode\": \"DE\",\n        \"countryName\": \"Germany\"\n      },\n      \"newMilestoneDateTime\": {\n        \"dateTime\": \"2023-04-25T01:00:02Z\",\n        \"condition\": \"ACTUAL\"\n      },\n      \"oldMilestoneDateTime\": {\n        \"dateTime\": \"2023-04-25T01:00:02Z\",\n        \"condition\": \"ACTUAL\"\n      },\n      \"remarks\": \"Delay due to port congestion\",\n      \"updatedAt\": \"2023-04-25T01:00:02Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6227d3ec-95ef-4ec2-8825-206b8dd023df",
+              "name": "An error occurred - please see the HTTP status code and the problem object for more information.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipments",
+                    ":shipmentId",
+                    "history-records"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "shipmentId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/problem+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/problem+json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Connection to database timed out\",\n  \"title\": \"Service Unavailable\",\n  \"type\": \"/problem/connection-error\",\n  \"status\": 503,\n  \"instance\": \"/problem/connection-error#token-info-read-timed-out\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "46587843-e281-4c6a-be7f-9de25dfce7e8",
+          "name": "load Shipment For Unique Reference",
+          "request": {
+            "name": "load Shipment For Unique Reference",
+            "description": {
+              "content": "Retrieve a specific shipment with an unique reference like shipmentId or trackingNumber.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "shipments",
+                ":uniqueShipmentReference"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "uniqueShipmentReference",
+                  "description": "(Required) By default this is the shipment __tracking number__ e.g. `N4242`. \n\nIn case a tracking number is not available, the shipment id can be used.\n\nSupported references:\n* __tracking number__\n  * `{trackingNumber}` or `tracking-number:{trackingNumber}`\n  * e.g. `N4242` or `tracking-number:N4242`\n* __shipment id__\n  * `shipment-id:{shipmentId}` \n  * e.g. `shipment-id:19101910`\n"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "authUrl",
+                  "value": "https://internal.api.kuehne-nagel.com/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "feedad34-1b35-408b-96aa-81105ac37d40",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipments",
+                    ":uniqueShipmentReference"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "uniqueShipmentReference",
+                      "description": "(Required) By default this is the shipment __tracking number__ e.g. `N4242`. \n\nIn case a tracking number is not available, the shipment id can be used.\n\nSupported references:\n* __tracking number__\n  * `{trackingNumber}` or `tracking-number:{trackingNumber}`\n  * e.g. `N4242` or `tracking-number:N4242`\n* __shipment id__\n  * `shipment-id:{shipmentId}` \n  * e.g. `shipment-id:19101910`\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"shipmentId\": 19101910,\n  \"trackingNumber\": \"1056143482TK\",\n  \"bookingId\": \"PUSM91305500\",\n  \"modeOfTransport\": \"SEA\",\n  \"serviceType\": \"FCL\",\n  \"shipmentReferences\": {\n    \"packageNumbers\": [\n      \"TGH343534\",\n      \"FCSP1910\",\n      \"CMDU343435FLH\"\n    ],\n    \"bookingNumbers\": [\n      \"BK623237\",\n      \"RE23219TZ\",\n      \"23235GR34\"\n    ],\n    \"hawbNumber\": \"34325-HR3434-3434\",\n    \"mawbNumbers\": [\n      \"0120-00390582\",\n      \"0120-5454564TR\"\n    ],\n    \"shipmentNumbers\": [\n      \"054546GH3434\",\n      \"KN34324235-343\"\n    ],\n    \"oblNumbers\": [\n      \"CMDUL0758754\"\n    ],\n    \"partyReferences\": [\n      {\n        \"references\": [\n          {\n            \"partyType\": \"CU\",\n            \"referenceType\": \"Z01\",\n            \"referenceName\": \"Customer Reference\",\n            \"referenceValues\": [\n              \"value\",\n              \"value2\",\n              \"value3\"\n            ]\n          },\n          {\n            \"partyType\": \"CU\",\n            \"referenceType\": \"Z01\",\n            \"referenceName\": \"Customer Reference\",\n            \"referenceValues\": [\n              \"value\",\n              \"value2\",\n              \"value3\"\n            ]\n          }\n        ]\n      },\n      {\n        \"references\": [\n          {\n            \"partyType\": \"CU\",\n            \"referenceType\": \"Z01\",\n            \"referenceName\": \"Customer Reference\",\n            \"referenceValues\": [\n              \"value\",\n              \"value2\",\n              \"value3\"\n            ]\n          },\n          {\n            \"partyType\": \"CU\",\n            \"referenceType\": \"Z01\",\n            \"referenceName\": \"Customer Reference\",\n            \"referenceValues\": [\n              \"value\",\n              \"value2\",\n              \"value3\"\n            ]\n          }\n        ]\n      }\n    ],\n    \"divisions\": [\n      \"Kuehne & Nagel\",\n      \"K+N\"\n    ]\n  },\n  \"shippingInfo\": {\n    \"incoterm\": {\n      \"code\": \"CFR\",\n      \"location\": \"Amsterdam\"\n    },\n    \"orderedKnServices\": [\n      \"sea\",\n      \"ech\"\n    ],\n    \"balInfo\": {\n      \"balDocumentType\": \"BAL\",\n      \"balScacCode\": \"BANQ\",\n      \"balBlNumbers\": [\n        \"EC112222222\",\n        \"12222222\",\n        \"112222222EC\"\n      ]\n    },\n    \"businessSolution\": {\n      \"code\": \"CRT\",\n      \"name\": \"Aerospace Critical\"\n    },\n    \"movementType\": \"CY/CY\",\n    \"carriers\": [\n      {\n        \"code\": \"MAEU\",\n        \"name\": \"Maersk\"\n      },\n      {\n        \"code\": \"MAEU\",\n        \"name\": \"Maersk\"\n      }\n    ]\n  },\n  \"parties\": {\n    \"shipper\": {\n      \"partyType\": \"CU\",\n      \"address\": {\n        \"name\": [\n          \"Company abc\",\n          \"Division A\"\n        ],\n        \"street\": [\n          \"Mainstreet 10\",\n          \"Building ABC\"\n        ],\n        \"city\": [\n          \"New Town\",\n          \"District Old Town\"\n        ],\n        \"zipCode\": \"21640\",\n        \"state\": {\n          \"code\": \"FL\",\n          \"name\": \"Florida\"\n        },\n        \"countryCode\": \"DK\",\n        \"countryName\": \"Denmark\",\n        \"postOfficeBox\": \"342353\",\n        \"printAddress\": [\n          \"Company abc\",\n          \"Mainstreet 10\",\n          \"21640 New Town\",\n          \"Denmark\"\n        ]\n      }\n    },\n    \"consignee\": {\n      \"partyType\": \"CU\",\n      \"address\": {\n        \"name\": [\n          \"Company abc\",\n          \"Division A\"\n        ],\n        \"street\": [\n          \"Mainstreet 10\",\n          \"Building ABC\"\n        ],\n        \"city\": [\n          \"New Town\",\n          \"District Old Town\"\n        ],\n        \"zipCode\": \"21640\",\n        \"state\": {\n          \"code\": \"FL\",\n          \"name\": \"Florida\"\n        },\n        \"countryCode\": \"DK\",\n        \"countryName\": \"Denmark\",\n        \"postOfficeBox\": \"342353\",\n        \"printAddress\": [\n          \"Company abc\",\n          \"Mainstreet 10\",\n          \"21640 New Town\",\n          \"Denmark\"\n        ]\n      }\n    },\n    \"mainParties\": [\n      {\n        \"partyType\": \"CU\",\n        \"address\": {\n          \"name\": [\n            \"Company abc\",\n            \"Division A\"\n          ],\n          \"street\": [\n            \"Mainstreet 10\",\n            \"Building ABC\"\n          ],\n          \"city\": [\n            \"New Town\",\n            \"District Old Town\"\n          ],\n          \"zipCode\": \"21640\",\n          \"state\": {\n            \"code\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"countryCode\": \"DK\",\n          \"countryName\": \"Denmark\",\n          \"postOfficeBox\": \"342353\",\n          \"printAddress\": [\n            \"Company abc\",\n            \"Mainstreet 10\",\n            \"21640 New Town\",\n            \"Denmark\"\n          ]\n        }\n      },\n      {\n        \"partyType\": \"CU\",\n        \"address\": {\n          \"name\": [\n            \"Company abc\",\n            \"Division A\"\n          ],\n          \"street\": [\n            \"Mainstreet 10\",\n            \"Building ABC\"\n          ],\n          \"city\": [\n            \"New Town\",\n            \"District Old Town\"\n          ],\n          \"zipCode\": \"21640\",\n          \"state\": {\n            \"code\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"countryCode\": \"DK\",\n          \"countryName\": \"Denmark\",\n          \"postOfficeBox\": \"342353\",\n          \"printAddress\": [\n            \"Company abc\",\n            \"Mainstreet 10\",\n            \"21640 New Town\",\n            \"Denmark\"\n          ]\n        }\n      }\n    ],\n    \"internalParties\": [\n      {\n        \"partyType\": \"CU\",\n        \"address\": {\n          \"name\": [\n            \"Company abc\",\n            \"Division A\"\n          ],\n          \"street\": [\n            \"Mainstreet 10\",\n            \"Building ABC\"\n          ],\n          \"city\": [\n            \"New Town\",\n            \"District Old Town\"\n          ],\n          \"zipCode\": \"21640\",\n          \"state\": {\n            \"code\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"countryCode\": \"DK\",\n          \"countryName\": \"Denmark\",\n          \"postOfficeBox\": \"342353\",\n          \"printAddress\": [\n            \"Company abc\",\n            \"Mainstreet 10\",\n            \"21640 New Town\",\n            \"Denmark\"\n          ]\n        }\n      },\n      {\n        \"partyType\": \"CU\",\n        \"address\": {\n          \"name\": [\n            \"Company abc\",\n            \"Division A\"\n          ],\n          \"street\": [\n            \"Mainstreet 10\",\n            \"Building ABC\"\n          ],\n          \"city\": [\n            \"New Town\",\n            \"District Old Town\"\n          ],\n          \"zipCode\": \"21640\",\n          \"state\": {\n            \"code\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"countryCode\": \"DK\",\n          \"countryName\": \"Denmark\",\n          \"postOfficeBox\": \"342353\",\n          \"printAddress\": [\n            \"Company abc\",\n            \"Mainstreet 10\",\n            \"21640 New Town\",\n            \"Denmark\"\n          ]\n        }\n      }\n    ],\n    \"thirdParties\": [\n      {\n        \"partyType\": \"CU\",\n        \"address\": {\n          \"name\": [\n            \"Company abc\",\n            \"Division A\"\n          ],\n          \"street\": [\n            \"Mainstreet 10\",\n            \"Building ABC\"\n          ],\n          \"city\": [\n            \"New Town\",\n            \"District Old Town\"\n          ],\n          \"zipCode\": \"21640\",\n          \"state\": {\n            \"code\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"countryCode\": \"DK\",\n          \"countryName\": \"Denmark\",\n          \"postOfficeBox\": \"342353\",\n          \"printAddress\": [\n            \"Company abc\",\n            \"Mainstreet 10\",\n            \"21640 New Town\",\n            \"Denmark\"\n          ]\n        }\n      },\n      {\n        \"partyType\": \"CU\",\n        \"address\": {\n          \"name\": [\n            \"Company abc\",\n            \"Division A\"\n          ],\n          \"street\": [\n            \"Mainstreet 10\",\n            \"Building ABC\"\n          ],\n          \"city\": [\n            \"New Town\",\n            \"District Old Town\"\n          ],\n          \"zipCode\": \"21640\",\n          \"state\": {\n            \"code\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"countryCode\": \"DK\",\n          \"countryName\": \"Denmark\",\n          \"postOfficeBox\": \"342353\",\n          \"printAddress\": [\n            \"Company abc\",\n            \"Mainstreet 10\",\n            \"21640 New Town\",\n            \"Denmark\"\n          ]\n        }\n      }\n    ]\n  },\n  \"freightInfo\": {\n    \"containerInfo\": {\n      \"containers\": [\n        {\n          \"containerNumber\": \"FCSP1910\",\n          \"containerSequenceNumber\": 1,\n          \"containerType\": \"20GE\",\n          \"routing\": {\n            \"core\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"milestoneInfo\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"numberOfPackages\": 4,\n          \"descriptionOfGoods\": [\n            \"Goods\",\n            \"More goods\"\n          ],\n          \"partyReferences\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"marksAndNumbers\": [\n            \"mark\",\n            \"number\"\n          ],\n          \"sealNumbers\": [\n            \"343466\",\n            \"FCSP43434H\"\n          ],\n          \"volume\": {\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"unit\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"weight\": {\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"unit\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"hasDangerousGoods\": false\n        },\n        {\n          \"containerNumber\": \"FCSP1910\",\n          \"containerSequenceNumber\": 1,\n          \"containerType\": \"20GE\",\n          \"routing\": {\n            \"core\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"milestoneInfo\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"numberOfPackages\": 4,\n          \"descriptionOfGoods\": [\n            \"Goods\",\n            \"More goods\"\n          ],\n          \"partyReferences\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"marksAndNumbers\": [\n            \"mark\",\n            \"number\"\n          ],\n          \"sealNumbers\": [\n            \"343466\",\n            \"FCSP43434H\"\n          ],\n          \"volume\": {\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"unit\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"weight\": {\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"unit\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"hasDangerousGoods\": false\n        }\n      ],\n      \"numberOfContainers\": 3\n    },\n    \"cargoInfo\": {\n      \"chargeableWeight\": {\n        \"value\": 12.48,\n        \"unit\": \"KG\"\n      },\n      \"numberOfPackages\": 4,\n      \"shipmentDescriptionOfGoods\": [\n        \"string\",\n        \"string\"\n      ],\n      \"marksAndNumbers\": [\n        \"mark\",\n        \"number\"\n      ],\n      \"cargoItems\": [\n        {\n          \"quantity\": {\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"unit\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"weight\": {\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"unit\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"volume\": {\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"unit\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"length\": {\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"unit\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"width\": {\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"unit\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"height\": {\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"unit\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"loadingMeters\": {\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"unit\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"descriptionOfGoods\": [\n            \"string\",\n            \"string\"\n          ],\n          \"marksAndNumbers\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        {\n          \"quantity\": {\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"unit\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"weight\": {\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"unit\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"volume\": {\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"unit\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"length\": {\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"unit\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"width\": {\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"unit\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"height\": {\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"unit\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"loadingMeters\": {\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"unit\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"descriptionOfGoods\": [\n            \"string\",\n            \"string\"\n          ],\n          \"marksAndNumbers\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      ]\n    },\n    \"volume\": {\n      \"value\": 12.485,\n      \"unit\": \"CBM\"\n    },\n    \"weight\": {\n      \"value\": 12.48,\n      \"unit\": \"KG\"\n    },\n    \"hasDangerousGoods\": false,\n    \"labelPrinted\": false\n  },\n  \"routing\": {\n    \"core\": {\n      \"departureDate\": {\n        \"flexDateTime\": {\n          \"date\": \"2023-04-25\",\n          \"time\": \"01:00:02\",\n          \"offset\": \"+02:00\"\n        },\n        \"dateTime\": \"2023-04-25T01:00:02Z\",\n        \"condition\": \"string\",\n        \"explanation\": {\n          \"source\": \"string\",\n          \"statusCode\": \"2400\"\n        }\n      },\n      \"arrivalDate\": {\n        \"flexDateTime\": {\n          \"date\": \"2023-04-25\",\n          \"time\": \"01:00:02\",\n          \"offset\": \"+02:00\"\n        },\n        \"dateTime\": \"2023-04-25T01:00:02Z\",\n        \"condition\": \"string\",\n        \"explanation\": {\n          \"source\": \"string\",\n          \"statusCode\": \"2400\"\n        }\n      },\n      \"receivingDate\": {\n        \"flexDateTime\": {\n          \"date\": \"2023-04-25\",\n          \"time\": \"01:00:02\",\n          \"offset\": \"+02:00\"\n        },\n        \"dateTime\": \"2023-04-25T01:00:02Z\",\n        \"condition\": \"string\",\n        \"explanation\": {\n          \"source\": \"string\",\n          \"statusCode\": \"2400\"\n        }\n      },\n      \"completionDate\": {\n        \"flexDateTime\": {\n          \"date\": \"2023-04-25\",\n          \"time\": \"01:00:02\",\n          \"offset\": \"+02:00\"\n        },\n        \"dateTime\": \"2023-04-25T01:00:02Z\",\n        \"condition\": \"string\",\n        \"explanation\": {\n          \"source\": \"string\",\n          \"statusCode\": \"2400\"\n        }\n      },\n      \"routeLocations\": [\n        {\n          \"reached\": true,\n          \"completed\": false,\n          \"type\": \"ORIGIN\",\n          \"location\": {\n            \"locationCode\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"unLocationCode\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"countryCode\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"countryName\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"internationalName\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"freeTextLocation\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"stateCode\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"zipCode\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"locationMilestones\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"outgoingVehicle\": {\n            \"voyageNumber\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"truckNumber\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"vesselName\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"lloydsRegisterCode\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"carrierCode\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"flightNumber\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"aircraftType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"reached\": true,\n          \"completed\": false,\n          \"type\": \"ORIGIN\",\n          \"location\": {\n            \"locationCode\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"unLocationCode\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"countryCode\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"countryName\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"internationalName\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"freeTextLocation\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"stateCode\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"zipCode\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"locationMilestones\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"outgoingVehicle\": {\n            \"voyageNumber\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"truckNumber\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"vesselName\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"lloydsRegisterCode\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"carrierCode\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"flightNumber\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"aircraftType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ],\n      \"fromLocation\": {\n        \"locationCode\": \"CWS\",\n        \"unLocationCode\": \"CWS\",\n        \"countryCode\": \"DK\",\n        \"countryName\": \"Denmark\",\n        \"internationalName\": \"Hamburg\",\n        \"freeTextLocation\": \"Hamburg\",\n        \"stateCode\": \"GA\",\n        \"zipCode\": \"30014-4958\"\n      },\n      \"toLocation\": {\n        \"locationCode\": \"CWS\",\n        \"unLocationCode\": \"CWS\",\n        \"countryCode\": \"DK\",\n        \"countryName\": \"Denmark\",\n        \"internationalName\": \"Hamburg\",\n        \"freeTextLocation\": \"Hamburg\",\n        \"stateCode\": \"GA\",\n        \"zipCode\": \"30014-4958\"\n      }\n    },\n    \"milestoneInfo\": {\n      \"currentStage\": \"BOOKED\",\n      \"currentMilestone\": {\n        \"type\": \"TRANSPORT_INFORMATION_MILESTONE\",\n        \"key\": {\n          \"transportInformationMilestoneType\": \"BOOKING_CONFIRMATION\"\n        },\n        \"children\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"plannedAchievementDateTime\": {\n          \"flexDateTime\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"dateTime\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"condition\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"explanation\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"actualAchievementDateTime\": {\n          \"flexDateTime\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"dateTime\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"condition\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"explanation\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"completionMilestone\": {\n        \"type\": \"TRANSPORT_INFORMATION_MILESTONE\",\n        \"key\": {\n          \"transportInformationMilestoneType\": \"BOOKING_CONFIRMATION\"\n        },\n        \"children\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"plannedAchievementDateTime\": {\n          \"flexDateTime\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"dateTime\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"condition\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"explanation\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"actualAchievementDateTime\": {\n          \"flexDateTime\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"dateTime\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"condition\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"explanation\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"milestoneDates\": [\n        {\n          \"type\": \"TRANSPORT_INFORMATION_MILESTONE\",\n          \"key\": {\n            \"transportInformationMilestoneType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"children\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"plannedAchievementDateTime\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"actualAchievementDateTime\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"type\": \"TRANSPORT_INFORMATION_MILESTONE\",\n          \"key\": {\n            \"transportInformationMilestoneType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"children\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"plannedAchievementDateTime\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"actualAchievementDateTime\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ]\n    }\n  },\n  \"emissionInfo\": {\n    \"co2e\": {\n      \"value\": 12.48,\n      \"unit\": \"KG\"\n    }\n  },\n  \"masterTrackingNumbers\": [\n    \"TEST1910\"\n  ],\n  \"shipmentCreationDateTime\": {\n    \"date\": \"2023-04-25\",\n    \"time\": \"01:00:02\",\n    \"offset\": \"+02:00\"\n  },\n  \"shipmentCreationIsoDateTime\": \"2023-04-25T01:00:02Z\",\n  \"links\": {\n    \"containers\": [\n      \"string\",\n      \"string\"\n    ],\n    \"serviceProviders\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "62771cae-da6e-4c4f-9829-7feee1c14e76",
+              "name": "An error occurred - please see the HTTP status code and the problem object for more information.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipments",
+                    ":uniqueShipmentReference"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "uniqueShipmentReference",
+                      "description": "(Required) By default this is the shipment __tracking number__ e.g. `N4242`. \n\nIn case a tracking number is not available, the shipment id can be used.\n\nSupported references:\n* __tracking number__\n  * `{trackingNumber}` or `tracking-number:{trackingNumber}`\n  * e.g. `N4242` or `tracking-number:N4242`\n* __shipment id__\n  * `shipment-id:{shipmentId}` \n  * e.g. `shipment-id:19101910`\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/problem+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/problem+json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Connection to database timed out\",\n  \"title\": \"Service Unavailable\",\n  \"type\": \"/problem/connection-error\",\n  \"status\": 503,\n  \"instance\": \"/problem/connection-error#token-info-read-timed-out\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://internal.api.kuehne-nagel.com/track-trace/shipment/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "authUrl",
+        "value": "https://internal.api.kuehne-nagel.com/authorize"
+      },
+      {
+        "key": "grant_type",
+        "value": "implicit"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "8ace338c-3594-4d85-ab0f-b30201240539",
+    "name": "ShipmentTracking",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Receive detailed information for one shipment per unique key (ID or tracking number),\nfind one or more shipments per other not-necessarily unique key reference (esp. customer\nreference) or filter all shipments by reference, mode of transport, stage or time frame.\n\n\nContact Support:\n Name: API Support",
+      "type": "text/plain"
+    }
+  }
+}

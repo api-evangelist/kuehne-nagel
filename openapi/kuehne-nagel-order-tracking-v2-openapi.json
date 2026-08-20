@@ -1,0 +1,2239 @@
+{
+  "openapi" : "3.0.3",
+  "info" : {
+    "title" : "OrderTracking",
+    "description" : "Order tracking API scaffolding.",
+    "contact" : {
+      "name" : "Kuehne+Nagel ESP Public API Development Team",
+      "url" : "https://esp.kuehne-nagel.com",
+      "email" : "webdev-esp-public-apis@kuehne-nagel.com"
+    },
+    "version" : "v2",
+    "x-api-id" : "753906ff-e277-4f70-83c9-221c20d52b48",
+    "x-api-guideline-version" : "1.10.2",
+    "x-api-version" : "2.0.2"
+  },
+  "servers" : [ {
+    "url" : "https://internal.api.kuehne-nagel.com/track-trace/order/v2"
+  } ],
+  "security" : [ {
+    "default" : [ ]
+  } ],
+  "paths" : {
+    "/orders-search" : {
+      "post" : {
+        "tags" : [ "esp-order-track" ],
+        "summary" : "Used by customers to search for purchase orders and their statuses in ESP.",
+        "description" : "- The search can be performed using either the attributes or the additionalReferences of an order. \n- The search uses \"AND\" to combine the attributes/additionalReferences.\n",
+        "operationId" : "orderTracking",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/OrderTrackingRequest"
+              },
+              "example" : {
+                "customerCode" : "CUSTC01",
+                "purchaseOrderNumber" : "PO123456",
+                "parties" : {
+                  "customer" : {
+                    "partyCode" : "CUSTC01",
+                    "address" : {
+                      "countryCode" : "CN",
+                      "address1" : "123 Main St",
+                      "zipCode" : "12345",
+                      "city" : "Anytown"
+                    }
+                  },
+                  "supplier" : {
+                    "partyCode" : "SUPP001",
+                    "address" : {
+                      "countryCode" : "CN",
+                      "address1" : "456 Supplier St",
+                      "zipCode" : "67890",
+                      "name" : "Supplier Inc.",
+                      "city" : "Supplier City"
+                    }
+                  }
+                },
+                "attributes" : {
+                  "orderIdentification" : {
+                    "purchaseOrderDate" : "2024-07-30",
+                    "orderNumber" : "ORD123456",
+                    "xdocksOrder" : true
+                  },
+                  "orderPromotions" : {
+                    "season" : "Summer",
+                    "advertisementCode" : "AD123456",
+                    "advertisementDate" : "2024-07-30"
+                  },
+                  "orderHandling" : {
+                    "orderStatus" : "In Progress"
+                  },
+                  "orderTerms" : {
+                    "dutyPercentage" : 5,
+                    "paymentMethod" : "Credit Card",
+                    "paymentTerms" : "Net 30"
+                  },
+                  "divisions" : {
+                    "divisionCode" : "D001",
+                    "division" : "Electronics",
+                    "sourceChannel" : "Online",
+                    "company" : "TechCorp"
+                  },
+                  "transportation" : {
+                    "modeOfTransportation" : "SEA",
+                    "destinationDeliveryWindow" : {
+                      "startDate" : "2024-07-30",
+                      "endDate" : "2024-07-30"
+                    },
+                    "originalDestinationDeliveryWindow" : {
+                      "startDate" : "2024-07-30",
+                      "endDate" : "2024-07-30"
+                    }
+                  },
+                  "itemDetails" : {
+                    "orderedQuantity" : {
+                      "amount" : 100,
+                      "unit" : "pcs"
+                    },
+                    "originalOrderedQuantity" : {
+                      "amount" : 120,
+                      "unit" : "pcs"
+                    },
+                    "packSize" : 10
+                  }
+                },
+                "additionalReferences" : [ {
+                  "code" : "ON",
+                  "values" : [ "ON-123456", "ON-654321" ]
+                } ],
+                "pageSize" : 5,
+                "page" : 1
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Orders found",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/OrderTrackingResponse"
+                },
+                "example" : {
+                  "numberOfOrders" : 1,
+                  "totalNumberOfOrders" : 1,
+                  "purchaseOrders" : [ {
+                    "purchaseOrder" : {
+                      "purchaseOrderNumber" : "PO123456",
+                      "parties" : {
+                        "customer" : {
+                          "partyCode" : "CUSTC01",
+                          "address" : {
+                            "address1" : "123 Main St",
+                            "address2" : "Suite 100",
+                            "zipCode" : "12345",
+                            "city" : "Anytown",
+                            "countryCode" : "CN",
+                            "state" : "CA",
+                            "stateCode" : "CA",
+                            "postBox" : "PO123"
+                          }
+                        },
+                        "supplier" : {
+                          "partyCode" : "SUPP001",
+                          "address" : {
+                            "address1" : "456 Supplier St",
+                            "address2" : "Building 2",
+                            "zipCode" : "67890",
+                            "city" : "Supplier City",
+                            "countryCode" : "US",
+                            "name" : "Supplier Inc.",
+                            "state" : "NY",
+                            "stateCode" : "NY",
+                            "postBox" : "PO456"
+                          }
+                        },
+                        "factory" : {
+                          "partyCode" : "FACT001",
+                          "address" : {
+                            "address1" : "789 Factory Rd",
+                            "address2" : "Unit 5",
+                            "zipCode" : "54321",
+                            "city" : "Factory Town",
+                            "countryCode" : "US",
+                            "name" : "Factory Co.",
+                            "state" : "TX",
+                            "stateCode" : "TX",
+                            "postBox" : "PO789"
+                          }
+                        }
+                      },
+                      "orderHeader" : {
+                        "orderIdentification" : {
+                          "purchaseOrderDate" : "2024-07-30",
+                          "orderNumber" : "ORD123456",
+                          "orderDate" : "2024-07-30",
+                          "invoiceNumber" : "INV123456",
+                          "invoiceDate" : "2024-07-30",
+                          "shipmentId" : "SHIP123456",
+                          "shipmentDate" : "2024-07-30",
+                          "contractNumber" : "CON123456",
+                          "contractDate" : "2024-07-30",
+                          "salesOrderNumber" : "SO123456",
+                          "salesOrderDate" : "2024-07-30",
+                          "deliveryNoteNumber" : "DN123456",
+                          "deliveryNoteDate" : "2024-07-30",
+                          "warehouseReceiptNumber" : "WR123456",
+                          "warehouseReceiptDate" : "2024-07-30",
+                          "commercialInvoiceNumber" : "CI123456",
+                          "commercialInvoiceDate" : "2024-07-30",
+                          "packingListNumber" : "PL123456",
+                          "packingListDate" : "2024-07-30",
+                          "deliveryTicketNumber" : "DT123456",
+                          "deliveryTicketDate" : "2024-07-30",
+                          "proformaInvoiceNumber" : "PI123456",
+                          "proformaInvoiceDate" : "2024-07-30",
+                          "transactionId" : "TX123456",
+                          "transactionDate" : "2024-07-30",
+                          "orderReleaseNumber" : "OR123456",
+                          "orderReleaseDate" : "2024-07-30",
+                          "raisedBy" : "John Doe",
+                          "supplierReference" : "SUPPREF123456",
+                          "workOrderNumber" : "WO123456",
+                          "proformaOrderNumber" : "PO123456",
+                          "allocationNumber" : "AL123456",
+                          "supplierOrderNumber" : "SO123456",
+                          "orderType" : "Stock",
+                          "rebuyerOrder" : true,
+                          "xdocksOrder" : true
+                        },
+                        "itemIdentification" : {
+                          "europeanArticleNumber" : "EAN123456",
+                          "lotNumber" : "LOT123456",
+                          "catalogueNumber" : "CAT123456",
+                          "partNumber" : "PART123456",
+                          "packUniversalProductCode" : "UPC123456",
+                          "materialNumber" : "MAT123456",
+                          "productNumber" : "PROD123456",
+                          "lineNumber" : "LINE123456",
+                          "itemNumber" : "ITEM123456",
+                          "factoryItemNumber" : "FACTITEM123456",
+                          "supplierItemNumber" : "SUPPITEM123456",
+                          "articleNumber" : "ART123456",
+                          "barcode" : "BAR123456",
+                          "stockKeepingUnitNumber" : "SKU123456",
+                          "globalLocationNumber" : "GLN123456",
+                          "batchNumber" : "BATCH123456",
+                          "universalProductCode" : "UPC123456"
+                        },
+                        "itemAttributes" : {
+                          "style" : "Casual",
+                          "color" : "Blue",
+                          "shade" : "Navy",
+                          "size" : "M",
+                          "hsCode" : "HS123456",
+                          "hsCodeOrigin" : "HSO123456",
+                          "hsCodeDestination" : "HSD123456",
+                          "commodity" : "Clothing",
+                          "countryOfOrigin" : "US"
+                        },
+                        "productCategories" : {
+                          "productCategory" : "Apparel",
+                          "productClass" : "Class A",
+                          "productSegment" : "Segment 1",
+                          "productFamily" : "Family 1",
+                          "gender" : "Unisex",
+                          "materialGroup" : "Cotton",
+                          "productGroup" : "Group 1",
+                          "schedulingLine" : "Line 1",
+                          "setAndSequenceNumber" : "Set 1",
+                          "stockCategory" : "Category 1",
+                          "composition" : "100% Cotton",
+                          "seriesName" : "Series 1",
+                          "seriesNumber" : "SN123456"
+                        },
+                        "productHandling" : {
+                          "dangerousGoods" : false,
+                          "polyamideAndMelamine" : false,
+                          "imoDangerousGoodsCode" : "IMDG123456",
+                          "oversizeIndicator" : false,
+                          "overweightIndicator" : false,
+                          "productionLeadDuration" : "30 days",
+                          "selfInspect" : true
+                        },
+                        "orderPromotions" : {
+                          "season" : "Summer",
+                          "advertisementCode" : "AD123456",
+                          "advertisementDate" : "2024-07-30",
+                          "campaign" : "Campaign 1",
+                          "cancelDate" : "2024-07-30",
+                          "eventCode" : "EV123456",
+                          "processingDate" : "2024-07-30",
+                          "catalogueStatus" : "Active",
+                          "catalogueEdition" : "Edition 1"
+                        },
+                        "orderHandling" : {
+                          "notes1Internal" : "Internal note 1",
+                          "notes2Internal" : "Internal note 2",
+                          "orderHandlingNotes" : "Handle with care due to fragile items.",
+                          "termsAndConditionsNotes" : "Payment due within 30 days.",
+                          "supplierNote" : "Ensure packaging meets export standards.",
+                          "factoryNote" : "Production to be completed by end of the week.",
+                          "priorityFlag" : false,
+                          "orderReleased" : true,
+                          "fumigationRequired" : true,
+                          "qualityCheckRequired" : true,
+                          "qualityCheckPassed" : true,
+                          "serviceLevel" : "Express",
+                          "orderStatus" : "In Progress",
+                          "warehouseReceiptStatus" : "Pending",
+                          "deliveryCompleteStatus" : true,
+                          "typeOfCertificateRequired" : "Certificate of Origin"
+                        },
+                        "orderTerms" : {
+                          "dutyPercentage" : 5,
+                          "paymentMethod" : "Credit Card",
+                          "paymentTerms" : "Net 30",
+                          "letterOfCreditNumber" : "LC123456789",
+                          "letterOfCredit" : {
+                            "amount" : 10000,
+                            "currency" : "USD"
+                          },
+                          "letterOfCreditDate" : "2024-07-30"
+                        },
+                        "divisions" : {
+                          "divisionCode" : "D001",
+                          "division" : "Electronics",
+                          "businessUnit" : "Consumer Electronics",
+                          "purchasingGroup" : "PG01",
+                          "sourceChannel" : "Online",
+                          "company" : "TechCorp",
+                          "costCenter" : "CC1001",
+                          "operatingCompany" : "TechCorp International",
+                          "purchaseOffice" : "PO123",
+                          "section" : "Retail",
+                          "department" : "Sales",
+                          "brand" : "TechBrand",
+                          "buyer" : "John Doe",
+                          "merchandiser" : "Jane Smith",
+                          "departmentCode" : "DC01",
+                          "merchandiseCategory" : "Gadgets",
+                          "supplyPlanner" : "Alice Johnson",
+                          "tradingTeam" : "Global Trading"
+                        },
+                        "transportation" : {
+                          "modeOfTransportation" : "SEA",
+                          "portOfEntry" : "WFPWK",
+                          "portOfLoading" : "XTBNF",
+                          "portOfDischarge" : "SZ54U",
+                          "placeOfDelivery" : "Warehouse 5",
+                          "countryOfDeparture" : "ESBCN",
+                          "countryOfDestination" : "FRPAR",
+                          "incoterm" : "FOB",
+                          "incotermLocation" : "Madrid",
+                          "carrier" : "AirExpress",
+                          "carrierContract" : "AX123456",
+                          "shipmentType" : "FCL",
+                          "movement" : "Direct",
+                          "totalNumberOfContainers" : 10,
+                          "containerType" : "FCL",
+                          "dayOfDeliveryDate" : "2024-07-30",
+                          "originalDayOfDeliveryDate" : "2024-07-30",
+                          "bookingWindow" : {
+                            "startDate" : "2024-07-30",
+                            "endDate" : "2024-07-30"
+                          },
+                          "originalBookingWindow" : {
+                            "startDate" : "2024-07-30",
+                            "endDate" : "2024-07-30"
+                          },
+                          "originDeliveryWindow" : {
+                            "startDate" : "2024-07-30",
+                            "endDate" : "2024-07-30"
+                          },
+                          "originalOriginDeliveryWindow" : {
+                            "startDate" : "2024-07-30",
+                            "endDate" : "2024-07-30"
+                          },
+                          "shippingWindow" : {
+                            "startDate" : "2024-07-30",
+                            "endDate" : "2024-07-30"
+                          },
+                          "originalShippingWindow" : {
+                            "startDate" : "2024-07-30",
+                            "endDate" : "2024-07-30"
+                          },
+                          "arrivalWindow" : {
+                            "startDate" : "2024-07-30",
+                            "endDate" : "2024-07-30"
+                          },
+                          "originalArrivalWindow" : {
+                            "startDate" : "2024-07-30",
+                            "endDate" : "2024-07-30"
+                          },
+                          "destinationDeliveryWindow" : {
+                            "startDate" : "2024-07-30",
+                            "endDate" : "2024-07-30"
+                          },
+                          "originalDestinationDeliveryWindow" : {
+                            "startDate" : "2024-07-30",
+                            "endDate" : "2024-07-30"
+                          }
+                        },
+                        "itemDetails" : {
+                          "orderedQuantity" : {
+                            "amount" : 100,
+                            "unit" : "pcs"
+                          },
+                          "itemNetWeight" : {
+                            "amount" : 50,
+                            "unit" : "kg"
+                          },
+                          "originalOrderedQuantity" : {
+                            "amount" : 120,
+                            "unit" : "pcs"
+                          },
+                          "packSize" : 10
+                        },
+                        "packageDetails" : {
+                          "quantityPerPackage" : 10,
+                          "expectedNumberOfPackages" : {
+                            "amount" : 10,
+                            "unit" : "bx"
+                          },
+                          "expectedPackageWeight" : {
+                            "amount" : 5,
+                            "unit" : "kg"
+                          },
+                          "expectedPackageVolume" : {
+                            "amount" : 0.5,
+                            "unit" : "m3"
+                          },
+                          "packageLength" : {
+                            "amount" : 1,
+                            "unit" : "m"
+                          },
+                          "packageWidth" : {
+                            "amount" : 0.5,
+                            "unit" : "m"
+                          },
+                          "packageHeight" : {
+                            "amount" : 0.3,
+                            "unit" : "m"
+                          },
+                          "itemPackaged" : true
+                        },
+                        "packingStructure" : {
+                          "quantityPerInnerPackage" : 5,
+                          "numberOfInnerPerOuter" : 10,
+                          "numberOfPackagesPerPallet" : 50
+                        },
+                        "pricing" : {
+                          "totalOrderValue" : {
+                            "amount" : 5000,
+                            "currency" : "USD"
+                          },
+                          "buyingPrice" : {
+                            "amount" : 100,
+                            "currency" : "USD"
+                          },
+                          "buyingPriceBase" : "Per Unit",
+                          "sellingPrice" : {
+                            "amount" : 150,
+                            "currency" : "USD"
+                          },
+                          "ticketRetailPrice" : {
+                            "amount" : 200,
+                            "currency" : "USD"
+                          },
+                          "msrp" : {
+                            "amount" : 250,
+                            "currency" : "USD"
+                          },
+                          "originalBuyingPrice" : {
+                            "amount" : 90,
+                            "currency" : "USD"
+                          }
+                        },
+                        "destinationWarehouseHandling" : {
+                          "casesPerPalletLayer" : 5,
+                          "layersPerPallet" : 10,
+                          "packType" : "Box",
+                          "putawayUnitCode" : "PU123",
+                          "putawayUnitName" : "Standard Box"
+                        },
+                        "customerSpecific" : {
+                          "string1" : "Customer Note 1",
+                          "string2" : "Customer Note 2",
+                          "string3" : "Customer Note 3",
+                          "string4" : "Customer Note 4",
+                          "string5" : "Customer Note 5",
+                          "string6" : "Customer Note 6",
+                          "string7" : "Customer Note 7",
+                          "string8" : "Customer Note 8",
+                          "string9" : "Customer Note 9",
+                          "string10" : "Customer Note 10",
+                          "bool1" : true,
+                          "bool2" : false,
+                          "bool3" : true,
+                          "bool4" : false,
+                          "bool5" : true,
+                          "bool6" : false,
+                          "bool7" : true,
+                          "bool8" : false,
+                          "bool9" : true,
+                          "bool10" : false
+                        }
+                      },
+                      "orderLines" : [ {
+                        "orderIdentification" : {
+                          "purchaseOrderDate" : "2024-07-30",
+                          "orderNumber" : "ORD123456",
+                          "orderDate" : "2024-07-30",
+                          "invoiceNumber" : "INV123456",
+                          "invoiceDate" : "2024-07-30",
+                          "shipmentId" : "SHIP123456",
+                          "shipmentDate" : "2024-07-30",
+                          "contractNumber" : "CON123456",
+                          "contractDate" : "2024-07-30",
+                          "salesOrderNumber" : "SO123456",
+                          "salesOrderDate" : "2024-07-30",
+                          "deliveryNoteNumber" : "DN123456",
+                          "deliveryNoteDate" : "2024-07-30",
+                          "warehouseReceiptNumber" : "WR123456",
+                          "warehouseReceiptDate" : "2024-07-30",
+                          "commercialInvoiceNumber" : "CI123456",
+                          "commercialInvoiceDate" : "2024-07-30",
+                          "packingListNumber" : "PL123456",
+                          "packingListDate" : "2024-07-30",
+                          "deliveryTicketNumber" : "DT123456",
+                          "deliveryTicketDate" : "2024-07-30",
+                          "proformaInvoiceNumber" : "PI123456",
+                          "proformaInvoiceDate" : "2024-07-30",
+                          "transactionId" : "TX123456",
+                          "transactionDate" : "2024-07-30",
+                          "orderReleaseNumber" : "OR123456",
+                          "orderReleaseDate" : "2024-07-30",
+                          "raisedBy" : "John Doe",
+                          "supplierReference" : "SUPPREF123456",
+                          "workOrderNumber" : "WO123456",
+                          "proformaOrderNumber" : "PO123456",
+                          "allocationNumber" : "AL123456",
+                          "supplierOrderNumber" : "SO123456",
+                          "orderType" : "Stock",
+                          "rebuyerOrder" : true,
+                          "xdocksOrder" : true
+                        },
+                        "itemIdentification" : {
+                          "europeanArticleNumber" : "EAN123456",
+                          "lotNumber" : "LOT123456",
+                          "catalogueNumber" : "CAT123456",
+                          "partNumber" : "PART123456",
+                          "packUniversalProductCode" : "UPC123456",
+                          "materialNumber" : "MAT123456",
+                          "productNumber" : "PROD123456",
+                          "lineNumber" : "LINE123456",
+                          "itemNumber" : "ITEM123456",
+                          "factoryItemNumber" : "FACTITEM123456",
+                          "supplierItemNumber" : "SUPPITEM123456",
+                          "articleNumber" : "ART123456",
+                          "barcode" : "BAR123456",
+                          "stockKeepingUnitNumber" : "SKU123456",
+                          "globalLocationNumber" : "GLN123456",
+                          "batchNumber" : "BATCH123456",
+                          "universalProductCode" : "UPC123456"
+                        },
+                        "itemAttributes" : {
+                          "style" : "Casual",
+                          "color" : "Blue",
+                          "shade" : "Navy",
+                          "size" : "M",
+                          "hsCode" : "HS123456",
+                          "hsCodeOrigin" : "HSO123456",
+                          "hsCodeDestination" : "HSD123456",
+                          "commodity" : "Clothing",
+                          "countryOfOrigin" : "US"
+                        },
+                        "productCategories" : {
+                          "productCategory" : "Apparel",
+                          "productClass" : "Class A",
+                          "productSegment" : "Segment 1",
+                          "productFamily" : "Family 1",
+                          "gender" : "Unisex",
+                          "materialGroup" : "Cotton",
+                          "productGroup" : "Group 1",
+                          "schedulingLine" : "Line 1",
+                          "setAndSequenceNumber" : "Set 1",
+                          "stockCategory" : "Category 1",
+                          "composition" : "100% Cotton",
+                          "seriesName" : "Series 1",
+                          "seriesNumber" : "SN123456"
+                        },
+                        "productHandling" : {
+                          "dangerousGoods" : false,
+                          "polyamideAndMelamine" : false,
+                          "imoDangerousGoodsCode" : "IMDG123456",
+                          "oversizeIndicator" : false,
+                          "overweightIndicator" : false,
+                          "productionLeadDuration" : "30 days",
+                          "selfInspect" : true
+                        },
+                        "orderPromotions" : {
+                          "season" : "Summer",
+                          "advertisementCode" : "AD123456",
+                          "advertisementDate" : "2024-07-30",
+                          "campaign" : "Campaign 1",
+                          "cancelDate" : "2024-07-30",
+                          "eventCode" : "EV123456",
+                          "processingDate" : "2024-07-30",
+                          "catalogueStatus" : "Active",
+                          "catalogueEdition" : "Edition 1"
+                        },
+                        "orderHandling" : {
+                          "notes1Internal" : "Internal note 1",
+                          "notes2Internal" : "Internal note 2",
+                          "orderHandlingNotes" : "Handle with care due to fragile items.",
+                          "termsAndConditionsNotes" : "Payment due within 30 days.",
+                          "supplierNote" : "Ensure packaging meets export standards.",
+                          "factoryNote" : "Production to be completed by end of the week.",
+                          "priorityFlag" : false,
+                          "orderReleased" : true,
+                          "fumigationRequired" : true,
+                          "qualityCheckRequired" : true,
+                          "qualityCheckPassed" : true,
+                          "serviceLevel" : "Express",
+                          "orderStatus" : "In Progress",
+                          "warehouseReceiptStatus" : "Pending",
+                          "deliveryCompleteStatus" : true,
+                          "typeOfCertificateRequired" : "Certificate of Origin"
+                        },
+                        "orderTerms" : {
+                          "dutyPercentage" : 5,
+                          "paymentMethod" : "Credit Card",
+                          "paymentTerms" : "Net 30",
+                          "letterOfCreditNumber" : "LC123456789",
+                          "letterOfCredit" : {
+                            "amount" : 10000,
+                            "currency" : "USD"
+                          },
+                          "letterOfCreditDate" : "2024-07-30"
+                        },
+                        "divisions" : {
+                          "divisionCode" : "D001",
+                          "division" : "Electronics",
+                          "businessUnit" : "Consumer Electronics",
+                          "purchasingGroup" : "PG01",
+                          "sourceChannel" : "Online",
+                          "company" : "TechCorp",
+                          "costCenter" : "CC1001",
+                          "operatingCompany" : "TechCorp International",
+                          "purchaseOffice" : "PO123",
+                          "section" : "Retail",
+                          "department" : "Sales",
+                          "brand" : "TechBrand",
+                          "buyer" : "John Doe",
+                          "merchandiser" : "Jane Smith",
+                          "departmentCode" : "DC01",
+                          "merchandiseCategory" : "Gadgets",
+                          "supplyPlanner" : "Alice Johnson",
+                          "tradingTeam" : "Global Trading"
+                        },
+                        "transportation" : {
+                          "modeOfTransportation" : "SEA",
+                          "portOfEntry" : "WFPWK",
+                          "portOfLoading" : "XTBNF",
+                          "portOfDischarge" : "SZ54U",
+                          "placeOfDelivery" : "Warehouse 5",
+                          "countryOfDeparture" : "ESBCN",
+                          "countryOfDestination" : "FRPAR",
+                          "incoterm" : "FOB",
+                          "incotermLocation" : "Madrid",
+                          "carrier" : "AirExpress",
+                          "carrierContract" : "AX123456",
+                          "shipmentType" : "FCL",
+                          "movement" : "Direct",
+                          "totalNumberOfContainers" : 10,
+                          "containerType" : "FCL",
+                          "dayOfDeliveryDate" : "2024-07-30",
+                          "originalDayOfDeliveryDate" : "2024-07-30",
+                          "bookingWindow" : {
+                            "startDate" : "2024-07-30",
+                            "endDate" : "2024-07-30"
+                          },
+                          "originalBookingWindow" : {
+                            "startDate" : "2024-07-30",
+                            "endDate" : "2024-07-30"
+                          },
+                          "originDeliveryWindow" : {
+                            "startDate" : "2024-07-30",
+                            "endDate" : "2024-07-30"
+                          },
+                          "originalOriginDeliveryWindow" : {
+                            "startDate" : "2024-07-30",
+                            "endDate" : "2024-07-30"
+                          },
+                          "shippingWindow" : {
+                            "startDate" : "2024-07-30",
+                            "endDate" : "2024-07-30"
+                          },
+                          "originalShippingWindow" : {
+                            "startDate" : "2024-07-30",
+                            "endDate" : "2024-07-30"
+                          },
+                          "arrivalWindow" : {
+                            "startDate" : "2024-07-30",
+                            "endDate" : "2024-07-30"
+                          },
+                          "originalArrivalWindow" : {
+                            "startDate" : "2024-07-30",
+                            "endDate" : "2024-07-30"
+                          },
+                          "destinationDeliveryWindow" : {
+                            "startDate" : "2024-07-30",
+                            "endDate" : "2024-07-30"
+                          },
+                          "originalDestinationDeliveryWindow" : {
+                            "startDate" : "2024-07-30",
+                            "endDate" : "2024-07-30"
+                          }
+                        },
+                        "itemDetails" : {
+                          "orderedQuantity" : {
+                            "amount" : 100,
+                            "unit" : "pcs"
+                          },
+                          "itemNetWeight" : {
+                            "amount" : 50,
+                            "unit" : "kg"
+                          },
+                          "originalOrderedQuantity" : {
+                            "amount" : 120,
+                            "unit" : "pcs"
+                          },
+                          "packSize" : 10
+                        },
+                        "packageDetails" : {
+                          "quantityPerPackage" : 10,
+                          "expectedNumberOfPackages" : {
+                            "amount" : 10,
+                            "unit" : "bx"
+                          },
+                          "expectedPackageWeight" : {
+                            "amount" : 5,
+                            "unit" : "kg"
+                          },
+                          "expectedPackageVolume" : {
+                            "amount" : 0.5,
+                            "unit" : "m3"
+                          },
+                          "packageLength" : {
+                            "amount" : 1,
+                            "unit" : "m"
+                          },
+                          "packageWidth" : {
+                            "amount" : 0.5,
+                            "unit" : "m"
+                          },
+                          "packageHeight" : {
+                            "amount" : 0.3,
+                            "unit" : "m"
+                          },
+                          "itemPackaged" : true
+                        },
+                        "packingStructure" : {
+                          "quantityPerInnerPackage" : 5,
+                          "numberOfInnerPerOuter" : 10,
+                          "numberOfPackagesPerPallet" : 50
+                        },
+                        "pricing" : {
+                          "totalOrderValue" : {
+                            "amount" : 5000,
+                            "currency" : "USD"
+                          },
+                          "buyingPrice" : {
+                            "amount" : 100,
+                            "currency" : "USD"
+                          },
+                          "buyingPriceBase" : "Per Unit",
+                          "sellingPrice" : {
+                            "amount" : 150,
+                            "currency" : "USD"
+                          },
+                          "ticketRetailPrice" : {
+                            "amount" : 200,
+                            "currency" : "USD"
+                          },
+                          "msrp" : {
+                            "amount" : 250,
+                            "currency" : "USD"
+                          },
+                          "originalBuyingPrice" : {
+                            "amount" : 90,
+                            "currency" : "USD"
+                          }
+                        },
+                        "destinationWarehouseHandling" : {
+                          "casesPerPalletLayer" : 5,
+                          "layersPerPallet" : 10,
+                          "packType" : "Box",
+                          "putawayUnitCode" : "PU123",
+                          "putawayUnitName" : "Standard Box"
+                        },
+                        "customerSpecific" : {
+                          "string1" : "Customer Note 1",
+                          "string2" : "Customer Note 2",
+                          "string3" : "Customer Note 3",
+                          "string4" : "Customer Note 4",
+                          "string5" : "Customer Note 5",
+                          "string6" : "Customer Note 6",
+                          "string7" : "Customer Note 7",
+                          "string8" : "Customer Note 8",
+                          "string9" : "Customer Note 9",
+                          "string10" : "Customer Note 10",
+                          "bool1" : true,
+                          "bool2" : false,
+                          "bool3" : true,
+                          "bool4" : false,
+                          "bool5" : true,
+                          "bool6" : false,
+                          "bool7" : true,
+                          "bool8" : false,
+                          "bool9" : true,
+                          "bool10" : false
+                        },
+                        "state" : "CA",
+                        "status" : [ {
+                          "name" : "Allocated",
+                          "code" : "0110",
+                          "milestone" : "Gate In",
+                          "statusDate" : "2022-12-29T01:33:00Z",
+                          "quantity" : 222
+                        } ],
+                        "shippingDetails" : [ {
+                          "shipmentType" : "BCM",
+                          "masterShipmentNumber" : "SHP1234567890",
+                          "bookingNumber" : "BN123456",
+                          "containerNumber" : "ABCD1234657",
+                          "loadingSequence" : 0,
+                          "knOriginReference" : "1234-5678-019.111",
+                          "trackingNumber" : "TRN1234567890",
+                          "hbl" : "ASC1234567890",
+                          "mbl" : "ASC12345678019111",
+                          "quantity" : 222
+                        } ],
+                        "additionalReferences" : [ {
+                          "code" : "ON",
+                          "values" : [ "ON-123456", "ON-654321" ]
+                        } ]
+                      } ]
+                    }
+                  } ],
+                  "pageSize" : 5,
+                  "totalPages" : 1,
+                  "currentPage" : 1
+                }
+              }
+            }
+          },
+          "default" : {
+            "$ref" : "#/components/responses/default"
+          }
+        },
+        "security" : [ {
+          "default" : [ ]
+        } ],
+        "x-auth-type" : "Application & Application User",
+        "x-throttling-tier" : "50KPerMin"
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "OrderTrackingRequest" : {
+        "required" : [ "customerCode" ],
+        "type" : "object",
+        "properties" : {
+          "customerCode" : {
+            "$ref" : "#/components/schemas/CustomerCode"
+          },
+          "purchaseOrderNumber" : {
+            "maxLength" : 255,
+            "type" : "string"
+          },
+          "parties" : {
+            "$ref" : "#/components/schemas/Parties"
+          },
+          "attributes" : {
+            "$ref" : "#/components/schemas/OrderAttributes"
+          },
+          "additionalReferences" : {
+            "maxItems" : 999,
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/AdditionalReference"
+            }
+          },
+          "pageSize" : {
+            "maximum" : 10,
+            "minimum" : 1,
+            "type" : "integer",
+            "description" : "Number of results returned on single page",
+            "format" : "int32",
+            "example" : 5,
+            "default" : 5
+          },
+          "page" : {
+            "type" : "integer",
+            "description" : "Requested page",
+            "format" : "int32",
+            "example" : 1,
+            "default" : 1
+          }
+        },
+        "description" : "Request in JSON format"
+      },
+      "CustomerCode" : {
+        "maxLength" : 7,
+        "pattern" : "^[A-Z]{5}[0-9]{2}$",
+        "type" : "string",
+        "description" : "Unique identifier assigned to a customer"
+      },
+      "Parties" : {
+        "type" : "object",
+        "properties" : {
+          "customer" : {
+            "$ref" : "#/components/schemas/BusinessParty"
+          },
+          "supplier" : {
+            "$ref" : "#/components/schemas/BusinessParty"
+          },
+          "factory" : {
+            "$ref" : "#/components/schemas/BusinessParty"
+          },
+          "additionalParties" : {
+            "maxItems" : 999,
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/AdditionalParty"
+            }
+          }
+        }
+      },
+      "BusinessParty" : {
+        "required" : [ "partyCode" ],
+        "type" : "object",
+        "properties" : {
+          "partyCode" : {
+            "maxLength" : 255,
+            "type" : "string"
+          },
+          "address" : {
+            "$ref" : "#/components/schemas/Address"
+          }
+        }
+      },
+      "AdditionalParty" : {
+        "type" : "object",
+        "properties" : {
+          "address" : {
+            "$ref" : "#/components/schemas/AdditionalPartyAddress"
+          }
+        }
+      },
+      "AdditionalPartyAddress" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/Address"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "addressType" : {
+              "maxLength" : 2,
+              "type" : "string",
+              "description" : "Address Type Code",
+              "example" : "FF"
+            }
+          }
+        } ]
+      },
+      "Address" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/PostalAddress"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "name" : {
+              "maxLength" : 255,
+              "type" : "string"
+            },
+            "state" : {
+              "maxLength" : 255,
+              "type" : "string"
+            },
+            "stateCode" : {
+              "maxLength" : 255,
+              "type" : "string"
+            },
+            "postBox" : {
+              "maxLength" : 255,
+              "type" : "string"
+            }
+          }
+        } ]
+      },
+      "PostalAddress" : {
+        "type" : "object",
+        "properties" : {
+          "address1" : {
+            "maxLength" : 255,
+            "type" : "string"
+          },
+          "address2" : {
+            "maxLength" : 255,
+            "type" : "string"
+          },
+          "zipCode" : {
+            "maxLength" : 255,
+            "type" : "string"
+          },
+          "city" : {
+            "maxLength" : 255,
+            "type" : "string"
+          },
+          "countryCode" : {
+            "$ref" : "#/components/schemas/CountryCode"
+          }
+        }
+      },
+      "CountryCode" : {
+        "maxLength" : 5,
+        "type" : "string",
+        "format" : "iso-3166"
+      },
+      "OrderAttributes" : {
+        "properties" : {
+          "orderIdentification" : {
+            "allOf" : [ {
+              "$ref" : "#/components/schemas/OrderIdentificationKeyAttributes"
+            }, {
+              "type" : "object",
+              "properties" : {
+                "orderType" : {
+                  "maxLength" : 255,
+                  "type" : "string"
+                },
+                "rebuyerOrder" : {
+                  "type" : "boolean"
+                },
+                "xdocksOrder" : {
+                  "type" : "boolean",
+                  "description" : "Correlating order number between the incoming and outgoing pallets"
+                }
+              }
+            } ]
+          },
+          "itemIdentification" : {
+            "allOf" : [ {
+              "$ref" : "#/components/schemas/ItemIdentificationKeyAttributes"
+            } ]
+          },
+          "itemAttributes" : {
+            "allOf" : [ {
+              "$ref" : "#/components/schemas/ItemAttributesKeyAttributes"
+            } ]
+          },
+          "productCategories" : {
+            "type" : "object",
+            "properties" : {
+              "productCategory" : {
+                "maxLength" : 255,
+                "type" : "string"
+              },
+              "productClass" : {
+                "maxLength" : 255,
+                "type" : "string"
+              },
+              "productSegment" : {
+                "maxLength" : 255,
+                "type" : "string"
+              },
+              "productFamily" : {
+                "maxLength" : 255,
+                "type" : "string"
+              },
+              "gender" : {
+                "maxLength" : 255,
+                "type" : "string"
+              },
+              "materialGroup" : {
+                "maxLength" : 255,
+                "type" : "string"
+              },
+              "productGroup" : {
+                "maxLength" : 255,
+                "type" : "string"
+              },
+              "schedulingLine" : {
+                "maxLength" : 255,
+                "type" : "string"
+              },
+              "setAndSequenceNumber" : {
+                "maxLength" : 255,
+                "type" : "string"
+              },
+              "stockCategory" : {
+                "maxLength" : 255,
+                "type" : "string"
+              },
+              "composition" : {
+                "maxLength" : 255,
+                "type" : "string"
+              },
+              "seriesName" : {
+                "maxLength" : 255,
+                "type" : "string"
+              },
+              "seriesNumber" : {
+                "maxLength" : 255,
+                "type" : "string"
+              }
+            }
+          },
+          "productHandling" : {
+            "type" : "object",
+            "properties" : {
+              "dangerousGoods" : {
+                "type" : "boolean"
+              },
+              "polyamideAndMelamine" : {
+                "type" : "boolean"
+              },
+              "imoDangerousGoodsCode" : {
+                "maxLength" : 255,
+                "type" : "string"
+              },
+              "oversizeIndicator" : {
+                "type" : "boolean"
+              },
+              "overweightIndicator" : {
+                "type" : "boolean"
+              },
+              "productionLeadDuration" : {
+                "maxLength" : 255,
+                "type" : "string"
+              },
+              "selfInspect" : {
+                "type" : "boolean"
+              }
+            }
+          },
+          "orderPromotions" : {
+            "type" : "object",
+            "properties" : {
+              "season" : {
+                "maxLength" : 255,
+                "type" : "string"
+              },
+              "advertisementCode" : {
+                "maxLength" : 255,
+                "type" : "string"
+              },
+              "advertisementDate" : {
+                "type" : "string",
+                "format" : "date"
+              },
+              "campaign" : {
+                "maxLength" : 255,
+                "type" : "string"
+              },
+              "cancelDate" : {
+                "type" : "string",
+                "format" : "date"
+              },
+              "eventCode" : {
+                "maxLength" : 255,
+                "type" : "string"
+              },
+              "processingDate" : {
+                "type" : "string",
+                "format" : "date"
+              },
+              "catalogueStatus" : {
+                "maxLength" : 255,
+                "type" : "string"
+              },
+              "catalogueEdition" : {
+                "maxLength" : 255,
+                "type" : "string"
+              }
+            }
+          },
+          "orderHandling" : {
+            "type" : "object",
+            "properties" : {
+              "notes1Internal" : {
+                "maxLength" : 255,
+                "type" : "string"
+              },
+              "notes2Internal" : {
+                "maxLength" : 255,
+                "type" : "string"
+              },
+              "orderHandlingNotes" : {
+                "maxLength" : 255,
+                "type" : "string"
+              },
+              "termsAndConditionsNotes" : {
+                "maxLength" : 255,
+                "type" : "string"
+              },
+              "supplierNote" : {
+                "maxLength" : 255,
+                "type" : "string"
+              },
+              "factoryNote" : {
+                "maxLength" : 255,
+                "type" : "string"
+              },
+              "priorityFlag" : {
+                "type" : "boolean"
+              },
+              "orderReleased" : {
+                "type" : "boolean",
+                "default" : true
+              },
+              "fumigationRequired" : {
+                "type" : "boolean"
+              },
+              "qualityCheckRequired" : {
+                "type" : "boolean"
+              },
+              "qualityCheckPassed" : {
+                "type" : "boolean"
+              },
+              "serviceLevel" : {
+                "maxLength" : 255,
+                "type" : "string"
+              },
+              "orderStatus" : {
+                "maxLength" : 255,
+                "type" : "string"
+              },
+              "warehouseReceiptStatus" : {
+                "maxLength" : 255,
+                "type" : "string"
+              },
+              "deliveryCompleteStatus" : {
+                "type" : "boolean"
+              },
+              "typeOfCertificateRequired" : {
+                "maxLength" : 255,
+                "type" : "string"
+              }
+            }
+          },
+          "orderTerms" : {
+            "type" : "object",
+            "properties" : {
+              "dutyPercentage" : {
+                "type" : "integer",
+                "format" : "int64"
+              },
+              "paymentMethod" : {
+                "maxLength" : 255,
+                "type" : "string"
+              },
+              "paymentTerms" : {
+                "maxLength" : 255,
+                "type" : "string"
+              },
+              "letterOfCreditNumber" : {
+                "maxLength" : 255,
+                "type" : "string"
+              },
+              "letterOfCredit" : {
+                "$ref" : "#/components/schemas/Money"
+              },
+              "letterOfCreditDate" : {
+                "type" : "string",
+                "format" : "date"
+              }
+            }
+          },
+          "divisions" : {
+            "type" : "object",
+            "properties" : {
+              "divisionCode" : {
+                "maxLength" : 255,
+                "type" : "string"
+              },
+              "division" : {
+                "maxLength" : 255,
+                "type" : "string"
+              },
+              "businessUnit" : {
+                "maxLength" : 255,
+                "type" : "string"
+              },
+              "purchasingGroup" : {
+                "maxLength" : 255,
+                "type" : "string"
+              },
+              "sourceChannel" : {
+                "maxLength" : 255,
+                "type" : "string"
+              },
+              "company" : {
+                "maxLength" : 255,
+                "type" : "string"
+              },
+              "costCenter" : {
+                "maxLength" : 255,
+                "type" : "string"
+              },
+              "operatingCompany" : {
+                "maxLength" : 255,
+                "type" : "string"
+              },
+              "purchaseOffice" : {
+                "maxLength" : 255,
+                "type" : "string"
+              },
+              "section" : {
+                "maxLength" : 255,
+                "type" : "string"
+              },
+              "department" : {
+                "maxLength" : 255,
+                "type" : "string"
+              },
+              "brand" : {
+                "maxLength" : 255,
+                "type" : "string"
+              },
+              "buyer" : {
+                "maxLength" : 255,
+                "type" : "string"
+              },
+              "merchandiser" : {
+                "maxLength" : 255,
+                "type" : "string"
+              },
+              "departmentCode" : {
+                "maxLength" : 255,
+                "type" : "string"
+              },
+              "merchandiseCategory" : {
+                "maxLength" : 255,
+                "type" : "string"
+              },
+              "supplyPlanner" : {
+                "maxLength" : 255,
+                "type" : "string"
+              },
+              "tradingTeam" : {
+                "maxLength" : 255,
+                "type" : "string"
+              }
+            }
+          },
+          "transportation" : {
+            "type" : "object",
+            "properties" : {
+              "modeOfTransportation" : {
+                "maxLength" : 4,
+                "type" : "string",
+                "x-extensible-enum" : [ "SEA", "ROAD", "AIR" ]
+              },
+              "portOfEntry" : {
+                "$ref" : "#/components/schemas/UnLocationCode"
+              },
+              "portOfLoading" : {
+                "$ref" : "#/components/schemas/UnLocationCode"
+              },
+              "portOfDischarge" : {
+                "$ref" : "#/components/schemas/UnLocationCode"
+              },
+              "placeOfDelivery" : {
+                "maxLength" : 255,
+                "type" : "string"
+              },
+              "countryOfDeparture" : {
+                "$ref" : "#/components/schemas/CountryCode"
+              },
+              "countryOfDestination" : {
+                "$ref" : "#/components/schemas/CountryCode"
+              },
+              "incoterm" : {
+                "$ref" : "#/components/schemas/Incoterm"
+              },
+              "incotermLocation" : {
+                "maxLength" : 255,
+                "type" : "string"
+              },
+              "carrier" : {
+                "maxLength" : 255,
+                "type" : "string"
+              },
+              "carrierContract" : {
+                "maxLength" : 255,
+                "type" : "string"
+              },
+              "shipmentType" : {
+                "maxLength" : 3,
+                "type" : "string",
+                "x-extensible-enum" : [ "LCL", "FCL", "BCM" ]
+              },
+              "movement" : {
+                "maxLength" : 255,
+                "type" : "string"
+              },
+              "totalNumberOfContainers" : {
+                "type" : "integer",
+                "format" : "int64"
+              },
+              "containerType" : {
+                "maxLength" : 255,
+                "type" : "string"
+              },
+              "dayOfDeliveryDate" : {
+                "type" : "string",
+                "format" : "date"
+              },
+              "originalDayOfDeliveryDate" : {
+                "type" : "string",
+                "format" : "date"
+              },
+              "bookingWindow" : {
+                "$ref" : "#/components/schemas/DateWindow"
+              },
+              "originalBookingWindow" : {
+                "$ref" : "#/components/schemas/DateWindow"
+              },
+              "originDeliveryWindow" : {
+                "$ref" : "#/components/schemas/DateWindow"
+              },
+              "originalOriginDeliveryWindow" : {
+                "$ref" : "#/components/schemas/DateWindow"
+              },
+              "shippingWindow" : {
+                "$ref" : "#/components/schemas/DateWindow"
+              },
+              "originalShippingWindow" : {
+                "$ref" : "#/components/schemas/DateWindow"
+              },
+              "arrivalWindow" : {
+                "$ref" : "#/components/schemas/DateWindow"
+              },
+              "originalArrivalWindow" : {
+                "$ref" : "#/components/schemas/DateWindow"
+              },
+              "destinationDeliveryWindow" : {
+                "$ref" : "#/components/schemas/DateWindow"
+              },
+              "originalDestinationDeliveryWindow" : {
+                "$ref" : "#/components/schemas/DateWindow"
+              }
+            }
+          },
+          "itemDetails" : {
+            "type" : "object",
+            "properties" : {
+              "orderedQuantity" : {
+                "$ref" : "#/components/schemas/AmountAndUnit"
+              },
+              "itemNetWeight" : {
+                "$ref" : "#/components/schemas/AmountAndUnit"
+              },
+              "originalOrderedQuantity" : {
+                "$ref" : "#/components/schemas/AmountAndUnit"
+              },
+              "packSize" : {
+                "type" : "integer",
+                "format" : "int64"
+              }
+            }
+          },
+          "packageDetails" : {
+            "type" : "object",
+            "properties" : {
+              "quantityPerPackage" : {
+                "type" : "integer",
+                "format" : "int64"
+              },
+              "expectedNumberOfPackages" : {
+                "$ref" : "#/components/schemas/AmountAndUnit"
+              },
+              "expectedPackageWeight" : {
+                "$ref" : "#/components/schemas/AmountAndUnit"
+              },
+              "expectedPackageVolume" : {
+                "$ref" : "#/components/schemas/AmountAndUnit"
+              },
+              "packageLength" : {
+                "$ref" : "#/components/schemas/AmountAndUnit"
+              },
+              "packageWidth" : {
+                "$ref" : "#/components/schemas/AmountAndUnit"
+              },
+              "packageHeight" : {
+                "$ref" : "#/components/schemas/AmountAndUnit"
+              },
+              "itemPackaged" : {
+                "type" : "boolean"
+              }
+            }
+          },
+          "packingStructure" : {
+            "type" : "object",
+            "properties" : {
+              "quantityPerInnerPackage" : {
+                "type" : "integer",
+                "format" : "int64"
+              },
+              "numberOfInnerPerOuter" : {
+                "type" : "integer",
+                "format" : "int64"
+              },
+              "numberOfPackagesPerPallet" : {
+                "type" : "integer",
+                "format" : "int64"
+              }
+            }
+          },
+          "pricing" : {
+            "type" : "object",
+            "properties" : {
+              "totalOrderValue" : {
+                "$ref" : "#/components/schemas/Money"
+              },
+              "buyingPrice" : {
+                "$ref" : "#/components/schemas/Money"
+              },
+              "buyingPriceBase" : {
+                "maxLength" : 255,
+                "type" : "string"
+              },
+              "sellingPrice" : {
+                "$ref" : "#/components/schemas/Money"
+              },
+              "ticketRetailPrice" : {
+                "$ref" : "#/components/schemas/Money"
+              },
+              "msrp" : {
+                "$ref" : "#/components/schemas/Money"
+              },
+              "originalBuyingPrice" : {
+                "$ref" : "#/components/schemas/Money"
+              }
+            }
+          },
+          "destinationWarehouseHandling" : {
+            "type" : "object",
+            "properties" : {
+              "casesPerPalletLayer" : {
+                "type" : "integer",
+                "format" : "int64"
+              },
+              "layersPerPallet" : {
+                "type" : "integer",
+                "format" : "int64"
+              },
+              "packType" : {
+                "maxLength" : 255,
+                "type" : "string"
+              },
+              "putawayUnitCode" : {
+                "maxLength" : 255,
+                "type" : "string"
+              },
+              "putawayUnitName" : {
+                "maxLength" : 255,
+                "type" : "string"
+              }
+            }
+          },
+          "customerSpecific" : {
+            "type" : "object",
+            "properties" : {
+              "string1" : {
+                "maxLength" : 255,
+                "type" : "string"
+              },
+              "string2" : {
+                "maxLength" : 255,
+                "type" : "string"
+              },
+              "string3" : {
+                "maxLength" : 255,
+                "type" : "string"
+              },
+              "string4" : {
+                "maxLength" : 255,
+                "type" : "string"
+              },
+              "string5" : {
+                "maxLength" : 255,
+                "type" : "string"
+              },
+              "string6" : {
+                "maxLength" : 255,
+                "type" : "string"
+              },
+              "string7" : {
+                "maxLength" : 255,
+                "type" : "string"
+              },
+              "string8" : {
+                "maxLength" : 255,
+                "type" : "string"
+              },
+              "string9" : {
+                "maxLength" : 255,
+                "type" : "string"
+              },
+              "string10" : {
+                "maxLength" : 255,
+                "type" : "string"
+              },
+              "bool1" : {
+                "type" : "boolean"
+              },
+              "bool2" : {
+                "type" : "boolean"
+              },
+              "bool3" : {
+                "type" : "boolean"
+              },
+              "bool4" : {
+                "type" : "boolean"
+              },
+              "bool5" : {
+                "type" : "boolean"
+              },
+              "bool6" : {
+                "type" : "boolean"
+              },
+              "bool7" : {
+                "type" : "boolean"
+              },
+              "bool8" : {
+                "type" : "boolean"
+              },
+              "bool9" : {
+                "type" : "boolean"
+              },
+              "bool10" : {
+                "type" : "boolean"
+              }
+            },
+            "description" : "This section of order attributes contains the customer specific\norder attributes as defined by the customer's order configuration.\n"
+          }
+        }
+      },
+      "OrderIdentificationKeyAttributes" : {
+        "type" : "object",
+        "properties" : {
+          "purchaseOrderDate" : {
+            "type" : "string",
+            "format" : "date"
+          },
+          "orderNumber" : {
+            "maxLength" : 255,
+            "type" : "string"
+          },
+          "orderDate" : {
+            "type" : "string",
+            "format" : "date"
+          },
+          "invoiceNumber" : {
+            "maxLength" : 255,
+            "type" : "string"
+          },
+          "invoiceDate" : {
+            "type" : "string",
+            "format" : "date"
+          },
+          "shipmentId" : {
+            "maxLength" : 255,
+            "type" : "string"
+          },
+          "shipmentDate" : {
+            "type" : "string",
+            "format" : "date"
+          },
+          "contractNumber" : {
+            "maxLength" : 255,
+            "type" : "string"
+          },
+          "contractDate" : {
+            "type" : "string",
+            "format" : "date"
+          },
+          "salesOrderNumber" : {
+            "maxLength" : 255,
+            "type" : "string"
+          },
+          "salesOrderDate" : {
+            "type" : "string",
+            "format" : "date"
+          },
+          "deliveryNoteNumber" : {
+            "maxLength" : 255,
+            "type" : "string"
+          },
+          "deliveryNoteDate" : {
+            "type" : "string",
+            "format" : "date"
+          },
+          "warehouseReceiptNumber" : {
+            "maxLength" : 255,
+            "type" : "string"
+          },
+          "warehouseReceiptDate" : {
+            "type" : "string",
+            "format" : "date"
+          },
+          "commercialInvoiceNumber" : {
+            "maxLength" : 255,
+            "type" : "string"
+          },
+          "commercialInvoiceDate" : {
+            "type" : "string",
+            "format" : "date"
+          },
+          "packingListNumber" : {
+            "maxLength" : 255,
+            "type" : "string"
+          },
+          "packingListDate" : {
+            "type" : "string",
+            "format" : "date"
+          },
+          "deliveryTicketNumber" : {
+            "maxLength" : 255,
+            "type" : "string"
+          },
+          "deliveryTicketDate" : {
+            "type" : "string",
+            "format" : "date"
+          },
+          "proformaInvoiceNumber" : {
+            "maxLength" : 255,
+            "type" : "string"
+          },
+          "proformaInvoiceDate" : {
+            "type" : "string",
+            "format" : "date"
+          },
+          "transactionId" : {
+            "maxLength" : 255,
+            "type" : "string"
+          },
+          "transactionDate" : {
+            "type" : "string",
+            "format" : "date"
+          },
+          "orderReleaseNumber" : {
+            "maxLength" : 255,
+            "type" : "string"
+          },
+          "orderReleaseDate" : {
+            "type" : "string",
+            "format" : "date"
+          },
+          "raisedBy" : {
+            "maxLength" : 255,
+            "type" : "string"
+          },
+          "supplierReference" : {
+            "maxLength" : 255,
+            "type" : "string"
+          },
+          "workOrderNumber" : {
+            "maxLength" : 255,
+            "type" : "string"
+          },
+          "proformaOrderNumber" : {
+            "maxLength" : 255,
+            "type" : "string"
+          },
+          "allocationNumber" : {
+            "maxLength" : 255,
+            "type" : "string"
+          },
+          "supplierOrderNumber" : {
+            "maxLength" : 255,
+            "type" : "string"
+          }
+        }
+      },
+      "ItemIdentificationKeyAttributes" : {
+        "type" : "object",
+        "properties" : {
+          "europeanArticleNumber" : {
+            "maxLength" : 255,
+            "type" : "string"
+          },
+          "lotNumber" : {
+            "maxLength" : 255,
+            "type" : "string"
+          },
+          "catalogueNumber" : {
+            "maxLength" : 255,
+            "type" : "string"
+          },
+          "partNumber" : {
+            "maxLength" : 255,
+            "type" : "string"
+          },
+          "packUniversalProductCode" : {
+            "maxLength" : 255,
+            "type" : "string"
+          },
+          "materialNumber" : {
+            "maxLength" : 255,
+            "type" : "string"
+          },
+          "productNumber" : {
+            "maxLength" : 255,
+            "type" : "string"
+          },
+          "lineNumber" : {
+            "maxLength" : 255,
+            "type" : "string"
+          },
+          "itemNumber" : {
+            "maxLength" : 255,
+            "type" : "string"
+          },
+          "factoryItemNumber" : {
+            "maxLength" : 255,
+            "type" : "string"
+          },
+          "supplierItemNumber" : {
+            "maxLength" : 255,
+            "type" : "string"
+          },
+          "articleNumber" : {
+            "maxLength" : 255,
+            "type" : "string"
+          },
+          "barcode" : {
+            "maxLength" : 255,
+            "type" : "string"
+          },
+          "stockKeepingUnitNumber" : {
+            "maxLength" : 255,
+            "type" : "string"
+          },
+          "globalLocationNumber" : {
+            "maxLength" : 255,
+            "type" : "string"
+          },
+          "batchNumber" : {
+            "maxLength" : 255,
+            "type" : "string"
+          },
+          "universalProductCode" : {
+            "maxLength" : 255,
+            "type" : "string"
+          }
+        }
+      },
+      "ItemAttributesKeyAttributes" : {
+        "type" : "object",
+        "properties" : {
+          "style" : {
+            "maxLength" : 255,
+            "type" : "string"
+          },
+          "color" : {
+            "maxLength" : 255,
+            "type" : "string"
+          },
+          "shade" : {
+            "maxLength" : 255,
+            "type" : "string"
+          },
+          "size" : {
+            "maxLength" : 255,
+            "type" : "string"
+          },
+          "hsCode" : {
+            "maxLength" : 255,
+            "type" : "string"
+          },
+          "hsCodeOrigin" : {
+            "maxLength" : 255,
+            "type" : "string"
+          },
+          "hsCodeDestination" : {
+            "maxLength" : 255,
+            "type" : "string"
+          },
+          "commodity" : {
+            "maxLength" : 4000,
+            "type" : "string"
+          },
+          "countryOfOrigin" : {
+            "$ref" : "#/components/schemas/CountryCode"
+          }
+        }
+      },
+      "Money" : {
+        "required" : [ "amount" ],
+        "type" : "object",
+        "properties" : {
+          "amount" : {
+            "minimum" : 0,
+            "type" : "number",
+            "format" : "decimal"
+          },
+          "currency" : {
+            "maxLength" : 3,
+            "type" : "string",
+            "format" : "iso-4217"
+          }
+        }
+      },
+      "UnLocationCode" : {
+        "maxLength" : 5,
+        "pattern" : "[A-Z]{2}[A-Z0-9]{3}",
+        "type" : "string",
+        "description" : "Standardized code for trade and transport locations including seaports and airports"
+      },
+      "Incoterm" : {
+        "maxLength" : 3,
+        "type" : "string",
+        "description" : "Internationally recognized delivery terms for commercial contracts published by the ICC",
+        "x-extensible-enum" : [ "CFR", "CIF", "CIP", "CPT", "CTO", "DAF", "DAP", "DAT", "DCT", "DDP", "DDU", "DEQ", "DES", "DIC", "DIT", "DPU", "EXQ", "EXW", "FAS", "FCA", "FOB", "FOC", "FOT", "PRC", "PUO" ]
+      },
+      "DateWindow" : {
+        "type" : "object",
+        "properties" : {
+          "startDate" : {
+            "type" : "string",
+            "format" : "date"
+          },
+          "endDate" : {
+            "type" : "string",
+            "format" : "date"
+          }
+        }
+      },
+      "AmountAndUnit" : {
+        "required" : [ "amount" ],
+        "type" : "object",
+        "properties" : {
+          "amount" : {
+            "minimum" : 0,
+            "type" : "number",
+            "format" : "decimal"
+          },
+          "unit" : {
+            "maxLength" : 3,
+            "type" : "string"
+          }
+        }
+      },
+      "AdditionalReference" : {
+        "required" : [ "code", "values" ],
+        "type" : "object",
+        "properties" : {
+          "code" : {
+            "maxLength" : 255,
+            "type" : "string",
+            "description" : "Reference code",
+            "example" : "ON"
+          },
+          "values" : {
+            "maxItems" : 999,
+            "minItems" : 1,
+            "type" : "array",
+            "description" : "Reference values",
+            "example" : [ "ON-123456", "ON-654321" ],
+            "items" : {
+              "maxLength" : 255,
+              "type" : "string"
+            }
+          }
+        },
+        "description" : "reference code-values pair"
+      },
+      "OrderTrackingResponse" : {
+        "required" : [ "currentPage", "numberOfOrders", "pageSize", "purchaseOrders", "totalNumberOfOrders", "totalPages" ],
+        "type" : "object",
+        "properties" : {
+          "numberOfOrders" : {
+            "type" : "integer",
+            "format" : "int32",
+            "example" : 5
+          },
+          "totalNumberOfOrders" : {
+            "type" : "integer",
+            "format" : "int32",
+            "example" : 9
+          },
+          "purchaseOrders" : {
+            "maxItems" : 999,
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/PurchaseOrderResponse"
+            }
+          },
+          "pageSize" : {
+            "type" : "integer",
+            "format" : "int32",
+            "example" : 5
+          },
+          "totalPages" : {
+            "type" : "integer",
+            "format" : "int32",
+            "example" : 2
+          },
+          "currentPage" : {
+            "type" : "integer",
+            "format" : "int32",
+            "example" : 1
+          }
+        }
+      },
+      "PurchaseOrderResponse" : {
+        "required" : [ "purchaseOrder" ],
+        "type" : "object",
+        "properties" : {
+          "purchaseOrder" : {
+            "$ref" : "#/components/schemas/ResponsePurchaseOrder"
+          }
+        }
+      },
+      "ResponsePurchaseOrder" : {
+        "required" : [ "purchaseOrderNumber" ],
+        "type" : "object",
+        "properties" : {
+          "purchaseOrderNumber" : {
+            "maxLength" : 255,
+            "type" : "string"
+          },
+          "parties" : {
+            "$ref" : "#/components/schemas/Parties"
+          },
+          "orderHeader" : {
+            "$ref" : "#/components/schemas/OrderAttributes"
+          },
+          "orderLines" : {
+            "maxItems" : 999,
+            "type" : "array",
+            "items" : {
+              "allOf" : [ {
+                "$ref" : "#/components/schemas/OrderAttributes"
+              }, {
+                "required" : [ "state" ],
+                "type" : "object",
+                "properties" : {
+                  "state" : {
+                    "maxLength" : 10,
+                    "type" : "string",
+                    "x-extensible-enum" : [ "ACTIVE", "INCOMPLETE", "CANCELLED" ]
+                  },
+                  "status" : {
+                    "maxItems" : 999,
+                    "type" : "array",
+                    "items" : {
+                      "$ref" : "#/components/schemas/Status"
+                    }
+                  },
+                  "shippingDetails" : {
+                    "maxItems" : 999,
+                    "type" : "array",
+                    "items" : {
+                      "$ref" : "#/components/schemas/ShippingDetails"
+                    }
+                  },
+                  "additionalReferences" : {
+                    "maxItems" : 999,
+                    "type" : "array",
+                    "items" : {
+                      "$ref" : "#/components/schemas/AdditionalReference"
+                    }
+                  }
+                }
+              } ]
+            }
+          }
+        }
+      },
+      "Status" : {
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "maxLength" : 255,
+            "type" : "string",
+            "description" : "Status longname",
+            "example" : "Allocated"
+          },
+          "code" : {
+            "maxLength" : 255,
+            "type" : "string",
+            "description" : "Status code",
+            "example" : "0110"
+          },
+          "milestone" : {
+            "maxLength" : 255,
+            "type" : "string",
+            "description" : "Order line subprocess",
+            "example" : "Gate In"
+          },
+          "statusDate" : {
+            "type" : "string",
+            "description" : "Status Date",
+            "format" : "date-time",
+            "example" : "2022-12-29T01:33:00Z"
+          },
+          "quantity" : {
+            "type" : "integer",
+            "description" : "Quantity being related to the status",
+            "format" : "int64",
+            "example" : 222
+          }
+        },
+        "description" : "Status of the order line"
+      },
+      "ShippingDetails" : {
+        "type" : "object",
+        "properties" : {
+          "shipmentType" : {
+            "maxLength" : 3,
+            "type" : "string",
+            "x-extensible-enum" : [ "LCL", "FCL", "BCM" ]
+          },
+          "masterShipmentNumber" : {
+            "maxLength" : 255,
+            "type" : "string",
+            "description" : "The Master Shipment Number, provided to track BCM shipments",
+            "example" : "SHP1234567890"
+          },
+          "bookingNumber" : {
+            "maxLength" : 255,
+            "type" : "string"
+          },
+          "containerNumber" : {
+            "maxLength" : 255,
+            "type" : "string",
+            "description" : "Container Number",
+            "example" : "ABCD1234657"
+          },
+          "loadingSequence" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "knOriginReference" : {
+            "maxLength" : 255,
+            "type" : "string",
+            "description" : "K+N reference",
+            "example" : "1234-5678-019.111"
+          },
+          "trackingNumber" : {
+            "maxLength" : 255,
+            "type" : "string",
+            "description" : "K+N Tracking Number",
+            "example" : "TRN1234567890"
+          },
+          "hbl" : {
+            "maxLength" : 255,
+            "type" : "string",
+            "description" : "House Bill of Lading issued by KN (Blue Anchor Line)",
+            "example" : "ASC1234567890"
+          },
+          "mbl" : {
+            "maxLength" : 255,
+            "type" : "string",
+            "description" : "Master Bill of Lading",
+            "example" : "ASC12345678019111"
+          },
+          "quantity" : {
+            "type" : "integer",
+            "description" : "Quantity on container",
+            "format" : "int64",
+            "example" : 222
+          }
+        },
+        "description" : "Provides order shipping details"
+      },
+      "Problem" : {
+        "required" : [ "detail", "title" ],
+        "type" : "object",
+        "properties" : {
+          "type" : {
+            "maxLength" : 255,
+            "type" : "string",
+            "description" : "A URI reference that uniquely identifies the problem type only in the context of the provided API. Opposed to the specification in RFC-7807, it is neither recommended to be dereferencable and point to a human-readable documentation nor globally unique for the problem type.\n",
+            "format" : "uri-reference",
+            "example" : "/problem/connection-error",
+            "default" : "about:blank"
+          },
+          "title" : {
+            "maxLength" : 255,
+            "type" : "string",
+            "description" : "A short summary of the problem type. Written in English and readable for engineers, usually not suited for non technical stakeholders and not localized.\n",
+            "example" : "Service Unavailable"
+          },
+          "status" : {
+            "maximum" : 600,
+            "exclusiveMaximum" : true,
+            "minimum" : 100,
+            "type" : "integer",
+            "description" : "The HTTP status code generated by the origin server for this occurrence of the problem.\n",
+            "format" : "int32",
+            "example" : 503
+          },
+          "detail" : {
+            "maxLength" : 255,
+            "type" : "string",
+            "description" : "A human readable explanation specific to this occurrence of the problem that is helpful to locate the problem and give advice on how to proceed. Written in English and readable for engineers, usually not suited for non technical stakeholders and not localized.\n",
+            "example" : "Connection to database timed out"
+          },
+          "instance" : {
+            "maxLength" : 255,
+            "type" : "string",
+            "description" : "A URI reference that identifies the specific occurrence of the problem, e.g. by adding a fragment identifier or sub-path to the problem type. May be used to locate the root of this problem in the source code.\n",
+            "format" : "uri-reference",
+            "example" : "/problem/connection-error#token-info-read-timed-out"
+          }
+        }
+      }
+    },
+    "responses" : {
+      "default" : {
+        "description" : "Default Response for Error Cases",
+        "content" : {
+          "application/problem+json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/Problem"
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes" : {
+      "ApiKeyAuth" : {
+        "type" : "apiKey",
+        "name" : "apikey",
+        "in" : "header"
+      },
+      "default" : {
+        "type" : "oauth2",
+        "flows" : {
+          "implicit" : {
+            "authorizationUrl" : "https://internal.api.kuehne-nagel.com/authorize",
+            "scopes" : { }
+          }
+        }
+      }
+    }
+  }
+}

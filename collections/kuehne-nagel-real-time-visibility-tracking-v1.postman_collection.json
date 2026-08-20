@@ -1,0 +1,686 @@
+{
+  "item": [
+    {
+      "id": "e5a40491-f256-41ae-a72d-308af01b0008",
+      "name": "cargoItems",
+      "description": {
+        "content": "Assets (possible types are PACKAGE, CONTAINER and UNKNOWN) belonging to a shipment.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6b814b60-8de4-437a-9553-9ad2769c7f2d",
+          "name": "Retrieves assets of a shipment. If the asset's type is UNKNOWN, it may be any type except CONTAINER or PACKAGE.",
+          "request": {
+            "name": "Retrieves assets of a shipment. If the asset's type is UNKNOWN, it may be any type except CONTAINER or PACKAGE.",
+            "description": {
+              "content": "Retrieves assets belonging to a shipment. If the asset's type is UNKNOWN, it may be any type except CONTAINER or PACKAGE.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cargo-items"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "trackingNumber",
+                  "value": "<string>",
+                  "description": "(Required) Shipment identifier"
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "The cursor value after which data is retrieved (excluding the cursor itself). This value should be skipped when fetching first cursor."
+                },
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": "<integer>",
+                  "description": "Page size value."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "authUrl",
+                  "value": "https://internal.api.kuehne-nagel.com/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "05617d9a-04c0-4ca5-9124-680da9f9cfab",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cargo-items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "trackingNumber",
+                      "value": "9999999999"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "MQ=="
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"a6616562-5315-4867-9d70-ab76cde83d10\",\n      \"type\": \"CONTAINER\",\n      \"key\": \"CMAU1234567\"\n    },\n    {\n      \"id\": \"2e5dc269-d84e-473c-9f9e-a39b2c823c3d\",\n      \"type\": \"PACKAGE\",\n      \"key\": \"ABCU1234567\"\n    },\n    {\n      \"id\": \"2f7de517-8d85-47e9-993a-f8cce2507f78\",\n      \"type\": \"CONTAINER\",\n      \"key\": \"XYZU1234567\"\n    }\n  ],\n  \"pageInfo\": {\n    \"hasNextPage\": true,\n    \"hasPreviousPage\": false,\n    \"startCursor\": \"Mg==\",\n    \"endCursor\": \"NA==\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "667e00c9-2f10-44e8-ab69-399c4d1d2f82",
+              "name": "Invalid request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cargo-items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "trackingNumber",
+                      "value": "9999999999"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "MQ=="
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/problem+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/problem+json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"The requested container is already in use during the requested period.\",\n  \"title\": \"The requested container is not available.\",\n  \"type\": \"/problem/container-unavailable\",\n  \"status\": 409,\n  \"instance\": \"/problem/container-unavailable#SKNU1234569\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3be078a8-bdfd-4313-a585-f35b5e4e730e",
+              "name": "Shipment not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cargo-items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "trackingNumber",
+                      "value": "9999999999"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "MQ=="
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/problem+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/problem+json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"The requested container is already in use during the requested period.\",\n  \"title\": \"The requested container is not available.\",\n  \"type\": \"/problem/container-unavailable\",\n  \"status\": 409,\n  \"instance\": \"/problem/container-unavailable#SKNU1234569\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8954b2a1-e823-4977-b475-f0bb2bcce009",
+              "name": "Error occurred - see message for more details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cargo-items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "trackingNumber",
+                      "value": "9999999999"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "MQ=="
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/problem+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/problem+json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"The requested container is already in use during the requested period.\",\n  \"title\": \"The requested container is not available.\",\n  \"type\": \"/problem/container-unavailable\",\n  \"status\": 409,\n  \"instance\": \"/problem/container-unavailable#SKNU1234569\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "74ee7737-46c9-45f4-9f7a-ec1a4fee1d94",
+      "name": "telemetry",
+      "description": {
+        "content": "Telemetry assigned to a cargo item (PACKAGE/CONTAINER/UNKNOWN).",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4214bbad-cb05-4a12-9d55-a6ca5f594ee4",
+          "name": "Retrieves telemetry assigned to an asset (PACKAGE/CONTAINER/UNKNOWN).",
+          "request": {
+            "name": "Retrieves telemetry assigned to an asset (PACKAGE/CONTAINER/UNKNOWN).",
+            "description": {
+              "content": "Retrieves telemetry for an asset.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cargo-items",
+                ":cargoItemId",
+                "telemetries"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "types",
+                  "value": "<string>",
+                  "description": "Telemetry types, separated by commas"
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "The cursor value after which data is retrieved (excluding the cursor itself). This value should be skipped when fetching first cursor."
+                },
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": "<integer>",
+                  "description": "Page size value."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "cargoItemId",
+                  "description": "(Required) Asset identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "authUrl",
+                  "value": "https://internal.api.kuehne-nagel.com/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "71edefe6-c4ab-4074-b91f-ea39da5ea8b2",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cargo-items",
+                    ":cargoItemId",
+                    "telemetries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "types",
+                      "value": "GEO,BATTERY,LIGHT"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cargoItemId",
+                      "description": "(Required) Asset identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"sensorId\": \"cba526e4-7d4e-43cf-8539-9dcdb03c04df\",\n      \"timeDate\": \"2024-09-04T14:24:38Z\",\n      \"transmitDate\": \"2024-09-04T16:22:38Z\",\n      \"type\": \"ASSET_OPERATION_MODE\",\n      \"value\": \"START_STOP\"\n    },\n    {\n      \"sensorId\": \"cba526e4-7d4e-43cf-8539-9dcdb03c04df\",\n      \"timeDate\": \"2024-09-04T14:24:38Z\",\n      \"transmitDate\": \"2024-09-04T16:22:38Z\",\n      \"type\": \"ASSET_OPERATION_MODE\",\n      \"value\": \"START_STOP\"\n    }\n  ],\n  \"paging\": {\n    \"hasNextPage\": false,\n    \"hasPreviousPage\": true,\n    \"startCursor\": \"Mg==\",\n    \"endCursor\": \"NA==\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1dc85618-65b0-401a-8aa1-87c310613093",
+              "name": "Invalid request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cargo-items",
+                    ":cargoItemId",
+                    "telemetries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "types",
+                      "value": "GEO,BATTERY,LIGHT"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cargoItemId",
+                      "description": "(Required) Asset identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/problem+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/problem+json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"The requested container is already in use during the requested period.\",\n  \"title\": \"The requested container is not available.\",\n  \"type\": \"/problem/container-unavailable\",\n  \"status\": 409,\n  \"instance\": \"/problem/container-unavailable#SKNU1234569\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "421f4edb-8364-44a6-bbd6-a7d5c02d8cf9",
+              "name": "Shipment or cargoItem not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cargo-items",
+                    ":cargoItemId",
+                    "telemetries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "types",
+                      "value": "GEO,BATTERY,LIGHT"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cargoItemId",
+                      "description": "(Required) Asset identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/problem+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/problem+json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"The requested container is already in use during the requested period.\",\n  \"title\": \"The requested container is not available.\",\n  \"type\": \"/problem/container-unavailable\",\n  \"status\": 409,\n  \"instance\": \"/problem/container-unavailable#SKNU1234569\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "05e7dcd4-c2da-4120-b594-e7bfca8a4a45",
+              "name": "Error occurred - see message for more details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cargo-items",
+                    ":cargoItemId",
+                    "telemetries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "types",
+                      "value": "GEO,BATTERY,LIGHT"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cargoItemId",
+                      "description": "(Required) Asset identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/problem+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/problem+json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"The requested container is already in use during the requested period.\",\n  \"title\": \"The requested container is not available.\",\n  \"type\": \"/problem/container-unavailable\",\n  \"status\": 409,\n  \"instance\": \"/problem/container-unavailable#SKNU1234569\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://internal.api.kuehne-nagel.com/real-time-visibility/tracking/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "authUrl",
+        "value": "https://internal.api.kuehne-nagel.com/authorize"
+      },
+      {
+        "key": "grant_type",
+        "value": "implicit"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "811b8729-a785-4691-bc83-ccfbe8cdd804",
+    "name": "RealTimeVisibility-Tracking",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The RealTimeVisibility-Tracking API offers functions to retrieve telemetry data for a shipment.\n\nContact Support:\n Name: RGS Shipment Store Team\n Email: developers.rgs-shipment-store@kuehne-nagel.com",
+      "type": "text/plain"
+    }
+  }
+}
