@@ -220,6 +220,12 @@ apis:
   - Standards
   - DCSA
   - Container Shipping
+  - Event
+  - Track and Trace
+  tags_raw:
+  - Standards
+  - DCSA
+  - Container Shipping
   - Events
   - Track and Trace
   properties:
@@ -237,6 +243,10 @@ apis:
   humanURL: https://portal.api.kuehne-nagel.com/devportal/apis/fe5ed9e7-67cb-471f-a679-7bdade8d6850/overview
   baseURL: https://gateway.api.kuehne-nagel.com/integration/event/shipment/event-integration/v1
   tags:
+  - Event
+  - Integration
+  - Track and Trace
+  tags_raw:
   - Events
   - Integration
   - Track and Trace
@@ -349,6 +359,10 @@ apis:
   humanURL: https://portal.api.kuehne-nagel.com/devportal/apis/84ffd55f-61ba-4918-8105-887fdcb88ff6/overview
   baseURL: https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0
   tags:
+  - Documents
+  - Artificial Intelligence
+  - Document Extraction
+  tags_raw:
   - Documents
   - AI
   - Document Extraction
