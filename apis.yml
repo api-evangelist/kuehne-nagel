@@ -41,336 +41,2219 @@ created: '2026-07-30'
 modified: '2026-07-30'
 specificationVersion: '0.23'
 apis:
-- aid: kuehne-nagel:shipment-tracking
-  name: Kuehne+Nagel ShipmentTracking API
+- aid: kuehne-nagel:kuehne-nagel-administration-layer-api
+  name: Kuehne+Nagel Administration Layer API
   description: >-
-    Find and show details of the customer's shipments, with contents reflecting the
-    visibility configured in myKN. Search shipments, load a single shipment by unique
-    reference, and read history records. Read-only polling; no webhook or callback is
-    published.
-  humanURL: https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
+    The administration-layer API from Kuehne+Nagel — 1 operation(s) for administration-layer.
+  humanURL: >-
+    https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
   baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
   tags:
-  - Track and Trace
-  - Shipments
-  - Ocean Freight
-  - Air Cargo
+  - administration-layer
   properties:
   - type: OpenAPI
-    url: openapi/kuehne-nagel-shipment-tracking-v2-openapi.json
+    url: openapi/kuehne-nagel-administration-layer-api-openapi.yml
   - type: Documentation
-    url: https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/documents
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/documents
   - type: DeveloperPortal
     url: https://portal.api.kuehne-nagel.com/devportal/
-- aid: kuehne-nagel:container-tracking
-  name: Kuehne+Nagel ContainerTracking API
-  description: >-
-    Find and show details of the customer's seafreight containers, reflecting myKN
-    visibility. Container search plus a per-container read keyed on the Kuehne+Nagel
-    unique shipment reference and container sequence number.
-  humanURL: https://portal.api.kuehne-nagel.com/devportal/apis/bf506fea-4c34-4072-bc1c-aa6d1e6f0ca8/overview
-  baseURL: https://gateway.api.kuehne-nagel.com/track-trace/container/v2
-  tags:
-  - Track and Trace
-  - Container Shipping
-  - Ocean Freight
-  properties:
-  - type: OpenAPI
-    url: openapi/kuehne-nagel-container-tracking-v2-openapi.json
   - type: Documentation
-    url: https://portal.api.kuehne-nagel.com/devportal/apis/bf506fea-4c34-4072-bc1c-aa6d1e6f0ca8/documents
-  - type: DeveloperPortal
-    url: https://portal.api.kuehne-nagel.com/devportal/
-- aid: kuehne-nagel:order-tracking
-  name: Kuehne+Nagel OrderTracking API
-  description: >-
-    A service for consumers to receive order data information, searched by order
-    attributes. Carries UN/LOCODE port fields, HS codes, EORI numbers and a GS1 global
-    location number field on item attributes.
-  humanURL: https://portal.api.kuehne-nagel.com/devportal/apis/24f13980-9857-41ef-a3e5-3cd7844da5d6/overview
-  baseURL: https://gateway.api.kuehne-nagel.com/track-trace/order/v2
-  tags:
-  - Track and Trace
-  - Order Management
-  - Supply Chain
-  properties:
-  - type: OpenAPI
-    url: openapi/kuehne-nagel-order-tracking-v2-openapi.json
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bf506fea-4c34-4072-bc1c-aa6d1e6f0ca8/documents
   - type: Documentation
-    url: https://portal.api.kuehne-nagel.com/devportal/apis/24f13980-9857-41ef-a3e5-3cd7844da5d6/documents
-  - type: DeveloperPortal
-    url: https://portal.api.kuehne-nagel.com/devportal/
-- aid: kuehne-nagel:real-time-visibility-tracking
-  name: Kuehne+Nagel RealTimeVisibility-Tracking API
-  description: >-
-    Read cargo items and their telemetry readings for real-time visibility. Two GET
-    operations, polled; no subscription or push channel is published.
-  humanURL: https://portal.api.kuehne-nagel.com/devportal/apis/d17c2f11-d4db-4edf-b4e0-b78406cfbb7f/overview
-  baseURL: https://gateway.api.kuehne-nagel.com/real-time-visibility/tracking/v1
-  tags:
-  - Track and Trace
-  - Telematics
-  - Visibility
-  properties:
-  - type: OpenAPI
-    url: openapi/kuehne-nagel-real-time-visibility-tracking-v1-openapi.json
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/24f13980-9857-41ef-a3e5-3cd7844da5d6/documents
   - type: Documentation
-    url: https://portal.api.kuehne-nagel.com/devportal/apis/d17c2f11-d4db-4edf-b4e0-b78406cfbb7f/documents
-  - type: DeveloperPortal
-    url: https://portal.api.kuehne-nagel.com/devportal/
-- aid: kuehne-nagel:booking-air
-  name: Kuehne+Nagel BookingAir API
-  description: >-
-    A service for consumers to book an air shipment, optionally applying product prices
-    supplied via the Airfreight Quote API. Carries IATA three-letter airport codes, air
-    waybill and HAWB service types, HS codes and IATA dangerous-goods flags.
-  humanURL: https://portal.api.kuehne-nagel.com/devportal/apis/bfc135f0-875b-4421-b203-e56f91aa0e66/overview
-  baseURL: https://gateway.api.kuehne-nagel.com/booking/air/v2
-  tags:
-  - Air Cargo
-  - Booking
-  - Freight Forwarding
-  properties:
-  - type: OpenAPI
-    url: openapi/kuehne-nagel-booking-air-v2-openapi.json
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d17c2f11-d4db-4edf-b4e0-b78406cfbb7f/documents
   - type: Documentation
-    url: https://portal.api.kuehne-nagel.com/devportal/apis/bfc135f0-875b-4421-b203-e56f91aa0e66/documents
-  - type: DeveloperPortal
-    url: https://portal.api.kuehne-nagel.com/devportal/
-- aid: kuehne-nagel:booking-road
-  name: Kuehne+Nagel BookingRoad API
-  description: >-
-    A service for consumers to book road shipments, with master-data category lookups
-    and a document upload operation alongside booking creation.
-  humanURL: https://portal.api.kuehne-nagel.com/devportal/apis/f3ca4f89-d159-4a5f-bedc-68a2eb7b483c/overview
-  baseURL: https://gateway.api.kuehne-nagel.com/booking/road/v1
-  tags:
-  - Road Freight
-  - Booking
-  - Freight Forwarding
-  properties:
-  - type: OpenAPI
-    url: openapi/kuehne-nagel-booking-road-v1-openapi.json
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bfc135f0-875b-4421-b203-e56f91aa0e66/documents
   - type: Documentation
-    url: https://portal.api.kuehne-nagel.com/devportal/apis/f3ca4f89-d159-4a5f-bedc-68a2eb7b483c/documents
-  - type: DeveloperPortal
-    url: https://portal.api.kuehne-nagel.com/devportal/
-- aid: kuehne-nagel:order-booking
-  name: Kuehne+Nagel OrderBooking API
-  description: >-
-    Create and update order bookings by shipper's reference and poll a process state.
-    Discriminated booking bodies for AIR, FCL and LCL, with UN/LOCODE-typed ports and
-    airports.
-  humanURL: https://portal.api.kuehne-nagel.com/devportal/apis/e520b7b7-44ff-4546-ad46-5c75d35041cc/overview
-  baseURL: https://gateway.api.kuehne-nagel.com/order-management/order-booking/v1
-  tags:
-  - Booking
-  - Order Management
-  - Ocean Freight
-  - Air Cargo
-  properties:
-  - type: OpenAPI
-    url: openapi/kuehne-nagel-order-booking-v1-openapi.json
-  - type: DeveloperPortal
-    url: https://portal.api.kuehne-nagel.com/devportal/
-- aid: kuehne-nagel:purchase-order-management
-  name: Kuehne+Nagel PurchaseOrderManagement API
-  description: >-
-    Create, patch, search and cancel purchase orders scoped to a Kuehne+Nagel customer
-    code. UN/LOCODE ports, HS codes and EORI numbers appear on the order model.
-  humanURL: https://portal.api.kuehne-nagel.com/devportal/apis/79670bfa-841d-4d9f-bbee-5a5d737f7d21/overview
-  baseURL: https://gateway.api.kuehne-nagel.com/order-management/purchase-order/v3
-  tags:
-  - Order Management
-  - Supply Chain
-  - Purchase Orders
-  properties:
-  - type: OpenAPI
-    url: openapi/kuehne-nagel-purchase-order-management-v3-openapi.json
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/f3ca4f89-d159-4a5f-bedc-68a2eb7b483c/documents
   - type: Documentation
-    url: https://portal.api.kuehne-nagel.com/devportal/apis/79670bfa-841d-4d9f-bbee-5a5d737f7d21/documents
-  - type: DeveloperPortal
-    url: https://portal.api.kuehne-nagel.com/devportal/
-- aid: kuehne-nagel:esop-purchase-order-configuration
-  name: Kuehne+Nagel eSOPPurchaseOrderConfiguration API
-  description: >-
-    Read the purchase-order configuration for a given Kuehne+Nagel customer code. The
-    devportal publishes only an internal gateway environment for this API; no external
-    endpoint URL is advertised.
-  humanURL: https://portal.api.kuehne-nagel.com/devportal/apis/98eed3c9-1f7a-4d40-8852-f0eb452f315e/overview
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/79670bfa-841d-4d9f-bbee-5a5d737f7d21/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/ea0d3ea0-3825-4175-bb54-875068074dca/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/fe5ed9e7-67cb-471f-a679-7bdade8d6850/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/e4e7a568-9c87-4346-ae85-50e6a9ad0b00/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d2822b95-abc5-40f8-b8a6-62e3914a844a/documents
+- aid: kuehne-nagel:kuehne-nagel-api-keys-api
+  name: Kuehne+Nagel API Keys API
+  description: Management of API keys for workspace authentication.
+  humanURL: >-
+    https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
+  baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
   tags:
-  - Order Management
-  - Configuration
+  - api-keys
   properties:
   - type: OpenAPI
-    url: openapi/kuehne-nagel-esop-purchase-order-configuration-v1-openapi.json
+    url: openapi/kuehne-nagel-api-keys-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/documents
   - type: DeveloperPortal
     url: https://portal.api.kuehne-nagel.com/devportal/
-- aid: kuehne-nagel:ocean-event-inbox
-  name: Kuehne+Nagel OceanEventInbox API
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bf506fea-4c34-4072-bc1c-aa6d1e6f0ca8/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/24f13980-9857-41ef-a3e5-3cd7844da5d6/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d17c2f11-d4db-4edf-b4e0-b78406cfbb7f/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bfc135f0-875b-4421-b203-e56f91aa0e66/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/f3ca4f89-d159-4a5f-bedc-68a2eb7b483c/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/79670bfa-841d-4d9f-bbee-5a5d737f7d21/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/ea0d3ea0-3825-4175-bb54-875068074dca/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/fe5ed9e7-67cb-471f-a679-7bdade8d6850/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/e4e7a568-9c87-4346-ae85-50e6a9ad0b00/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d2822b95-abc5-40f8-b8a6-62e3914a844a/documents
+- aid: kuehne-nagel:kuehne-nagel-assigned-consignments-api
+  name: Kuehne+Nagel Assigned Consignments API
   description: >-
-    Lets service providers submit container equipment events for shipments booked with
-    Kuehne+Nagel, following Digital Container Shipping Association (DCSA) standards.
-    Inbound only — Kuehne+Nagel receives events here rather than publishing them.
-    Equipment references follow BIC ISO 6346, locations use UN/LOCODE, and carriers are
-    identified by SCAC or SMDG code lists.
-  humanURL: https://portal.api.kuehne-nagel.com/devportal/apis/ea0d3ea0-3825-4175-bb54-875068074dca/overview
-  baseURL: https://gateway.api.kuehne-nagel.com/integration/external/event/container/v1
+    The Assigned Consignments API from Kuehne+Nagel — 1 operation(s) for assigned consignments.
+  humanURL: >-
+    https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
+  baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
   tags:
-  - Standards
-  - DCSA
-  - Container Shipping
-  - Event
-  - Track and Trace
-  tags_raw:
-  - Standards
-  - DCSA
-  - Container Shipping
+  - Assigned Consignments
+  properties:
+  - type: OpenAPI
+    url: openapi/kuehne-nagel-assigned-consignments-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/documents
+  - type: DeveloperPortal
+    url: https://portal.api.kuehne-nagel.com/devportal/
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bf506fea-4c34-4072-bc1c-aa6d1e6f0ca8/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/24f13980-9857-41ef-a3e5-3cd7844da5d6/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d17c2f11-d4db-4edf-b4e0-b78406cfbb7f/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bfc135f0-875b-4421-b203-e56f91aa0e66/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/f3ca4f89-d159-4a5f-bedc-68a2eb7b483c/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/79670bfa-841d-4d9f-bbee-5a5d737f7d21/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/ea0d3ea0-3825-4175-bb54-875068074dca/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/fe5ed9e7-67cb-471f-a679-7bdade8d6850/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/e4e7a568-9c87-4346-ae85-50e6a9ad0b00/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d2822b95-abc5-40f8-b8a6-62e3914a844a/documents
+- aid: kuehne-nagel:kuehne-nagel-background-tasks-api
+  name: Kuehne+Nagel Background Tasks API
+  description: Monitor and manage background scheduled tasks.
+  humanURL: >-
+    https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
+  baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
+  tags:
+  - background-tasks
+  properties:
+  - type: OpenAPI
+    url: openapi/kuehne-nagel-background-tasks-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/documents
+  - type: DeveloperPortal
+    url: https://portal.api.kuehne-nagel.com/devportal/
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bf506fea-4c34-4072-bc1c-aa6d1e6f0ca8/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/24f13980-9857-41ef-a3e5-3cd7844da5d6/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d17c2f11-d4db-4edf-b4e0-b78406cfbb7f/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bfc135f0-875b-4421-b203-e56f91aa0e66/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/f3ca4f89-d159-4a5f-bedc-68a2eb7b483c/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/79670bfa-841d-4d9f-bbee-5a5d737f7d21/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/ea0d3ea0-3825-4175-bb54-875068074dca/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/fe5ed9e7-67cb-471f-a679-7bdade8d6850/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/e4e7a568-9c87-4346-ae85-50e6a9ad0b00/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d2822b95-abc5-40f8-b8a6-62e3914a844a/documents
+- aid: kuehne-nagel:kuehne-nagel-booking-api
+  name: Kuehne+Nagel Booking API
+  description: The booking API from Kuehne+Nagel — 2 operation(s) for booking.
+  humanURL: >-
+    https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
+  baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
+  tags:
+  - booking
+  properties:
+  - type: OpenAPI
+    url: openapi/kuehne-nagel-booking-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/documents
+  - type: DeveloperPortal
+    url: https://portal.api.kuehne-nagel.com/devportal/
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bf506fea-4c34-4072-bc1c-aa6d1e6f0ca8/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/24f13980-9857-41ef-a3e5-3cd7844da5d6/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d17c2f11-d4db-4edf-b4e0-b78406cfbb7f/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bfc135f0-875b-4421-b203-e56f91aa0e66/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/f3ca4f89-d159-4a5f-bedc-68a2eb7b483c/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/79670bfa-841d-4d9f-bbee-5a5d737f7d21/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/ea0d3ea0-3825-4175-bb54-875068074dca/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/fe5ed9e7-67cb-471f-a679-7bdade8d6850/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/e4e7a568-9c87-4346-ae85-50e6a9ad0b00/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d2822b95-abc5-40f8-b8a6-62e3914a844a/documents
+- aid: kuehne-nagel:kuehne-nagel-booking-requests-api
+  name: Kuehne+Nagel Booking Requests API
+  description: The Booking Requests API from Kuehne+Nagel — 1 operation(s) for booking requests.
+  humanURL: >-
+    https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
+  baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
+  tags:
+  - Booking Requests
+  properties:
+  - type: OpenAPI
+    url: openapi/kuehne-nagel-booking-requests-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/documents
+  - type: DeveloperPortal
+    url: https://portal.api.kuehne-nagel.com/devportal/
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bf506fea-4c34-4072-bc1c-aa6d1e6f0ca8/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/24f13980-9857-41ef-a3e5-3cd7844da5d6/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d17c2f11-d4db-4edf-b4e0-b78406cfbb7f/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bfc135f0-875b-4421-b203-e56f91aa0e66/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/f3ca4f89-d159-4a5f-bedc-68a2eb7b483c/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/79670bfa-841d-4d9f-bbee-5a5d737f7d21/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/ea0d3ea0-3825-4175-bb54-875068074dca/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/fe5ed9e7-67cb-471f-a679-7bdade8d6850/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/e4e7a568-9c87-4346-ae85-50e6a9ad0b00/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d2822b95-abc5-40f8-b8a6-62e3914a844a/documents
+- aid: kuehne-nagel:kuehne-nagel-cargoitems-api
+  name: Kuehne+Nagel Cargo Items API
+  description: Assets (possible types are PACKAGE, CONTAINER and UNKNOWN) belonging to a shipment.
+  humanURL: >-
+    https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
+  baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
+  tags:
+  - cargoItems
+  properties:
+  - type: OpenAPI
+    url: openapi/kuehne-nagel-cargoitems-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/documents
+  - type: DeveloperPortal
+    url: https://portal.api.kuehne-nagel.com/devportal/
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bf506fea-4c34-4072-bc1c-aa6d1e6f0ca8/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/24f13980-9857-41ef-a3e5-3cd7844da5d6/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d17c2f11-d4db-4edf-b4e0-b78406cfbb7f/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bfc135f0-875b-4421-b203-e56f91aa0e66/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/f3ca4f89-d159-4a5f-bedc-68a2eb7b483c/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/79670bfa-841d-4d9f-bbee-5a5d737f7d21/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/ea0d3ea0-3825-4175-bb54-875068074dca/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/fe5ed9e7-67cb-471f-a679-7bdade8d6850/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/e4e7a568-9c87-4346-ae85-50e6a9ad0b00/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d2822b95-abc5-40f8-b8a6-62e3914a844a/documents
+- aid: kuehne-nagel:kuehne-nagel-config-api
+  name: Kuehne+Nagel Config API
+  description: API configuration and metadata endpoints.
+  humanURL: >-
+    https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
+  baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
+  tags:
+  - config
+  properties:
+  - type: OpenAPI
+    url: openapi/kuehne-nagel-config-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/documents
+  - type: DeveloperPortal
+    url: https://portal.api.kuehne-nagel.com/devportal/
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bf506fea-4c34-4072-bc1c-aa6d1e6f0ca8/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/24f13980-9857-41ef-a3e5-3cd7844da5d6/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d17c2f11-d4db-4edf-b4e0-b78406cfbb7f/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bfc135f0-875b-4421-b203-e56f91aa0e66/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/f3ca4f89-d159-4a5f-bedc-68a2eb7b483c/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/79670bfa-841d-4d9f-bbee-5a5d737f7d21/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/ea0d3ea0-3825-4175-bb54-875068074dca/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/fe5ed9e7-67cb-471f-a679-7bdade8d6850/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/e4e7a568-9c87-4346-ae85-50e6a9ad0b00/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d2822b95-abc5-40f8-b8a6-62e3914a844a/documents
+- aid: kuehne-nagel:kuehne-nagel-container-api
+  name: Kuehne+Nagel Container API
+  description: The container API from Kuehne+Nagel — 2 operation(s) for container.
+  humanURL: >-
+    https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
+  baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
+  tags:
+  - container
+  properties:
+  - type: OpenAPI
+    url: openapi/kuehne-nagel-container-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/documents
+  - type: DeveloperPortal
+    url: https://portal.api.kuehne-nagel.com/devportal/
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bf506fea-4c34-4072-bc1c-aa6d1e6f0ca8/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/24f13980-9857-41ef-a3e5-3cd7844da5d6/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d17c2f11-d4db-4edf-b4e0-b78406cfbb7f/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bfc135f0-875b-4421-b203-e56f91aa0e66/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/f3ca4f89-d159-4a5f-bedc-68a2eb7b483c/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/79670bfa-841d-4d9f-bbee-5a5d737f7d21/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/ea0d3ea0-3825-4175-bb54-875068074dca/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/fe5ed9e7-67cb-471f-a679-7bdade8d6850/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/e4e7a568-9c87-4346-ae85-50e6a9ad0b00/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d2822b95-abc5-40f8-b8a6-62e3914a844a/documents
+- aid: kuehne-nagel:kuehne-nagel-delete-api
+  name: Kuehne+Nagel Delete API
+  description: Operations to delete shipment documents.
+  humanURL: >-
+    https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
+  baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
+  tags:
+  - Delete
+  properties:
+  - type: OpenAPI
+    url: openapi/kuehne-nagel-delete-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/documents
+  - type: DeveloperPortal
+    url: https://portal.api.kuehne-nagel.com/devportal/
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bf506fea-4c34-4072-bc1c-aa6d1e6f0ca8/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/24f13980-9857-41ef-a3e5-3cd7844da5d6/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d17c2f11-d4db-4edf-b4e0-b78406cfbb7f/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bfc135f0-875b-4421-b203-e56f91aa0e66/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/f3ca4f89-d159-4a5f-bedc-68a2eb7b483c/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/79670bfa-841d-4d9f-bbee-5a5d737f7d21/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/ea0d3ea0-3825-4175-bb54-875068074dca/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/fe5ed9e7-67cb-471f-a679-7bdade8d6850/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/e4e7a568-9c87-4346-ae85-50e6a9ad0b00/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d2822b95-abc5-40f8-b8a6-62e3914a844a/documents
+- aid: kuehne-nagel:kuehne-nagel-document-api
+  name: Kuehne+Nagel Document API
+  description: The Document API from Kuehne+Nagel — 1 operation(s) for document.
+  humanURL: >-
+    https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
+  baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
+  tags:
+  - Document
+  properties:
+  - type: OpenAPI
+    url: openapi/kuehne-nagel-document-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/documents
+  - type: DeveloperPortal
+    url: https://portal.api.kuehne-nagel.com/devportal/
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bf506fea-4c34-4072-bc1c-aa6d1e6f0ca8/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/24f13980-9857-41ef-a3e5-3cd7844da5d6/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d17c2f11-d4db-4edf-b4e0-b78406cfbb7f/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bfc135f0-875b-4421-b203-e56f91aa0e66/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/f3ca4f89-d159-4a5f-bedc-68a2eb7b483c/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/79670bfa-841d-4d9f-bbee-5a5d737f7d21/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/ea0d3ea0-3825-4175-bb54-875068074dca/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/fe5ed9e7-67cb-471f-a679-7bdade8d6850/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/e4e7a568-9c87-4346-ae85-50e6a9ad0b00/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d2822b95-abc5-40f8-b8a6-62e3914a844a/documents
+- aid: kuehne-nagel:kuehne-nagel-document-request-api
+  name: Kuehne+Nagel Document Request API
+  description: The Document Request API from Kuehne+Nagel — 1 operation(s) for document request.
+  humanURL: >-
+    https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
+  baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
+  tags:
+  - Document Request
+  properties:
+  - type: OpenAPI
+    url: openapi/kuehne-nagel-document-request-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/documents
+  - type: DeveloperPortal
+    url: https://portal.api.kuehne-nagel.com/devportal/
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bf506fea-4c34-4072-bc1c-aa6d1e6f0ca8/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/24f13980-9857-41ef-a3e5-3cd7844da5d6/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d17c2f11-d4db-4edf-b4e0-b78406cfbb7f/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bfc135f0-875b-4421-b203-e56f91aa0e66/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/f3ca4f89-d159-4a5f-bedc-68a2eb7b483c/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/79670bfa-841d-4d9f-bbee-5a5d737f7d21/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/ea0d3ea0-3825-4175-bb54-875068074dca/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/fe5ed9e7-67cb-471f-a679-7bdade8d6850/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/e4e7a568-9c87-4346-ae85-50e6a9ad0b00/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d2822b95-abc5-40f8-b8a6-62e3914a844a/documents
+- aid: kuehne-nagel:kuehne-nagel-documents-api
+  name: Kuehne+Nagel Documents API
+  description: The documents API from Kuehne+Nagel — 4 operation(s) for documents.
+  humanURL: >-
+    https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
+  baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
+  tags:
+  - documents
+  properties:
+  - type: OpenAPI
+    url: openapi/kuehne-nagel-documents-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/documents
+  - type: DeveloperPortal
+    url: https://portal.api.kuehne-nagel.com/devportal/
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bf506fea-4c34-4072-bc1c-aa6d1e6f0ca8/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/24f13980-9857-41ef-a3e5-3cd7844da5d6/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d17c2f11-d4db-4edf-b4e0-b78406cfbb7f/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bfc135f0-875b-4421-b203-e56f91aa0e66/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/f3ca4f89-d159-4a5f-bedc-68a2eb7b483c/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/79670bfa-841d-4d9f-bbee-5a5d737f7d21/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/ea0d3ea0-3825-4175-bb54-875068074dca/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/fe5ed9e7-67cb-471f-a679-7bdade8d6850/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/e4e7a568-9c87-4346-ae85-50e6a9ad0b00/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d2822b95-abc5-40f8-b8a6-62e3914a844a/documents
+- aid: kuehne-nagel:kuehne-nagel-download-api
+  name: Kuehne+Nagel Download API
+  description: Operations to download shipment documents.
+  humanURL: >-
+    https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
+  baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
+  tags:
+  - Download
+  properties:
+  - type: OpenAPI
+    url: openapi/kuehne-nagel-download-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/documents
+  - type: DeveloperPortal
+    url: https://portal.api.kuehne-nagel.com/devportal/
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bf506fea-4c34-4072-bc1c-aa6d1e6f0ca8/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/24f13980-9857-41ef-a3e5-3cd7844da5d6/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d17c2f11-d4db-4edf-b4e0-b78406cfbb7f/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bfc135f0-875b-4421-b203-e56f91aa0e66/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/f3ca4f89-d159-4a5f-bedc-68a2eb7b483c/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/79670bfa-841d-4d9f-bbee-5a5d737f7d21/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/ea0d3ea0-3825-4175-bb54-875068074dca/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/fe5ed9e7-67cb-471f-a679-7bdade8d6850/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/e4e7a568-9c87-4346-ae85-50e6a9ad0b00/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d2822b95-abc5-40f8-b8a6-62e3914a844a/documents
+- aid: kuehne-nagel:kuehne-nagel-esp-order-track-api
+  name: Kuehne+Nagel Esp Order Track API
+  description: The esp-order-track API from Kuehne+Nagel — 1 operation(s) for esp-order-track.
+  humanURL: >-
+    https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
+  baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
+  tags:
+  - esp-order-track
+  properties:
+  - type: OpenAPI
+    url: openapi/kuehne-nagel-esp-order-track-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/documents
+  - type: DeveloperPortal
+    url: https://portal.api.kuehne-nagel.com/devportal/
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bf506fea-4c34-4072-bc1c-aa6d1e6f0ca8/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/24f13980-9857-41ef-a3e5-3cd7844da5d6/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d17c2f11-d4db-4edf-b4e0-b78406cfbb7f/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bfc135f0-875b-4421-b203-e56f91aa0e66/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/f3ca4f89-d159-4a5f-bedc-68a2eb7b483c/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/79670bfa-841d-4d9f-bbee-5a5d737f7d21/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/ea0d3ea0-3825-4175-bb54-875068074dca/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/fe5ed9e7-67cb-471f-a679-7bdade8d6850/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/e4e7a568-9c87-4346-ae85-50e6a9ad0b00/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d2822b95-abc5-40f8-b8a6-62e3914a844a/documents
+- aid: kuehne-nagel:kuehne-nagel-events-api
+  name: Kuehne+Nagel Events API
+  description: Event operations
+  humanURL: >-
+    https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
+  baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
+  tags:
   - Events
-  - Track and Trace
   properties:
   - type: OpenAPI
-    url: openapi/kuehne-nagel-ocean-event-inbox-v1-openapi.json
+    url: openapi/kuehne-nagel-events-api-openapi.yml
   - type: Documentation
-    url: https://portal.api.kuehne-nagel.com/devportal/apis/ea0d3ea0-3825-4175-bb54-875068074dca/documents
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/documents
   - type: DeveloperPortal
     url: https://portal.api.kuehne-nagel.com/devportal/
-- aid: kuehne-nagel:shipment-event-integration
-  name: Kuehne+Nagel ShipmentEventIntegration API
-  description: >-
-    Validates and accepts incoming shipment event entries from third parties. Inbound
-    only; the specification names a third-party application as the intended publisher.
-  humanURL: https://portal.api.kuehne-nagel.com/devportal/apis/fe5ed9e7-67cb-471f-a679-7bdade8d6850/overview
-  baseURL: https://gateway.api.kuehne-nagel.com/integration/event/shipment/event-integration/v1
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bf506fea-4c34-4072-bc1c-aa6d1e6f0ca8/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/24f13980-9857-41ef-a3e5-3cd7844da5d6/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d17c2f11-d4db-4edf-b4e0-b78406cfbb7f/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bfc135f0-875b-4421-b203-e56f91aa0e66/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/f3ca4f89-d159-4a5f-bedc-68a2eb7b483c/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/79670bfa-841d-4d9f-bbee-5a5d737f7d21/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/ea0d3ea0-3825-4175-bb54-875068074dca/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/fe5ed9e7-67cb-471f-a679-7bdade8d6850/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/e4e7a568-9c87-4346-ae85-50e6a9ad0b00/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d2822b95-abc5-40f8-b8a6-62e3914a844a/documents
+- aid: kuehne-nagel:kuehne-nagel-export-api
+  name: Kuehne+Nagel Export API
+  description: The export API from Kuehne+Nagel — 1 operation(s) for export.
+  humanURL: >-
+    https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
+  baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
   tags:
-  - Event
-  - Integration
-  - Track and Trace
-  tags_raw:
-  - Events
-  - Integration
-  - Track and Trace
+  - export
   properties:
   - type: OpenAPI
-    url: openapi/kuehne-nagel-shipment-event-integration-v1-openapi.json
+    url: openapi/kuehne-nagel-export-api-openapi.yml
   - type: Documentation
-    url: https://portal.api.kuehne-nagel.com/devportal/apis/fe5ed9e7-67cb-471f-a679-7bdade8d6850/documents
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/documents
   - type: DeveloperPortal
     url: https://portal.api.kuehne-nagel.com/devportal/
-- aid: kuehne-nagel:external-shipment-integration
-  name: Kuehne+Nagel ExternalShipmentIntegration API
-  description: >-
-    Upsert or delete an externally-sourced shipment against a Kuehne+Nagel customer
-    code and shipment number — the surface through which non-Kuehne+Nagel shipments are
-    fed into Kuehne+Nagel visibility.
-  humanURL: https://portal.api.kuehne-nagel.com/devportal/apis/e4e7a568-9c87-4346-ae85-50e6a9ad0b00/overview
-  baseURL: https://gateway.api.kuehne-nagel.com/integration/external/shipment/v1
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bf506fea-4c34-4072-bc1c-aa6d1e6f0ca8/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/24f13980-9857-41ef-a3e5-3cd7844da5d6/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d17c2f11-d4db-4edf-b4e0-b78406cfbb7f/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bfc135f0-875b-4421-b203-e56f91aa0e66/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/f3ca4f89-d159-4a5f-bedc-68a2eb7b483c/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/79670bfa-841d-4d9f-bbee-5a5d737f7d21/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/ea0d3ea0-3825-4175-bb54-875068074dca/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/fe5ed9e7-67cb-471f-a679-7bdade8d6850/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/e4e7a568-9c87-4346-ae85-50e6a9ad0b00/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d2822b95-abc5-40f8-b8a6-62e3914a844a/documents
+- aid: kuehne-nagel:kuehne-nagel-externalshipment-api
+  name: Kuehne+Nagel External Shipment API
+  description: The ExternalShipment API from Kuehne+Nagel — 1 operation(s) for externalshipment.
+  humanURL: >-
+    https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
+  baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
   tags:
-  - Integration
-  - Shipments
-  - Visibility
+  - ExternalShipment
   properties:
   - type: OpenAPI
-    url: openapi/kuehne-nagel-external-shipment-integration-v1-openapi.json
+    url: openapi/kuehne-nagel-externalshipment-api-openapi.yml
   - type: Documentation
-    url: https://portal.api.kuehne-nagel.com/devportal/apis/e4e7a568-9c87-4346-ae85-50e6a9ad0b00/documents
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/documents
   - type: DeveloperPortal
     url: https://portal.api.kuehne-nagel.com/devportal/
-- aid: kuehne-nagel:intermodal-transport-execution
-  name: Kuehne+Nagel IntermodalTransportExecution API
-  description: >-
-    Carrier-facing pickup-and-delivery execution for sea intermodal legs — list assigned
-    consignments, pull job documents, post job status, post GPS tracking and post proof
-    of delivery per waypoint. Uses UN/LOCODE ports of loading and discharge and SCAC
-    carrier codes.
-  humanURL: https://portal.api.kuehne-nagel.com/devportal/apis/d2822b95-abc5-40f8-b8a6-62e3914a844a/overview
-  baseURL: https://gateway.api.kuehne-nagel.com/transport/execution/pickup-and-delivery/sea/v1
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bf506fea-4c34-4072-bc1c-aa6d1e6f0ca8/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/24f13980-9857-41ef-a3e5-3cd7844da5d6/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d17c2f11-d4db-4edf-b4e0-b78406cfbb7f/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bfc135f0-875b-4421-b203-e56f91aa0e66/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/f3ca4f89-d159-4a5f-bedc-68a2eb7b483c/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/79670bfa-841d-4d9f-bbee-5a5d737f7d21/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/ea0d3ea0-3825-4175-bb54-875068074dca/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/fe5ed9e7-67cb-471f-a679-7bdade8d6850/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/e4e7a568-9c87-4346-ae85-50e6a9ad0b00/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d2822b95-abc5-40f8-b8a6-62e3914a844a/documents
+- aid: kuehne-nagel:kuehne-nagel-gps-tracking-api
+  name: Kuehne+Nagel GPS Tracking API
+  description: The GPS Tracking API from Kuehne+Nagel — 1 operation(s) for gps tracking.
+  humanURL: >-
+    https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
+  baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
   tags:
-  - Road Freight
-  - Ocean Freight
-  - Telematics
+  - GPS Tracking
+  properties:
+  - type: OpenAPI
+    url: openapi/kuehne-nagel-gps-tracking-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/documents
+  - type: DeveloperPortal
+    url: https://portal.api.kuehne-nagel.com/devportal/
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bf506fea-4c34-4072-bc1c-aa6d1e6f0ca8/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/24f13980-9857-41ef-a3e5-3cd7844da5d6/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d17c2f11-d4db-4edf-b4e0-b78406cfbb7f/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bfc135f0-875b-4421-b203-e56f91aa0e66/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/f3ca4f89-d159-4a5f-bedc-68a2eb7b483c/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/79670bfa-841d-4d9f-bbee-5a5d737f7d21/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/ea0d3ea0-3825-4175-bb54-875068074dca/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/fe5ed9e7-67cb-471f-a679-7bdade8d6850/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/e4e7a568-9c87-4346-ae85-50e6a9ad0b00/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d2822b95-abc5-40f8-b8a6-62e3914a844a/documents
+- aid: kuehne-nagel:kuehne-nagel-health-api
+  name: Kuehne+Nagel Health API
+  description: The Health API from Kuehne+Nagel — 1 operation(s) for health.
+  humanURL: >-
+    https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
+  baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
+  tags:
+  - Health
+  properties:
+  - type: OpenAPI
+    url: openapi/kuehne-nagel-health-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/documents
+  - type: DeveloperPortal
+    url: https://portal.api.kuehne-nagel.com/devportal/
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bf506fea-4c34-4072-bc1c-aa6d1e6f0ca8/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/24f13980-9857-41ef-a3e5-3cd7844da5d6/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d17c2f11-d4db-4edf-b4e0-b78406cfbb7f/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bfc135f0-875b-4421-b203-e56f91aa0e66/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/f3ca4f89-d159-4a5f-bedc-68a2eb7b483c/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/79670bfa-841d-4d9f-bbee-5a5d737f7d21/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/ea0d3ea0-3825-4175-bb54-875068074dca/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/fe5ed9e7-67cb-471f-a679-7bdade8d6850/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/e4e7a568-9c87-4346-ae85-50e6a9ad0b00/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d2822b95-abc5-40f8-b8a6-62e3914a844a/documents
+- aid: kuehne-nagel:kuehne-nagel-healthz-api
+  name: Kuehne+Nagel Healthz API
+  description: The Healthz API from Kuehne+Nagel — 1 operation(s) for healthz.
+  humanURL: >-
+    https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
+  baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
+  tags:
+  - Healthz
+  properties:
+  - type: OpenAPI
+    url: openapi/kuehne-nagel-healthz-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/documents
+  - type: DeveloperPortal
+    url: https://portal.api.kuehne-nagel.com/devportal/
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bf506fea-4c34-4072-bc1c-aa6d1e6f0ca8/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/24f13980-9857-41ef-a3e5-3cd7844da5d6/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d17c2f11-d4db-4edf-b4e0-b78406cfbb7f/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bfc135f0-875b-4421-b203-e56f91aa0e66/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/f3ca4f89-d159-4a5f-bedc-68a2eb7b483c/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/79670bfa-841d-4d9f-bbee-5a5d737f7d21/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/ea0d3ea0-3825-4175-bb54-875068074dca/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/fe5ed9e7-67cb-471f-a679-7bdade8d6850/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/e4e7a568-9c87-4346-ae85-50e6a9ad0b00/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d2822b95-abc5-40f8-b8a6-62e3914a844a/documents
+- aid: kuehne-nagel:kuehne-nagel-job-documents-api
+  name: Kuehne+Nagel Job Documents API
+  description: The Job Documents API from Kuehne+Nagel — 1 operation(s) for job documents.
+  humanURL: >-
+    https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
+  baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
+  tags:
+  - Job Documents
+  properties:
+  - type: OpenAPI
+    url: openapi/kuehne-nagel-job-documents-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/documents
+  - type: DeveloperPortal
+    url: https://portal.api.kuehne-nagel.com/devportal/
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bf506fea-4c34-4072-bc1c-aa6d1e6f0ca8/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/24f13980-9857-41ef-a3e5-3cd7844da5d6/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d17c2f11-d4db-4edf-b4e0-b78406cfbb7f/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bfc135f0-875b-4421-b203-e56f91aa0e66/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/f3ca4f89-d159-4a5f-bedc-68a2eb7b483c/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/79670bfa-841d-4d9f-bbee-5a5d737f7d21/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/ea0d3ea0-3825-4175-bb54-875068074dca/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/fe5ed9e7-67cb-471f-a679-7bdade8d6850/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/e4e7a568-9c87-4346-ae85-50e6a9ad0b00/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d2822b95-abc5-40f8-b8a6-62e3914a844a/documents
+- aid: kuehne-nagel:kuehne-nagel-job-status-api
+  name: Kuehne+Nagel Job Status API
+  description: The Job Status API from Kuehne+Nagel — 1 operation(s) for job status.
+  humanURL: >-
+    https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
+  baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
+  tags:
+  - Job Status
+  properties:
+  - type: OpenAPI
+    url: openapi/kuehne-nagel-job-status-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/documents
+  - type: DeveloperPortal
+    url: https://portal.api.kuehne-nagel.com/devportal/
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bf506fea-4c34-4072-bc1c-aa6d1e6f0ca8/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/24f13980-9857-41ef-a3e5-3cd7844da5d6/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d17c2f11-d4db-4edf-b4e0-b78406cfbb7f/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bfc135f0-875b-4421-b203-e56f91aa0e66/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/f3ca4f89-d159-4a5f-bedc-68a2eb7b483c/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/79670bfa-841d-4d9f-bbee-5a5d737f7d21/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/ea0d3ea0-3825-4175-bb54-875068074dca/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/fe5ed9e7-67cb-471f-a679-7bdade8d6850/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/e4e7a568-9c87-4346-ae85-50e6a9ad0b00/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d2822b95-abc5-40f8-b8a6-62e3914a844a/documents
+- aid: kuehne-nagel:kuehne-nagel-jobs-api
+  name: Kuehne+Nagel Jobs API
+  description: Operations for monitoring and managing asynchronous extraction jobs.
+  humanURL: >-
+    https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
+  baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
+  tags:
+  - jobs
+  properties:
+  - type: OpenAPI
+    url: openapi/kuehne-nagel-jobs-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/documents
+  - type: DeveloperPortal
+    url: https://portal.api.kuehne-nagel.com/devportal/
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bf506fea-4c34-4072-bc1c-aa6d1e6f0ca8/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/24f13980-9857-41ef-a3e5-3cd7844da5d6/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d17c2f11-d4db-4edf-b4e0-b78406cfbb7f/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bfc135f0-875b-4421-b203-e56f91aa0e66/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/f3ca4f89-d159-4a5f-bedc-68a2eb7b483c/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/79670bfa-841d-4d9f-bbee-5a5d737f7d21/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/ea0d3ea0-3825-4175-bb54-875068074dca/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/fe5ed9e7-67cb-471f-a679-7bdade8d6850/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/e4e7a568-9c87-4346-ae85-50e6a9ad0b00/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d2822b95-abc5-40f8-b8a6-62e3914a844a/documents
+- aid: kuehne-nagel:kuehne-nagel-list-api
+  name: Kuehne+Nagel List API
+  description: Operations to list shipment documents.
+  humanURL: >-
+    https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
+  baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
+  tags:
+  - List
+  properties:
+  - type: OpenAPI
+    url: openapi/kuehne-nagel-list-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/documents
+  - type: DeveloperPortal
+    url: https://portal.api.kuehne-nagel.com/devportal/
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bf506fea-4c34-4072-bc1c-aa6d1e6f0ca8/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/24f13980-9857-41ef-a3e5-3cd7844da5d6/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d17c2f11-d4db-4edf-b4e0-b78406cfbb7f/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bfc135f0-875b-4421-b203-e56f91aa0e66/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/f3ca4f89-d159-4a5f-bedc-68a2eb7b483c/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/79670bfa-841d-4d9f-bbee-5a5d737f7d21/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/ea0d3ea0-3825-4175-bb54-875068074dca/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/fe5ed9e7-67cb-471f-a679-7bdade8d6850/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/e4e7a568-9c87-4346-ae85-50e6a9ad0b00/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d2822b95-abc5-40f8-b8a6-62e3914a844a/documents
+- aid: kuehne-nagel:kuehne-nagel-master-data-api
+  name: Kuehne+Nagel Master Data API
+  description: The Master Data API from Kuehne+Nagel — 3 operation(s) for master data.
+  humanURL: >-
+    https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
+  baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
+  tags:
+  - Master Data
+  properties:
+  - type: OpenAPI
+    url: openapi/kuehne-nagel-master-data-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/documents
+  - type: DeveloperPortal
+    url: https://portal.api.kuehne-nagel.com/devportal/
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bf506fea-4c34-4072-bc1c-aa6d1e6f0ca8/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/24f13980-9857-41ef-a3e5-3cd7844da5d6/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d17c2f11-d4db-4edf-b4e0-b78406cfbb7f/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bfc135f0-875b-4421-b203-e56f91aa0e66/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/f3ca4f89-d159-4a5f-bedc-68a2eb7b483c/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/79670bfa-841d-4d9f-bbee-5a5d737f7d21/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/ea0d3ea0-3825-4175-bb54-875068074dca/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/fe5ed9e7-67cb-471f-a679-7bdade8d6850/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/e4e7a568-9c87-4346-ae85-50e6a9ad0b00/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d2822b95-abc5-40f8-b8a6-62e3914a844a/documents
+- aid: kuehne-nagel:kuehne-nagel-metrics-api
+  name: Kuehne+Nagel Metrics API
+  description: The Metrics API from Kuehne+Nagel — 1 operation(s) for metrics.
+  humanURL: >-
+    https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
+  baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
+  tags:
+  - Metrics
+  properties:
+  - type: OpenAPI
+    url: openapi/kuehne-nagel-metrics-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/documents
+  - type: DeveloperPortal
+    url: https://portal.api.kuehne-nagel.com/devportal/
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bf506fea-4c34-4072-bc1c-aa6d1e6f0ca8/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/24f13980-9857-41ef-a3e5-3cd7844da5d6/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d17c2f11-d4db-4edf-b4e0-b78406cfbb7f/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bfc135f0-875b-4421-b203-e56f91aa0e66/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/f3ca4f89-d159-4a5f-bedc-68a2eb7b483c/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/79670bfa-841d-4d9f-bbee-5a5d737f7d21/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/ea0d3ea0-3825-4175-bb54-875068074dca/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/fe5ed9e7-67cb-471f-a679-7bdade8d6850/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/e4e7a568-9c87-4346-ae85-50e6a9ad0b00/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d2822b95-abc5-40f8-b8a6-62e3914a844a/documents
+- aid: kuehne-nagel:kuehne-nagel-order-api
+  name: Kuehne+Nagel Order API
+  description: The Order API from Kuehne+Nagel — 1 operation(s) for order.
+  humanURL: >-
+    https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
+  baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
+  tags:
+  - Order
+  properties:
+  - type: OpenAPI
+    url: openapi/kuehne-nagel-order-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/documents
+  - type: DeveloperPortal
+    url: https://portal.api.kuehne-nagel.com/devportal/
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bf506fea-4c34-4072-bc1c-aa6d1e6f0ca8/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/24f13980-9857-41ef-a3e5-3cd7844da5d6/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d17c2f11-d4db-4edf-b4e0-b78406cfbb7f/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bfc135f0-875b-4421-b203-e56f91aa0e66/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/f3ca4f89-d159-4a5f-bedc-68a2eb7b483c/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/79670bfa-841d-4d9f-bbee-5a5d737f7d21/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/ea0d3ea0-3825-4175-bb54-875068074dca/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/fe5ed9e7-67cb-471f-a679-7bdade8d6850/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/e4e7a568-9c87-4346-ae85-50e6a9ad0b00/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d2822b95-abc5-40f8-b8a6-62e3914a844a/documents
+- aid: kuehne-nagel:kuehne-nagel-post-event-api
+  name: Kuehne+Nagel Post event API
+  description: Post event description
+  humanURL: >-
+    https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
+  baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
+  tags:
+  - Post event
+  properties:
+  - type: OpenAPI
+    url: openapi/kuehne-nagel-post-event-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/documents
+  - type: DeveloperPortal
+    url: https://portal.api.kuehne-nagel.com/devportal/
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bf506fea-4c34-4072-bc1c-aa6d1e6f0ca8/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/24f13980-9857-41ef-a3e5-3cd7844da5d6/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d17c2f11-d4db-4edf-b4e0-b78406cfbb7f/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bfc135f0-875b-4421-b203-e56f91aa0e66/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/f3ca4f89-d159-4a5f-bedc-68a2eb7b483c/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/79670bfa-841d-4d9f-bbee-5a5d737f7d21/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/ea0d3ea0-3825-4175-bb54-875068074dca/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/fe5ed9e7-67cb-471f-a679-7bdade8d6850/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/e4e7a568-9c87-4346-ae85-50e6a9ad0b00/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d2822b95-abc5-40f8-b8a6-62e3914a844a/documents
+- aid: kuehne-nagel:kuehne-nagel-process-file-api
+  name: Kuehne+Nagel Process File API
+  description: Process individual files using LLM extraction with prompt templates.
+  humanURL: >-
+    https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
+  baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
+  tags:
+  - process-file
+  properties:
+  - type: OpenAPI
+    url: openapi/kuehne-nagel-process-file-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/documents
+  - type: DeveloperPortal
+    url: https://portal.api.kuehne-nagel.com/devportal/
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bf506fea-4c34-4072-bc1c-aa6d1e6f0ca8/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/24f13980-9857-41ef-a3e5-3cd7844da5d6/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d17c2f11-d4db-4edf-b4e0-b78406cfbb7f/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bfc135f0-875b-4421-b203-e56f91aa0e66/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/f3ca4f89-d159-4a5f-bedc-68a2eb7b483c/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/79670bfa-841d-4d9f-bbee-5a5d737f7d21/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/ea0d3ea0-3825-4175-bb54-875068074dca/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/fe5ed9e7-67cb-471f-a679-7bdade8d6850/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/e4e7a568-9c87-4346-ae85-50e6a9ad0b00/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d2822b95-abc5-40f8-b8a6-62e3914a844a/documents
+- aid: kuehne-nagel:kuehne-nagel-process-state-api
+  name: Kuehne+Nagel Process State API
+  description: The process-state API from Kuehne+Nagel — 1 operation(s) for process-state.
+  humanURL: >-
+    https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
+  baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
+  tags:
+  - process-state
+  properties:
+  - type: OpenAPI
+    url: openapi/kuehne-nagel-process-state-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/documents
+  - type: DeveloperPortal
+    url: https://portal.api.kuehne-nagel.com/devportal/
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bf506fea-4c34-4072-bc1c-aa6d1e6f0ca8/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/24f13980-9857-41ef-a3e5-3cd7844da5d6/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d17c2f11-d4db-4edf-b4e0-b78406cfbb7f/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bfc135f0-875b-4421-b203-e56f91aa0e66/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/f3ca4f89-d159-4a5f-bedc-68a2eb7b483c/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/79670bfa-841d-4d9f-bbee-5a5d737f7d21/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/ea0d3ea0-3825-4175-bb54-875068074dca/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/fe5ed9e7-67cb-471f-a679-7bdade8d6850/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/e4e7a568-9c87-4346-ae85-50e6a9ad0b00/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d2822b95-abc5-40f8-b8a6-62e3914a844a/documents
+- aid: kuehne-nagel:kuehne-nagel-process-zip-api
+  name: Kuehne+Nagel Process Zip API
+  description: Process ZIP archives containing multiple files using LLM extraction.
+  humanURL: >-
+    https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
+  baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
+  tags:
+  - process-zip
+  properties:
+  - type: OpenAPI
+    url: openapi/kuehne-nagel-process-zip-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/documents
+  - type: DeveloperPortal
+    url: https://portal.api.kuehne-nagel.com/devportal/
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bf506fea-4c34-4072-bc1c-aa6d1e6f0ca8/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/24f13980-9857-41ef-a3e5-3cd7844da5d6/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d17c2f11-d4db-4edf-b4e0-b78406cfbb7f/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bfc135f0-875b-4421-b203-e56f91aa0e66/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/f3ca4f89-d159-4a5f-bedc-68a2eb7b483c/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/79670bfa-841d-4d9f-bbee-5a5d737f7d21/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/ea0d3ea0-3825-4175-bb54-875068074dca/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/fe5ed9e7-67cb-471f-a679-7bdade8d6850/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/e4e7a568-9c87-4346-ae85-50e6a9ad0b00/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d2822b95-abc5-40f8-b8a6-62e3914a844a/documents
+- aid: kuehne-nagel:kuehne-nagel-prompt-tags-api
+  name: Kuehne+Nagel Prompt Tags API
+  description: Assign and manage tags for specific prompt versions.
+  humanURL: >-
+    https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
+  baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
+  tags:
+  - prompt-tags
+  properties:
+  - type: OpenAPI
+    url: openapi/kuehne-nagel-prompt-tags-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/documents
+  - type: DeveloperPortal
+    url: https://portal.api.kuehne-nagel.com/devportal/
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bf506fea-4c34-4072-bc1c-aa6d1e6f0ca8/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/24f13980-9857-41ef-a3e5-3cd7844da5d6/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d17c2f11-d4db-4edf-b4e0-b78406cfbb7f/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bfc135f0-875b-4421-b203-e56f91aa0e66/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/f3ca4f89-d159-4a5f-bedc-68a2eb7b483c/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/79670bfa-841d-4d9f-bbee-5a5d737f7d21/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/ea0d3ea0-3825-4175-bb54-875068074dca/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/fe5ed9e7-67cb-471f-a679-7bdade8d6850/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/e4e7a568-9c87-4346-ae85-50e6a9ad0b00/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d2822b95-abc5-40f8-b8a6-62e3914a844a/documents
+- aid: kuehne-nagel:kuehne-nagel-prompts-api
+  name: Kuehne+Nagel Prompts API
+  description: Manage prompts for workspaces.
+  humanURL: >-
+    https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
+  baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
+  tags:
+  - prompts
+  properties:
+  - type: OpenAPI
+    url: openapi/kuehne-nagel-prompts-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/documents
+  - type: DeveloperPortal
+    url: https://portal.api.kuehne-nagel.com/devportal/
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bf506fea-4c34-4072-bc1c-aa6d1e6f0ca8/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/24f13980-9857-41ef-a3e5-3cd7844da5d6/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d17c2f11-d4db-4edf-b4e0-b78406cfbb7f/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bfc135f0-875b-4421-b203-e56f91aa0e66/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/f3ca4f89-d159-4a5f-bedc-68a2eb7b483c/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/79670bfa-841d-4d9f-bbee-5a5d737f7d21/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/ea0d3ea0-3825-4175-bb54-875068074dca/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/fe5ed9e7-67cb-471f-a679-7bdade8d6850/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/e4e7a568-9c87-4346-ae85-50e6a9ad0b00/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d2822b95-abc5-40f8-b8a6-62e3914a844a/documents
+- aid: kuehne-nagel:kuehne-nagel-proof-of-delivery-api
+  name: Kuehne+Nagel Proof of Delivery API
+  description: The Proof of Delivery API from Kuehne+Nagel — 1 operation(s) for proof of delivery.
+  humanURL: >-
+    https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
+  baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
+  tags:
   - Proof of Delivery
   properties:
   - type: OpenAPI
-    url: openapi/kuehne-nagel-intermodal-transport-execution-v1-openapi.json
+    url: openapi/kuehne-nagel-proof-of-delivery-api-openapi.yml
   - type: Documentation
-    url: https://portal.api.kuehne-nagel.com/devportal/apis/d2822b95-abc5-40f8-b8a6-62e3914a844a/documents
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/documents
   - type: DeveloperPortal
     url: https://portal.api.kuehne-nagel.com/devportal/
-- aid: kuehne-nagel:shipment-document-management-v3
-  name: Kuehne+Nagel ShipmentDocumentManagement API v3
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bf506fea-4c34-4072-bc1c-aa6d1e6f0ca8/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/24f13980-9857-41ef-a3e5-3cd7844da5d6/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d17c2f11-d4db-4edf-b4e0-b78406cfbb7f/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bfc135f0-875b-4421-b203-e56f91aa0e66/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/f3ca4f89-d159-4a5f-bedc-68a2eb7b483c/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/79670bfa-841d-4d9f-bbee-5a5d737f7d21/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/ea0d3ea0-3825-4175-bb54-875068074dca/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/fe5ed9e7-67cb-471f-a679-7bdade8d6850/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/e4e7a568-9c87-4346-ae85-50e6a9ad0b00/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d2822b95-abc5-40f8-b8a6-62e3914a844a/documents
+- aid: kuehne-nagel:kuehne-nagel-purchase-order-layer-api
+  name: Kuehne+Nagel Purchase Order Layer API
   description: >-
-    List, download, add and delete shipment-related documents against a Kuehne+Nagel
-    unique shipment reference, plus a lookup of uploadable document types. The current
-    version for new integrations.
-  humanURL: https://portal.api.kuehne-nagel.com/devportal/apis/e25ce18f-bfe5-47f7-ba14-b6d4acb0c085/overview
-  baseURL: https://gateway.api.kuehne-nagel.com/transport/execution/documentation/shipment/v3
+    The purchase-order-layer API from Kuehne+Nagel — 3 operation(s) for purchase-order-layer.
+  humanURL: >-
+    https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
+  baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
   tags:
-  - Documents
-  - Shipments
-  - Trade Compliance
+  - purchase-order-layer
   properties:
   - type: OpenAPI
-    url: openapi/kuehne-nagel-shipment-document-management-v3-openapi.json
+    url: openapi/kuehne-nagel-purchase-order-layer-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/documents
   - type: DeveloperPortal
     url: https://portal.api.kuehne-nagel.com/devportal/
-- aid: kuehne-nagel:shipment-document-management-v2
-  name: Kuehne+Nagel ShipmentDocumentManagement API v2
-  description: >-
-    Legacy document management for shipment documents, limited to adding and downloading
-    documents. Marked in the developer portal as legacy and intended for existing
-    integrations only; v3 is directed for new work.
-  humanURL: https://portal.api.kuehne-nagel.com/devportal/apis/76b61307-7289-474d-a2e7-06b6ee10ab12/overview
-  baseURL: https://gateway.api.kuehne-nagel.com/transport/execution/documentation/shipment/v2
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bf506fea-4c34-4072-bc1c-aa6d1e6f0ca8/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/24f13980-9857-41ef-a3e5-3cd7844da5d6/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d17c2f11-d4db-4edf-b4e0-b78406cfbb7f/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bfc135f0-875b-4421-b203-e56f91aa0e66/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/f3ca4f89-d159-4a5f-bedc-68a2eb7b483c/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/79670bfa-841d-4d9f-bbee-5a5d737f7d21/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/ea0d3ea0-3825-4175-bb54-875068074dca/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/fe5ed9e7-67cb-471f-a679-7bdade8d6850/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/e4e7a568-9c87-4346-ae85-50e6a9ad0b00/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d2822b95-abc5-40f8-b8a6-62e3914a844a/documents
+- aid: kuehne-nagel:kuehne-nagel-quotas-api
+  name: Kuehne+Nagel Quotas API
+  description: Manage workspace processing quotas and limits.
+  humanURL: >-
+    https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
+  baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
   tags:
-  - Documents
-  - Shipments
-  - Deprecated
+  - quotas
   properties:
   - type: OpenAPI
-    url: openapi/kuehne-nagel-shipment-document-management-v2-openapi.json
+    url: openapi/kuehne-nagel-quotas-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/documents
   - type: DeveloperPortal
     url: https://portal.api.kuehne-nagel.com/devportal/
-- aid: kuehne-nagel:b2b-customs-edi
-  name: Kuehne+Nagel B2B-CustomsEDI API
-  description: >-
-    Described in the developer portal as being for bespoke customs integrations with
-    customers. The published OpenAPI declares two POST operations, /order and /document,
-    with no request schemas, no response schemas and no operation descriptions — an
-    unschematized EDI pass-through rather than a modelled customs API.
-  humanURL: https://portal.api.kuehne-nagel.com/devportal/apis/d687d921-913e-429b-a95e-e7bbbd16658c/overview
-  baseURL: https://gateway.api.kuehne-nagel.com/b2b/customs/edi/v1
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bf506fea-4c34-4072-bc1c-aa6d1e6f0ca8/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/24f13980-9857-41ef-a3e5-3cd7844da5d6/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d17c2f11-d4db-4edf-b4e0-b78406cfbb7f/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bfc135f0-875b-4421-b203-e56f91aa0e66/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/f3ca4f89-d159-4a5f-bedc-68a2eb7b483c/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/79670bfa-841d-4d9f-bbee-5a5d737f7d21/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/ea0d3ea0-3825-4175-bb54-875068074dca/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/fe5ed9e7-67cb-471f-a679-7bdade8d6850/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/e4e7a568-9c87-4346-ae85-50e6a9ad0b00/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d2822b95-abc5-40f8-b8a6-62e3914a844a/documents
+- aid: kuehne-nagel:kuehne-nagel-schemas-api
+  name: Kuehne+Nagel Schemas API
+  description: Manage schemas for workspaces.
+  humanURL: >-
+    https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
+  baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
   tags:
-  - Customs
-  - Trade Compliance
-  - EDI
+  - schemas
   properties:
   - type: OpenAPI
-    url: openapi/kuehne-nagel-b2b-customs-edi-v1-openapi.json
+    url: openapi/kuehne-nagel-schemas-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/documents
   - type: DeveloperPortal
     url: https://portal.api.kuehne-nagel.com/devportal/
-- aid: kuehne-nagel:kai-document-extract
-  name: Kuehne+Nagel KAI Document Extract API
-  description: >-
-    Published in the developer portal as B2B-OldKAIExtractAPI — extract structured
-    information from documents, with workspace management, synchronous and asynchronous
-    file and zip processing, prompt-driven extraction and per-workspace API keys. The
-    largest published surface at 92 paths.
-  humanURL: https://portal.api.kuehne-nagel.com/devportal/apis/84ffd55f-61ba-4918-8105-887fdcb88ff6/overview
-  baseURL: https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bf506fea-4c34-4072-bc1c-aa6d1e6f0ca8/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/24f13980-9857-41ef-a3e5-3cd7844da5d6/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d17c2f11-d4db-4edf-b4e0-b78406cfbb7f/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bfc135f0-875b-4421-b203-e56f91aa0e66/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/f3ca4f89-d159-4a5f-bedc-68a2eb7b483c/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/79670bfa-841d-4d9f-bbee-5a5d737f7d21/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/ea0d3ea0-3825-4175-bb54-875068074dca/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/fe5ed9e7-67cb-471f-a679-7bdade8d6850/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/e4e7a568-9c87-4346-ae85-50e6a9ad0b00/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d2822b95-abc5-40f8-b8a6-62e3914a844a/documents
+- aid: kuehne-nagel:kuehne-nagel-shipment-api
+  name: Kuehne+Nagel Shipment API
+  description: The shipment API from Kuehne+Nagel — 4 operation(s) for shipment.
+  humanURL: >-
+    https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
+  baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
   tags:
-  - Documents
-  - Artificial Intelligence
-  - Document Extraction
-  tags_raw:
-  - Documents
-  - AI
-  - Document Extraction
+  - shipment
   properties:
   - type: OpenAPI
-    url: openapi/kuehne-nagel-kai-document-extract-v0-1-0-openapi.json
+    url: openapi/kuehne-nagel-shipment-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/documents
   - type: DeveloperPortal
     url: https://portal.api.kuehne-nagel.com/devportal/
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bf506fea-4c34-4072-bc1c-aa6d1e6f0ca8/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/24f13980-9857-41ef-a3e5-3cd7844da5d6/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d17c2f11-d4db-4edf-b4e0-b78406cfbb7f/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bfc135f0-875b-4421-b203-e56f91aa0e66/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/f3ca4f89-d159-4a5f-bedc-68a2eb7b483c/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/79670bfa-841d-4d9f-bbee-5a5d737f7d21/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/ea0d3ea0-3825-4175-bb54-875068074dca/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/fe5ed9e7-67cb-471f-a679-7bdade8d6850/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/e4e7a568-9c87-4346-ae85-50e6a9ad0b00/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d2822b95-abc5-40f8-b8a6-62e3914a844a/documents
+- aid: kuehne-nagel:kuehne-nagel-tags-api
+  name: Kuehne+Nagel Tags API
+  description: Manage tags for workspaces and prompts.
+  humanURL: >-
+    https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
+  baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
+  tags:
+  - tags
+  properties:
+  - type: OpenAPI
+    url: openapi/kuehne-nagel-tags-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/documents
+  - type: DeveloperPortal
+    url: https://portal.api.kuehne-nagel.com/devportal/
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bf506fea-4c34-4072-bc1c-aa6d1e6f0ca8/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/24f13980-9857-41ef-a3e5-3cd7844da5d6/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d17c2f11-d4db-4edf-b4e0-b78406cfbb7f/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bfc135f0-875b-4421-b203-e56f91aa0e66/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/f3ca4f89-d159-4a5f-bedc-68a2eb7b483c/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/79670bfa-841d-4d9f-bbee-5a5d737f7d21/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/ea0d3ea0-3825-4175-bb54-875068074dca/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/fe5ed9e7-67cb-471f-a679-7bdade8d6850/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/e4e7a568-9c87-4346-ae85-50e6a9ad0b00/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d2822b95-abc5-40f8-b8a6-62e3914a844a/documents
+- aid: kuehne-nagel:kuehne-nagel-telemetry-api
+  name: Kuehne+Nagel Telemetry API
+  description: Telemetry assigned to a cargo item (PACKAGE/CONTAINER/UNKNOWN).
+  humanURL: >-
+    https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
+  baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
+  tags:
+  - telemetry
+  properties:
+  - type: OpenAPI
+    url: openapi/kuehne-nagel-telemetry-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/documents
+  - type: DeveloperPortal
+    url: https://portal.api.kuehne-nagel.com/devportal/
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bf506fea-4c34-4072-bc1c-aa6d1e6f0ca8/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/24f13980-9857-41ef-a3e5-3cd7844da5d6/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d17c2f11-d4db-4edf-b4e0-b78406cfbb7f/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bfc135f0-875b-4421-b203-e56f91aa0e66/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/f3ca4f89-d159-4a5f-bedc-68a2eb7b483c/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/79670bfa-841d-4d9f-bbee-5a5d737f7d21/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/ea0d3ea0-3825-4175-bb54-875068074dca/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/fe5ed9e7-67cb-471f-a679-7bdade8d6850/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/e4e7a568-9c87-4346-ae85-50e6a9ad0b00/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d2822b95-abc5-40f8-b8a6-62e3914a844a/documents
+- aid: kuehne-nagel:kuehne-nagel-test-cases-api
+  name: Kuehne+Nagel Test Cases API
+  description: Manage test cases for prompt evaluation.
+  humanURL: >-
+    https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
+  baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
+  tags:
+  - test-cases
+  properties:
+  - type: OpenAPI
+    url: openapi/kuehne-nagel-test-cases-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/documents
+  - type: DeveloperPortal
+    url: https://portal.api.kuehne-nagel.com/devportal/
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bf506fea-4c34-4072-bc1c-aa6d1e6f0ca8/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/24f13980-9857-41ef-a3e5-3cd7844da5d6/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d17c2f11-d4db-4edf-b4e0-b78406cfbb7f/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bfc135f0-875b-4421-b203-e56f91aa0e66/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/f3ca4f89-d159-4a5f-bedc-68a2eb7b483c/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/79670bfa-841d-4d9f-bbee-5a5d737f7d21/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/ea0d3ea0-3825-4175-bb54-875068074dca/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/fe5ed9e7-67cb-471f-a679-7bdade8d6850/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/e4e7a568-9c87-4346-ae85-50e6a9ad0b00/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d2822b95-abc5-40f8-b8a6-62e3914a844a/documents
+- aid: kuehne-nagel:kuehne-nagel-test-sets-api
+  name: Kuehne+Nagel Test Sets API
+  description: The test-sets API from Kuehne+Nagel — 8 operation(s) for test-sets.
+  humanURL: >-
+    https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
+  baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
+  tags:
+  - test-sets
+  properties:
+  - type: OpenAPI
+    url: openapi/kuehne-nagel-test-sets-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/documents
+  - type: DeveloperPortal
+    url: https://portal.api.kuehne-nagel.com/devportal/
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bf506fea-4c34-4072-bc1c-aa6d1e6f0ca8/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/24f13980-9857-41ef-a3e5-3cd7844da5d6/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d17c2f11-d4db-4edf-b4e0-b78406cfbb7f/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bfc135f0-875b-4421-b203-e56f91aa0e66/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/f3ca4f89-d159-4a5f-bedc-68a2eb7b483c/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/79670bfa-841d-4d9f-bbee-5a5d737f7d21/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/ea0d3ea0-3825-4175-bb54-875068074dca/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/fe5ed9e7-67cb-471f-a679-7bdade8d6850/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/e4e7a568-9c87-4346-ae85-50e6a9ad0b00/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d2822b95-abc5-40f8-b8a6-62e3914a844a/documents
+- aid: kuehne-nagel:kuehne-nagel-tools-api
+  name: Kuehne+Nagel Tools API
+  description: >-
+    Manage and discover available LLM tools for function calling. Includes both local tools and tools
+    from registered MCP servers.
+  humanURL: >-
+    https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
+  baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
+  tags:
+  - tools
+  properties:
+  - type: OpenAPI
+    url: openapi/kuehne-nagel-tools-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/documents
+  - type: DeveloperPortal
+    url: https://portal.api.kuehne-nagel.com/devportal/
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bf506fea-4c34-4072-bc1c-aa6d1e6f0ca8/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/24f13980-9857-41ef-a3e5-3cd7844da5d6/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d17c2f11-d4db-4edf-b4e0-b78406cfbb7f/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bfc135f0-875b-4421-b203-e56f91aa0e66/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/f3ca4f89-d159-4a5f-bedc-68a2eb7b483c/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/79670bfa-841d-4d9f-bbee-5a5d737f7d21/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/ea0d3ea0-3825-4175-bb54-875068074dca/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/fe5ed9e7-67cb-471f-a679-7bdade8d6850/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/e4e7a568-9c87-4346-ae85-50e6a9ad0b00/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d2822b95-abc5-40f8-b8a6-62e3914a844a/documents
+- aid: kuehne-nagel:kuehne-nagel-upload-api
+  name: Kuehne+Nagel Upload API
+  description: Operations to upload shipment documents.
+  humanURL: >-
+    https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
+  baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
+  tags:
+  - Upload
+  properties:
+  - type: OpenAPI
+    url: openapi/kuehne-nagel-upload-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/documents
+  - type: DeveloperPortal
+    url: https://portal.api.kuehne-nagel.com/devportal/
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bf506fea-4c34-4072-bc1c-aa6d1e6f0ca8/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/24f13980-9857-41ef-a3e5-3cd7844da5d6/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d17c2f11-d4db-4edf-b4e0-b78406cfbb7f/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bfc135f0-875b-4421-b203-e56f91aa0e66/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/f3ca4f89-d159-4a5f-bedc-68a2eb7b483c/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/79670bfa-841d-4d9f-bbee-5a5d737f7d21/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/ea0d3ea0-3825-4175-bb54-875068074dca/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/fe5ed9e7-67cb-471f-a679-7bdade8d6850/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/e4e7a568-9c87-4346-ae85-50e6a9ad0b00/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d2822b95-abc5-40f8-b8a6-62e3914a844a/documents
+- aid: kuehne-nagel:kuehne-nagel-usage-statistics-api
+  name: Kuehne+Nagel Usage Statistics API
+  description: The usage-statistics API from Kuehne+Nagel — 1 operation(s) for usage-statistics.
+  humanURL: >-
+    https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
+  baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
+  tags:
+  - usage-statistics
+  properties:
+  - type: OpenAPI
+    url: openapi/kuehne-nagel-usage-statistics-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/documents
+  - type: DeveloperPortal
+    url: https://portal.api.kuehne-nagel.com/devportal/
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bf506fea-4c34-4072-bc1c-aa6d1e6f0ca8/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/24f13980-9857-41ef-a3e5-3cd7844da5d6/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d17c2f11-d4db-4edf-b4e0-b78406cfbb7f/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bfc135f0-875b-4421-b203-e56f91aa0e66/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/f3ca4f89-d159-4a5f-bedc-68a2eb7b483c/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/79670bfa-841d-4d9f-bbee-5a5d737f7d21/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/ea0d3ea0-3825-4175-bb54-875068074dca/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/fe5ed9e7-67cb-471f-a679-7bdade8d6850/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/e4e7a568-9c87-4346-ae85-50e6a9ad0b00/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d2822b95-abc5-40f8-b8a6-62e3914a844a/documents
+- aid: kuehne-nagel:kuehne-nagel-users-api
+  name: Kuehne+Nagel Users API
+  description: The users API from Kuehne+Nagel — 4 operation(s) for users.
+  humanURL: >-
+    https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
+  baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
+  tags:
+  - users
+  properties:
+  - type: OpenAPI
+    url: openapi/kuehne-nagel-users-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/documents
+  - type: DeveloperPortal
+    url: https://portal.api.kuehne-nagel.com/devportal/
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bf506fea-4c34-4072-bc1c-aa6d1e6f0ca8/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/24f13980-9857-41ef-a3e5-3cd7844da5d6/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d17c2f11-d4db-4edf-b4e0-b78406cfbb7f/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bfc135f0-875b-4421-b203-e56f91aa0e66/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/f3ca4f89-d159-4a5f-bedc-68a2eb7b483c/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/79670bfa-841d-4d9f-bbee-5a5d737f7d21/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/ea0d3ea0-3825-4175-bb54-875068074dca/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/fe5ed9e7-67cb-471f-a679-7bdade8d6850/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/e4e7a568-9c87-4346-ae85-50e6a9ad0b00/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d2822b95-abc5-40f8-b8a6-62e3914a844a/documents
+- aid: kuehne-nagel:kuehne-nagel-workspaces-api
+  name: Kuehne+Nagel Workspaces API
+  description: Manage workspaces.
+  humanURL: >-
+    https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
+  baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
+  tags:
+  - workspaces
+  properties:
+  - type: OpenAPI
+    url: openapi/kuehne-nagel-workspaces-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/documents
+  - type: DeveloperPortal
+    url: https://portal.api.kuehne-nagel.com/devportal/
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bf506fea-4c34-4072-bc1c-aa6d1e6f0ca8/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/24f13980-9857-41ef-a3e5-3cd7844da5d6/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d17c2f11-d4db-4edf-b4e0-b78406cfbb7f/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/bfc135f0-875b-4421-b203-e56f91aa0e66/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/f3ca4f89-d159-4a5f-bedc-68a2eb7b483c/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/79670bfa-841d-4d9f-bbee-5a5d737f7d21/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/ea0d3ea0-3825-4175-bb54-875068074dca/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/fe5ed9e7-67cb-471f-a679-7bdade8d6850/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/e4e7a568-9c87-4346-ae85-50e6a9ad0b00/documents
+  - type: Documentation
+    url: >-
+      https://portal.api.kuehne-nagel.com/devportal/apis/d2822b95-abc5-40f8-b8a6-62e3914a844a/documents
 common:
 - type: Website
   url: https://www.kuehne-nagel.com/
