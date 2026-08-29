@@ -22,6 +22,18 @@ description: >-
   OceanEventInbox v1 — is explicitly built to the DCSA equipment-event standard, which
   makes Kuehne+Nagel a non-member implementer of a carrier standards body; the other
   sixteen APIs are proprietary Kuehne+Nagel contracts.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/kuehne-nagel.png
 tags:
 - Logistics
@@ -2255,6 +2267,9 @@ apis:
     url: >-
       https://portal.api.kuehne-nagel.com/devportal/apis/d2822b95-abc5-40f8-b8a6-62e3914a844a/documents
 common:
+- type: CapabilityMap
+  url: capabilities/kuehne-nagel-capability-edges.yml
+  name: Kuehne+Nagel Business Capability Map
 - type: Website
   url: https://www.kuehne-nagel.com/
 - type: DeveloperPortal
