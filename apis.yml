@@ -107,6 +107,8 @@ apis:
     https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
   baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
   tags:
+  - APIKeys
+  tags_raw:
   - api-keys
   properties:
   - type: OpenAPI
@@ -200,6 +202,8 @@ apis:
     https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
   baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
   tags:
+  - Background Tasks
+  tags_raw:
   - background-tasks
   properties:
   - type: OpenAPI
@@ -246,6 +250,8 @@ apis:
     https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
   baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
   tags:
+  - Booking
+  tags_raw:
   - booking
   properties:
   - type: OpenAPI
@@ -337,7 +343,8 @@ apis:
   humanURL: >-
     https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
   baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
-  tags:
+  tags: []
+  tags_raw:
   - cargoItems
   properties:
   - type: OpenAPI
@@ -384,6 +391,8 @@ apis:
     https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
   baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
   tags:
+  - Config
+  tags_raw:
   - config
   properties:
   - type: OpenAPI
@@ -430,6 +439,8 @@ apis:
     https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
   baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
   tags:
+  - Container
+  tags_raw:
   - container
   properties:
   - type: OpenAPI
@@ -475,7 +486,8 @@ apis:
   humanURL: >-
     https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
   baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
-  tags:
+  tags: []
+  tags_raw:
   - Delete
   properties:
   - type: OpenAPI
@@ -614,6 +626,8 @@ apis:
     https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
   baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
   tags:
+  - Documents
+  tags_raw:
   - documents
   properties:
   - type: OpenAPI
@@ -660,6 +674,8 @@ apis:
     https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
   baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
   tags:
+  - Downloads
+  tags_raw:
   - Download
   properties:
   - type: OpenAPI
@@ -752,6 +768,8 @@ apis:
     https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
   baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
   tags:
+  - Event
+  tags_raw:
   - Events
   properties:
   - type: OpenAPI
@@ -798,6 +816,8 @@ apis:
     https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
   baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
   tags:
+  - Export
+  tags_raw:
   - export
   properties:
   - type: OpenAPI
@@ -1120,6 +1140,8 @@ apis:
     https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
   baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
   tags:
+  - Job
+  tags_raw:
   - jobs
   properties:
   - type: OpenAPI
@@ -1580,6 +1602,8 @@ apis:
     https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
   baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
   tags:
+  - Prompts
+  tags_raw:
   - prompts
   properties:
   - type: OpenAPI
@@ -1719,6 +1743,8 @@ apis:
     https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
   baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
   tags:
+  - Quotas
+  tags_raw:
   - quotas
   properties:
   - type: OpenAPI
@@ -1765,6 +1791,8 @@ apis:
     https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
   baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
   tags:
+  - Schemas
+  tags_raw:
   - schemas
   properties:
   - type: OpenAPI
@@ -1811,6 +1839,8 @@ apis:
     https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
   baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
   tags:
+  - Shipment
+  tags_raw:
   - shipment
   properties:
   - type: OpenAPI
@@ -1857,6 +1887,8 @@ apis:
     https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
   baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
   tags:
+  - Tags
+  tags_raw:
   - tags
   properties:
   - type: OpenAPI
@@ -1903,6 +1935,8 @@ apis:
     https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
   baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
   tags:
+  - Telemetry
+  tags_raw:
   - telemetry
   properties:
   - type: OpenAPI
@@ -1949,6 +1983,8 @@ apis:
     https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
   baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
   tags:
+  - Test Cases
+  tags_raw:
   - test-cases
   properties:
   - type: OpenAPI
@@ -1995,6 +2031,8 @@ apis:
     https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
   baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
   tags:
+  - Testsets
+  tags_raw:
   - test-sets
   properties:
   - type: OpenAPI
@@ -2043,6 +2081,8 @@ apis:
     https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
   baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
   tags:
+  - Tools
+  tags_raw:
   - tools
   properties:
   - type: OpenAPI
@@ -2135,6 +2175,8 @@ apis:
     https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
   baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
   tags:
+  - Usage Statistics
+  tags_raw:
   - usage-statistics
   properties:
   - type: OpenAPI
@@ -2181,6 +2223,8 @@ apis:
     https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
   baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
   tags:
+  - User
+  tags_raw:
   - users
   properties:
   - type: OpenAPI
@@ -2227,6 +2271,8 @@ apis:
     https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
   baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
   tags:
+  - Workspaces
+  tags_raw:
   - workspaces
   properties:
   - type: OpenAPI
