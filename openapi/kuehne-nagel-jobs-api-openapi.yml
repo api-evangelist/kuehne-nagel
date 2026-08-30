@@ -1,0 +1,397 @@
+openapi: 3.2.0
+info:
+  title: B2B-OldKAIExtract Jobs API
+  description: 'Extract structured information from documents.
+
+
+    ## Using the API
+
+
+    ### Optional Parameters
+
+    When using the ''Try it out'' feature in Swagger UI, optional parameters with empty values can be left as-is. The API handles empty strings and will treat them as if the parameter was omitted. You don''t need to remove empty optional fields from requests.
+
+
+    **Tip:** In generated curl commands, you may see flags like `-F ''tag=''` or `-F ''tools=''`. These empty optional fields are safe to include or remove - the API treats them identically.'
+  version: 0.1.0
+servers:
+- url: https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0
+- url: http://gateway.api.kuehne-nagel.com:8280/oldkaiextractapi/0.1.0
+security:
+- default: []
+tags:
+- name: jobs
+  description: Operations for monitoring and managing asynchronous extraction jobs.
+paths:
+  /v3/api-key-auth/workspaces/{workspace_id}/jobs/{tracking_id}:
+    get:
+      tags:
+      - jobs
+      summary: Get Job Status V3 Api Key
+      description: Get the status of an asynchronous job using API key authentication.
+      operationId: get_job_status_v3_api_key_v3_api_key_auth_workspaces__workspace_id__jobs__tracking_id__get
+      parameters:
+      - name: tracking_id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+          title: Tracking Id
+      - name: workspace_id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: x-api-key
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          title: X-Api-Key
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExtractAsyncJobResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - default: []
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+  /jobs/{tracking_id}:
+    get:
+      tags:
+      - jobs
+      summary: Get Job Status
+      operationId: get_job_status_jobs__tracking_id__get
+      parameters:
+      - name: tracking_id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          title: Tracking Id
+      - name: workspace
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          title: Workspace
+      - name: x-api-key
+        in: header
+        required: false
+        style: simple
+        explode: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-Api-Key
+      - name: x-auth-request-email
+        in: header
+        required: false
+        style: simple
+        explode: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: X-Auth-Request-Email
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExtractAsyncJobResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - default: []
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+components:
+  schemas:
+    ExtractAsyncJobResponse:
+      type: object
+      properties:
+        tracking_id:
+          type: string
+          format: uuid
+          title: Tracking Id
+        status:
+          type: string
+          title: Status
+        job_type:
+          type: string
+          title: Job Type
+        result:
+          anyOf:
+          - $ref: '#/components/schemas/ExtractFileResponse'
+          - $ref: '#/components/schemas/ExtractZipResponse'
+          - type: 'null'
+          title: Result
+        error:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Error
+      required:
+      - job_type
+      - status
+      - tracking_id
+      title: ExtractAsyncJobResponse
+    ExtractZipFileResult:
+      type: object
+      properties:
+        filename:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Filename
+        result:
+          $ref: '#/components/schemas/ExtractZipResult'
+      required:
+      - result
+      title: ExtractZipFileResult
+    HTTPValidationError:
+      type: object
+      properties:
+        detail:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+      title: HTTPValidationError
+    ZipMetadata:
+      type: object
+      properties:
+        total_files:
+          type: integer
+          title: Total Files
+        processed_files:
+          type: integer
+          title: Processed Files
+        errors:
+          type: integer
+          title: Errors
+        started_at:
+          type: string
+          title: Started At
+        completed_at:
+          type: string
+          title: Completed At
+        processing_time_ms:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Processing Time Ms
+      required:
+      - completed_at
+      - errors
+      - processed_files
+      - started_at
+      - total_files
+      title: ZipMetadata
+    ModelType:
+      type: string
+      enum:
+      - flash_25_lite
+      - flash_25_low
+      - flash_25
+      - flash_3
+      - flash_35
+      - pro_25
+      - pro_31
+      - claude_haiku_45
+      - claude_sonnet_46
+      - claude_sonnet_46_low
+      - claude_opus_46
+      - claude_opus_46_low
+      - nova_2_lite
+      - nova_2_pro_preview
+      - nova_2_pro_preview_low
+      title: ModelType
+    ValidationError:
+      type: object
+      properties:
+        loc:
+          type: array
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    ExtractFileResponse:
+      type: object
+      properties:
+        filename:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Filename
+        data:
+          anyOf:
+          - type: array
+            items: {}
+          - type: object
+            additionalProperties: true
+          - type: string
+          - type: 'null'
+          title: Data
+        metadata:
+          anyOf:
+          - $ref: '#/components/schemas/FileMetadata'
+          - type: 'null'
+        error:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Error
+      title: ExtractFileResponse
+    ExtractZipResult:
+      type: object
+      properties:
+        data:
+          anyOf:
+          - {}
+          - type: 'null'
+          title: Data
+        metadata:
+          anyOf:
+          - $ref: '#/components/schemas/FileMetadata'
+          - type: 'null'
+        error:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Error
+      title: ExtractZipResult
+    FileMetadata:
+      type: object
+      properties:
+        uuid:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Uuid
+        request_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Request Id
+        model_type:
+          $ref: '#/components/schemas/ModelType'
+        input_tokens:
+          type: integer
+          title: Input Tokens
+        output_tokens:
+          type: integer
+          title: Output Tokens
+        thinking_tokens:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Thinking Tokens
+        token_costs:
+          type: number
+          title: Token Costs
+        processed_at:
+          type: string
+          title: Processed At
+        finish_reason:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Finish Reason
+        finish_message:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Finish Message
+        tool_calls:
+          type: array
+          default: []
+          items:
+            type: string
+          title: Tool Calls
+        processing_time_ms:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Processing Time Ms
+      required:
+      - input_tokens
+      - model_type
+      - output_tokens
+      - processed_at
+      - token_costs
+      title: FileMetadata
+    ExtractZipResponse:
+      type: object
+      properties:
+        results:
+          anyOf:
+          - type: array
+            items:
+              $ref: '#/components/schemas/ExtractZipFileResult'
+          - type: 'null'
+          title: Results
+        metadata:
+          anyOf:
+          - $ref: '#/components/schemas/ZipMetadata'
+          - type: 'null'
+        error:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Error
+      title: ExtractZipResponse
+  securitySchemes:
+    default:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://gateway.api.kuehne-nagel.com/authorize
+          scopes: {}
+x-wso2-api-key-header: ApiKey

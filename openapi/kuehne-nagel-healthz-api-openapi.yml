@@ -1,0 +1,54 @@
+openapi: 3.2.0
+info:
+  title: B2B-OldKAIExtract Healthz API
+  description: 'Extract structured information from documents.
+
+
+    ## Using the API
+
+
+    ### Optional Parameters
+
+    When using the ''Try it out'' feature in Swagger UI, optional parameters with empty values can be left as-is. The API handles empty strings and will treat them as if the parameter was omitted. You don''t need to remove empty optional fields from requests.
+
+
+    **Tip:** In generated curl commands, you may see flags like `-F ''tag=''` or `-F ''tools=''`. These empty optional fields are safe to include or remove - the API treats them identically.'
+  version: 0.1.0
+servers:
+- url: https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0
+- url: http://gateway.api.kuehne-nagel.com:8280/oldkaiextractapi/0.1.0
+security:
+- default: []
+tags:
+- name: Healthz
+paths:
+  /healthz:
+    get:
+      summary: Get Healthz
+      description: Health check endpoint to verify if the service is running.
+      operationId: get_healthz_healthz_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+                title: Response Get Healthz Healthz Get
+      security:
+      - default: []
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+      tags:
+      - Healthz
+components:
+  securitySchemes:
+    default:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://gateway.api.kuehne-nagel.com/authorize
+          scopes: {}
+x-wso2-api-key-header: ApiKey

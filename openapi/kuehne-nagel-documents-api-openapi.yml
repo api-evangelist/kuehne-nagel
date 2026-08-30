@@ -1,0 +1,619 @@
+openapi: 3.2.0
+info:
+  title: B2B-OldKAIExtract Documents API
+  description: 'Extract structured information from documents.
+
+
+    ## Using the API
+
+
+    ### Optional Parameters
+
+    When using the ''Try it out'' feature in Swagger UI, optional parameters with empty values can be left as-is. The API handles empty strings and will treat them as if the parameter was omitted. You don''t need to remove empty optional fields from requests.
+
+
+    **Tip:** In generated curl commands, you may see flags like `-F ''tag=''` or `-F ''tools=''`. These empty optional fields are safe to include or remove - the API treats them identically.'
+  version: 0.1.0
+servers:
+- url: https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0
+- url: http://gateway.api.kuehne-nagel.com:8280/oldkaiextractapi/0.1.0
+security:
+- default: []
+tags:
+- name: documents
+paths:
+  /v3/workspaces/{workspace_id}/documents:
+    get:
+      tags:
+      - documents
+      summary: List Documents V3
+      description: List all documents available for a workspace identified by UUID.
+      operationId: list_documents_v3_v3_workspaces__workspace_id__documents_get
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: offset
+        in: query
+        description: Number of documents to skip
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+          default: 0
+          description: Number of documents to skip
+          minimum: 0
+          title: Offset
+      - name: limit
+        in: query
+        description: Maximum number of documents to return
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+          default: 1000
+          description: Maximum number of documents to return
+          maximum: 10000
+          minimum: 1
+          title: Limit
+      - name: x-auth-request-email
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          title: X-Auth-Request-Email
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentListResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - default: []
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+    post:
+      tags:
+      - documents
+      summary: Upload Document V3
+      description: Upload a new document to a workspace identified by UUID.
+      operationId: upload_document_v3_v3_workspaces__workspace_id__documents_post
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: x-auth-request-email
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          title: X-Auth-Request-Email
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Body_upload_document_v3_v3_workspaces__workspace_id__documents_post'
+        required: true
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - default: []
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+  /v3/workspaces/{workspace_id}/documents/{document_id}:
+    get:
+      tags:
+      - documents
+      summary: Get Document V3
+      description: Get detailed information about a specific document.
+      operationId: get_document_v3_v3_workspaces__workspace_id__documents__document_id__get
+      parameters:
+      - name: document_id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+          title: Document Id
+      - name: workspace_id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: x-auth-request-email
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          title: X-Auth-Request-Email
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - default: []
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+    delete:
+      tags:
+      - documents
+      summary: Delete Document V3
+      description: 'Delete a document from a workspace. By default, performs soft delete,
+
+        set hard_delete=True for permanent deletion including S3 file removal.'
+      operationId: delete_document_v3_v3_workspaces__workspace_id__documents__document_id__delete
+      parameters:
+      - name: document_id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+          title: Document Id
+      - name: workspace_id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: x-auth-request-email
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          title: X-Auth-Request-Email
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Body_delete_document_v3_v3_workspaces__workspace_id__documents__document_id__delete'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteDocumentResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - default: []
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+  /v3/api-key-auth/workspaces/{workspace_id}/documents:
+    get:
+      tags:
+      - documents
+      summary: List Documents Api Key
+      description: List all documents available for a workspace using API key authentication.
+      operationId: list_documents_api_key_v3_api_key_auth_workspaces__workspace_id__documents_get
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: offset
+        in: query
+        description: Number of documents to skip
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+          default: 0
+          description: Number of documents to skip
+          minimum: 0
+          title: Offset
+      - name: limit
+        in: query
+        description: Maximum number of documents to return
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+          default: 1000
+          description: Maximum number of documents to return
+          maximum: 10000
+          minimum: 1
+          title: Limit
+      - name: x-api-key
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          title: X-Api-Key
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentListResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - default: []
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+    post:
+      tags:
+      - documents
+      summary: Upload Document Api Key
+      description: Upload a new document to a workspace using API key authentication.
+      operationId: upload_document_api_key_v3_api_key_auth_workspaces__workspace_id__documents_post
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: x-api-key
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          title: X-Api-Key
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Body_upload_document_api_key_v3_api_key_auth_workspaces__workspace_id__documents_post'
+        required: true
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - default: []
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+  /v3/api-key-auth/workspaces/{workspace_id}/documents/{document_id}:
+    get:
+      tags:
+      - documents
+      summary: Get Document Api Key
+      description: Get detailed information about a specific document using API key authentication.
+      operationId: get_document_api_key_v3_api_key_auth_workspaces__workspace_id__documents__document_id__get
+      parameters:
+      - name: document_id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+          title: Document Id
+      - name: workspace_id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: x-api-key
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          title: X-Api-Key
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - default: []
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+    delete:
+      tags:
+      - documents
+      summary: Delete Document Api Key
+      description: 'Delete a document from a workspace using API key authentication.
+
+        By default, performs soft delete, set hard_delete=True for permanent deletion including S3 file removal.'
+      operationId: delete_document_api_key_v3_api_key_auth_workspaces__workspace_id__documents__document_id__delete
+      parameters:
+      - name: document_id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+          title: Document Id
+      - name: workspace_id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: x-api-key
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          title: X-Api-Key
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Body_delete_document_api_key_v3_api_key_auth_workspaces__workspace_id__documents__document_id__delete'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteDocumentResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - default: []
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+components:
+  schemas:
+    Body_delete_document_api_key_v3_api_key_auth_workspaces__workspace_id__documents__document_id__delete:
+      type: object
+      properties:
+        hard_delete:
+          type: boolean
+          default: false
+          title: Hard Delete
+      title: Body_delete_document_api_key_v3_api_key_auth_workspaces__workspace_id__documents__document_id__delete
+    DocumentListResponse:
+      type: object
+      description: Response model for listing documents.
+      properties:
+        documents:
+          type: array
+          items:
+            $ref: '#/components/schemas/DocumentResponse'
+          title: Documents
+        count:
+          type: integer
+          title: Count
+        offset:
+          type: integer
+          default: 0
+          title: Offset
+        limit:
+          type: integer
+          default: 1000
+          title: Limit
+      required:
+      - count
+      - documents
+      title: DocumentListResponse
+    HTTPValidationError:
+      type: object
+      properties:
+        detail:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+      title: HTTPValidationError
+    Body_upload_document_api_key_v3_api_key_auth_workspaces__workspace_id__documents_post:
+      type: object
+      properties:
+        file:
+          type: string
+          format: binary
+          title: File
+      required:
+      - file
+      title: Body_upload_document_api_key_v3_api_key_auth_workspaces__workspace_id__documents_post
+    Body_upload_document_v3_v3_workspaces__workspace_id__documents_post:
+      type: object
+      properties:
+        file:
+          type: string
+          format: binary
+          title: File
+      required:
+      - file
+      title: Body_upload_document_v3_v3_workspaces__workspace_id__documents_post
+    Body_delete_document_v3_v3_workspaces__workspace_id__documents__document_id__delete:
+      type: object
+      properties:
+        hard_delete:
+          type: boolean
+          default: false
+          title: Hard Delete
+      title: Body_delete_document_v3_v3_workspaces__workspace_id__documents__document_id__delete
+    DocumentResponse:
+      type: object
+      description: Response model for individual document.
+      properties:
+        document_id:
+          type: string
+          format: uuid
+          title: Document Id
+        name:
+          type: string
+          title: Name
+        s3_key_document:
+          type: string
+          title: S3 Key Document
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+        updated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated At
+      required:
+      - document_id
+      - name
+      - s3_key_document
+      title: DocumentResponse
+    DeleteDocumentResponse:
+      type: object
+      description: Response model for document deletion.
+      properties:
+        success:
+          type: boolean
+          title: Success
+        document_id:
+          type: string
+          format: uuid
+          title: Document Id
+      required:
+      - document_id
+      - success
+      title: DeleteDocumentResponse
+    ValidationError:
+      type: object
+      properties:
+        loc:
+          type: array
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+  securitySchemes:
+    default:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://gateway.api.kuehne-nagel.com/authorize
+          scopes: {}
+x-wso2-api-key-header: ApiKey

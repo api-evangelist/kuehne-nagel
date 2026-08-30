@@ -1,0 +1,682 @@
+openapi: 3.2.0
+info:
+  title: B2B-OldKAIExtract Workspaces API
+  description: 'Extract structured information from documents.
+
+
+    ## Using the API
+
+
+    ### Optional Parameters
+
+    When using the ''Try it out'' feature in Swagger UI, optional parameters with empty values can be left as-is. The API handles empty strings and will treat them as if the parameter was omitted. You don''t need to remove empty optional fields from requests.
+
+
+    **Tip:** In generated curl commands, you may see flags like `-F ''tag=''` or `-F ''tools=''`. These empty optional fields are safe to include or remove - the API treats them identically.'
+  version: 0.1.0
+servers:
+- url: https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0
+- url: http://gateway.api.kuehne-nagel.com:8280/oldkaiextractapi/0.1.0
+security:
+- default: []
+tags:
+- name: workspaces
+  description: Manage workspaces.
+paths:
+  /v2/workspaces/id/{workspace_id}:
+    get:
+      tags:
+      - workspaces
+      summary: Get Workspace By Id
+      description: Get workspace by ID.
+      operationId: get_workspace_by_id_v2_workspaces_id__workspace_id__get
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: x-api-key
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          title: X-Api-Key
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkspaceResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - default: []
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+  /v2/workspaces/name/{workspace_name}:
+    get:
+      tags:
+      - workspaces
+      summary: Get Workspace By Name
+      description: Get workspace by name.
+      operationId: get_workspace_by_name_v2_workspaces_name__workspace_name__get
+      parameters:
+      - name: workspace_name
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          title: Workspace Name
+      - name: x-api-key
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          title: X-Api-Key
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkspaceResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - default: []
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+  /v3/workspaces:
+    get:
+      tags:
+      - workspaces
+      summary: List Workspaces V3
+      description: List all workspaces available for the authenticated user.
+      operationId: list_workspaces_v3_v3_workspaces_get
+      parameters:
+      - name: x-auth-request-email
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          title: X-Auth-Request-Email
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkspaceListResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - default: []
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+    post:
+      tags:
+      - workspaces
+      summary: Create Workspace V3
+      description: Create a new workspace.
+      operationId: create_workspace_v3_v3_workspaces_post
+      parameters:
+      - name: x-auth-request-email
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          title: X-Auth-Request-Email
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Body_create_workspace_v3_v3_workspaces_post'
+        required: true
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkspaceResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - default: []
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+  /v3/workspaces/{workspace_id}:
+    get:
+      tags:
+      - workspaces
+      summary: Get Workspace V3
+      description: Get detailed information about a specific workspace identified by UUID.
+      operationId: get_workspace_v3_v3_workspaces__workspace_id__get
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: x-auth-request-email
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          title: X-Auth-Request-Email
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkspaceResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - default: []
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+    delete:
+      tags:
+      - workspaces
+      summary: Delete Workspace V3
+      description: Delete a workspace identified by UUID. By default, performs soft delete, set hard_delete=True for permanent deletion.
+      operationId: delete_workspace_v3_v3_workspaces__workspace_id__delete
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: x-auth-request-email
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          title: X-Auth-Request-Email
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Body_delete_workspace_v3_v3_workspaces__workspace_id__delete'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteWorkspaceResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - default: []
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+  /v3/workspaces/{workspace_id}/public-status:
+    patch:
+      tags:
+      - workspaces
+      summary: Update Workspace Public Status V3
+      description: Update the public status of a workspace. Requires WORKSPACE_OWNER role.
+      operationId: update_workspace_public_status_v3_v3_workspaces__workspace_id__public_status_patch
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: x-auth-request-email
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          title: X-Auth-Request-Email
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Body_update_workspace_public_status_v3_v3_workspaces__workspace_id__public_status_patch'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkspaceResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - default: []
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+  /v3/workspaces/{workspace_id}/dataset-collection:
+    patch:
+      tags:
+      - workspaces
+      summary: Update Workspace Dataset Collection V3
+      description: 'Update the dataset collection setting for a workspace.
+
+
+        When enabled, successful extractions will have their inputs and outputs
+
+        captured and stored in S3 for use in fine-tuning datasets.
+
+
+        **Requires GLOBAL_ADMIN role.**'
+      operationId: update_workspace_dataset_collection_v3_v3_workspaces__workspace_id__dataset_collection_patch
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: x-auth-request-email
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          title: X-Auth-Request-Email
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Body_update_workspace_dataset_collection_v3_v3_workspaces__workspace_id__dataset_collection_patch'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkspaceResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - default: []
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+  /v3/workspaces/{workspace_id}/usage-statistics:
+    get:
+      tags:
+      - workspaces
+      summary: Get Usage Statistics V3
+      description: 'Get usage statistics for a workspace identified by UUID.
+
+
+        You can either specify start_date/end_date manually or use the period parameter
+
+        for common time periods like ''current_month'', ''previous_month'', ''last_two_months''.'
+      operationId: get_usage_statistics_v3_v3_workspaces__workspace_id__usage_statistics_get
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: start_date
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Start Date
+      - name: end_date
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: End Date
+      - name: timeframe
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          $ref: '#/components/schemas/TimeFrame'
+          default: month
+      - name: period
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          anyOf:
+          - $ref: '#/components/schemas/TimePeriod'
+          - type: 'null'
+          title: Period
+      - name: x-auth-request-email
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          title: X-Auth-Request-Email
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UsageStatisticsResponse'
+                title: Response Get Usage Statistics V3 V3 Workspaces  Workspace Id  Usage Statistics Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - default: []
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+components:
+  schemas:
+    Body_create_workspace_v3_v3_workspaces_post:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Unique name for the workspace
+          example: My Workspace
+          title: Name
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Optional description of the workspace purpose. Leave empty if not needed.
+          example: ''
+          title: Description
+      required:
+      - name
+      title: Body_create_workspace_v3_v3_workspaces_post
+    Body_update_workspace_public_status_v3_v3_workspaces__workspace_id__public_status_patch:
+      type: object
+      properties:
+        is_public:
+          type: boolean
+          description: 'Set to true to make workspace publicly accessible, false for private. Default: false.'
+          example: false
+          title: Is Public
+      required:
+      - is_public
+      title: Body_update_workspace_public_status_v3_v3_workspaces__workspace_id__public_status_patch
+    HTTPValidationError:
+      type: object
+      properties:
+        detail:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+      title: HTTPValidationError
+    UsageStatisticsResponse:
+      type: object
+      description: "Response model for workspace usage statistics.\n\nAttributes:\n    workspace_id: Unique identifier of the workspace\n    period_start: Start of the aggregation period\n    period_end: End of the aggregation period\n    total_requests: Number of requests in the period\n    total_input_tokens: Sum of input tokens used\n    total_output_tokens: Sum of output tokens generated\n    total_cost: Total cost of processing in the period\n    average_processing_time_ms: Average processing time per request in milliseconds.\n                               For hourly data, this is the simple average.\n                               For longer periods, this is a weighted average based on request counts.\n    data_complete_until: Timestamp until which statistics data is complete and accessible.\n                        This represents the latest hour boundary for which complete data is available."
+      properties:
+        workspace_id:
+          type: string
+          title: Workspace Id
+        period_start:
+          type: string
+          title: Period Start
+        period_end:
+          type: string
+          title: Period End
+        total_requests:
+          type: integer
+          title: Total Requests
+        total_input_tokens:
+          type: integer
+          title: Total Input Tokens
+        total_output_tokens:
+          type: integer
+          title: Total Output Tokens
+        total_cost:
+          type: number
+          title: Total Cost
+        average_processing_time_ms:
+          type: number
+          title: Average Processing Time Ms
+        data_complete_until:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Data Complete Until
+      required:
+      - average_processing_time_ms
+      - period_end
+      - period_start
+      - total_cost
+      - total_input_tokens
+      - total_output_tokens
+      - total_requests
+      - workspace_id
+      title: UsageStatisticsResponse
+    ValidationError:
+      type: object
+      properties:
+        loc:
+          type: array
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    DeleteWorkspaceResponse:
+      type: object
+      description: Response model for workspace deletion.
+      properties:
+        success:
+          type: boolean
+          title: Success
+        workspace_id:
+          type: string
+          format: uuid
+          title: Workspace Id
+      required:
+      - success
+      - workspace_id
+      title: DeleteWorkspaceResponse
+    TimePeriod:
+      type: string
+      enum:
+      - current_month
+      - previous_month
+      - last_two_months
+      - last_three_months
+      - current_year
+      - previous_year
+      title: TimePeriod
+    WorkspaceListResponse:
+      type: object
+      description: Response model for workspace listing.
+      properties:
+        workspaces:
+          type: array
+          items:
+            $ref: '#/components/schemas/WorkspaceResponse'
+          title: Workspaces
+      required:
+      - workspaces
+      title: WorkspaceListResponse
+    Body_update_workspace_dataset_collection_v3_v3_workspaces__workspace_id__dataset_collection_patch:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+          description: 'Set to true to enable dataset collection for fine-tuning, false to disable. Default: false.'
+          example: false
+          title: Enabled
+      required:
+      - enabled
+      title: Body_update_workspace_dataset_collection_v3_v3_workspaces__workspace_id__dataset_collection_patch
+    TimeFrame:
+      type: string
+      enum:
+      - day
+      - week
+      - month
+      - year
+      title: TimeFrame
+    Body_delete_workspace_v3_v3_workspaces__workspace_id__delete:
+      type: object
+      properties:
+        hard_delete:
+          type: boolean
+          default: false
+          description: 'Set to true for permanent deletion, false for soft delete. Default: false.'
+          example: false
+          title: Hard Delete
+      title: Body_delete_workspace_v3_v3_workspaces__workspace_id__delete
+    WorkspaceResponse:
+      type: object
+      properties:
+        workspace_id:
+          type: string
+          format: uuid
+          title: Workspace Id
+        name:
+          type: string
+          title: Name
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        is_public:
+          type: boolean
+          title: Is Public
+        dataset_collection_enabled:
+          type: boolean
+          default: false
+          title: Dataset Collection Enabled
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+      required:
+      - created_at
+      - description
+      - is_public
+      - name
+      - updated_at
+      - workspace_id
+      title: WorkspaceResponse
+  securitySchemes:
+    default:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://gateway.api.kuehne-nagel.com/authorize
+          scopes: {}
+x-wso2-api-key-header: ApiKey

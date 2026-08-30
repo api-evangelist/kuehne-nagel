@@ -1,0 +1,663 @@
+openapi: 3.2.0
+info:
+  title: B2B-OldKAIExtract Quotas API
+  description: 'Extract structured information from documents.
+
+
+    ## Using the API
+
+
+    ### Optional Parameters
+
+    When using the ''Try it out'' feature in Swagger UI, optional parameters with empty values can be left as-is. The API handles empty strings and will treat them as if the parameter was omitted. You don''t need to remove empty optional fields from requests.
+
+
+    **Tip:** In generated curl commands, you may see flags like `-F ''tag=''` or `-F ''tools=''`. These empty optional fields are safe to include or remove - the API treats them identically.'
+  version: 0.1.0
+servers:
+- url: https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0
+- url: http://gateway.api.kuehne-nagel.com:8280/oldkaiextractapi/0.1.0
+security:
+- default: []
+tags:
+- name: quotas
+  description: Manage workspace processing quotas and limits.
+paths:
+  /v3/workspaces/{workspace_id}/quota/status:
+    get:
+      tags:
+      - quotas
+      summary: Get Workspace Quota Status
+      description: 'Get current quota status for a workspace.
+
+
+        Returns tier-based usage information (standard, premium, preview tiers)
+
+        along with legacy sync/async information for backward compatibility.
+
+
+        Tier usage shows:
+
+        - standard: Usage for flash_25_lite, flash_25, claude_haiku_45
+
+        - premium: Usage for pro_25
+
+        - preview: Usage for flash_3, flash_35, pro_31
+
+
+        Accessible by workspace members and global administrators via SSO only.'
+      operationId: get_workspace_quota_status_v3_workspaces__workspace_id__quota_status_get
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: x-auth-request-email
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          title: X-Auth-Request-Email
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuotaStatusResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - default: []
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+  /v3/workspaces/{workspace_id}/quota:
+    get:
+      tags:
+      - quotas
+      summary: Get Workspace Quota Limits
+      description: 'Get quota limits for a workspace.
+
+
+        Returns tier-based limits (standard, premium, preview) along with
+
+        legacy sync/async limits for backward compatibility.
+
+
+        Accessible by workspace members and global administrators.'
+      operationId: get_workspace_quota_limits_v3_workspaces__workspace_id__quota_get
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: x-auth-request-email
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          title: X-Auth-Request-Email
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuotaLimitsResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - default: []
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+    put:
+      tags:
+      - quotas
+      summary: Update Workspace Quota Limits
+      description: 'Update quota limits for a workspace.
+
+
+        Supports both tier-based limits (new) and legacy sync/async limits (deprecated).
+
+        Tier-based quotas are recommended as the sync/async distinction is being removed.
+
+
+        Only global administrators can update quota limits.
+
+        Limits are applied immediately.'
+      operationId: update_workspace_quota_limits_v3_workspaces__workspace_id__quota_put
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: x-auth-request-email
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          title: X-Auth-Request-Email
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Body_update_workspace_quota_limits_v3_workspaces__workspace_id__quota_put'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuotaLimitsResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - default: []
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+    delete:
+      tags:
+      - quotas
+      summary: Reset Workspace Quota To Defaults
+      description: 'Reset workspace quota to default values.
+
+
+        Only global administrators can reset quotas.
+
+        This sets all limits back to system defaults:
+
+
+        Tier-based limits:
+
+        - Standard tier: 1000 daily / 30000 monthly
+
+        - Premium tier: 50 daily / 1000 monthly
+
+        - Preview tier: 50 daily / 150 monthly
+
+
+        Legacy limits (deprecated):
+
+        - Daily standard: 100 requests
+
+        - Monthly standard: 3000 requests
+
+        - Daily async: 1000 requests
+
+        - Monthly async: 30000 requests'
+      operationId: reset_workspace_quota_to_defaults_v3_workspaces__workspace_id__quota_delete
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: x-auth-request-email
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          title: X-Auth-Request-Email
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteQuotaResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - default: []
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+  /v3/api-key-auth/workspaces/{workspace_id}/quota/status:
+    get:
+      tags:
+      - quotas
+      summary: Get Workspace Quota Status V3 Api Key
+      description: 'Get current quota status for a workspace using API key authentication.
+
+
+        Returns tier-based usage information (standard, premium, preview tiers)
+
+        along with legacy sync/async information for backward compatibility.
+
+
+        Accessible by workspace members via API key authentication.'
+      operationId: get_workspace_quota_status_v3_api_key_v3_api_key_auth_workspaces__workspace_id__quota_status_get
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: x-api-key
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          title: X-Api-Key
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuotaStatusResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - default: []
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+  /v3/api-key-auth/workspaces/{workspace_id}/quota:
+    get:
+      tags:
+      - quotas
+      summary: Get Workspace Quota Limits V3 Api Key
+      description: 'Get quota limits for a workspace using API key authentication.
+
+
+        Returns tier-based limits (standard, premium, preview) along with
+
+        legacy sync/async limits for backward compatibility.
+
+
+        Accessible by workspace members via API key authentication.'
+      operationId: get_workspace_quota_limits_v3_api_key_v3_api_key_auth_workspaces__workspace_id__quota_get
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: x-api-key
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          title: X-Api-Key
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuotaLimitsResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - default: []
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+components:
+  schemas:
+    Body_update_workspace_quota_limits_v3_workspaces__workspace_id__quota_put:
+      type: object
+      properties:
+        daily_standard_tier_limit:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          description: Daily limit for standard tier models (flash_25_lite, flash_25, claude_haiku_45). Leave empty to keep current limit.
+          example: 50
+          title: Daily Standard Tier Limit
+        monthly_standard_tier_limit:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          description: Monthly limit for standard tier models. Leave empty to keep current limit.
+          example: 150
+          title: Monthly Standard Tier Limit
+        daily_premium_tier_limit:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          description: Daily limit for premium tier models (pro_25). Leave empty to keep current limit.
+          example: 50
+          title: Daily Premium Tier Limit
+        monthly_premium_tier_limit:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          description: Monthly limit for premium tier models. Leave empty to keep current limit.
+          example: 1000
+          title: Monthly Premium Tier Limit
+        daily_preview_tier_limit:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          description: Daily limit for preview tier models (flash_3, flash_35, pro_31). Leave empty to keep current limit.
+          example: 50
+          title: Daily Preview Tier Limit
+        monthly_preview_tier_limit:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          description: Monthly limit for preview tier models. Leave empty to keep current limit.
+          example: 150
+          title: Monthly Preview Tier Limit
+        daily_standard_limit:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          description: 'DEPRECATED: Daily limit for standard (synchronous) processing requests. Use daily_standard_tier_limit instead. Leave empty to keep current limit.'
+          example: 100
+          title: Daily Standard Limit
+        monthly_standard_limit:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          description: 'DEPRECATED: Monthly limit for standard processing requests. Use monthly_standard_tier_limit instead. Leave empty to keep current limit.'
+          example: 3000
+          title: Monthly Standard Limit
+        daily_async_limit:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          description: 'DEPRECATED: Daily limit for async processing requests. Sync/async distinction is removed - use tier limits instead.'
+          example: 1000
+          title: Daily Async Limit
+        monthly_async_limit:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          description: 'DEPRECATED: Monthly limit for async processing requests. Sync/async distinction is removed - use tier limits instead.'
+          example: 30000
+          title: Monthly Async Limit
+      title: Body_update_workspace_quota_limits_v3_workspaces__workspace_id__quota_put
+    HTTPValidationError:
+      type: object
+      properties:
+        detail:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+      title: HTTPValidationError
+    TierQuotaLimits:
+      type: object
+      description: Quota limits for a specific model tier.
+      properties:
+        daily_limit:
+          type: integer
+          title: Daily Limit
+        monthly_limit:
+          type: integer
+          title: Monthly Limit
+      required:
+      - daily_limit
+      - monthly_limit
+      title: TierQuotaLimits
+    QuotaLimitsResponse:
+      type: object
+      description: 'Response model for workspace quota limits.
+
+
+        Note: daily_standard_limit, monthly_standard_limit, daily_async_limit,
+
+        and monthly_async_limit are deprecated. Use tier_limits instead.'
+      properties:
+        quota_id:
+          type: string
+          format: uuid
+          title: Quota Id
+        workspace_id:
+          type: string
+          format: uuid
+          title: Workspace Id
+        tier_limits:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/TierQuotaLimits'
+          title: Tier Limits
+        daily_standard_limit:
+          type: integer
+          title: Daily Standard Limit
+        monthly_standard_limit:
+          type: integer
+          title: Monthly Standard Limit
+        daily_async_limit:
+          type: integer
+          title: Daily Async Limit
+        monthly_async_limit:
+          type: integer
+          title: Monthly Async Limit
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        updated_by:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Updated By
+      required:
+      - created_at
+      - daily_async_limit
+      - daily_standard_limit
+      - monthly_async_limit
+      - monthly_standard_limit
+      - quota_id
+      - tier_limits
+      - updated_at
+      - updated_by
+      - workspace_id
+      title: QuotaLimitsResponse
+    DeleteQuotaResponse:
+      type: object
+      description: Response model for quota deletion.
+      properties:
+        success:
+          type: boolean
+          title: Success
+        quota_id:
+          type: string
+          format: uuid
+          title: Quota Id
+      required:
+      - quota_id
+      - success
+      title: DeleteQuotaResponse
+    QuotaStatusResponse:
+      type: object
+      description: 'Response model for workspace quota status.
+
+
+        Note: standard_processing and async_processing are deprecated.
+
+        Use tier_usage for tier-based quota information.'
+      properties:
+        workspace_id:
+          type: string
+          title: Workspace Id
+        tier_usage:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/TierQuotaUsageInfo'
+          title: Tier Usage
+        standard_processing:
+          $ref: '#/components/schemas/QuotaUsageInfo'
+        async_processing:
+          $ref: '#/components/schemas/QuotaUsageInfo'
+        period_info:
+          type: object
+          additionalProperties: true
+          title: Period Info
+        last_updated:
+          type: string
+          title: Last Updated
+      required:
+      - async_processing
+      - last_updated
+      - period_info
+      - standard_processing
+      - tier_usage
+      - workspace_id
+      title: QuotaStatusResponse
+    QuotaUsageInfo:
+      type: object
+      description: Information about quota usage for a specific processing type.
+      properties:
+        daily_limit:
+          type: integer
+          title: Daily Limit
+        monthly_limit:
+          type: integer
+          title: Monthly Limit
+        daily_usage:
+          type: integer
+          title: Daily Usage
+        monthly_usage:
+          type: integer
+          title: Monthly Usage
+        daily_remaining:
+          type: integer
+          title: Daily Remaining
+        monthly_remaining:
+          type: integer
+          title: Monthly Remaining
+      required:
+      - daily_limit
+      - daily_remaining
+      - daily_usage
+      - monthly_limit
+      - monthly_remaining
+      - monthly_usage
+      title: QuotaUsageInfo
+    TierQuotaUsageInfo:
+      type: object
+      description: Information about quota usage for a specific model tier.
+      properties:
+        tier:
+          type: string
+          title: Tier
+        daily_limit:
+          type: integer
+          title: Daily Limit
+        monthly_limit:
+          type: integer
+          title: Monthly Limit
+        daily_usage:
+          type: integer
+          title: Daily Usage
+        monthly_usage:
+          type: integer
+          title: Monthly Usage
+        daily_remaining:
+          type: integer
+          title: Daily Remaining
+        monthly_remaining:
+          type: integer
+          title: Monthly Remaining
+      required:
+      - daily_limit
+      - daily_remaining
+      - daily_usage
+      - monthly_limit
+      - monthly_remaining
+      - monthly_usage
+      - tier
+      title: TierQuotaUsageInfo
+    ValidationError:
+      type: object
+      properties:
+        loc:
+          type: array
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+  securitySchemes:
+    default:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://gateway.api.kuehne-nagel.com/authorize
+          scopes: {}
+x-wso2-api-key-header: ApiKey

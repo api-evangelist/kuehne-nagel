@@ -1,0 +1,252 @@
+openapi: 3.2.0
+info:
+  title: BookingRoad Master Data API
+  description: Interface for sending external booking requests to KN Road
+  contact:
+    name: Global Road API Support
+    url: https://home.kuehne-nagel.com/en/service-request-api-road?lead_topic=api-support-road
+    email: GLOBAL.API.ROAD.Support@kuehne-nagel.com
+  version: v1
+  x-api-id: 7c78465d-bd97-48d0-8b1f-1230281a0bef
+  x-api-guideline-version: 1.9.4
+servers:
+- url: https://internal.api.kuehne-nagel.com/booking/road/v1
+security:
+- default: []
+- api_key: []
+tags:
+- name: Master Data
+paths:
+  /master-data-categories:
+    get:
+      tags:
+      - Master Data
+      summary: Get master data mapping categories
+      description: Retrieves all available master data categories.
+      operationId: getMasterDataCategories
+      parameters: []
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MasterDataCategoryList'
+        '500':
+          description: Unexpected error
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      security:
+      - default: []
+      - api_key: []
+      x-throttling-tier: 10KPerMin
+      x-auth-type: Application & Application User
+  /master-data-categories/{category}:
+    get:
+      tags:
+      - Master Data
+      summary: Get master data mapping category details
+      description: Retrieves details of one master data category.
+      operationId: getMasterDataCategoryDetails
+      parameters:
+      - name: category
+        in: path
+        description: Master data category to read from
+        required: true
+        style: simple
+        explode: false
+        schema:
+          maxLength: 20
+          minLength: 1
+          type: string
+        example: ''
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MasterDataCategory'
+        '404':
+          description: Requested category does not exist.
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                properties: {}
+        '500':
+          description: Unexpected error
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      security:
+      - default: []
+      - api_key: []
+      x-throttling-tier: 10KPerMin
+      x-auth-type: Application & Application User
+  /master-data-categories/{category}/values:
+    get:
+      tags:
+      - Master Data
+      summary: Get master data mapping values
+      description: Retrieves all possible values for the given master data category.
+      operationId: getMasterDataValues
+      parameters:
+      - name: category
+        in: path
+        description: Master data category to read from
+        required: true
+        style: simple
+        explode: false
+        schema:
+          maxLength: 20
+          minLength: 1
+          type: string
+        example: ''
+      - name: cursor
+        in: query
+        description: Optional cursor to use with pagination
+        required: false
+        style: form
+        explode: true
+        schema:
+          maxLength: 100
+          minLength: 1
+          type: string
+      - name: limit
+        in: query
+        description: Optional limit to the number of results returned to use with pagination
+        required: false
+        style: form
+        explode: true
+        schema:
+          maximum: 1000
+          minimum: 1
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MasterDataValues'
+        '404':
+          description: Requested category does not exist.
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                properties: {}
+        '500':
+          description: Unexpected error
+          content:
+            application/problem+json:
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      security:
+      - default: []
+      - api_key: []
+      x-throttling-tier: 10KPerMin
+      x-auth-type: Application & Application User
+components:
+  schemas:
+    MasterDataMapping:
+      required:
+      - description
+      - value
+      type: object
+      properties:
+        value:
+          maxLength: 50
+          minLength: 1
+          type: string
+          example: MTQ
+        description:
+          maxLength: 250
+          type: string
+          example: cubic metre
+    MasterDataValues:
+      required:
+      - items
+      type: object
+      properties:
+        self:
+          maxLength: 200
+          minLength: 1
+          type: string
+          example: '.../bookings?cursor=<self-position>'
+        first:
+          maxLength: 200
+          minLength: 1
+          type: string
+          example: '.../bookings?cursor=<first-position>'
+        prev:
+          maxLength: 200
+          minLength: 1
+          type: string
+          example: '.../bookings?cursor=<prev-position>'
+        next:
+          maxLength: 200
+          minLength: 1
+          type: string
+          example: '.../bookings?cursor=<next-position>'
+        last:
+          maxLength: 200
+          minLength: 1
+          type: string
+          example: '.../bookings?cursor=<last-position>'
+        items:
+          maxItems: 1000
+          type: array
+          items:
+            $ref: '#/components/schemas/MasterDataMapping'
+    MasterDataCategoryList:
+      required:
+      - items
+      type: object
+      properties:
+        items:
+          maxItems: 100
+          type: array
+          items:
+            maxLength: 20
+            minLength: 1
+            type: string
+            example: reference-types
+    MasterDataCategory:
+      required:
+      - name
+      - values
+      type: object
+      properties:
+        name:
+          maxLength: 20
+          minLength: 1
+          type: string
+          example: reference-types
+        values:
+          maxLength: 200
+          minLength: 1
+          type: string
+          example: '.../master-data-categories/<category-name>/values'
+  securitySchemes:
+    default:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://internal.api.kuehne-nagel.com/authorize
+          scopes: {}
+    api_key:
+      type: apiKey
+      name: apikey
+      in: header

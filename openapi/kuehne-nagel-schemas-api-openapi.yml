@@ -1,0 +1,546 @@
+openapi: 3.2.0
+info:
+  title: B2B-OldKAIExtract Schemas API
+  description: 'Extract structured information from documents.
+
+
+    ## Using the API
+
+
+    ### Optional Parameters
+
+    When using the ''Try it out'' feature in Swagger UI, optional parameters with empty values can be left as-is. The API handles empty strings and will treat them as if the parameter was omitted. You don''t need to remove empty optional fields from requests.
+
+
+    **Tip:** In generated curl commands, you may see flags like `-F ''tag=''` or `-F ''tools=''`. These empty optional fields are safe to include or remove - the API treats them identically.'
+  version: 0.1.0
+servers:
+- url: https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0
+- url: http://gateway.api.kuehne-nagel.com:8280/oldkaiextractapi/0.1.0
+security:
+- default: []
+tags:
+- name: schemas
+  description: Manage schemas for workspaces.
+paths:
+  /v3/workspaces/{workspace_id}/schemas:
+    get:
+      tags:
+      - schemas
+      summary: List Schemas V3
+      description: List all schemas available for a workspace identified by UUID.
+      operationId: list_schemas_v3_v3_workspaces__workspace_id__schemas_get
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: x-auth-request-email
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          title: X-Auth-Request-Email
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SchemaListResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - default: []
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+    post:
+      tags:
+      - schemas
+      summary: Create Schema V3
+      description: Create a new schema in the workspace.
+      operationId: create_schema_v3_v3_workspaces__workspace_id__schemas_post
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: x-auth-request-email
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          title: X-Auth-Request-Email
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Body_create_schema_v3_v3_workspaces__workspace_id__schemas_post'
+        required: true
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SchemaDetailResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - default: []
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+  /v3/workspaces/{workspace_id}/schemas/{schema_id}:
+    get:
+      tags:
+      - schemas
+      summary: Get Schema V3
+      description: Get detailed information about a specific schema.
+      operationId: get_schema_v3_v3_workspaces__workspace_id__schemas__schema_id__get
+      parameters:
+      - name: schema_id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+          title: Schema Id
+      - name: workspace_id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: x-auth-request-email
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          title: X-Auth-Request-Email
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SchemaDetailResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - default: []
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+    put:
+      tags:
+      - schemas
+      summary: Update Schema V3
+      description: Update an existing schema.
+      operationId: update_schema_v3_v3_workspaces__workspace_id__schemas__schema_id__put
+      parameters:
+      - name: schema_id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+          title: Schema Id
+      - name: workspace_id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: x-auth-request-email
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          title: X-Auth-Request-Email
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Body_update_schema_v3_v3_workspaces__workspace_id__schemas__schema_id__put'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SchemaDetailResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - default: []
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+    delete:
+      tags:
+      - schemas
+      summary: Delete Schema V3
+      description: Delete a schema. By default performs soft delete, set hard_delete=True for permanent deletion.
+      operationId: delete_schema_v3_v3_workspaces__workspace_id__schemas__schema_id__delete
+      parameters:
+      - name: schema_id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+          title: Schema Id
+      - name: workspace_id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: x-auth-request-email
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          title: X-Auth-Request-Email
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Body_delete_schema_v3_v3_workspaces__workspace_id__schemas__schema_id__delete'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteSchemaResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - default: []
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+  /v3/api-key-auth/workspaces/{workspace_id}/schemas:
+    get:
+      tags:
+      - schemas
+      summary: List Schemas Api Key
+      description: List all schemas available for a workspace using API key authentication.
+      operationId: list_schemas_api_key_v3_api_key_auth_workspaces__workspace_id__schemas_get
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: x-api-key
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          title: X-Api-Key
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SchemaListResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - default: []
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+  /v3/api-key-auth/workspaces/{workspace_id}/schemas/{schema_id}:
+    get:
+      tags:
+      - schemas
+      summary: Get Schema Api Key
+      description: Get detailed information about a specific schema using API key authentication.
+      operationId: get_schema_api_key_v3_api_key_auth_workspaces__workspace_id__schemas__schema_id__get
+      parameters:
+      - name: schema_id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+          title: Schema Id
+      - name: workspace_id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      - name: x-api-key
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          title: X-Api-Key
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SchemaDetailResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - default: []
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+components:
+  schemas:
+    DeleteSchemaResponse:
+      type: object
+      description: Response model for schema deletion.
+      properties:
+        success:
+          type: boolean
+          title: Success
+        schema_id:
+          type: string
+          format: uuid
+          title: Schema Id
+      required:
+      - schema_id
+      - success
+      title: DeleteSchemaResponse
+    HTTPValidationError:
+      type: object
+      properties:
+        detail:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+      title: HTTPValidationError
+    SchemaDetailResponse:
+      type: object
+      properties:
+        name:
+          type: string
+          title: Name
+        schema_id:
+          type: string
+          format: uuid
+          title: Schema Id
+        schema_content:
+          type: string
+          title: Schema Content
+        workspace_id:
+          type: string
+          format: uuid
+          title: Workspace Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+      required:
+      - created_at
+      - name
+      - schema_content
+      - schema_id
+      - updated_at
+      - workspace_id
+      title: SchemaDetailResponse
+    Body_create_schema_v3_v3_workspaces__workspace_id__schemas_post:
+      type: object
+      properties:
+        schema_content:
+          type: string
+          description: JSON Schema defining the structure of extracted data
+          example: '{"type": "object", "properties": {"field1": {"type": "string"}}}'
+          title: Schema Content
+        schema_name:
+          type: string
+          description: Unique name for the schema
+          example: Invoice Schema
+          title: Schema Name
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Optional description of what this schema defines. Leave empty if not needed.
+          example: ''
+          title: Description
+      required:
+      - schema_content
+      - schema_name
+      title: Body_create_schema_v3_v3_workspaces__workspace_id__schemas_post
+    SchemaListItem:
+      type: object
+      properties:
+        name:
+          type: string
+          title: Name
+        schema_id:
+          type: string
+          format: uuid
+          title: Schema Id
+      required:
+      - name
+      - schema_id
+      title: SchemaListItem
+    Body_update_schema_v3_v3_workspaces__workspace_id__schemas__schema_id__put:
+      type: object
+      properties:
+        schema_content:
+          type: string
+          description: Updated JSON Schema content
+          example: '{"type": "object", "properties": {"field1": {"type": "string"}}}'
+          title: Schema Content
+        schema_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Updated schema name. Leave empty to keep unchanged.
+          example: ''
+          title: Schema Name
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Updated description. Leave empty to keep unchanged.
+          example: ''
+          title: Description
+      required:
+      - schema_content
+      title: Body_update_schema_v3_v3_workspaces__workspace_id__schemas__schema_id__put
+    SchemaListResponse:
+      type: object
+      properties:
+        schemas:
+          type: array
+          items:
+            $ref: '#/components/schemas/SchemaListItem'
+          title: Schemas
+      required:
+      - schemas
+      title: SchemaListResponse
+    Body_delete_schema_v3_v3_workspaces__workspace_id__schemas__schema_id__delete:
+      type: object
+      properties:
+        hard_delete:
+          type: boolean
+          default: false
+          description: 'Set to true for permanent deletion, false for soft delete. Default: false.'
+          example: false
+          title: Hard Delete
+      title: Body_delete_schema_v3_v3_workspaces__workspace_id__schemas__schema_id__delete
+    ValidationError:
+      type: object
+      properties:
+        loc:
+          type: array
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+  securitySchemes:
+    default:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://gateway.api.kuehne-nagel.com/authorize
+          scopes: {}
+x-wso2-api-key-header: ApiKey

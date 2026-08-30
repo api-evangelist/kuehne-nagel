@@ -1,0 +1,199 @@
+openapi: 3.2.0
+info:
+  title: RealTimeVisibility-Tracking Cargo Items API
+  description: The RealTimeVisibility-Tracking API offers functions to retrieve telemetry data for a shipment.
+  contact:
+    name: RGS Shipment Store Team
+    email: developers.rgs-shipment-store@kuehne-nagel.com
+  version: v1
+  x-api-guideline-version: 1.10.2
+  x-api-id: 7ce972f4-9960-46b6-be69-43270c136889
+  x-api-version: 1.0.0
+servers:
+- url: https://internal.api.kuehne-nagel.com/real-time-visibility/tracking/v1
+security:
+- default: []
+tags:
+- name: cargoItems
+  description: Assets (possible types are PACKAGE, CONTAINER and UNKNOWN) belonging to a shipment.
+paths:
+  /cargo-items:
+    get:
+      tags:
+      - cargoItems
+      summary: Retrieves assets of a shipment. If the asset's type is UNKNOWN, it may be any type except CONTAINER or PACKAGE.
+      description: Retrieves assets belonging to a shipment. If the asset's type is UNKNOWN, it may be any type except CONTAINER or PACKAGE.
+      operationId: getCargoItems
+      parameters:
+      - name: trackingNumber
+        in: query
+        description: Shipment identifier
+        required: true
+        style: form
+        explode: true
+        schema:
+          maxLength: 20
+          type: string
+          example: '9999999999'
+      - name: cursor
+        in: query
+        description: The cursor value after which data is retrieved (excluding the cursor itself). This value should be skipped when fetching first cursor.
+        required: false
+        style: form
+        explode: true
+        schema:
+          maxLength: 10000
+          type: string
+          example: MQ==
+      - name: pageSize
+        in: query
+        description: Page size value.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+          example: 10
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CargoItemPage'
+              example:
+                data:
+                - id: a6616562-5315-4867-9d70-ab76cde83d10
+                  type: CONTAINER
+                  key: CMAU1234567
+                - id: 2e5dc269-d84e-473c-9f9e-a39b2c823c3d
+                  type: PACKAGE
+                  key: ABCU1234567
+                - id: 2f7de517-8d85-47e9-993a-f8cce2507f78
+                  type: CONTAINER
+                  key: XYZU1234567
+                pageInfo:
+                  hasNextPage: true
+                  hasPreviousPage: false
+                  startCursor: Mg==
+                  endCursor: NA==
+        '400':
+          description: Invalid request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: Shipment not found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        default:
+          description: Error occurred - see message for more details
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+      security:
+      - default: []
+      x-auth-type: Application & Application User
+      x-throttling-tier: 10KPerMin
+components:
+  schemas:
+    CargoItem:
+      required:
+      - id
+      type: object
+      properties:
+        id:
+          maxLength: 100
+          type: string
+          example: a6616562-5315-4867-9d70-ab76cde83d10
+        type:
+          maxLength: 100
+          type: string
+          example: CONTAINER
+          x-extensible-enum:
+          - CONTAINER
+          - PACKAGE
+        key:
+          maxLength: 100
+          type: string
+          example: CMAU1234567
+      description: A single cargo asset (package or container)
+    Paging:
+      properties:
+        hasNextPage:
+          type: boolean
+        hasPreviousPage:
+          type: boolean
+        startCursor:
+          maxLength: 10000
+          type: string
+          example: Mg==
+        endCursor:
+          maxLength: 10000
+          type: string
+          example: NA==
+    CargoItemPage:
+      type: object
+      properties:
+        data:
+          maxItems: 1000
+          type: array
+          items:
+            $ref: '#/components/schemas/CargoItem'
+        pageInfo:
+          $ref: '#/components/schemas/Paging'
+    Problem:
+      required:
+      - detail
+      - title
+      type: object
+      properties:
+        type:
+          type: string
+          description: 'A URI reference that uniquely identifies the problem type only in the context of the provided API. Opposed to the specification in RFC-9457, it is neither recommended to be dereferencable and point to a human-readable documentation nor globally unique for the problem type.
+
+            '
+          format: uri-reference
+          example: /problem/container-unavailable
+          default: about:blank
+        title:
+          maxLength: 128
+          type: string
+          description: 'A short summary of the problem type. Written in English and readable for engineers, usually not suited for non technical stakeholders and not localized.
+
+            '
+          example: The requested container is not available.
+        status:
+          minimum: 100
+          type: integer
+          description: 'The HTTP status code generated by the origin server for this occurrence of the problem.
+
+            '
+          format: int32
+          example: 409
+          exclusiveMaximum: 600
+        detail:
+          maxLength: 256
+          type: string
+          description: 'A human readable explanation specific to this occurrence of the problem that is helpful to locate the problem and give advice on how to proceed. Written in English and readable for engineers, usually not suited for non technical stakeholders and not localized.
+
+            '
+          example: The requested container is already in use during the requested period.
+        instance:
+          type: string
+          description: 'A URI reference that identifies the specific occurrence of the problem, e.g. by adding a fragment identifier or sub-path to the problem type. May be used to locate the root of this problem in the source code.
+
+            '
+          format: uri-reference
+          example: /problem/container-unavailable#SKNU1234569
+  securitySchemes:
+    default:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://internal.api.kuehne-nagel.com/authorize
+          scopes: {}

@@ -1,0 +1,1167 @@
+openapi: 3.2.0
+info:
+  title: RealTimeVisibility-Tracking Telemetry API
+  description: The RealTimeVisibility-Tracking API offers functions to retrieve telemetry data for a shipment.
+  contact:
+    name: RGS Shipment Store Team
+    email: developers.rgs-shipment-store@kuehne-nagel.com
+  version: v1
+  x-api-guideline-version: 1.10.2
+  x-api-id: 7ce972f4-9960-46b6-be69-43270c136889
+  x-api-version: 1.0.0
+servers:
+- url: https://internal.api.kuehne-nagel.com/real-time-visibility/tracking/v1
+security:
+- default: []
+tags:
+- name: telemetry
+  description: Telemetry assigned to a cargo item (PACKAGE/CONTAINER/UNKNOWN).
+paths:
+  /cargo-items/{cargoItemId}/telemetries:
+    get:
+      tags:
+      - telemetry
+      summary: Retrieves telemetry assigned to an asset (PACKAGE/CONTAINER/UNKNOWN).
+      description: Retrieves telemetry for an asset.
+      operationId: getCargoItemTelemetry
+      parameters:
+      - name: cargoItemId
+        in: path
+        description: Asset identifier
+        required: true
+        style: simple
+        explode: false
+        schema:
+          maxLength: 50
+          type: string
+          example: 00000000-0000-0000-0000-000000000000
+      - name: types
+        in: query
+        description: Telemetry types, separated by commas
+        required: false
+        style: form
+        explode: true
+        schema:
+          maxLength: 1000
+          type: string
+        example: GEO,BATTERY,LIGHT
+      - name: cursor
+        in: query
+        description: The cursor value after which data is retrieved (excluding the cursor itself). This value should be skipped when fetching first cursor.
+        required: false
+        style: form
+        explode: true
+        schema:
+          maxLength: 10000
+          type: string
+      - name: pageSize
+        in: query
+        description: Page size value.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+          example: 10
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TelemetryPage'
+        '400':
+          description: Invalid request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: Shipment or cargoItem not found
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        default:
+          description: Error occurred - see message for more details
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+      security:
+      - default: []
+      x-auth-type: Application & Application User
+      x-throttling-tier: 10KPerMin
+components:
+  schemas:
+    GeoMode:
+      maxLength: 100
+      type: string
+      description: Geo-location method utilized.
+      example: GPS
+      x-extensible-enum:
+      - GSM
+      - GPS
+    MotionTelemetry:
+      required:
+      - sensorId
+      - timeDate
+      - transmitDate
+      - type
+      - value
+      type: object
+      properties:
+        transmitDate:
+          type: string
+          format: date-time
+          example: '2024-09-04T16:22:38Z'
+        timeDate:
+          type: string
+          format: date-time
+          example: '2024-09-04T14:24:38Z'
+        type:
+          maxLength: 100
+          type: string
+          example: MOTION
+          x-extensible-enum:
+          - MOTION
+        value:
+          type: boolean
+          description: Boolean value indicating whether a 'Motion Detected' event has occurred.
+          example: false
+        sensorId:
+          maxLength: 100
+          type: string
+          example: 6441f7f9-c814-4775-a1aa-3fc931f67469
+    BatteryPackTelemetry:
+      required:
+      - sensorId
+      - timeDate
+      - transmitDate
+      - type
+      - value
+      type: object
+      properties:
+        transmitDate:
+          type: string
+          format: date-time
+          example: '2024-09-04T16:22:38Z'
+        timeDate:
+          type: string
+          format: date-time
+          example: '2024-09-04T14:24:38Z'
+        type:
+          maxLength: 100
+          type: string
+          example: BATTERY_PACK
+          x-extensible-enum:
+          - BATTERY_PACK
+        value:
+          $ref: '#/components/schemas/BatteryPackDetails'
+        sensorId:
+          maxLength: 100
+          type: string
+          example: 6441f7f9-c814-4775-a1aa-3fc931f67469
+    BatteryDetails:
+      type: object
+      properties:
+        isCharging:
+          type: boolean
+          description: Logical value reflecting if battery is charging.
+          example: true
+        voltage:
+          maximum: 1000
+          minimum: 0
+          type: number
+          description: Battery voltage measured in volts.
+          format: float
+          example: 33.5
+        percentage:
+          maximum: 100
+          minimum: 0
+          type: number
+          description: Battery level expressed as a percentage.
+          format: float
+          example: 1.5
+    AssetOperationModeTelemetry:
+      required:
+      - sensorId
+      - timeDate
+      - transmitDate
+      - type
+      - value
+      type: object
+      properties:
+        transmitDate:
+          type: string
+          format: date-time
+          example: '2024-09-04T16:22:38Z'
+        timeDate:
+          type: string
+          format: date-time
+          example: '2024-09-04T14:24:38Z'
+        type:
+          maxLength: 100
+          type: string
+          example: ASSET_OPERATION_MODE
+          x-extensible-enum:
+          - ASSET_OPERATION_MODE
+        value:
+          $ref: '#/components/schemas/OperationModeType'
+        sensorId:
+          maxLength: 100
+          type: string
+          example: cba526e4-7d4e-43cf-8539-9dcdb03c04df
+    ReturnTemperatureTelemetry:
+      required:
+      - sensorId
+      - timeDate
+      - transmitDate
+      - type
+      - value
+      type: object
+      properties:
+        transmitDate:
+          type: string
+          format: date-time
+          example: '2024-09-04T16:22:38Z'
+        timeDate:
+          type: string
+          format: date-time
+          example: '2024-09-04T14:24:38Z'
+        type:
+          maxLength: 100
+          type: string
+          example: RETURN_TEMPERATURE
+          x-extensible-enum:
+          - RETURN_TEMPERATURE
+        value:
+          $ref: '#/components/schemas/ReturnTemperatureDetails'
+        sensorId:
+          maxLength: 100
+          type: string
+          example: 6441f7f9-c814-4775-a1aa-3fc931f67469
+    LightTelemetry:
+      required:
+      - sensorId
+      - timeDate
+      - transmitDate
+      - type
+      - value
+      type: object
+      properties:
+        transmitDate:
+          type: string
+          format: date-time
+          example: '2024-09-04T16:22:38Z'
+        timeDate:
+          type: string
+          format: date-time
+          example: '2024-09-04T14:24:38Z'
+        type:
+          maxLength: 100
+          type: string
+          example: LIGHT
+          x-extensible-enum:
+          - LIGHT
+        value:
+          maximum: 1000000
+          minimum: 0
+          type: number
+          description: Light illuminance value in lux.
+          format: float
+          example: 323.5
+        sensorId:
+          maxLength: 100
+          type: string
+          example: 6441f7f9-c814-4775-a1aa-3fc931f67469
+    HumidityTelemetry:
+      required:
+      - sensorId
+      - timeDate
+      - transmitDate
+      - type
+      - value
+      type: object
+      properties:
+        transmitDate:
+          type: string
+          format: date-time
+          example: '2024-09-04T16:22:38Z'
+        timeDate:
+          type: string
+          format: date-time
+          example: '2024-09-04T14:24:38Z'
+        type:
+          maxLength: 100
+          type: string
+          example: HUMIDITY
+          x-extensible-enum:
+          - HUMIDITY
+        value:
+          maximum: 100
+          minimum: 0
+          type: number
+          description: Humidity measured as a percentage.
+          format: float
+          example: 25.3
+        sensorId:
+          maxLength: 100
+          type: string
+          example: 6441f7f9-c814-4775-a1aa-3fc931f67469
+    Problem:
+      required:
+      - detail
+      - title
+      type: object
+      properties:
+        type:
+          type: string
+          description: 'A URI reference that uniquely identifies the problem type only in the context of the provided API. Opposed to the specification in RFC-9457, it is neither recommended to be dereferencable and point to a human-readable documentation nor globally unique for the problem type.
+
+            '
+          format: uri-reference
+          example: /problem/container-unavailable
+          default: about:blank
+        title:
+          maxLength: 128
+          type: string
+          description: 'A short summary of the problem type. Written in English and readable for engineers, usually not suited for non technical stakeholders and not localized.
+
+            '
+          example: The requested container is not available.
+        status:
+          minimum: 100
+          type: integer
+          description: 'The HTTP status code generated by the origin server for this occurrence of the problem.
+
+            '
+          format: int32
+          example: 409
+          exclusiveMaximum: 600
+        detail:
+          maxLength: 256
+          type: string
+          description: 'A human readable explanation specific to this occurrence of the problem that is helpful to locate the problem and give advice on how to proceed. Written in English and readable for engineers, usually not suited for non technical stakeholders and not localized.
+
+            '
+          example: The requested container is already in use during the requested period.
+        instance:
+          type: string
+          description: 'A URI reference that identifies the specific occurrence of the problem, e.g. by adding a fragment identifier or sub-path to the problem type. May be used to locate the root of this problem in the source code.
+
+            '
+          format: uri-reference
+          example: /problem/container-unavailable#SKNU1234569
+    ShockTelemetry:
+      required:
+      - sensorId
+      - timeDate
+      - transmitDate
+      - type
+      - value
+      type: object
+      properties:
+        transmitDate:
+          type: string
+          format: date-time
+          example: '2024-09-04T16:22:38Z'
+        timeDate:
+          type: string
+          format: date-time
+          example: '2024-09-04T14:24:38Z'
+        type:
+          maxLength: 100
+          type: string
+          example: SHOCK
+          x-extensible-enum:
+          - SHOCK
+        value:
+          $ref: '#/components/schemas/ShockDetails'
+        sensorId:
+          maxLength: 100
+          type: string
+          example: 6441f7f9-c814-4775-a1aa-3fc931f67469
+    TemperatureProbeTelemetry:
+      required:
+      - sensorId
+      - timeDate
+      - transmitDate
+      - type
+      - value
+      type: object
+      properties:
+        transmitDate:
+          type: string
+          format: date-time
+          example: '2024-09-04T16:22:38Z'
+        timeDate:
+          type: string
+          format: date-time
+          example: '2024-09-04T14:24:38Z'
+        type:
+          maxLength: 100
+          type: string
+          example: TEMPERATURE_PROBE
+          x-extensible-enum:
+          - TEMPERATURE_PROBE
+        value:
+          $ref: '#/components/schemas/TemperatureProbeDetails'
+        sensorId:
+          maxLength: 100
+          type: string
+          example: 6441f7f9-c814-4775-a1aa-3fc931f67469
+    CO2Details:
+      type: object
+      properties:
+        percentage:
+          maximum: 100
+          minimum: 0
+          type: number
+          description: CO2 concentration as a percentage.
+          format: float
+          example: 33.5
+        setpoint:
+          maximum: 100
+          minimum: 0
+          type: number
+          description: Asset (e.g. reefer) CO2 setpoint in percentage.
+          format: float
+          example: 33.5
+    O2Telemetry:
+      required:
+      - sensorId
+      - timeDate
+      - transmitDate
+      - type
+      - value
+      type: object
+      properties:
+        transmitDate:
+          type: string
+          format: date-time
+          example: '2024-09-04T16:22:38Z'
+        timeDate:
+          type: string
+          format: date-time
+          example: '2024-09-04T14:24:38Z'
+        type:
+          maxLength: 100
+          type: string
+          example: O2
+          x-extensible-enum:
+          - O2
+        value:
+          $ref: '#/components/schemas/O2Details'
+        sensorId:
+          maxLength: 100
+          type: string
+          example: 6441f7f9-c814-4775-a1aa-3fc931f67469
+    PressureTelemetry:
+      required:
+      - sensorId
+      - timeDate
+      - transmitDate
+      - type
+      - value
+      type: object
+      properties:
+        transmitDate:
+          type: string
+          format: date-time
+          example: '2024-09-04T16:22:38Z'
+        timeDate:
+          type: string
+          format: date-time
+          example: '2024-09-04T14:24:38Z'
+        type:
+          maxLength: 100
+          type: string
+          example: PRESSURE
+          x-extensible-enum:
+          - PRESSURE
+        value:
+          maximum: 10000
+          minimum: 0
+          type: number
+          description: Pressure value measured in hPa (hectopascals).
+          format: float
+          example: 434.56
+        sensorId:
+          maxLength: 100
+          type: string
+          example: 6441f7f9-c814-4775-a1aa-3fc931f67469
+    GeoTelemetry:
+      required:
+      - sensorId
+      - timeDate
+      - transmitDate
+      - type
+      - value
+      type: object
+      properties:
+        transmitDate:
+          type: string
+          format: date-time
+          example: '2024-09-04T16:22:38Z'
+        timeDate:
+          type: string
+          format: date-time
+          example: '2024-09-04T14:24:38Z'
+        type:
+          maxLength: 100
+          type: string
+          example: GEO
+          x-extensible-enum:
+          - GEO
+        value:
+          $ref: '#/components/schemas/GeoLocationDetails'
+        sensorId:
+          maxLength: 100
+          type: string
+          example: 6441f7f9-c814-4775-a1aa-3fc931f67469
+    TemperatureTelemetry:
+      required:
+      - sensorId
+      - timeDate
+      - transmitDate
+      - type
+      - value
+      type: object
+      properties:
+        transmitDate:
+          type: string
+          format: date-time
+          example: '2024-09-04T16:22:38Z'
+        timeDate:
+          type: string
+          format: date-time
+          example: '2024-09-04T14:24:38Z'
+        type:
+          maxLength: 100
+          type: string
+          example: TEMPERATURE
+          x-extensible-enum:
+          - TEMPERATURE
+        value:
+          maximum: 250
+          minimum: -100
+          type: number
+          description: Temperature measured in degrees Celsius.
+          format: float
+          example: 35.5
+        sensorId:
+          maxLength: 100
+          type: string
+          example: 6441f7f9-c814-4775-a1aa-3fc931f67469
+    TelemetryPage:
+      type: object
+      properties:
+        data:
+          maxItems: 1000
+          type: array
+          items:
+            $ref: '#/components/schemas/Telemetry'
+        paging:
+          $ref: '#/components/schemas/Paging'
+    HumiditySetpointTelemetry:
+      required:
+      - sensorId
+      - timeDate
+      - transmitDate
+      - type
+      - value
+      type: object
+      properties:
+        transmitDate:
+          type: string
+          format: date-time
+          example: '2024-09-04T16:22:38Z'
+        timeDate:
+          type: string
+          format: date-time
+          example: '2024-09-04T14:24:38Z'
+        type:
+          maxLength: 100
+          type: string
+          example: HUMIDITY_SETPOINT
+          x-extensible-enum:
+          - HUMIDITY_SETPOINT
+        value:
+          maximum: 100
+          minimum: 0
+          type: number
+          description: Asset (e.g. reefer) humidity setpoint in percentage.
+          format: float
+          example: 35.5
+        sensorId:
+          maxLength: 100
+          type: string
+          example: 6441f7f9-c814-4775-a1aa-3fc931f67469
+    Paging:
+      properties:
+        hasNextPage:
+          type: boolean
+        hasPreviousPage:
+          type: boolean
+        startCursor:
+          maxLength: 10000
+          type: string
+          example: Mg==
+        endCursor:
+          maxLength: 10000
+          type: string
+          example: NA==
+    AmbientAirTemperatureTelemetry:
+      required:
+      - sensorId
+      - timeDate
+      - transmitDate
+      - type
+      - value
+      type: object
+      properties:
+        transmitDate:
+          type: string
+          format: date-time
+          example: '2024-09-04T16:22:38Z'
+        timeDate:
+          type: string
+          format: date-time
+          example: '2024-09-04T14:24:38Z'
+        type:
+          maxLength: 100
+          type: string
+          example: AMBIENT_AIR_TEMPERATURE
+          x-extensible-enum:
+          - AMBIENT_AIR_TEMPERATURE
+        value:
+          maximum: 250
+          minimum: -250
+          type: number
+          description: Temperature in Celsius degrees of the air temperature outside the container.
+          format: float
+          example: 35.5
+        sensorId:
+          maxLength: 100
+          type: string
+          example: 6441f7f9-c814-4775-a1aa-3fc931f67469
+    PowerTelemetry:
+      required:
+      - sensorId
+      - timeDate
+      - transmitDate
+      - type
+      - value
+      type: object
+      properties:
+        transmitDate:
+          type: string
+          format: date-time
+          example: '2024-09-04T16:22:38Z'
+        timeDate:
+          type: string
+          format: date-time
+          example: '2024-09-04T14:24:38Z'
+        type:
+          maxLength: 100
+          type: string
+          example: POWER
+          x-extensible-enum:
+          - POWER
+        value:
+          $ref: '#/components/schemas/PowerState'
+        sensorId:
+          maxLength: 100
+          type: string
+          example: 6441f7f9-c814-4775-a1aa-3fc931f67469
+    TemperatureProbeDetails:
+      type: object
+      properties:
+        temperature1:
+          maximum: 250
+          minimum: -250
+          type: number
+          description: Temperature in Celsius degrees of the 1st temperature probe
+          format: float
+          example: 13.5
+        temperature2:
+          maximum: 250
+          minimum: -250
+          type: number
+          description: Temperature in Celsius degrees of the 1st temperature probe
+          format: float
+          example: 7
+        temperature3:
+          maximum: 250
+          minimum: -250
+          type: number
+          description: Temperature in Celsius degrees of the 1st temperature probe
+          format: float
+          example: -149
+        temperature4:
+          maximum: 250
+          minimum: -250
+          type: number
+          description: Temperature in Celsius degrees of the 1st temperature probe
+          format: float
+          example: 63
+    CargoTelemetry:
+      required:
+      - sensorId
+      - timeDate
+      - transmitDate
+      - type
+      - value
+      type: object
+      properties:
+        transmitDate:
+          type: string
+          format: date-time
+          example: '2024-09-04T16:22:38Z'
+        timeDate:
+          type: string
+          format: date-time
+          example: '2024-09-04T14:24:38Z'
+        type:
+          maxLength: 100
+          type: string
+          example: CARGO
+          x-extensible-enum:
+          - CARGO
+        value:
+          type: boolean
+          description: Logical value reflecting if asset contains cargo.
+          example: true
+        sensorId:
+          maxLength: 100
+          type: string
+          example: 6441f7f9-c814-4775-a1aa-3fc931f67469
+    AmbientHumidityTelemetry:
+      required:
+      - sensorId
+      - timeDate
+      - transmitDate
+      - type
+      - value
+      type: object
+      properties:
+        transmitDate:
+          type: string
+          format: date-time
+          example: '2024-09-04T16:22:38Z'
+        timeDate:
+          type: string
+          format: date-time
+          example: '2024-09-04T14:24:38Z'
+        type:
+          maxLength: 100
+          type: string
+          example: AMBIENT_HUMIDITY
+          x-extensible-enum:
+          - AMBIENT_HUMIDITY
+        value:
+          maximum: 100
+          minimum: 0
+          type: number
+          description: Humidity percentage of the air outside the container.
+          format: float
+          example: 25.3
+        sensorId:
+          maxLength: 100
+          type: string
+          example: 6441f7f9-c814-4775-a1aa-3fc931f67469
+    O2Details:
+      type: object
+      properties:
+        percentage:
+          maximum: 100
+          minimum: 0
+          type: number
+          description: O2 concentration as a percentage.
+          format: float
+          example: 33.5
+        setpoint:
+          maximum: 100
+          minimum: 0
+          type: number
+          description: Asset (e.g. reefer) O2 setpoint in percentage.
+          format: float
+          example: 33.5
+    SupplyTemperature2Telemetry:
+      required:
+      - sensorId
+      - timeDate
+      - transmitDate
+      - type
+      - value
+      type: object
+      properties:
+        transmitDate:
+          type: string
+          format: date-time
+          example: '2024-09-04T16:22:38Z'
+        timeDate:
+          type: string
+          format: date-time
+          example: '2024-09-04T14:24:38Z'
+        type:
+          maxLength: 100
+          type: string
+          example: SUPPLY_TEMPERATURE_2
+          x-extensible-enum:
+          - SUPPLY_TEMPERATURE_2
+        value:
+          maximum: 250
+          minimum: -250
+          type: number
+          description: Temperature in Celsius degrees of the 2nd supply temperature probe.
+          format: float
+          example: 35.5
+        sensorId:
+          maxLength: 100
+          type: string
+          example: 6441f7f9-c814-4775-a1aa-3fc931f67469
+    ShockDetails:
+      type: object
+      properties:
+        magnitude:
+          maximum: 30
+          minimum: 0
+          type: number
+          description: Magnitude of the highest shock measured in g's.
+          format: float
+          example: 24.9
+        xAxis:
+          maximum: 30
+          minimum: -30
+          type: number
+          description: The most extreme acceleration along the x-axis measured in g's.
+          format: float
+          example: 12.3
+        yAxis:
+          maximum: 30
+          minimum: -30
+          type: number
+          description: The most extreme acceleration along the y-axis measured in g's.
+          format: float
+          example: -12.4
+        zAxis:
+          maximum: 30
+          minimum: -30
+          type: number
+          description: The most extreme acceleration along the z-axis measured in g's.
+          format: float
+          example: -2.8
+    ReturnTemperatureDetails:
+      type: object
+      properties:
+        temperature1:
+          maximum: 250
+          minimum: -250
+          type: number
+          description: Temperature in Celsius degrees of the 1st return temperature probe.
+          format: float
+          example: 33.5
+        temperature2:
+          maximum: 250
+          minimum: -250
+          type: number
+          description: Temperature in Celsius degrees of the 2st return temperature probe.
+          format: float
+          example: 33.5
+    PowerState:
+      maxLength: 100
+      type: string
+      description: If asset is powered
+      example: 'ON'
+      x-extensible-enum:
+      - 'ON'
+      - 'OFF'
+    AssetTemperatureSetpointTelemetry:
+      required:
+      - sensorId
+      - timeDate
+      - transmitDate
+      - type
+      - value
+      type: object
+      properties:
+        transmitDate:
+          type: string
+          format: date-time
+          example: '2024-09-04T16:22:38Z'
+        timeDate:
+          type: string
+          format: date-time
+          example: '2024-09-04T14:24:38Z'
+        type:
+          maxLength: 100
+          type: string
+          example: ASSET_TEMPERATURE_SETPOINT
+          x-extensible-enum:
+          - ASSET_TEMPERATURE_SETPOINT
+        value:
+          maximum: 250
+          minimum: -100
+          type: number
+          description: Asset temperature setpoint in degrees Celsius.
+          format: float
+          example: 25.5
+        sensorId:
+          maxLength: 100
+          type: string
+          example: 6441f7f9-c814-4775-a1aa-3fc931f67469
+    Telemetry:
+      oneOf:
+      - $ref: '#/components/schemas/AssetOperationModeTelemetry'
+      - $ref: '#/components/schemas/AssetTemperatureSetpointTelemetry'
+      - $ref: '#/components/schemas/BatteryTelemetry'
+      - $ref: '#/components/schemas/DoorTelemetry'
+      - $ref: '#/components/schemas/GeoTelemetry'
+      - $ref: '#/components/schemas/HumidityTelemetry'
+      - $ref: '#/components/schemas/LightTelemetry'
+      - $ref: '#/components/schemas/MotionTelemetry'
+      - $ref: '#/components/schemas/PressureTelemetry'
+      - $ref: '#/components/schemas/ShockTelemetry'
+      - $ref: '#/components/schemas/TemperatureTelemetry'
+      - $ref: '#/components/schemas/VibrationTelemetry'
+      - $ref: '#/components/schemas/TiltTelemetry'
+      - $ref: '#/components/schemas/AmbientAirTemperatureTelemetry'
+      - $ref: '#/components/schemas/AmbientHumidityTelemetry'
+      - $ref: '#/components/schemas/CargoTelemetry'
+      - $ref: '#/components/schemas/CO2Telemetry'
+      - $ref: '#/components/schemas/HumiditySetpointTelemetry'
+      - $ref: '#/components/schemas/O2Telemetry'
+      - $ref: '#/components/schemas/PowerTelemetry'
+      - $ref: '#/components/schemas/ReturnTemperatureTelemetry'
+      - $ref: '#/components/schemas/SupplyTemperature2Telemetry'
+      - $ref: '#/components/schemas/BatteryPackTelemetry'
+      - $ref: '#/components/schemas/TemperatureProbeTelemetry'
+    BatteryTelemetry:
+      required:
+      - sensorId
+      - timeDate
+      - transmitDate
+      - type
+      - value
+      type: object
+      properties:
+        transmitDate:
+          type: string
+          format: date-time
+          example: '2024-09-04T16:22:38Z'
+        timeDate:
+          type: string
+          format: date-time
+          example: '2024-09-04T14:24:38Z'
+        type:
+          maxLength: 100
+          type: string
+          example: BATTERY
+          x-extensible-enum:
+          - BATTERY
+        value:
+          $ref: '#/components/schemas/BatteryDetails'
+        sensorId:
+          maxLength: 100
+          type: string
+          example: 6441f7f9-c814-4775-a1aa-3fc931f67469
+    OperationModeType:
+      maxLength: 100
+      type: string
+      description: Cooling Device mode.
+      example: START_STOP
+      x-extensible-enum:
+      - START_STOP
+      - CONTINUOUS
+      - UNKNOWN
+    GeoLocationDetails:
+      type: object
+      properties:
+        latitude:
+          maximum: 90
+          minimum: -90
+          type: number
+          description: Latitude in degrees.
+          format: float
+          example: 36.847103
+        longitude:
+          maximum: 180
+          minimum: -180
+          type: number
+          description: Longitude in degrees.
+          format: float
+          example: 141.78143
+        altitude:
+          maximum: 100000
+          minimum: -100000
+          type: number
+          description: Altitude in meters.
+          format: float
+          example: 0
+        heading:
+          maximum: 360
+          minimum: 0
+          type: number
+          description: Heading in degrees.
+          format: float
+          example: 31.3
+        velocity:
+          maximum: 10000
+          minimum: 0
+          type: number
+          description: Velocity in kilometers per hour.
+          format: float
+          example: 42.67
+        geoMode:
+          $ref: '#/components/schemas/GeoMode'
+    CO2Telemetry:
+      required:
+      - sensorId
+      - timeDate
+      - transmitDate
+      - type
+      - value
+      type: object
+      properties:
+        transmitDate:
+          type: string
+          format: date-time
+          example: '2024-09-04T16:22:38Z'
+        timeDate:
+          type: string
+          format: date-time
+          example: '2024-09-04T14:24:38Z'
+        type:
+          maxLength: 100
+          type: string
+          example: CO2
+          x-extensible-enum:
+          - CO2
+        value:
+          $ref: '#/components/schemas/CO2Details'
+        sensorId:
+          maxLength: 100
+          type: string
+          example: 6441f7f9-c814-4775-a1aa-3fc931f67469
+    DoorTelemetry:
+      required:
+      - sensorId
+      - timeDate
+      - transmitDate
+      - type
+      - value
+      type: object
+      properties:
+        transmitDate:
+          type: string
+          format: date-time
+          example: '2024-09-04T16:22:38Z'
+        timeDate:
+          type: string
+          format: date-time
+          example: '2024-09-04T14:24:38Z'
+        type:
+          maxLength: 100
+          type: string
+          example: DOOR
+          x-extensible-enum:
+          - DOOR
+        value:
+          type: boolean
+          description: Boolean value indicating whether a 'Door Open' event has occurred.
+          example: true
+        sensorId:
+          maxLength: 100
+          type: string
+          example: 6441f7f9-c814-4775-a1aa-3fc931f67469
+    VibrationTelemetry:
+      required:
+      - sensorId
+      - timeDate
+      - transmitDate
+      - type
+      - value
+      type: object
+      properties:
+        transmitDate:
+          type: string
+          format: date-time
+          example: '2024-09-04T16:22:38Z'
+        timeDate:
+          type: string
+          format: date-time
+          example: '2024-09-04T14:24:38Z'
+        type:
+          maxLength: 100
+          type: string
+          example: VIBRATION
+          x-extensible-enum:
+          - VIBRATION
+        value:
+          type: boolean
+          description: Boolean value indicating whether the 'Vibration Detected' event has occurred.
+          example: true
+        sensorId:
+          maxLength: 100
+          type: string
+          example: 6441f7f9-c814-4775-a1aa-3fc931f67469
+    TiltTelemetry:
+      required:
+      - sensorId
+      - timeDate
+      - transmitDate
+      - type
+      - value
+      type: object
+      properties:
+        transmitDate:
+          type: string
+          format: date-time
+          example: '2024-09-04T16:22:38Z'
+        timeDate:
+          type: string
+          format: date-time
+          example: '2024-09-04T14:24:38Z'
+        type:
+          maxLength: 100
+          type: string
+          example: TILT
+          x-extensible-enum:
+          - TILT
+        value:
+          maximum: 180
+          minimum: -180
+          type: number
+          description: Tilt angle measured in degrees.
+          format: float
+          example: -32.4
+        sensorId:
+          maxLength: 100
+          type: string
+          example: 6441f7f9-c814-4775-a1aa-3fc931f67469
+    BatteryPackDetails:
+      type: object
+      properties:
+        cell1Voltage:
+          maximum: 15
+          minimum: 0
+          type: number
+          description: upper battery pack (battery A)
+          format: float
+          example: 13.5
+        cell2Voltage:
+          maximum: 15
+          minimum: 0
+          type: number
+          description: lower battery pack (battery B)
+          format: float
+          example: 7
+  securitySchemes:
+    default:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://internal.api.kuehne-nagel.com/authorize
+          scopes: {}

@@ -1,0 +1,31 @@
+openapi: 3.2.0
+info:
+  title: B2B-CustomsEDI Document API
+  description: ''
+  version: v1
+servers:
+- url: https://gateway.api.kuehne-nagel.com/b2b/customs/edi/v1
+security:
+- api_key: []
+tags:
+- name: Document
+paths:
+  /document:
+    post:
+      parameters: []
+      responses:
+        '200':
+          description: ok
+      security:
+      - api_key: []
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+      tags:
+      - Document
+components:
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: apikey
+      in: header
+x-wso2-api-key-header: ApiKey

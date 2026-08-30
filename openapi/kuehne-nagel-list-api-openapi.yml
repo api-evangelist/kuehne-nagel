@@ -1,0 +1,279 @@
+openapi: 3.2.0
+info:
+  title: ShipmentDocumentManagement List API
+  description: 'Document management (list, download, add and delete) of shipment related documents.
+
+    '
+  contact:
+    name: API Support
+    email: support.api.ShipmentDocumentManagement@kuehne-nagel.com
+  version: v3
+  x-api-guideline-version: 1.11.7
+  x-api-id: c612c46e-8bc1-4a33-a5fd-cb438e84e605
+  x-api-version: 3.0.1
+servers:
+- url: https://gateway.api.kuehne-nagel.com/transport/execution/documentation/shipment/v3
+security:
+- default: []
+- api_key: []
+tags:
+- name: List
+  description: Operations to list shipment documents.
+paths:
+  /shipments/{uniqueShipmentReference}/documents:
+    get:
+      tags:
+      - List
+      description: List all documents for a specific shipment.
+      operationId: listDocuments
+      parameters:
+      - $ref: '#/components/parameters/uniqueShipmentReferenceParameter'
+      responses:
+        '200':
+          description: List of documents for the shipment.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListDocumentsResponse'
+        default:
+          $ref: '#/components/responses/default'
+      security:
+      - default: []
+      - api_key: []
+      x-auth-type: Application & Application User
+      x-throttling-tier: 10KPerMin
+  /shipments/{uniqueShipmentReference}/documents/{documentId}:
+    get:
+      tags:
+      - List
+      description: Retrieve meta data of a specific shipment document.
+      operationId: retrieveDocumentDetails
+      parameters:
+      - $ref: '#/components/parameters/uniqueShipmentReferenceParameter'
+      - $ref: '#/components/parameters/documentIdParameter'
+      responses:
+        '200':
+          description: Meta data of the document.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrieveDocumentDetailsResponse'
+        default:
+          $ref: '#/components/responses/default'
+      security:
+      - default: []
+      - api_key: []
+      x-auth-type: Application & Application User
+      x-throttling-tier: 10KPerMin
+components:
+  schemas:
+    CreationDate:
+      type: string
+      description: Timestamp when the document was created.
+      format: date-time
+      example: '2025-07-15T10:30:00Z'
+    DocumentTypeName:
+      maxLength: 255
+      type: string
+      description: Name of a document type according to the Kuehne+Nagel specific classification.
+      example: Commercial Invoice
+    DocumentTypeCode:
+      maxLength: 3
+      minLength: 3
+      type: string
+      description: 'Code of a document type according to the Kuehne+Nagel specific classification.
+
+
+        The document types allowed for uploading a document can be retrieved via the operation `/shipments/{uniqueShipmentReference}/uploadable-document-types`.
+
+
+        Often uploaded document types:
+
+        * 380 (Commercial Invoice)
+
+        * 271 (Packing List)
+
+        * 944 (Customs Documents)
+
+        * 833 (Export Declaration)
+
+        '
+      example: '380'
+    IsUploadedByCustomer:
+      type: boolean
+      description: Whether the document was uploaded by a customer.
+      example: true
+    ListDocumentsResponse:
+      required:
+      - items
+      type: object
+      properties:
+        documents:
+          maxItems: 512
+          type: array
+          description: List of document summaries for the shipment.
+          example:
+          - creationDate: '2025-07-15T10:30:00Z'
+            documentId: Q1234S56
+            documentType:
+              code: '380'
+              name: Commercial Invoice
+            isDeletable: true
+            isUploadedByCustomer: true
+            status: OK
+          items:
+            $ref: '#/components/schemas/DocumentSummary'
+      description: Response containing the list of documents associated with a shipment.
+    DocumentId:
+      maxLength: 255
+      minLength: 1
+      type: string
+      description: Unique identifier of a shipment document.
+      example: Q1234S56
+    DocumentType:
+      required:
+      - code
+      - name
+      type: object
+      properties:
+        code:
+          $ref: '#/components/schemas/DocumentTypeCode'
+        name:
+          $ref: '#/components/schemas/DocumentTypeName'
+      description: Kuehne+Nagel specific classification of shipment documents.
+      example:
+        code: '380'
+        name: Commercial Invoice
+    RetrieveDocumentDetailsResponse:
+      description: Response containing the detailed metadata of a specific shipment document.
+      allOf:
+      - $ref: '#/components/schemas/DocumentSummary'
+    Problem:
+      required:
+      - detail
+      - title
+      type: object
+      properties:
+        detail:
+          maxLength: 256
+          type: string
+          description: 'A human readable explanation specific to this occurrence of the problem that is helpful to locate the problem and give advice on how to proceed. Written in English and readable for engineers, usually not suited for non technical stakeholders and not localized.
+
+            '
+          example: Connection to database timed out
+        instance:
+          type: string
+          description: 'A URI reference that identifies the specific occurrence of the problem, e.g. by adding a fragment identifier or sub-path to the problem type. May be used to locate the root of this problem in the source code.
+
+            '
+          format: uri-reference
+          example: /problem/connection-error#token-info-read-timed-out
+        status:
+          minimum: 100
+          type: integer
+          description: 'The HTTP status code generated by the origin server for this occurrence of the problem.
+
+            '
+          format: int32
+          example: 503
+          exclusiveMaximum: 600
+        title:
+          maxLength: 128
+          type: string
+          description: 'A short summary of the problem type. Written in English and readable for engineers, usually not suited for non technical stakeholders and not localized.
+
+            '
+          example: Service Unavailable
+        type:
+          type: string
+          description: 'A URI reference that uniquely identifies the problem type only in the context of the provided API. Opposed to the specification in RFC-7807, it is neither recommended to be dereferencable and point to a human-readable documentation nor globally unique for the problem type.
+
+            '
+          format: uri-reference
+          example: /problem/connection-error
+          default: about:blank
+      description: A problem details object as defined by RFC 7807, used to carry error information in HTTP API responses.
+    DocumentStatus:
+      maxLength: 128
+      type: string
+      description: 'Extensible enum:
+
+        * `OK`
+
+        * `PROCESSING_UPLOAD`
+
+        * `PROCESSING_UPLOAD_FAILED`
+
+        '
+      example: OK
+      x-extensible-enum:
+      - OK
+      - PROCESSING_UPLOAD
+      - PROCESSING_UPLOAD_FAILED
+    IsDeletable:
+      type: boolean
+      description: Whether the document can be deleted by the caller.
+      example: true
+    DocumentSummary:
+      required:
+      - creationDate
+      - documentId
+      - documentType
+      - isDeletable
+      - isUploadedByCustomer
+      - status
+      type: object
+      properties:
+        creationDate:
+          $ref: '#/components/schemas/CreationDate'
+        documentId:
+          $ref: '#/components/schemas/DocumentId'
+        documentType:
+          $ref: '#/components/schemas/DocumentType'
+        isDeletable:
+          $ref: '#/components/schemas/IsDeletable'
+        isUploadedByCustomer:
+          $ref: '#/components/schemas/IsUploadedByCustomer'
+        status:
+          $ref: '#/components/schemas/DocumentStatus'
+      description: Summary of a shipment document including its metadata and current status.
+  parameters:
+    documentIdParameter:
+      name: documentId
+      in: path
+      description: Unique identifier of a document
+      required: true
+      style: simple
+      explode: false
+      schema:
+        $ref: '#/components/schemas/DocumentId'
+    uniqueShipmentReferenceParameter:
+      name: uniqueShipmentReference
+      in: path
+      description: "By default this is the shipment __tracking number__ e.g. `N4242`. \n\nIn case a tracking number is not available a limited set of alternative references can be used.\nPlease use the track and trace API to first search for shipment details (e.g. by a customer specific reference)\nif none of the supported references are available .\n    \nSupported references:\n* __tracking number__\n  * `{trackingNumber}` or `tracking-number:{trackingNumber}`\n  * e.g. `N4242` or `tracking-number:N4242`\n* __booking number__\n  * `booking-number:{bookingNumber}`\n  * e.g. `booking-number:B1`\n* __shipment id__\n  * `shipment-id:{shipmentId}` \n  * e.g. `shipment-id:S1`\n"
+      required: true
+      style: simple
+      explode: false
+      schema:
+        maxLength: 255
+        pattern: ^(tracking-number:|booking-number:|shipment-id:)?[A-Za-z0-9]+$
+        type: string
+        example: N4242
+  responses:
+    default:
+      description: An error occurred - please see the HTTP status code and the problem object for more information.
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Problem'
+  securitySchemes:
+    default:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://gateway.api.kuehne-nagel.com/authorize
+          scopes: {}
+    api_key:
+      type: apiKey
+      name: apikey
+      in: header

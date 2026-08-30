@@ -1,0 +1,953 @@
+openapi: 3.2.0
+info:
+  title: ExternalShipmentIntegration External Shipment API
+  description: Import shipment messages using this API
+  contact:
+    name: Team Pegasus
+    email: TLL-FYIT-PEGASUS-MAINTENANCE@kuehne-nagel.com
+  version: v1
+  x-api-id: f53cf05c-0abe-419f-9ff8-41fb95f3d0e1
+  x-api-version: 1.0.1
+  x-api-guideline-version: 1.10.1
+servers:
+- url: https://internal.api.kuehne-nagel.com/integration/external/shipment/v1
+security:
+- default: []
+- api_key: []
+tags:
+- name: ExternalShipment
+paths:
+  /customers/{customerCode}/shipments/{shipmentNumber}:
+    parameters:
+    - name: customerCode
+      in: path
+      description: The customer code
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+    - name: shipmentNumber
+      in: path
+      description: The shipment number
+      required: true
+      style: simple
+      explode: false
+      schema:
+        maxLength: 20
+        type: string
+    put:
+      tags:
+      - ExternalShipment
+      summary: Import shipment message
+      description: Import shipment message
+      operationId: importShipment
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShipmentRequest'
+        required: true
+      responses:
+        '202':
+          description: Shipment import message successfully queued.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShipmentResponse'
+        '400':
+          description: Bad Request - The request was invalid or cannot be processed.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+              examples:
+                missingRequestBody:
+                  $ref: '#/components/examples/MissingRequestBody'
+                missingOrInvalidParameter:
+                  $ref: '#/components/examples/MissingOrInvalidParameter'
+                businessRuleViolation:
+                  $ref: '#/components/examples/BusinessRuleViolation'
+        '415':
+          description: Unsupported Media Type - The request content type is not supported.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+              examples:
+                unsupportedContentType:
+                  $ref: '#/components/examples/UnsupportedContentType'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+              examples:
+                internalServerError:
+                  $ref: '#/components/examples/InternalServerError'
+        '503':
+          description: Service Unavailable.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+              examples:
+                serviceUnavailable:
+                  $ref: '#/components/examples/ServiceUnavailable'
+        default:
+          description: Error occurred - see status code and problem object for more information.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+      security:
+      - default: []
+      - api_key: []
+      x-throttling-tier: Unlimited
+      x-auth-type: Application & Application User
+    delete:
+      tags:
+      - ExternalShipment
+      summary: Import shipment delete message
+      description: Import shipment delete message
+      operationId: deleteShipment
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShipmentDeleteRequest'
+        required: true
+      responses:
+        '202':
+          description: Shipment delete message successfully queued.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShipmentResponse'
+        '400':
+          description: Bad Request - The request was invalid or cannot be processed.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+              examples:
+                missingRequestBody:
+                  $ref: '#/components/examples/MissingRequestBody'
+                businessRuleViolation:
+                  $ref: '#/components/examples/BusinessRuleViolation'
+        '415':
+          description: Unsupported Media Type - The request content type is not supported.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+              examples:
+                unsupportedContentType:
+                  $ref: '#/components/examples/UnsupportedContentType'
+        '500':
+          description: Internal server error
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+              examples:
+                internalServerError:
+                  $ref: '#/components/examples/InternalServerError'
+        '503':
+          description: Service Unavailable.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+              examples:
+                serviceUnavailable:
+                  $ref: '#/components/examples/ServiceUnavailable'
+        default:
+          description: Error occurred - see status code and problem object for more information.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+      security:
+      - default: []
+      - api_key: []
+      x-throttling-tier: Unlimited
+      x-auth-type: Application & Application User
+components:
+  examples:
+    MissingRequestBody:
+      summary: Missing request body
+      value:
+        code: ERR001
+        title: Missing request body
+        status: 400
+        detail: No body was sent in the request.
+        instance: /v1/shipments
+        timestamp: 1714648020821
+    MissingOrInvalidParameter:
+      summary: Missing required parameter
+      value:
+        code: ERR003
+        title: Required parameter(s) are invalid or missing
+        status: 400
+        detail: Required parameter is missing.
+        instance: /v1/shipments
+        timestamp: 1714648020821
+        details:
+        - title: Required field is missing
+          detail: 'Field: customerCode'
+        - title: 'Invalid value for TransportMode, allowed values: AIR, SEA, ROAD, CEP, RAIL, BARGE'
+          detail: 'Field: transportMode'
+    BusinessRuleViolation:
+      summary: Business rule violation
+      value:
+        code: ERR004
+        title: Unsupported value for field
+        status: 400
+        detail: Customer validation error(s). Check details for more info
+        instance: /v1/shipments
+        timestamp: 1714648020821
+        details:
+        - title: Unsupported value for field
+          detail: 'Customer code: CUST123 not found in ODS'
+    UnsupportedContentType:
+      summary: Unsupported content type
+      value:
+        code: ERR002
+        title: Unsupported content type
+        status: 415
+        detail: Content type must be 'application/json'.
+        instance: /v1/shipments
+        timestamp: 1714648020821
+    ServiceUnavailable:
+      summary: Service Unavailable
+      value:
+        code: ERR005
+        title: Service Unavailable
+        status: 503
+        detail: Service Unavailable, please try again later
+        instance: /v1/shipments
+        timestamp: 1714648020821
+    InternalServerError:
+      summary: Internal server error
+      value:
+        code: ERR006
+        title: Internal server error
+        status: 500
+        detail: 'An unexpected error occurred. Please contact support with reference: 0191fb2a-c8ad-7607-8a06-144400c6fce5'
+        instance: /v1/shipments
+        timestamp: 1714648020821
+  schemas:
+    Flag:
+      required:
+      - qualifier
+      - value
+      type: object
+      properties:
+        qualifier:
+          maxLength: 4
+          type: string
+          description: Flag qualifier
+        value:
+          type: boolean
+          description: Flag value
+      description: Object representing a flag
+    Note:
+      required:
+      - qualifier
+      - value
+      type: object
+      properties:
+        qualifier:
+          maxLength: 4
+          type: string
+          description: Note qualifier
+        value:
+          maxLength: 4000
+          type: string
+          description: Note value
+      description: Object representing a note
+    UomWeight:
+      allOf:
+      - $ref: '#/components/schemas/UomBase'
+      - type: object
+        properties:
+          uom:
+            type: string
+            x-extensible-enum:
+            - KG
+            - G
+            - OZ
+            - LB
+        description: Object representing a Unit of measurement for weights
+    ShipmentRequest:
+      required:
+      - additions
+      - locations
+      - requestTime
+      - stops
+      - transportMode
+      type: object
+      properties:
+        perspective:
+          maxLength: 1
+          type: string
+          description: 'Perspectives: (B) - Buy; S - Sell'
+          x-extensible-enum:
+          - B
+          - S
+        transportMode:
+          maxLength: 5
+          type: string
+          description: Transport mode
+          x-extensible-enum:
+          - AIR
+          - SEA
+          - ROAD
+          - CEP
+          - RAIL
+          - BARGE
+        transportService:
+          maxLength: 6
+          type: string
+          description: Transport service
+          x-extensible-enum:
+          - AIR
+          - FTL
+          - LTL
+          - RAIL
+          - FCL
+          - LCL
+          - PARCEL
+        plannedStartDate:
+          type: string
+          description: Planned start date in ISO-8601 format (RFC 3339)
+          format: date-time
+        plannedFinishDate:
+          type: string
+          description: Planned finish date in ISO-8601 format (RFC 3339)
+          format: date-time
+        grossWeight:
+          $ref: '#/components/schemas/UomWeight'
+        volume:
+          $ref: '#/components/schemas/UomVolume'
+        packageCount:
+          type: integer
+          description: Package count
+          format: int32
+        movementType:
+          maxLength: 3
+          type: string
+          description: Movement Type
+          x-extensible-enum:
+          - D2D
+          - P2D
+          - D2P
+          - P2P
+          - H2D
+          - D2H
+          - H2P
+          - P2H
+          - H2H
+        incoterm:
+          maxLength: 5
+          type: string
+          description: Incoterm
+        isTempControlled:
+          type: boolean
+          description: Is temperature controlled?
+        isDangerousGoods:
+          type: boolean
+          description: Is dangerous goods?
+        commercialValue:
+          required:
+          - amount
+          - currencyCode
+          type: object
+          properties:
+            amount:
+              type: number
+              description: Commercial value amount
+              format: double
+            currencyCode:
+              maxLength: 3
+              type: string
+              description: Commercial value currency code
+          description: Commercial value
+        locations:
+          minItems: 1
+          type: array
+          description: The list of locations
+          items:
+            $ref: '#/components/schemas/Location'
+        orders:
+          type: array
+          description: The list of orders
+          items:
+            $ref: '#/components/schemas/Order'
+        contacts:
+          type: array
+          description: The list of contacts
+          items:
+            $ref: '#/components/schemas/Contact'
+        additions:
+          type: array
+          description: The list of additions
+          items:
+            $ref: '#/components/schemas/Addition'
+        plannedCosts:
+          type: array
+          description: The list of planned costs
+          items:
+            $ref: '#/components/schemas/PlannedCost'
+        linkedPackages:
+          type: array
+          description: The list of linked packages
+          items:
+            $ref: '#/components/schemas/LinkedPackage'
+        linkedEquipments:
+          type: array
+          description: The list of linked equipments
+          items:
+            $ref: '#/components/schemas/LinkedEquipment'
+        stops:
+          type: array
+          description: The list of stops
+          items:
+            $ref: '#/components/schemas/Stop'
+        requestTime:
+          type: string
+          description: Request datetime string in ISO-8601 format with milliseconds - YYYY-MM-DDTHH:MM:SS.sssZ
+          format: date-time
+      description: Shipment message body
+    LinkedPackage:
+      required:
+      - count
+      - externalPackageNumber
+      - type
+      type: object
+      properties:
+        externalPackageNumber:
+          maxLength: 25
+          type: string
+          description: Linked package external package number
+        externalEquipmentNumber:
+          maxLength: 30
+          type: string
+          description: Linked package external equipment number
+        type:
+          maxLength: 70
+          type: string
+          description: Linked package type
+        count:
+          type: integer
+          description: Linked package number
+          format: int32
+        unitGrossWeight:
+          $ref: '#/components/schemas/UomWeight'
+        unitGrossVolume:
+          $ref: '#/components/schemas/UomVolume'
+        length:
+          $ref: '#/components/schemas/UomSize'
+        width:
+          $ref: '#/components/schemas/UomSize'
+        height:
+          $ref: '#/components/schemas/UomSize'
+        additions:
+          type: array
+          description: Linked package additions
+          items:
+            $ref: '#/components/schemas/Addition'
+      description: Object representing a linked package
+    ShipmentDeleteRequest:
+      required:
+      - requestTime
+      type: object
+      properties:
+        requestTime:
+          type: string
+          description: Request datetime string in ISO-8601 format with milliseconds - YYYY-MM-DDTHH:MM:SS.sssZ
+          format: date-time
+      description: Shipment message body
+    Problem:
+      required:
+      - code
+      - detail
+      - instance
+      - status
+      - timestamp
+      - title
+      type: object
+      properties:
+        code:
+          description: Error code identifying the issue.
+          example: ERR001
+          x-extensible-enum:
+          - ERR001
+          - ERR002
+          - ERR003
+          - ERR004
+          - ERR005
+          - ERR006
+        title:
+          maxLength: 128
+          type: string
+          description: 'A short summary of the problem type. Written in English and readable for engineers, usually not suited for non technical stakeholders and not localized.
+
+            '
+          example: The requested container is not available.
+        status:
+          minimum: 100
+          type: integer
+          description: 'The HTTP status code generated by the origin server for this occurrence of the problem.
+
+            '
+          format: int32
+          example: 409
+          exclusiveMaximum: 600
+        detail:
+          maxLength: 256
+          type: string
+          description: 'A human readable explanation specific to this occurrence of the problem that is helpful to locate the problem and give advice on how to proceed.
+
+            '
+          example: The requested container is already in use during the requested period.
+        instance:
+          type: string
+          description: A URI reference that identifies the specific occurrence of the problem.
+          format: uri-reference
+          example: /shipments
+        timestamp:
+          type: integer
+          description: 'The Unix Epoch time in milliseconds at which the event described  by the error occurred.
+
+            '
+          format: int64
+          example: 1714648020821
+        details:
+          maxItems: 1000
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/ProblemDetail'
+        requestIdentifier:
+          $ref: '#/components/schemas/RequestIdentifier'
+    UomBase:
+      required:
+      - uom
+      - value
+      type: object
+      properties:
+        value:
+          type: number
+          description: Unit of measurement value
+          format: double
+        uom:
+          maxLength: 3
+          type: string
+          description: Unit of measurement
+      description: Base object representing a unit of measurement
+    UomTemperature:
+      allOf:
+      - $ref: '#/components/schemas/UomBase'
+      - type: object
+        properties:
+          uom:
+            type: string
+            x-extensible-enum:
+            - CEL
+            - FAH
+        description: Object representing a Unit of measurement for temperatures
+    Location:
+      required:
+      - countryCode
+      - locationCode
+      - locationType
+      type: object
+      properties:
+        locationType:
+          type: string
+          description: Location type
+          x-extensible-enum:
+          - CA
+          - SF
+          - ST
+          - PLD
+          - PDC
+        locationCode:
+          maxLength: 101
+          type: string
+          description: Location code
+        timeZone:
+          maxLength: 101
+          type: string
+          description: Location timezone
+        name1:
+          maxLength: 360
+          type: string
+          description: Location name 1
+        name2:
+          maxLength: 1000
+          type: string
+          description: Location name 2
+        street1:
+          maxLength: 1000
+          type: string
+          description: Location street 1
+        street2:
+          maxLength: 1000
+          type: string
+          description: Location street 2
+        regionName:
+          maxLength: 240
+          type: string
+          description: Location region name
+        regionCode:
+          maxLength: 6
+          type: string
+          description: Location region code
+        city:
+          maxLength: 240
+          type: string
+          description: Location city
+        postalCode:
+          maxLength: 240
+          type: string
+          description: Location postal code
+        countryCode:
+          maxLength: 2
+          minLength: 2
+          type: string
+          description: Location country code
+      description: Object representing a location
+    Stop:
+      required:
+      - locationCode
+      - sequenceNumber
+      - type
+      type: object
+      properties:
+        sequenceNumber:
+          type: integer
+          description: Stop sequence number
+          format: int32
+        type:
+          type: string
+          description: 'Stop types: (P) - Pickup; (D) - Delivery'
+          x-extensible-enum:
+          - P
+          - D
+        locationCode:
+          maxLength: 101
+          type: string
+          description: Code of Location related to Stop
+        linkedPackages:
+          type: array
+          description: Stop linked packages list
+          items:
+            required:
+            - externalPackageNumber
+            type: object
+            properties:
+              externalPackageNumber:
+                maxLength: 25
+                type: string
+        linkedOrders:
+          type: array
+          description: Stop linked orders list
+          items:
+            required:
+            - externalOrderNumber
+            type: object
+            properties:
+              externalOrderNumber:
+                maxLength: 128
+                type: string
+        plannedArrival:
+          maxLength: 40
+          type: string
+          description: Stop linked planned arrival date in ISO-8601 format
+        plannedDeparture:
+          maxLength: 40
+          type: string
+          description: Stop linked planned departure date in ISO-8601 format
+      description: Object representing a stop
+    RequestIdentifier:
+      type: object
+      properties:
+        customerCode:
+          maxLength: 7
+          minLength: 7
+          type: string
+          description: Customer code
+        shipmentNumber:
+          maxLength: 128
+          minLength: 1
+          type: string
+          description: Shipment number
+        requestTime:
+          type: string
+          description: Request datetime string in ISO-8601 format with milliseconds - YYYY-MM-DDTHH:MM:SS.sssZ
+          format: date-time
+      description: Request Business Key
+    Contact:
+      required:
+      - code
+      - email
+      - type
+      type: object
+      properties:
+        type:
+          maxLength: 128
+          type: string
+          description: Contact type
+        code:
+          maxLength: 128
+          type: string
+          description: Contact code
+        firstName:
+          maxLength: 150
+          type: string
+          description: Contact first name
+        lastName:
+          maxLength: 150
+          type: string
+          description: Contact last name
+        email:
+          type: string
+          description: Contact email
+          format: email
+        phone:
+          maxLength: 35
+          type: string
+          description: Contact phone
+        fax:
+          maxLength: 35
+          type: string
+          description: Contact fax
+      description: Object representing a contact
+    LinkedEquipment:
+      required:
+      - externalEquipmentNumber
+      type: object
+      properties:
+        externalEquipmentNumber:
+          maxLength: 30
+          type: string
+          description: Linked equipment external number
+        type:
+          type: object
+          properties:
+            code:
+              maxLength: 50
+              type: string
+              description: Linked equipment type code
+            name:
+              maxLength: 120
+              type: string
+              description: Linked equipment type name
+            teuEquivalent:
+              type: integer
+              description: Linked equipment type number
+              format: int32
+            temperature:
+              type: object
+              properties:
+                name:
+                  maxLength: 120
+                  type: string
+                  description: Linked equipment type temperature name
+                min:
+                  $ref: '#/components/schemas/UomTemperature'
+                max:
+                  $ref: '#/components/schemas/UomTemperature'
+              description: Linked equipment temperature
+            length:
+              $ref: '#/components/schemas/UomSize'
+            width:
+              $ref: '#/components/schemas/UomSize'
+            height:
+              $ref: '#/components/schemas/UomSize'
+          description: Linked equipment type
+      description: Object representing a linked equipment
+    Addition:
+      required:
+      - references
+      type: object
+      properties:
+        monetaryValues:
+          type: array
+          items:
+            $ref: '#/components/schemas/MonetaryValue'
+        flags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Flag'
+        references:
+          type: array
+          items:
+            $ref: '#/components/schemas/Reference'
+        notes:
+          type: array
+          items:
+            $ref: '#/components/schemas/Note'
+      description: Object representing an addition
+    Order:
+      required:
+      - externalOrderNumber
+      type: object
+      properties:
+        externalOrderNumber:
+          maxLength: 128
+          type: string
+          description: Order external order number
+      description: Object representing an order
+    UomSize:
+      allOf:
+      - $ref: '#/components/schemas/UomBase'
+      - type: object
+        properties:
+          uom:
+            type: string
+            x-extensible-enum:
+            - M
+            - CM
+            - IN
+            - FT
+        description: Object representing a Unit of measurement for sizes
+    ProblemDetail:
+      required:
+      - detail
+      - title
+      type: object
+      properties:
+        title:
+          maxLength: 128
+          type: string
+          description: 'A short summary of the problem type. Written in English and readable for engineers, usually not suited for non technical stakeholders and not localized.
+
+            '
+          example: The requested container is not available.
+        detail:
+          maxLength: 256
+          type: string
+          description: 'A human readable explanation specific to this occurrence of the problem that is helpful to locate the problem and give advice on how to proceed.
+
+            '
+          example: The requested container is already in use during the requested period.
+    PlannedCost:
+      required:
+      - amount
+      - currencyCode
+      - type
+      type: object
+      properties:
+        type:
+          type: string
+          description: 'Planned cost types: (A) - Actual Cost; (O) - Operational Cost; (B) - Budget Cost'
+          x-extensible-enum:
+          - A
+          - O
+          - B
+        code:
+          maxLength: 128
+          type: string
+          description: Planned cost code
+        amount:
+          type: number
+          description: Planned cost amount
+          format: double
+        currencyCode:
+          maxLength: 3
+          type: string
+          description: Planned cost currency code
+      description: Object representing a planned cost
+    ShipmentResponse:
+      type: object
+      properties:
+        uuid:
+          maxLength: 36
+          minLength: 36
+          type: string
+          description: Message Unique Universal Identifier
+        customerCode:
+          maxLength: 7
+          minLength: 7
+          type: string
+          description: Customer code must exist in ODS
+        shipmentNumber:
+          maxLength: 128
+          type: string
+          description: Shipment number
+        requestTime:
+          type: string
+          description: Request datetime string in ISO-8601 format with milliseconds - YYYY-MM-DDTHH:MM:SS.sssZ
+          format: date-time
+      description: Shipment response body
+      example:
+        uuid: 4510c67f-818c-4d70-9867-5df6864a77a3
+        shipmentNumber: ML0374691
+        customerCode: CUSTEXP
+        requestTime: '2024-08-30T07:15:20.885Z'
+    MonetaryValue:
+      required:
+      - currencyCode
+      - qualifier
+      - value
+      type: object
+      properties:
+        qualifier:
+          maxLength: 4
+          type: string
+          description: Monetary value qualifier
+        currencyCode:
+          maxLength: 3
+          type: string
+          description: Monetary value currency code
+        value:
+          type: number
+          description: Monetary value
+          format: double
+      description: Object representing a monetary value
+    Reference:
+      required:
+      - qualifier
+      - values
+      type: object
+      properties:
+        qualifier:
+          maxLength: 4
+          type: string
+          description: Reference qualifier
+        values:
+          type: array
+          description: Reference values
+          items:
+            maxLength: 70
+            type: string
+      description: Object representing a reference
+    UomVolume:
+      allOf:
+      - $ref: '#/components/schemas/UomBase'
+      - type: object
+        properties:
+          uom:
+            type: string
+            x-extensible-enum:
+            - M3
+            - IN3
+            - CM3
+            - FT3
+        description: Object representing a Unit of measurement for volumes
+  securitySchemes:
+    default:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://internal.api.kuehne-nagel.com/authorize
+          scopes: {}
+    api_key:
+      type: apiKey
+      name: apikey
+      in: header

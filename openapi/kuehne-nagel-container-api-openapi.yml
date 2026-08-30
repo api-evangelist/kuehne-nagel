@@ -1,0 +1,974 @@
+openapi: 3.2.0
+info:
+  title: ContainerTracking Container API
+  description: 'Search for containers or retrieve detailed information for a specific container within a shipment.
+
+    This API provides container-specific tracking data including routing, freight information, cargo details, and references.
+
+    '
+  contact:
+    name: API Support
+    url: https://home.kuehne-nagel.com/en/service-request-api?lead_topic=api-portal-integration
+  version: v2
+  x-api-version: 2.1.0
+  x-api-id: ac3380eb-1569-49b3-b113-8f1c5e3cb207
+  x-api-guideline-version: 1.11.6
+servers:
+- url: https://internal.api.kuehne-nagel.com/track-trace/container/v2
+security:
+- default: []
+- api_key: []
+tags:
+- name: container
+paths:
+  /containers-search:
+    post:
+      tags:
+      - container
+      description: 'Search for containers matching the given criteria.
+
+        At least one of the search parameters (reference, trackingNumber, or containerNumber) must be provided.
+
+        '
+      operationId: searchContainers
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContainerSearchRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContainerSearchResponse'
+        '400':
+          description: Bad Request - No search parameters provided or all parameters are empty
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        default:
+          $ref: '#/components/responses/default'
+      security:
+      - default: []
+      - api_key: []
+      x-auth-type: Application & Application User
+      x-throttling-tier: 50KPerMin
+  /shipments/{uniqueShipmentReference}/containers/{containerSeqNo}:
+    get:
+      tags:
+      - container
+      description: Retrieve detailed information for a specific container within a shipment.
+      operationId: loadContainerForShipment
+      parameters:
+      - name: uniqueShipmentReference
+        in: path
+        description: "The unique shipment reference with required prefix.\n\nSupported reference:\n* __shipment id__\n  * `shipment-id:{shipmentId}` \n  * e.g. `shipment-id:19101910`\n"
+        required: true
+        style: simple
+        explode: false
+        schema:
+          pattern: ^shipment-id:[0-9]+$
+          type: string
+          example: shipment-id:19101910
+      - name: containerSeqNo
+        in: path
+        description: The container sequence number (starting with 1)
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int64
+          example: 1
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrackingContainerResponse'
+        default:
+          $ref: '#/components/responses/default'
+      security:
+      - default: []
+      - api_key: []
+      x-auth-type: Application & Application User
+      x-throttling-tier: 50KPerMin
+components:
+  schemas:
+    ShipmentId:
+      type: integer
+      description: The unique id of the shipment
+      format: int64
+      example: 19101910
+    ContainerSearchRequest:
+      required:
+      - filters
+      type: object
+      properties:
+        filters:
+          minProperties: 0
+          type: object
+          properties:
+            reference:
+              type: string
+              description: Customer reference to search for (exact match required)
+              example: PO-12345
+            trackingNumber:
+              type: string
+              description: Tracking number to search for (exact match required)
+              example: 1056143482TK
+            containerNumber:
+              type: string
+              description: Container number to search for (exact match required)
+              example: CMAU1234567
+          description: Filter criteria for container search
+      description: Request body for searching containers
+    LocationMilestoneType:
+      type: string
+      description: The type of activity at the location
+      example: CARGO_PICKED_UP
+      x-extensible-enum:
+      - CONTAINER_GATE_OUT_EMPTY
+      - CONTAINER_LOADED
+      - CONTAINER_UNLOADED
+      - CARGO_PICKED_UP
+      - CARGO_AVAILABLE
+      - VEHICLE_ARRIVED
+      - VEHICLE_DISCHARGED
+      - VEHICLE_LOADED
+      - VEHICLE_DEPARTED
+      - CARGO_DELIVERED
+      - CARGO_AT_CARRIER
+      - CARGO_CHECKED_IN
+      - CONTAINER_GATE_IN_EMPTY
+      - READY_FOR_PICKUP
+      - GATE_IN
+      - GATE_OUT
+      - FREIGHT_COLLECTION
+      - IN_DELIVERY
+    ExplainedDateTime:
+      type: object
+      properties:
+        dateTime:
+          type: string
+          description: The date and time
+          format: date-time
+          example: '2023-04-24T23:00:02Z'
+        condition:
+          type: string
+          x-extensible-enum:
+          - PLANNED
+          - ACTUAL
+        explanation:
+          $ref: '#/components/schemas/Explanation'
+    RouteLocationType:
+      type: string
+      description: The type of route location
+      example: ORIGIN
+      x-extensible-enum:
+      - ORIGIN_DEPOT
+      - ORIGIN
+      - ORIGIN_CFS
+      - ORIGIN_RAIL_RAMP
+      - ORIGIN_RAIL_TERMINAL_ARRIVAL
+      - ORIGIN_TERMINAL
+      - ORIGIN_STATION
+      - DEPARTURE
+      - TRANSIT
+      - CROSSDOCK_STATION
+      - GATEWAY_STATION
+      - ARRIVAL
+      - DESTINATION_TERMINAL
+      - DESTINATION_CFS
+      - DESTINATION_RAIL_TERMINAL_DEPARTURE
+      - DESTINATION_RAIL_RAMP
+      - DESTINATION
+      - DESTINATION_DEPOT
+      - DESTINATION_STATION
+    Vehicle:
+      type: object
+      properties:
+        voyageNumber:
+          type: string
+          description: The voyage number of the vehicle
+          example: UA305A
+        truckNumber:
+          type: string
+          description: The truck number of the vehicle
+          example: MOU370486781
+        vesselName:
+          type: string
+          description: The vessel name of the vehicle
+          example: MS Ship
+        lloydsRegisterCode:
+          type: string
+          description: The lloyds register code of the vehicle
+          example: '9247742'
+        carrierCode:
+          type: string
+          description: The carrier code of the vehicle
+          example: CMDU
+        flightNumber:
+          type: string
+          description: The flight number of the vehicle
+          example: LH 765
+        aircraftType:
+          type: string
+          description: The aircraft type of the vehicle
+          example: '332'
+      description: Information about the vehicle (vessel, flight or truck)
+    LocationMilestone:
+      type: object
+      properties:
+        description:
+          type: string
+          description: Description of the location milestone (not populated currently)
+          example: The vehicle has arrived
+        reached:
+          type: boolean
+          description: Flag if the location milestone was already reached
+          example: true
+        locationMilestoneType:
+          $ref: '#/components/schemas/LocationMilestoneType'
+        achievementDateTime:
+          $ref: '#/components/schemas/ExplainedDateTime'
+      description: Provides details of where the shipment is on its journey
+    TransportInformationMilestone:
+      required:
+      - type
+      type: object
+      properties:
+        type:
+          type: string
+          description: The type of the milestone (constant)
+          example: TRANSPORT_INFORMATION_MILESTONE
+          enum:
+          - TRANSPORT_INFORMATION_MILESTONE
+        key:
+          type: object
+          properties:
+            transportInformationMilestoneType:
+              type: string
+              example: BOOKING_CONFIRMATION
+              x-extensible-enum:
+              - BOOKING_SUBMISSION
+              - BOOKING_MODIFICATION
+              - BOOKING_ACKNOWLEDGEMENT
+              - BOOKING_CONFIRMATION
+              - CANCELLATION
+              - EXPORT_CUSTOMS_CLEARANCE_START
+              - EXPORT_CUSTOMS_CLEARANCE_COMPLETE
+              - IMPORT_CUSTOMS_CLEARANCE_START
+              - IMPORT_CUSTOMS_ENTRY_TRANSMISSION
+              - IMPORT_CUSTOMS_CLEARANCE_COMPLETE
+              - IMPORT_CUSTOMS_DELIVERY_AGENT_NOTIFICATION
+              - IMPORT_CUSTOMS_BILLING_INVOICE_AVAILABLE
+              - IMPORT_CUSTOMS_DUTIES_PAYMENT
+              - CUSTOMS_CLEARANCE_START
+              - CUSTOMS_CLEARANCE_COMPLETE
+              - CUSTOMS_ENTRY_TRANSMISSION
+              - CUSTOMS_DELIVERY_AGENT_NOTIFICATION
+              - CUSTOMS_BILLING_INVOICE_AVAILABLE
+              - CUSTOMS_DUTIES_PAYMENT
+              - CARGO_COMMODITY_UPDATE
+              - MAWB_AVAILABLE
+              - HAWB_AVAILABLE
+              - CARRIER_BOOKING_SUBMISSION
+              - CARRIER_BOOKING_CONFIRMATION
+              - CARRIER_BOOKING_REJECTION
+              - BAL_BL_AVAILABLE
+              - POD_AVAILABLE
+              - SERVICE_COMPLETE
+              - SHIPPING_INSTRUCTIONS_RECEIPT
+              - ORIGINAL_TRANSPORT_DOCUMENT_RECEIPT
+              - ADVICE_TO_BROKER_OR_CUSTOMER
+              - VGM_DATA_VERIFICATION
+              - VGM_MESSAGE_TO_PROVIDER
+              - VGM_CLOSURE
+              - IMPORTER_SECURITY_FILING_BILL_OF_LADING_MATCH
+              - IMPORTER_SECURITY_FILING_CONFIRMATION
+              - EXPORT_SECURITY_FILING_CONFIRMATION
+              - CUSTOMS_MANIFEST_FILING_SUBMISSION
+              - CUSTOMS_MANIFEST_FILING_CONFIRMATION
+              - STORAGE_EXPORT
+              - STORAGE_IMPORT
+              - FREIGHT_DOCUMENTS_HANDOVER
+              - WAITING_FOR_SHIPPING_APPROVAL
+              - SHIPMENT_RELEASE_BY_CUSTOMER
+              - MISSING_OR_INCOMPLETE_DOCUMENT
+              - DOCUMENT_UPLOAD_BY_CUSTOMER
+              - EXPEDITED_RAIL_SERVICE
+              - DELIVERY_APPOINTMENT_SUBMISSION
+              - LEGISLATION_COMPLIANCE_OK
+              - LEGISLATION_COMPLIANCE_REJECTED
+        children:
+          type: array
+          description: Customs information milestones may have additional sub-milestones.
+          items:
+            $ref: '#/components/schemas/TransportInformationMilestoneChild'
+        plannedAchievementDateTime:
+          $ref: '#/components/schemas/ExplainedDateTime'
+        actualAchievementDateTime:
+          $ref: '#/components/schemas/ExplainedDateTime'
+    ContainerSearchResponse:
+      type: object
+      properties:
+        containers:
+          type: array
+          description: The containers that match the search criteria
+          items:
+            $ref: '#/components/schemas/Container'
+    RouteLocation:
+      type: object
+      properties:
+        reached:
+          type: boolean
+          description: Flag if the location has been reached (i.e. the first location milestone has been reached)
+          example: true
+        completed:
+          type: boolean
+          description: Flag if the location has been completed (i.e. all location milestones have been reached)
+          example: false
+        type:
+          $ref: '#/components/schemas/RouteLocationType'
+        location:
+          $ref: '#/components/schemas/Location'
+        locationMilestones:
+          type: array
+          description: The location milestones that belong to this location
+          items:
+            $ref: '#/components/schemas/LocationMilestone'
+        outgoingVehicle:
+          $ref: '#/components/schemas/Vehicle'
+      description: The description of a location on the route
+    NumberOfPackages:
+      type: integer
+      description: The total number of packages
+      format: int32
+      example: 4
+    TransportInformationMilestoneChild:
+      type: object
+      properties:
+        key:
+          type: string
+          example: FDA_HOLD
+          x-extensible-enum:
+          - CUSTOMS_DOCUMENTATION_FIRST_RECEIVED
+          - UNABLE_TO_FILE_CUSTOMS_ENTRY_MISSING_DETAILS_OR_DOCUMENTATION
+          - CUSTOMS_ENTRY_DETAILS_AND_DOCUMENTATION_COMPLETE
+          - CUSTOMS_ARRIVAL_INFORMATION_CONFIRMED
+          - ENTRY_PENDING_INTENSIVE_EXAM
+          - ENTRY_DOCUMENTS_REQUIRED
+          - MANIFEST_HOLD_CUSTOMS
+          - MANIFEST_HOLD_AGRICULTURE
+          - AGRICULTURE_MANIFEST_HOLD_REMOVED
+          - CUSTOMS_MANIFEST_HOLD_REMOVED
+          - CUSTOMS_CARGO_RELEASE_CERTIFIED
+          - FDA_HOLD
+          - FDA_EXAM_SAMPLE
+          - FDA_REVIEW
+          - FDA_REJECTED
+          - FDA_DO_NOT_DEVAN
+          - FDA_MOVE_TO_SECURE_HOLDING_FACILITY
+          - FDA_DOCUMENTS_REQUIRED
+          - ENTRY_SUMMARY_ACCEPTED
+          - PGA_REVIEW
+          - PGA_HOLD_INTACT
+          - PGA_REJECTED
+          - PGA_DO_NOT_DEVAN
+          - PGA_MOVE_TO_SECURE_HOLDING_FACILITY
+          - PGA_DOCUMENTS_REQUIRED
+          - PGA_EXAM_SAMPLE
+          - CUSTOMS_ENTRY_DOCUMENTATION_ARCHIVED
+          - CUSTOMS_RELEASE_FROM_EXAM
+          - FDA_MAY_PROCEED
+          - ONE_USG_FULL_GOVERNMENT_AGENCY_RELEASE
+          - PGA_MAY_PROCEED
+          - CUSTOMS_BILLING_INVOICE_SENT
+          - AWAITING_T1_DISCHARGE
+          - T1_DISCHARGE
+          - OPEN_SUBSEQUENT_T1
+          - AWAITING_CONSIGNEES_FEEDBACK
+          - NO_FEEDBACK_FROM_CONSIGNEE
+          - AWAITING_CONSIGNEES_PAYMENT
+          - CLARIFICATION_BY_CUSTOMS_AUTHORITIES
+          - WAITING_FOR_SHIPPING_APPROVAL
+          - SHIPMENT_RELEASE_BY_CUSTOMER
+          - MISSING_OR_INCOMPLETE_DOCUMENT
+          - DOCUMENT_UPLOAD_BY_CUSTOMER
+        achievementDateTime:
+          $ref: '#/components/schemas/ExplainedDateTime'
+    Explanation:
+      type: object
+      properties:
+        source:
+          type: string
+          x-extensible-enum:
+          - ETD
+          - ETA
+          - STATUS
+          - TRODO
+          - TROAP
+          - TADDO
+          - TADAP
+        statusCode:
+          type: string
+          description: The KN status code
+          example: '2400'
+    Problem:
+      required:
+      - detail
+      - title
+      type: object
+      properties:
+        type:
+          type: string
+          description: 'A URI reference that uniquely identifies the problem type only in the context of the provided API. Opposed to the specification in RFC-7807, it is neither recommended to be dereferenceable and point to a human-readable documentation nor globally unique for the problem type.
+
+            '
+          format: uri-reference
+          example: /problem/connection-error
+          default: about:blank
+        title:
+          type: string
+          description: 'A short summary of the problem type. Written in English and readable for engineers, usually not suited for non technical stakeholders and not localized.
+
+            '
+          example: Service Unavailable
+        status:
+          maximum: 600
+          minimum: 100
+          type: integer
+          description: 'The HTTP status code generated by the origin server for this occurrence of the problem.
+
+            '
+          format: int32
+          example: 503
+        detail:
+          type: string
+          description: 'A human readable explanation specific to this occurrence of the problem that is helpful to locate the problem and give advice on how to proceed. Written in English and readable for engineers, usually not suited for non technical stakeholders and not localized.
+
+            '
+          example: Connection to database timed out
+        instance:
+          type: string
+          description: 'A URI reference that identifies the specific occurrence of the problem, e.g. by adding a fragment identifier or sub-path to the problem type. May be used to locate the root of this problem in the source code.
+
+            '
+          format: uri-reference
+          example: /problem/connection-error#token-info-read-timed-out
+    PartyAddress:
+      type: object
+      properties:
+        name:
+          maxItems: 5
+          type: array
+          description: The name lines of the address
+          example:
+          - Company abc
+          - Division A
+          items:
+            type: string
+        street:
+          maxItems: 5
+          type: array
+          description: The street lines of the address
+          example:
+          - Mainstreet 10
+          - Building ABC
+          items:
+            type: string
+        city:
+          maxItems: 5
+          type: array
+          description: The city lines of the address
+          example:
+          - New Town
+          - District Old Town
+          items:
+            type: string
+        zipCode:
+          type: string
+          description: The zip code
+          example: '21640'
+        state:
+          $ref: '#/components/schemas/PartyAddressState'
+        countryCode:
+          type: string
+          description: The country code, e.g. DE for Germany
+          format: iso-3166-alpha-2
+          example: DK
+        countryName:
+          type: string
+          description: The country name
+          example: Denmark
+        postOfficeBox:
+          type: string
+          description: The post office box
+          example: '342353'
+        printAddress:
+          maxItems: 5
+          type: array
+          description: The print address lines
+          example:
+          - Company abc
+          - Mainstreet 10
+          - 21640 New Town
+          - Denmark
+          items:
+            type: string
+      description: Address information for a party
+    PartyAddressState:
+      type: object
+      properties:
+        code:
+          type: string
+          description: The state code
+          format: iso-3166-2
+          example: HH
+        name:
+          type: string
+          description: The state name
+          example: Hamburg
+      description: State information for a party address
+    Measurement:
+      type: object
+      properties:
+        value:
+          type: number
+          description: Measurement value.
+          format: double
+          example: 12.48
+        unit:
+          type: string
+          description: Measurement unit.
+          example: KG
+    PartyReference:
+      type: object
+      properties:
+        references:
+          type: array
+          description: The reference values provided by / linked to particular types of parties
+          items:
+            $ref: '#/components/schemas/Reference'
+    RouteLocationMilestone:
+      required:
+      - type
+      type: object
+      properties:
+        type:
+          type: string
+          description: The type of the milestone (constant)
+          example: ROUTE_LOCATION_MILESTONE
+          enum:
+          - ROUTE_LOCATION_MILESTONE
+        key:
+          type: object
+          properties:
+            routeLocationType:
+              $ref: '#/components/schemas/RouteLocationType'
+            locationMilestoneType:
+              $ref: '#/components/schemas/LocationMilestoneType'
+        city:
+          type: string
+          description: The city of the RouteLocation this milestone belongs to.
+          example: Rostock
+        stateCode:
+          type: string
+          description: The state code of the RouteLocation this milestone belongs to.
+          example: MV
+        countryCode:
+          type: string
+          description: The country code of the RouteLocation this milestone belongs to.
+          format: iso-3166-alpha-2
+          example: DE
+        plannedAchievementDateTime:
+          $ref: '#/components/schemas/ExplainedDateTime'
+        actualAchievementDateTime:
+          $ref: '#/components/schemas/ExplainedDateTime'
+    CurrentStage:
+      type: string
+      description: 'The current stage of the shipment.
+
+        '
+      example: BOOKED
+      x-extensible-enum:
+      - BOOKED
+      - IN_TRANSIT
+      - COMPLETED
+      - CANCELLED
+    Party:
+      type: object
+      properties:
+        partyType:
+          type: string
+          description: The type of the party
+          example: CU
+          x-extensible-enum:
+          - AC
+          - AS
+          - BA
+          - CA
+          - CN
+          - CU
+          - CO
+          - CS
+          - DP
+          - EG
+          - FF
+          - FW
+          - H1
+          - H2
+          - H3
+          - H4
+          - H5
+          - H6
+          - H7
+          - H8
+          - H9
+          - HC
+          - IG
+          - N1
+          - N2
+          - NI
+          - OD
+          - PU
+          - SH
+          - SF
+          - ST
+          - TP
+          - Z5
+        address:
+          $ref: '#/components/schemas/PartyAddress'
+      description: Party (address) information
+    RoutingCore:
+      type: object
+      properties:
+        routeLocations:
+          type: array
+          description: The locations of the routing with subordinate route location milestones
+          items:
+            $ref: '#/components/schemas/RouteLocation'
+        fromLocation:
+          $ref: '#/components/schemas/Location'
+        toLocation:
+          $ref: '#/components/schemas/Location'
+      description: The core routing information.
+    Location:
+      type: object
+      properties:
+        locationCode:
+          type: string
+          description: The code of location (UN,IATA,KN or SP code)
+          example: CWS
+        unLocationCode:
+          type: string
+          description: The UN (United Nations) code of location if exists
+          example: CWS
+        countryCode:
+          type: string
+          description: The country code, e.g. DE for Germany
+          format: iso-3166-alpha-2
+          example: DK
+        countryName:
+          type: string
+          description: The country name
+          example: Denmark
+        internationalName:
+          type: string
+          description: The international name
+          example: Hamburg
+        freeTextLocation:
+          type: string
+          description: The name of the location as a freetext input
+          example: Hamburg
+        stateCode:
+          type: string
+          description: The state code
+          example: GA
+        zipCode:
+          type: string
+          description: The zip code
+          example: 30014-4958
+    TrackingNumber:
+      type: string
+      description: The tracking number of the shipment
+      example: 1056143482TK
+    Parties:
+      type: object
+      properties:
+        shipper:
+          $ref: '#/components/schemas/Party'
+        consignee:
+          $ref: '#/components/schemas/Party'
+        mainParties:
+          maxItems: 20
+          type: array
+          description: 'The external customer parties of the shipment. Note: Shipper and consignee are excluded, because they have their dedicated fields.
+
+            '
+          items:
+            $ref: '#/components/schemas/Party'
+        internalParties:
+          maxItems: 20
+          type: array
+          description: The internal (KN) parties of the shipment (e.g. sending and receiving office)
+          items:
+            $ref: '#/components/schemas/Party'
+        thirdParties:
+          maxItems: 20
+          type: array
+          description: The third-party parties of the shipment (e.g. pickup, delivery)
+          items:
+            $ref: '#/components/schemas/Party'
+      description: The parties associated with the shipment
+    Routing:
+      type: object
+      properties:
+        core:
+          $ref: '#/components/schemas/RoutingCore'
+        milestoneInfo:
+          $ref: '#/components/schemas/MilestoneInfo'
+      description: The routing of the shipment
+    TrackingContainerResponse:
+      type: object
+      properties:
+        containerNumber:
+          type: string
+          description: The number of the container
+          example: FCSP1910
+        containerSequenceNumber:
+          type: integer
+          description: The current sequence number of the container, starting with 1
+          format: int64
+          example: 1
+        containerType:
+          type: string
+          description: The type of the container
+          example: 20GE
+        containerCreationDateTime:
+          type: string
+          description: The creation date of the container in the KN system
+          format: date-time
+          example: '2024-11-14T09:28:11Z'
+        shipmentInfo:
+          type: object
+          properties:
+            shipmentId:
+              type: integer
+              description: The unique shipment ID
+              format: int64
+              example: 123456789
+            trackingNumber:
+              $ref: '#/components/schemas/TrackingNumber'
+            serviceType:
+              type: string
+              description: The service type of the parent shipment
+              example: FCL
+            incoterm:
+              $ref: '#/components/schemas/Incoterm'
+            movementType:
+              type: string
+              description: The movement type of the sea shipment (e.g. FCL port-to-port)
+              example: FCL
+          description: Shipment information from the parent shipment
+        routing:
+          $ref: '#/components/schemas/Routing'
+        parties:
+          $ref: '#/components/schemas/Parties'
+        freightInfo:
+          type: object
+          properties:
+            volume:
+              $ref: '#/components/schemas/Measurement'
+            weight:
+              $ref: '#/components/schemas/Measurement'
+            hasDangerousGoods:
+              type: boolean
+              description: Flag if the container contains dangerous goods
+              example: false
+            cargoInfo:
+              type: object
+              properties:
+                numberOfPackages:
+                  $ref: '#/components/schemas/NumberOfPackages'
+                descriptionOfGoods:
+                  type: array
+                  description: The description of goods of the container
+                  example:
+                  - Goods
+                  - More goods
+                  items:
+                    type: string
+                marksAndNumbers:
+                  type: array
+                  description: Container specific marks and numbers
+                  example:
+                  - mark
+                  - number
+                  items:
+                    type: string
+              description: Cargo information specific to this container
+          description: Freight information specific to this container
+        containerReferences:
+          type: object
+          properties:
+            sealNumbers:
+              type: array
+              description: Seal numbers of the container
+              example:
+              - '343466'
+              - FCSP43434H
+              items:
+                type: string
+            partyReferences:
+              type: array
+              description: Container-related reference numbers and codes
+              items:
+                $ref: '#/components/schemas/PartyReference'
+          description: Container-specific references and seal numbers
+        links:
+          type: object
+          properties:
+            shipment:
+              type: string
+              description: Link to the parent shipment details
+              example: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2/shipments/shipment-id:123
+            lclShipments:
+              type: array
+              description: Links to the LCL shipments associated with this container
+              example:
+              - https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2/shipments/tracking-number%3a123TR456
+              items:
+                type: string
+          description: Links to related resources
+      description: Detailed tracking information for a specific container within a shipment
+    Container:
+      type: object
+      properties:
+        shipmentId:
+          $ref: '#/components/schemas/ShipmentId'
+        trackingNumber:
+          $ref: '#/components/schemas/TrackingNumber'
+        containerSequenceNumber:
+          type: integer
+          description: The sequence number of the container within the shipment
+          format: int64
+          example: 1
+        containerNumber:
+          type: string
+          description: The number of the container
+          example: CMAU1234567
+        serviceType:
+          type: string
+          description: The service type of the shipment
+          example: FCL
+        currentStage:
+          $ref: '#/components/schemas/CurrentStage'
+        containerCreationDateTime:
+          type: string
+          description: The creation date of the container in the KN system
+          format: date-time
+          example: '2024-11-14T09:28:11Z'
+        self:
+          type: string
+          description: Link to the container details endpoint
+          example: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2/shipments/shipment-id:19101910/containers/1
+      description: Summary information for a container in search results
+    MilestoneInfo:
+      type: object
+      properties:
+        currentStage:
+          $ref: '#/components/schemas/CurrentStage'
+        currentMilestone:
+          description: The current (latest achieved) milestone of the shipment.
+          discriminator:
+            propertyName: type
+            mapping:
+              TRANSPORT_INFORMATION_MILESTONE: '#/components/schemas/TransportInformationMilestone'
+              ROUTE_LOCATION_MILESTONE: '#/components/schemas/RouteLocationMilestone'
+          oneOf:
+          - $ref: '#/components/schemas/TransportInformationMilestone'
+          - $ref: '#/components/schemas/RouteLocationMilestone'
+        completionMilestone:
+          description: The milestone which is responsible for setting shipments stage to completed.
+          discriminator:
+            propertyName: type
+            mapping:
+              TRANSPORT_INFORMATION_MILESTONE: '#/components/schemas/TransportInformationMilestone'
+              ROUTE_LOCATION_MILESTONE: '#/components/schemas/RouteLocationMilestone'
+          oneOf:
+          - $ref: '#/components/schemas/TransportInformationMilestone'
+          - $ref: '#/components/schemas/RouteLocationMilestone'
+        milestoneDates:
+          type: array
+          description: List of all milestones of the shipment which have at least a planned or actual achievement datetime.
+          items:
+            discriminator:
+              propertyName: type
+              mapping:
+                TRANSPORT_INFORMATION_MILESTONE: '#/components/schemas/TransportInformationMilestone'
+                ROUTE_LOCATION_MILESTONE: '#/components/schemas/RouteLocationMilestone'
+            oneOf:
+            - $ref: '#/components/schemas/TransportInformationMilestone'
+            - $ref: '#/components/schemas/RouteLocationMilestone'
+      description: Information about the milestones of the shipment
+    Incoterm:
+      type: object
+      properties:
+        code:
+          type: string
+          description: The code of the incoterm
+          example: CFR
+        location:
+          type: string
+          description: Incoterm location
+          example: Amsterdam
+      description: Provides details on shipment delivery terms.
+    Reference:
+      type: object
+      properties:
+        partyType:
+          type: string
+          description: The partyType that belongs to this reference
+          example: CU
+        referenceType:
+          type: string
+          description: The type of the reference
+          example: 'ON'
+        referenceName:
+          type: string
+          description: The human-readable name of the reference type
+          example: Purchase Order Number
+        referenceValues:
+          type: array
+          description: The values of the reference
+          example:
+          - value
+          - value2
+          - value3
+          items:
+            type: string
+  responses:
+    default:
+      description: An error occurred - please see the HTTP status code and the problem object for more information.
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Problem'
+  securitySchemes:
+    default:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://internal.api.kuehne-nagel.com/authorize
+          scopes: {}
+    api_key:
+      type: apiKey
+      name: apikey
+      in: header
