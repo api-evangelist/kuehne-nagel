@@ -439,7 +439,7 @@ apis:
     https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
   baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
   tags:
-  - Container
+  - Containers
   tags_raw:
   - container
   properties:
@@ -534,6 +534,8 @@ apis:
     https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
   baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
   tags:
+  - Documents
+  tags_raw:
   - Document
   properties:
   - type: OpenAPI
@@ -1791,7 +1793,7 @@ apis:
     https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
   baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
   tags:
-  - Schemas
+  - Schema
   tags_raw:
   - schemas
   properties:
@@ -2271,7 +2273,7 @@ apis:
     https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview
   baseURL: https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2
   tags:
-  - Workspaces
+  - Workspace
   tags_raw:
   - workspaces
   properties:
