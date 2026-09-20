@@ -1,0 +1,169 @@
+slug: kuehne-nagel
+provider: Kuehne+Nagel
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Transportation & Logistics
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 15
+edges:
+- tag: shipment
+  spec_file: kuehne-nagel-shipment-api-openapi.yml
+  capability_id: BC-2510.20
+  capability_id_l1: BC-2510
+  capability_name: Shipment Tracking Management
+  confidence: 0.95
+  evidence: '"Receive detailed information for one shipment per unique key (ID or tracking number)"; operations
+    loadShipmentsForCustomerReference, loadShipmentHistory; schemas TrackingResponse, LocationMilestone'
+  reason: ShipmentTracking API resolving shipment status, milestones and history across modes of transport
+    for customer-facing tracking — squarely shipment tracking management.
+- tag: Events
+  spec_file: kuehne-nagel-events-api-openapi.yml
+  capability_id: BC-2510.10
+  capability_id_l1: BC-2510
+  capability_name: Event Capture and Status Management
+  confidence: 0.9
+  evidence: enables service providers to seamlessly submit container event data for shipments ... following
+    the Digital Container Shipping Association standards ... real-time, interoperable status updates
+  reason: Inbound capture of equipment/transport-call events from partners to update shipment status —
+    event capture and status management for visibility.
+- tag: Booking Requests
+  spec_file: kuehne-nagel-booking-requests-api-openapi.yml
+  capability_id: BC-2400.40
+  capability_id_l1: BC-2400
+  capability_name: Booking and Reservation Management
+  confidence: 0.85
+  evidence: POST /bookings createBooking Create Booking Request; 'Interface for sending external booking
+    requests to KN Road'
+  reason: Acceptance of external freight booking requests with cargo items, incoterms, parties and dangerous-goods
+    info — booking and reservation of transport capacity.
+- tag: Post event
+  spec_file: kuehne-nagel-post-event-api-openapi.yml
+  capability_id: BC-2510.10
+  capability_id_l1: BC-2510
+  capability_name: Event Capture and Status Management
+  confidence: 0.85
+  evidence: '"Validate external event entry message for shipment"; "get, view and validate incoming events
+    for shipments from the 3rd parties"; schema PostEventRequest'
+  reason: Ingests and validates third-party shipment events into K+N — event capture and status management
+    for shipment visibility.
+- tag: container
+  spec_file: kuehne-nagel-container-api-openapi.yml
+  capability_id: BC-2510.20
+  capability_id_l1: BC-2510
+  capability_name: Shipment Tracking Management
+  confidence: 0.85
+  evidence: '"container-specific tracking data including routing, freight information, cargo details";
+    operations searchContainers, loadContainerForShipment; schemas LocationMilestone, TransportInformationMilestone'
+  reason: ContainerTracking API resolves container status and milestones within a shipment — shipment/unit
+    tracking delivered to customers.
+- tag: Assigned Consignments
+  spec_file: kuehne-nagel-assigned-consignments-api-openapi.yml
+  capability_id: BC-2420.10
+  capability_id_l1: BC-2420
+  capability_name: Dispatch Management
+  confidence: 0.8
+  evidence: enables Intermodal subcontractors who transport containers via truck, rail, and barge ...
+    to receive details about assigned consignments, including job details and instructions ... provide
+    status updates and proof of pickup/delivery
+  reason: Operations distribute assigned transport jobs to subcontracted carriers with instructions and
+    require status/POD back — this is dispatch/assignment of loads within transport operations execution.
+- tag: GPS Tracking
+  spec_file: kuehne-nagel-gps-tracking-api-openapi.yml
+  capability_id: BC-2510.10
+  capability_id_l1: BC-2510
+  capability_name: Event Capture and Status Management
+  confidence: 0.8
+  evidence: POST /gps-tracking/{jobId} subcontractorimportgps Submit GPS tracking data
+  reason: Subcontractors push GPS position data against transport jobs, feeding shipment position/status
+    visibility; event and telemetry capture for tracking.
+- tag: booking
+  spec_file: kuehne-nagel-booking-api-openapi.yml
+  capability_id: BC-2400.40
+  capability_id_l1: BC-2400
+  capability_name: Booking and Reservation Management
+  confidence: 0.8
+  evidence: '"POST /bookings Create air booking", "PUT /bookings/{shippersReference} Update an existing
+    booking"; schemas Booking, Cargo, DangerousGoodsDetail'
+  reason: Operations accept, modify and cancel freight bookings (air and order booking) against the forwarder's
+    services — booking and reservation of transport capacity. Some ambiguity vs forwarding coordination,
+    hence 0.8.
+- tag: cargoItems
+  spec_file: kuehne-nagel-cargoitems-api-openapi.yml
+  capability_id: BC-2510
+  capability_id_l1: BC-2510
+  capability_name: Shipment Visibility & Tracking Management
+  confidence: 0.8
+  evidence: '"The RealTimeVisibility-Tracking API offers functions to retrieve telemetry data for a shipment";
+    "Retrieves assets of a shipment"'
+  reason: Retrieval of shipment cargo items/assets from a real-time visibility tracking API — shipment
+    visibility and tracking. Sub-capability (event capture vs tracking) not clearly determined.
+- tag: Proof of Delivery
+  spec_file: kuehne-nagel-proof-of-delivery-api-openapi.yml
+  capability_id: BC-2420.40
+  capability_id_l1: BC-2420
+  capability_name: Last-Mile Delivery Operations Management
+  confidence: 0.78
+  evidence: POST /proof-of-deliveries/{jobId}/{waypointId}  "Submit proof of delivery"; "provide status
+    updates and proof of pickup/delivery on these consignments"
+  reason: Subcontractor submission of proof of delivery at waypoints — delivery execution including proof-of-delivery
+    capture.
+- tag: Job Status
+  spec_file: kuehne-nagel-job-status-api-openapi.yml
+  capability_id: BC-2510.10
+  capability_id_l1: BC-2510
+  capability_name: Event Capture and Status Management
+  confidence: 0.7
+  evidence: POST /job-status/{jobId}  subcontractorimportstatus  "Update job status"; "allows them to
+    provide status updates ... on these consignments"
+  reason: Subcontractors post operational status updates on consignments into K+N's TMS — capture of shipment
+    events and translation into statuses.
+- tag: List
+  spec_file: kuehne-nagel-list-api-openapi.yml
+  capability_id: BC-2500
+  capability_id_l1: BC-2500
+  capability_name: Cargo Documentation Management
+  confidence: 0.7
+  evidence: '"Document management (list, download, add and delete) of shipment related documents"; schemas
+    DocumentTypeCode, ListDocumentsResponse'
+  reason: Lifecycle/repository management of shipment cargo documents by document type; L1 only as the
+    document classes are not named.
+- tag: esp-order-track
+  spec_file: kuehne-nagel-esp-order-track-api-openapi.yml
+  capability_id: BC-2510
+  capability_id_l1: BC-2510
+  capability_name: Shipment Visibility & Tracking Management
+  confidence: 0.7
+  evidence: '"Used by customers to search for purchase orders and their statuses in ESP"; schemas OrderTrackingRequest,
+    PurchaseOrderResponse'
+  reason: Customer-facing order status/visibility search from the OrderTracking API — supply-chain visibility
+    and tracking. PO-level rather than shipment-leg level, so no L2 asserted.
+- tag: purchase-order-layer
+  spec_file: kuehne-nagel-purchase-order-layer-api-openapi.yml
+  capability_id: BC-500.30
+  capability_id_l1: BC-500
+  capability_name: Purchase Order Management
+  confidence: 0.7
+  evidence: '"Used by customers to create new purchase orders in ESP."; "cancelPurchaseOrderLines"; "It
+    manages purchase orders for external partners."'
+  reason: Operations create, update, read and cancel purchase orders and order lines with supplier acceptance
+    behaviour — purchase order lifecycle management. Confidence moderated because K+N runs it as an order-visibility
+    service for shipper customers, so an order-fulfilment reading is also plausible.
+- tag: telemetry
+  spec_file: kuehne-nagel-telemetry-api-openapi.yml
+  capability_id: BC-2510.10
+  capability_id_l1: BC-2510
+  capability_name: Event Capture and Status Management
+  confidence: 0.7
+  evidence: '"The RealTimeVisibility-Tracking API offers functions to retrieve telemetry data for a shipment.";
+    "Retrieves telemetry assigned to an asset (PACKAGE/CONTAINER/UNKNOWN)"; schemas TemperatureTelemetry,
+    ShockTelemetry, GeoTelemetry'
+  reason: IoT sensor telemetry (geo, temperature, humidity, shock) captured against cargo items for shipment
+    visibility — event/condition capture feeding shipment status. Some ambiguity versus asset telematics,
+    hence 0.7.
