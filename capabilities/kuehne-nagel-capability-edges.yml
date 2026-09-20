@@ -11,7 +11,7 @@ capability_model:
   attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
     CC BY 4.0
   notice: NOTICE
-edge_count: 15
+edge_count: 17
 edges:
 - tag: shipment
   spec_file: kuehne-nagel-shipment-api-openapi.yml
@@ -74,6 +74,17 @@ edges:
     status updates and proof of pickup/delivery
   reason: Operations distribute assigned transport jobs to subcontracted carriers with instructions and
     require status/POD back — this is dispatch/assignment of loads within transport operations execution.
+- tag: ExternalShipment
+  spec_file: kuehne-nagel-externalshipment-api-openapi.yml
+  capability_id: BC-520.50
+  capability_id_l1: BC-520
+  capability_name: Logistics Operations Management
+  confidence: 0.8
+  evidence: PUT /customers/{customerCode}/shipments/{shipmentNumber} importShipment "Import shipment message";
+    schemas ShipmentRequest, LinkedEquipment, Stop, PlannedCost
+  reason: Creates and deletes shipment records with stops, equipment and planned cost — shipment execution
+    data for a freight forwarder, mapping to logistics operations management.
+  recovered_from: sweep-20260829T005356Z-edges.json
 - tag: GPS Tracking
   spec_file: kuehne-nagel-gps-tracking-api-openapi.yml
   capability_id: BC-2510.10
@@ -114,6 +125,18 @@ edges:
     updates and proof of pickup/delivery on these consignments"
   reason: Subcontractor submission of proof of delivery at waypoints — delivery execution including proof-of-delivery
     capture.
+- tag: Job Documents
+  spec_file: kuehne-nagel-job-documents-api-openapi.yml
+  capability_id: BC-520.50
+  capability_id_l1: BC-520
+  capability_name: Logistics Operations Management
+  confidence: 0.7
+  evidence: GET /job-documents/{jobId} subcontractorexportdocument "Retrieve job-related documents" within
+    "Intermodal subcontractors who transport containers via truck, rail, and barge"
+  reason: Retrieval of transport job instructions/proof documents by intermodal haulage subcontractors
+    supports transport execution; logistics operations is the closest honest fit, though the operation
+    itself is a document fetch, hence moderate confidence.
+  recovered_from: sweep-20260829T005356Z-edges.json
 - tag: Job Status
   spec_file: kuehne-nagel-job-status-api-openapi.yml
   capability_id: BC-2510.10
