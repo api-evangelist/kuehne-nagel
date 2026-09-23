@@ -22,7 +22,108 @@ paths:
       tags:
       - Document Request
       summary: Upload Document Request
-      description: "## General\nUpload a document for any Road Shipment.\n\n\n### Accepted Document Types\nPDF, TIFF, JPEG, DOCX, XLSX, etc\n\n\n:::tip[Document Extension]\nDo not include the period [ . ] in the document extension in the JSON request. \n:::\n\n### Accepted Document Codes\n| DocumentCode | Document Description                   |\n|:----------:|----------------------------------------|\n| 0.03     | Quality inspection cert                |\n| 0.11     | Temperature timetable                  |\n| 0.12     | Temperature readout                    |\n| 0.53     | Safety data sheet                      |\n| 105      | Purchase order                         |\n| 131      | Declaration of Undertaking             |\n| 167      | Carta Porte                            |\n| 171      | pick up notice                         |\n| 260      | Certificate of Conformity              |\n| 263      | Certificate of Analysis                |\n| 270      | Delivery note                          |\n| 271      | Packing list                           |\n| 325      | Proforma invoice                       |\n| 340      | Shipper/vendor docs                    |\n| 342      | Export cargo instructions              |\n| 351      | Notice of shipment                     |\n| 380      | Commercial invoice                     |\n| 387      | Temperature readout                    |\n| 388      | Temp readout depot                     |\n| 390      | DG Declaration                         |\n| 510      | Client documents                       |\n| 515      | Pallet list out signed                 |\n| 516      | Transport order signed                 |\n| 517      | CMR                                    |\n| 521      | Delivery Note                          |\n| 522      | Driver delivery manifest signed        |\n| 523      | Consignment note signed                |\n| 546      | Subsequent POD with differences        |\n| 630      | Shipping order                         |\n| 640      | Delivery order                         |\n| 707      | Bill of lading copy                    |\n| 821      | Despatch note T1                       |\n| 825      | Transit accompany doc                  |\n| 833      | Export declaration                     |\n| 860      | Certificate of Origin                  |\n| 929      | Customs entry                          |\n| 944      | Customs documents                      |\n| 953      | Eur1                                   |\n| 990      | Power of Attorney                      |\n| 913      | Customs declaration                    |\n\n\n"
+      description: '## General
+
+        Upload a document for any Road Shipment.
+
+
+        ### Accepted Document Types
+
+        PDF, TIFF, JPEG, DOCX, XLSX, etc
+
+
+        :::tip[Document Extension]
+
+        Do not include the period [ . ] in the document extension in the JSON request.
+
+        :::
+
+
+        ### Accepted Document Codes
+
+        | DocumentCode | Document Description |
+
+        |:----------:|----------------------------------------|
+
+        | 0.03 | Quality inspection cert |
+
+        | 0.11 | Temperature timetable |
+
+        | 0.12 | Temperature readout |
+
+        | 0.53 | Safety data sheet |
+
+        | 105 | Purchase order |
+
+        | 131 | Declaration of Undertaking |
+
+        | 167 | Carta Porte |
+
+        | 171 | pick up notice |
+
+        | 260 | Certificate of Conformity |
+
+        | 263 | Certificate of Analysis |
+
+        | 270 | Delivery note |
+
+        | 271 | Packing list |
+
+        | 325 | Proforma invoice |
+
+        | 340 | Shipper/vendor docs |
+
+        | 342 | Export cargo instructions |
+
+        | 351 | Notice of shipment |
+
+        | 380 | Commercial invoice |
+
+        | 387 | Temperature readout |
+
+        | 388 | Temp readout depot |
+
+        | 390 | DG Declaration |
+
+        | 510 | Client documents |
+
+        | 515 | Pallet list out signed |
+
+        | 516 | Transport order signed |
+
+        | 517 | CMR |
+
+        | 521 | Delivery Note |
+
+        | 522 | Driver delivery manifest signed |
+
+        | 523 | Consignment note signed |
+
+        | 546 | Subsequent POD with differences |
+
+        | 630 | Shipping order |
+
+        | 640 | Delivery order |
+
+        | 707 | Bill of lading copy |
+
+        | 821 | Despatch note T1 |
+
+        | 825 | Transit accompany doc |
+
+        | 833 | Export declaration |
+
+        | 860 | Certificate of Origin |
+
+        | 929 | Customs entry |
+
+        | 944 | Customs documents |
+
+        | 953 | Eur1 |
+
+        | 990 | Power of Attorney |
+
+        | 913 | Customs declaration |'
       operationId: uploadDocument
       parameters: []
       requestBody:

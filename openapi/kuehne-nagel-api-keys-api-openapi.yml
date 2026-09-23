@@ -1,18 +1,7 @@
 openapi: 3.2.0
 info:
   title: B2B-OldKAIExtract API Keys API
-  description: 'Extract structured information from documents.
-
-
-    ## Using the API
-
-
-    ### Optional Parameters
-
-    When using the ''Try it out'' feature in Swagger UI, optional parameters with empty values can be left as-is. The API handles empty strings and will treat them as if the parameter was omitted. You don''t need to remove empty optional fields from requests.
-
-
-    **Tip:** In generated curl commands, you may see flags like `-F ''tag=''` or `-F ''tools=''`. These empty optional fields are safe to include or remove - the API treats them identically.'
+  description: Extract structured information from documents.
   version: 0.1.0
 servers:
 - url: https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0
@@ -20,13 +9,13 @@ servers:
 security:
 - default: []
 tags:
-- name: api-keys
+- name: API Keys
   description: Management of API keys for workspace authentication.
 paths:
   /v2/workspaces/api-keys/:
     get:
       tags:
-      - api-keys
+      - API Keys
       summary: List Api Keys
       description: List all API keys for a workspace.
       operationId: list_api_keys_v2_workspaces_api_keys__get
@@ -69,7 +58,7 @@ paths:
       x-throttling-tier: Unlimited
     post:
       tags:
-      - api-keys
+      - API Keys
       summary: Create Api Key
       operationId: create_api_key_v2_workspaces_api_keys__post
       parameters:
@@ -106,7 +95,7 @@ paths:
   /v2/workspaces/api-keys/{key_id}:
     get:
       tags:
-      - api-keys
+      - API Keys
       summary: Get Api Key
       description: Get details of a specific API key by ID.
       operationId: get_api_key_v2_workspaces_api_keys__key_id__get
@@ -152,7 +141,7 @@ paths:
       x-throttling-tier: Unlimited
     delete:
       tags:
-      - api-keys
+      - API Keys
       summary: Delete Api Key
       description: Delete an API key from the workspace by ID.
       operationId: delete_api_key_v2_workspaces_api_keys__key_id__delete
@@ -198,7 +187,7 @@ paths:
       x-throttling-tier: Unlimited
     patch:
       tags:
-      - api-keys
+      - API Keys
       summary: Update Api Key
       description: Update API key description by ID.
       operationId: update_api_key_v2_workspaces_api_keys__key_id__patch
@@ -245,7 +234,7 @@ paths:
   /v3/workspaces/{workspace_id}/api-keys:
     get:
       tags:
-      - api-keys
+      - API Keys
       summary: List Api Keys V3
       description: List API keys in a workspace
       operationId: list_api_keys_v3_v3_workspaces__workspace_id__api_keys_get
@@ -289,7 +278,7 @@ paths:
       x-throttling-tier: Unlimited
     post:
       tags:
-      - api-keys
+      - API Keys
       summary: Create Api Key V3
       description: Create a new API key for a workspace identified by UUID. API keys expire after 90 days by default.
       operationId: create_api_key_v3_v3_workspaces__workspace_id__api_keys_post
@@ -336,7 +325,7 @@ paths:
   /v3/workspaces/{workspace_id}/api-keys/{key_id}:
     get:
       tags:
-      - api-keys
+      - API Keys
       summary: Get Api Key V3
       description: Get details of a specific API key in a workspace
       operationId: get_api_key_v3_v3_workspaces__workspace_id__api_keys__key_id__get
@@ -386,7 +375,7 @@ paths:
       x-throttling-tier: Unlimited
     delete:
       tags:
-      - api-keys
+      - API Keys
       summary: Delete Api Key V3
       description: Delete an API key in a workspace
       operationId: delete_api_key_v3_v3_workspaces__workspace_id__api_keys__key_id__delete
@@ -441,7 +430,7 @@ paths:
       x-throttling-tier: Unlimited
     patch:
       tags:
-      - api-keys
+      - API Keys
       summary: Update Api Key V3
       description: Update API key description by ID for a workspace identified by UUID.
       operationId: update_api_key_v3_v3_workspaces__workspace_id__api_keys__key_id__patch
@@ -492,7 +481,7 @@ paths:
   /v3/workspaces/{workspace_id}/api-keys/{key_id}/rotate:
     post:
       tags:
-      - api-keys
+      - API Keys
       summary: Rotate Api Key V3
       description: Rotate an API key by creating a new one and deactivating the old one. New key expires after 90 days by default.
       operationId: rotate_api_key_v3_v3_workspaces__workspace_id__api_keys__key_id__rotate_post
@@ -547,72 +536,14 @@ paths:
       x-throttling-tier: Unlimited
 components:
   schemas:
-    Body_rotate_api_key_v3_v3_workspaces__workspace_id__api_keys__key_id__rotate_post:
-      type: object
-      properties:
-        key_description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Key Description
-        expires_in_days:
-          type: integer
-          default: 90
-          title: Expires In Days
-      title: Body_rotate_api_key_v3_v3_workspaces__workspace_id__api_keys__key_id__rotate_post
-    HTTPValidationError:
-      type: object
-      properties:
-        detail:
-          type: array
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-      title: HTTPValidationError
-    DeleteApiKeyResponse:
-      type: object
-      description: Response model for API key deletion.
-      properties:
-        success:
-          type: boolean
-          title: Success
-        api_key_id:
-          type: string
-          format: uuid
-          title: Api Key Id
-      required:
-      - api_key_id
-      - success
-      title: DeleteApiKeyResponse
-    Body_update_api_key_v2_workspaces_api_keys__key_id__patch:
+    Body_get_api_key_v2_workspaces_api_keys__key_id__get:
       type: object
       properties:
         workspace:
           type: string
           default: ''
           title: Workspace
-        key_description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Key Description
-      title: Body_update_api_key_v2_workspaces_api_keys__key_id__patch
-    Body_delete_api_key_v2_workspaces_api_keys__key_id__delete:
-      type: object
-      properties:
-        workspace:
-          type: string
-          default: ''
-          title: Workspace
-      title: Body_delete_api_key_v2_workspaces_api_keys__key_id__delete
-    Body_delete_api_key_v3_v3_workspaces__workspace_id__api_keys__key_id__delete:
-      type: object
-      properties:
-        hard_delete:
-          type: boolean
-          default: false
-          title: Hard Delete
-      title: Body_delete_api_key_v3_v3_workspaces__workspace_id__api_keys__key_id__delete
+      title: Body_get_api_key_v2_workspaces_api_keys__key_id__get
     Body_create_api_key_v3_v3_workspaces__workspace_id__api_keys_post:
       type: object
       properties:
@@ -626,14 +557,27 @@ components:
           default: 90
           title: Expires In Days
       title: Body_create_api_key_v3_v3_workspaces__workspace_id__api_keys_post
-    Body_get_api_key_v2_workspaces_api_keys__key_id__get:
+    Body_delete_api_key_v2_workspaces_api_keys__key_id__delete:
       type: object
       properties:
         workspace:
           type: string
           default: ''
           title: Workspace
-      title: Body_get_api_key_v2_workspaces_api_keys__key_id__get
+      title: Body_delete_api_key_v2_workspaces_api_keys__key_id__delete
+    Body_update_api_key_v2_workspaces_api_keys__key_id__patch:
+      type: object
+      properties:
+        workspace:
+          type: string
+          default: ''
+          title: Workspace
+        key_description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Key Description
+      title: Body_update_api_key_v2_workspaces_api_keys__key_id__patch
     Body_create_api_key_v2_workspaces_api_keys__post:
       type: object
       properties:
@@ -714,6 +658,51 @@ components:
       - msg
       - type
       title: ValidationError
+    Body_delete_api_key_v3_v3_workspaces__workspace_id__api_keys__key_id__delete:
+      type: object
+      properties:
+        hard_delete:
+          type: boolean
+          default: false
+          title: Hard Delete
+      title: Body_delete_api_key_v3_v3_workspaces__workspace_id__api_keys__key_id__delete
+    HTTPValidationError:
+      type: object
+      properties:
+        detail:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+      title: HTTPValidationError
+    DeleteApiKeyResponse:
+      type: object
+      description: Response model for API key deletion.
+      properties:
+        success:
+          type: boolean
+          title: Success
+        api_key_id:
+          type: string
+          format: uuid
+          title: Api Key Id
+      required:
+      - api_key_id
+      - success
+      title: DeleteApiKeyResponse
+    Body_rotate_api_key_v3_v3_workspaces__workspace_id__api_keys__key_id__rotate_post:
+      type: object
+      properties:
+        key_description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Key Description
+        expires_in_days:
+          type: integer
+          default: 90
+          title: Expires In Days
+      title: Body_rotate_api_key_v3_v3_workspaces__workspace_id__api_keys__key_id__rotate_post
   securitySchemes:
     default:
       type: oauth2

@@ -3,7 +3,7 @@ info:
   title: IntermodalTransportExecution Assigned Consignments API
   description: 'This API enables Intermodal subcontractors who transport containers via truck, rail, and barge for Kuehne+Nagel to receive details about assigned consignments, including job details and instructions. It also allows them to provide status updates and proof of pickup/delivery on these consignments.
 
-    To use this API, subcontractors must be registered and set up as an API user  within our Intermodal TMS. Please discuss registration with your Kuehne+Nagel Intermodal operations point of contact.'
+    To use this API, subcontractors must be registered and set up as an API user within our Intermodal TMS. Please discuss registration with your Kuehne+Nagel Intermodal operations point of contact.'
   contact:
     name: Global TOPS API Support
     url: https://home.kuehne-nagel.com/en/service-request-api?lead_topic=intermodal-transport-execution
@@ -58,9 +58,7 @@ paths:
       description: 'Retrieves assigned consignments for a subcontractor from a specific Kuehne+Nagel Intermodal department.
 
 
-        **Note:** A 204 No Content response (with no body) is returned when there are no new or updated consignments available. Refer to the API Guide in the Documents section for details.
-
-        '
+        **Note:** A 204 No Content response (with no body) is returned when there are no new or updated consignments available. Refer to the API Guide in the Documents section for details.'
       operationId: subcontractorexporttrunk
       responses:
         '200':
@@ -95,6 +93,335 @@ paths:
       x-throttling-tier: Unlimited
 components:
   schemas:
+    Amount:
+      type: object
+      properties:
+        value:
+          type: number
+          description: Amount value.
+          format: double
+          example: 100
+        currency:
+          maxLength: 3
+          type: string
+          description: Currency of the amount.
+          example: EUR
+    CustomsPlace:
+      type: object
+      properties:
+        locationName:
+          maxLength: 60
+          type: string
+          description: Name of the customs location.
+          example: Custom House
+        address:
+          $ref: '#/components/schemas/Address'
+    CustomsData:
+      type: object
+      properties:
+        itemNo:
+          type: integer
+          description: Item number of the customs data.
+          format: int32
+          example: 1
+        customsReference:
+          maxLength: 30
+          type: string
+          description: Customs reference number.
+          example: ATB151291380320254851
+        pieces:
+          type: integer
+          description: Number of pieces in the customs data.
+          format: int32
+          example: 12
+        packageTypeCode:
+          maxLength: 10
+          type: string
+          description: Coded Package Type inside container.
+          example: CTN
+        weight:
+          $ref: '#/components/schemas/Weight'
+        description:
+          maxLength: 100
+          type: string
+          description: Description of the cargo mentioned in customs data.
+          example: Cathode
+        hsCode:
+          maxLength: 20
+          type: string
+          description: Harmonized System Code (HS) of the cargo mentioned in customs data.
+          example: '85065090'
+        amount:
+          $ref: '#/components/schemas/Amount'
+        ata:
+          maxLength: 30
+          type: string
+          description: ATA number of the cargo mentioned in customs data.
+          example: ATA123456789
+        atb:
+          maxLength: 30
+          type: string
+          description: ATB number of the cargo mentioned in customs data.
+          example: ATB123456789
+        atc:
+          maxLength: 30
+          type: string
+          description: ATC number of the cargo mentioned in customs data.
+          example: ATC123456789
+    AssignedConsignmentsResponse:
+      type: object
+      properties:
+        self:
+          type: string
+          description: Current or requested page.
+          format: uri
+          example: https://gateway.api-staging.kuehne-nagel.com/transport/execution/pickup-and-delivery/sea/v1/assigned-consignments?cursor=4kudW8z78FZyD8IQjxaVeX
+        prev:
+          type: string
+          description: the page before the current or requested page.
+          format: uri
+          example: https://gateway.api-staging.kuehne-nagel.com/transport/execution/pickup-and-delivery/sea/v1/assigned-consignments?cursor=63FP5Jy351AIv3CqC5oNg4
+        next:
+          type: string
+          description: the page after the current or requested page. It'll be null if the last page from the provisioned page table from database.
+          format: uri
+          example: https://gateway.api-staging.kuehne-nagel.com/transport/execution/pickup-and-delivery/sea/v1/assigned-consignments?cursor=0Ocf5uCUN23ZerO6aULyU6
+        hasMorePage:
+          type: boolean
+          description: Indicates if there are more pages available in the result set.
+          example: false
+        consignments:
+          maxItems: 50
+          type: array
+          items:
+            $ref: '#/components/schemas/Consignment'
+    Rate:
+      required:
+      - amount
+      - chargeTypeCode
+      type: object
+      properties:
+        amount:
+          $ref: '#/components/schemas/Amount'
+        chargeTypeCode:
+          maxLength: 10
+          type: string
+          description: Charge Type Code of the rate.
+          example: '156'
+        chargeTypeDescription:
+          maxLength: 20
+          type: string
+          description: Charge Type Description of the rate.
+          example: TRANSPORTATION
+    Hazard:
+      type: object
+      properties:
+        unNumber:
+          maxLength: 10
+          type: string
+          description: UN Number of the hazardous material.
+          example: '3480'
+        imoClass:
+          maxLength: 5
+          type: string
+          description: IMO Class of the hazardous material.
+          example: '9'
+        adrHin:
+          maxLength: 8
+          type: string
+          description: ADR Hazard Identification Number of the hazardous material.
+          example: '90'
+        adrNumber:
+          maxLength: 10
+          type: string
+          description: ADR Number of the hazardous material.
+          example: '3480'
+        eac:
+          maxLength: 8
+          type: string
+          description: Emergency Action Code of the hazardous material.
+          example: 2Z
+        packingGroup:
+          maxLength: 4
+          type: string
+          description: Packing Group of the hazardous material.
+          example: II
+        tremcardNumber:
+          maxLength: 20
+          type: string
+          description: Tremcard (Transport Emergency Card) Number of the hazardous material.
+          example: '1234'
+        limitedQuantity:
+          type: boolean
+          description: Indicates if the hazardous material is a limited quantity.
+          example: true
+        limitedQuantityMaximum:
+          maxLength: 10
+          type: string
+          description: Maximum limited quantity of the hazardous material.
+          example: '12'
+        emergencyContact:
+          maxLength: 30
+          type: string
+          description: Emergency contact for the hazardous material.
+          example: Emergency Contact, Emergency C
+        flashPoint:
+          type: object
+          properties:
+            value:
+              maxLength: 25
+              type: string
+              description: Flash point value of the hazardous material.
+              example: '198'
+            units:
+              maxLength: 1
+              type: string
+              description: Unit of measurement for flash point.
+              example: C
+        marinePollutant:
+          type: boolean
+          description: Indicates if the hazardous material is a marine pollutant.
+          example: false
+        outerPackagesQuantity:
+          type: integer
+          description: Number of outer packages of the hazardous material.
+          format: int64
+          example: 60
+        outerPackagesType:
+          maxLength: 20
+          type: string
+          description: Type of outer packages of the hazardous material.
+          example: CTN
+        innerPackagesQuantity:
+          type: integer
+          description: Number of inner packages of the hazardous material.
+          format: int64
+          example: 10
+        innerPackagesType:
+          maxLength: 20
+          type: string
+          description: Type of inner packages of the hazardous material.
+          example: PKG
+        description:
+          maxLength: 100
+          type: string
+          description: Description of the hazardous material.
+          example: Lithium-Ion Battery Cells
+        chemicalName:
+          maxLength: 200
+          type: string
+          description: Chemical name of the hazardous material.
+          example: Lithium Cobalt Oxide
+        ibcCode:
+          maxLength: 8
+          type: string
+          description: IBC Code of the hazardous material.
+          example: UN1090
+        sadt:
+          type: object
+          properties:
+            value:
+              maxLength: 6
+              type: string
+              description: Self-Accelerating Decomposition Temperature value of the hazardous material.
+              example: '153'
+            units:
+              maxLength: 1
+              type: string
+              description: Unit of measurement of temperature.
+              example: C
+        grossWeight:
+          type: object
+          properties:
+            value:
+              type: number
+              description: Gross weight of the hazardous material.
+              format: float
+              example: 22020
+            units:
+              maxLength: 4
+              type: string
+              description: Unit of measurement for gross weight.
+              example: KGS
+        netWeight:
+          type: object
+          properties:
+            value:
+              type: number
+              description: Net weight of the hazardous material.
+              format: float
+              example: 20568
+            units:
+              maxLength: 4
+              type: string
+              description: Unit of measurement for net weight.
+              example: KGS
+        tunnelCode:
+          maxLength: 10
+          type: string
+          description: Tunnel Code of the hazardous material.
+          example: E
+        nad:
+          maxLength: 6
+          type: string
+          description: NAD number of the hazardous material.
+          example: NAD
+        concentration:
+          maxLength: 6
+          type: string
+          description: Concentration of the hazardous material.
+          example: 12%
+        ems:
+          maxLength: 8
+          type: string
+          description: Emergency Response Procedures for Ships Carrying Dangerous Goods including the Emergency Schedules.
+          example: 1-01
+        segregation:
+          maxLength: 50
+          type: string
+          description: Segregation description of the hazardous material.
+          example: 7.2.4
+        comments:
+          maxLength: 512
+          type: string
+          description: Comments related to the hazardous material.
+          example: Hazardous Comments
+        isExceptedQuantity:
+          type: boolean
+          description: Indicates if the hazardous material is an excepted quantity.
+          example: false
+        neqVolume:
+          type: number
+          description: Net Explosive Quantity Volume of the hazardous material.
+          format: float
+          example: 0
+        subRisk1:
+          maxLength: 5
+          type: string
+          description: Sub Risk 1 of the hazardous material.
+          example: 1.2G
+        subRisk2:
+          maxLength: 5
+          type: string
+          description: Sub Risk 2 of the hazardous material.
+          example: '6.1'
+        subRisk3:
+          maxLength: 5
+          type: string
+          description: Sub Risk 3 of the hazardous material.
+          example: '8'
+        handlingComments:
+          maxLength: 500
+          type: string
+          description: Specific handling instructions related to the hazardous material.
+    RequestId:
+      maxLength: 36
+      type: string
+      description: 'UUID identifying the request which will be generated by the client.
+
+        '
+      format: uuid
+      example: 019a1641-02a3-7a08-a83b-de93c338ed0e
     Job:
       required:
       - action
@@ -394,54 +721,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Rate'
-    Address:
-      type: object
-      properties:
-        address1:
-          maxLength: 50
-          type: string
-          description: Address line 1 of the address.
-          example: 221B Baker Street
-        address2:
-          maxLength: 50
-          type: string
-          description: Address line 2 of the address.
-          example: Marylebone
-        address3:
-          maxLength: 50
-          type: string
-          description: Address line 3 of the address.
-          example: Sherlock Holmes Museum
-        town:
-          maxLength: 50
-          type: string
-          description: Town of the address.
-          example: London
-        postCode:
-          maxLength: 8
-          type: string
-          description: Postcode of the address.
-          example: NW1 6XE
-        county:
-          maxLength: 30
-          type: string
-          description: County/State of the address.
-          example: Greater London
-        countryCode:
-          maxLength: 3
-          type: string
-          description: ISO Country code of the address.
-          example: GBR
-        latitude:
-          type: number
-          description: Latitude coordinate of the address.
-          format: float
-          example: 51.523751
-        longitude:
-          type: number
-          description: Longitude coordinate of the address.
-          format: float
-          example: -0.158555
     Temperature:
       type: object
       properties:
@@ -455,25 +734,6 @@ components:
           type: string
           description: Temperature measure unit.
           example: deg C
-    Action:
-      maxLength: 6
-      type: string
-      description: Specifies the action performed, one of INSERT/UPDATE/DELETE.
-      example: INSERT
-      x-extensible-enum:
-      - INSERT
-      - UPDATE
-      - DELETE
-    CustomsPlace:
-      type: object
-      properties:
-        locationName:
-          maxLength: 60
-          type: string
-          description: Name of the customs location.
-          example: Custom House
-        address:
-          $ref: '#/components/schemas/Address'
     Weight:
       type: object
       properties:
@@ -521,353 +781,15 @@ components:
           description: A URI reference that identifies the specific occurrence of the problem, e.g. by adding a fragment identifier or sub-path to the problem type. May be used to locate the root of this problem in the source code.\n
           format: uri-reference
           example: /problem/connection-error#token-info-read-timed-out
-    CountryCode:
-      maxLength: 5
+    Action:
+      maxLength: 6
       type: string
-      description: 'Unique country identifier for a specific Kuehne+Nagel Operating Company.
-
-        '
-      example: DE
-    Rate:
-      required:
-      - amount
-      - chargeTypeCode
-      type: object
-      properties:
-        amount:
-          $ref: '#/components/schemas/Amount'
-        chargeTypeCode:
-          maxLength: 10
-          type: string
-          description: Charge Type Code of the rate.
-          example: '156'
-        chargeTypeDescription:
-          maxLength: 20
-          type: string
-          description: Charge Type Description of the rate.
-          example: TRANSPORTATION
-    Waypoint:
-      required:
-      - activity
-      - id
-      - locationAddress
-      - locationName
-      type: object
-      properties:
-        id:
-          maxLength: 20
-          type: integer
-          description: Unique identifier for the waypoint. This reference should be included in your status request messages.
-          format: int32
-          example: 6606341
-        activity:
-          maxLength: 3
-          type: string
-          description: Indicates the type of waypoints. The values allowed are LOA = Load, C/D = Collect or Delivery, CUS = Customs, UNL = Unload or VGM = Verified Gross Mass.
-          example: LOA
-          x-extensible-enum:
-          - LOA
-          - C/D
-          - CUS
-          - UNL
-          - VGM
-        date:
-          type: string
-          description: Date of visit to the waypoint (YYYY-MM-DD).
-          format: date
-        time:
-          type: string
-          description: Time of visit to the waypoint (HH:MM:SS).
-          format: time
-          example: '11:14:55'
-        reference:
-          maxLength: 50
-          type: string
-          description: Any reference belong to the waypoint.
-          example: '495677'
-        referenceExpiryDate:
-          type: string
-          description: Expiry date of the reference.
-          format: date
-        isOnOffHire:
-          type: boolean
-          description: Indicates whether the container is on or off hire.
-        terminalCode:
-          maxLength: 6
-          type: string
-          description: If Location is a Port, the Terminal Code is output.
-          example: EGHAM
-        depotCode:
-          maxLength: 6
-          type: string
-          description: If Location is a Depot, the Depot Code is output.
-          example: EGHAM
-        unLocationCode:
-          maxLength: 6
-          type: string
-          description: UN Location Code of the waypoint.
-          example: DBIDST
-        locationName:
-          maxLength: 60
-          type: string
-          description: Name of the waypoint location.
-          example: EUROGATE CONTAINER TERMINAL HAMBURG
-        locationAddress:
-          $ref: '#/components/schemas/Address'
-        instructions:
-          maxLength: 255
-          type: string
-          description: Specific instructions related to waypoint.
-          example: EMA:cust@customer-company.com
-    RequestId:
-      maxLength: 36
-      type: string
-      description: 'UUID identifying the request which will be generated by the client.
-
-        '
-      format: uuid
-      example: 019a1641-02a3-7a08-a83b-de93c338ed0e
-    AssignedConsignmentsResponse:
-      type: object
-      properties:
-        self:
-          type: string
-          description: Current or requested page.
-          format: uri
-          example: https://gateway.api-staging.kuehne-nagel.com/transport/execution/pickup-and-delivery/sea/v1/assigned-consignments?cursor=4kudW8z78FZyD8IQjxaVeX
-        prev:
-          type: string
-          description: the page before the current or requested page.
-          format: uri
-          example: https://gateway.api-staging.kuehne-nagel.com/transport/execution/pickup-and-delivery/sea/v1/assigned-consignments?cursor=63FP5Jy351AIv3CqC5oNg4
-        next:
-          type: string
-          description: the page after the current or requested page. It'll be null if the last page from the provisioned page table from database.
-          format: uri
-          example: https://gateway.api-staging.kuehne-nagel.com/transport/execution/pickup-and-delivery/sea/v1/assigned-consignments?cursor=0Ocf5uCUN23ZerO6aULyU6
-        hasMorePage:
-          type: boolean
-          description: Indicates if there are more pages available in the result set.
-          example: false
-        consignments:
-          maxItems: 50
-          type: array
-          items:
-            $ref: '#/components/schemas/Consignment'
-    Amount:
-      type: object
-      properties:
-        value:
-          type: number
-          description: Amount value.
-          format: double
-          example: 100
-        currency:
-          maxLength: 3
-          type: string
-          description: Currency of the amount.
-          example: EUR
-    Hazard:
-      type: object
-      properties:
-        unNumber:
-          maxLength: 10
-          type: string
-          description: UN Number of the hazardous material.
-          example: '3480'
-        imoClass:
-          maxLength: 5
-          type: string
-          description: IMO Class of the hazardous material.
-          example: '9'
-        adrHin:
-          maxLength: 8
-          type: string
-          description: ADR Hazard Identification Number of the hazardous material.
-          example: '90'
-        adrNumber:
-          maxLength: 10
-          type: string
-          description: ADR Number of the hazardous material.
-          example: '3480'
-        eac:
-          maxLength: 8
-          type: string
-          description: Emergency Action Code of the hazardous material.
-          example: 2Z
-        packingGroup:
-          maxLength: 4
-          type: string
-          description: Packing Group of the hazardous material.
-          example: II
-        tremcardNumber:
-          maxLength: 20
-          type: string
-          description: Tremcard (Transport Emergency Card) Number of the hazardous material.
-          example: '1234'
-        limitedQuantity:
-          type: boolean
-          description: Indicates if the hazardous material is a limited quantity.
-          example: true
-        limitedQuantityMaximum:
-          maxLength: 10
-          type: string
-          description: Maximum limited quantity of the hazardous material.
-          example: '12'
-        emergencyContact:
-          maxLength: 30
-          type: string
-          description: Emergency contact for the hazardous material.
-          example: Emergency Contact, Emergency C
-        flashPoint:
-          type: object
-          properties:
-            value:
-              maxLength: 25
-              type: string
-              description: Flash point value of the hazardous material.
-              example: '198'
-            units:
-              maxLength: 1
-              type: string
-              description: Unit of measurement for flash point.
-              example: C
-        marinePollutant:
-          type: boolean
-          description: Indicates if the hazardous material is a marine pollutant.
-          example: false
-        outerPackagesQuantity:
-          type: integer
-          description: Number of outer packages of the hazardous material.
-          format: int64
-          example: 60
-        outerPackagesType:
-          maxLength: 20
-          type: string
-          description: Type of outer packages of the hazardous material.
-          example: CTN
-        innerPackagesQuantity:
-          type: integer
-          description: Number of inner packages of the hazardous material.
-          format: int64
-          example: 10
-        innerPackagesType:
-          maxLength: 20
-          type: string
-          description: Type of inner packages of the hazardous material.
-          example: PKG
-        description:
-          maxLength: 100
-          type: string
-          description: Description of the hazardous material.
-          example: Lithium-Ion Battery Cells
-        chemicalName:
-          maxLength: 200
-          type: string
-          description: Chemical name of the hazardous material.
-          example: Lithium Cobalt Oxide
-        ibcCode:
-          maxLength: 8
-          type: string
-          description: IBC Code of the hazardous material.
-          example: UN1090
-        sadt:
-          type: object
-          properties:
-            value:
-              maxLength: 6
-              type: string
-              description: Self-Accelerating Decomposition Temperature value of the hazardous material.
-              example: '153'
-            units:
-              maxLength: 1
-              type: string
-              description: Unit of measurement of temperature.
-              example: C
-        grossWeight:
-          type: object
-          properties:
-            value:
-              type: number
-              description: Gross weight of the hazardous material.
-              format: float
-              example: 22020
-            units:
-              maxLength: 4
-              type: string
-              description: Unit of measurement for gross weight.
-              example: KGS
-        netWeight:
-          type: object
-          properties:
-            value:
-              type: number
-              description: Net weight of the hazardous material.
-              format: float
-              example: 20568
-            units:
-              maxLength: 4
-              type: string
-              description: Unit of measurement for net weight.
-              example: KGS
-        tunnelCode:
-          maxLength: 10
-          type: string
-          description: Tunnel Code of the hazardous material.
-          example: E
-        nad:
-          maxLength: 6
-          type: string
-          description: NAD number of the hazardous material.
-          example: NAD
-        concentration:
-          maxLength: 6
-          type: string
-          description: Concentration of the hazardous material.
-          example: 12%
-        ems:
-          maxLength: 8
-          type: string
-          description: Emergency Response Procedures for Ships Carrying Dangerous Goods including the Emergency Schedules.
-          example: 1-01
-        segregation:
-          maxLength: 50
-          type: string
-          description: Segregation description of the hazardous material.
-          example: 7.2.4
-        comments:
-          maxLength: 512
-          type: string
-          description: Comments related to the hazardous material.
-          example: Hazardous Comments
-        isExceptedQuantity:
-          type: boolean
-          description: Indicates if the hazardous material is an excepted quantity.
-          example: false
-        neqVolume:
-          type: number
-          description: Net Explosive Quantity Volume of the hazardous material.
-          format: float
-          example: 0
-        subRisk1:
-          maxLength: 5
-          type: string
-          description: Sub Risk 1 of the hazardous material.
-          example: 1.2G
-        subRisk2:
-          maxLength: 5
-          type: string
-          description: Sub Risk 2 of the hazardous material.
-          example: '6.1'
-        subRisk3:
-          maxLength: 5
-          type: string
-          description: Sub Risk 3 of the hazardous material.
-          example: '8'
-        handlingComments:
-          maxLength: 500
-          type: string
-          description: Specific handling instructions related to the hazardous material.
+      description: Specifies the action performed, one of INSERT/UPDATE/DELETE.
+      example: INSERT
+      x-extensible-enum:
+      - INSERT
+      - UPDATE
+      - DELETE
     Consignment:
       required:
       - action
@@ -959,58 +881,134 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Job'
-    CustomsData:
+    CountryCode:
+      maxLength: 5
+      type: string
+      description: 'Unique country identifier for a specific Kuehne+Nagel Operating Company.
+
+        '
+      example: DE
+    Address:
       type: object
       properties:
-        itemNo:
-          type: integer
-          description: Item number of the customs data.
-          format: int32
-          example: 1
-        customsReference:
+        address1:
+          maxLength: 50
+          type: string
+          description: Address line 1 of the address.
+          example: 221B Baker Street
+        address2:
+          maxLength: 50
+          type: string
+          description: Address line 2 of the address.
+          example: Marylebone
+        address3:
+          maxLength: 50
+          type: string
+          description: Address line 3 of the address.
+          example: Sherlock Holmes Museum
+        town:
+          maxLength: 50
+          type: string
+          description: Town of the address.
+          example: London
+        postCode:
+          maxLength: 8
+          type: string
+          description: Postcode of the address.
+          example: NW1 6XE
+        county:
           maxLength: 30
           type: string
-          description: Customs reference number.
-          example: ATB151291380320254851
-        pieces:
-          type: integer
-          description: Number of pieces in the customs data.
-          format: int32
-          example: 12
-        packageTypeCode:
-          maxLength: 10
+          description: County/State of the address.
+          example: Greater London
+        countryCode:
+          maxLength: 3
           type: string
-          description: Coded Package Type inside container.
-          example: CTN
-        weight:
-          $ref: '#/components/schemas/Weight'
-        description:
-          maxLength: 100
-          type: string
-          description: Description of the cargo mentioned in customs data.
-          example: Cathode
-        hsCode:
+          description: ISO Country code of the address.
+          example: GBR
+        latitude:
+          type: number
+          description: Latitude coordinate of the address.
+          format: float
+          example: 51.523751
+        longitude:
+          type: number
+          description: Longitude coordinate of the address.
+          format: float
+          example: -0.158555
+    Waypoint:
+      required:
+      - activity
+      - id
+      - locationAddress
+      - locationName
+      type: object
+      properties:
+        id:
           maxLength: 20
+          type: integer
+          description: Unique identifier for the waypoint. This reference should be included in your status request messages.
+          format: int32
+          example: 6606341
+        activity:
+          maxLength: 3
           type: string
-          description: Harmonized System Code (HS) of the cargo mentioned in customs data.
-          example: '85065090'
-        amount:
-          $ref: '#/components/schemas/Amount'
-        ata:
-          maxLength: 30
+          description: Indicates the type of waypoints. The values allowed are LOA = Load, C/D = Collect or Delivery, CUS = Customs, UNL = Unload or VGM = Verified Gross Mass.
+          example: LOA
+          x-extensible-enum:
+          - LOA
+          - C/D
+          - CUS
+          - UNL
+          - VGM
+        date:
           type: string
-          description: ATA number of the cargo mentioned in customs data.
-          example: ATA123456789
-        atb:
-          maxLength: 30
+          description: Date of visit to the waypoint (YYYY-MM-DD).
+          format: date
+        time:
           type: string
-          description: ATB number of the cargo mentioned in customs data.
-          example: ATB123456789
-        atc:
-          maxLength: 30
+          description: Time of visit to the waypoint (HH:MM:SS).
+          format: time
+          example: '11:14:55'
+        reference:
+          maxLength: 50
           type: string
-          description: ATC number of the cargo mentioned in customs data.
-          example: ATC123456789
+          description: Any reference belong to the waypoint.
+          example: '495677'
+        referenceExpiryDate:
+          type: string
+          description: Expiry date of the reference.
+          format: date
+        isOnOffHire:
+          type: boolean
+          description: Indicates whether the container is on or off hire.
+        terminalCode:
+          maxLength: 6
+          type: string
+          description: If Location is a Port, the Terminal Code is output.
+          example: EGHAM
+        depotCode:
+          maxLength: 6
+          type: string
+          description: If Location is a Depot, the Depot Code is output.
+          example: EGHAM
+        unLocationCode:
+          maxLength: 6
+          type: string
+          description: UN Location Code of the waypoint.
+          example: DBIDST
+        locationName:
+          maxLength: 60
+          type: string
+          description: Name of the waypoint location.
+          example: EUROGATE CONTAINER TERMINAL HAMBURG
+        locationAddress:
+          $ref: '#/components/schemas/Address'
+        instructions:
+          maxLength: 255
+          type: string
+          description: Specific instructions related to waypoint.
+          example: EMA:cust@customer-company.com
   securitySchemes:
     default:
       type: oauth2

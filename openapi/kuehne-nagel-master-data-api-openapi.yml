@@ -160,21 +160,35 @@ paths:
       x-auth-type: Application & Application User
 components:
   schemas:
-    MasterDataMapping:
+    MasterDataCategoryList:
       required:
-      - description
-      - value
+      - items
       type: object
       properties:
-        value:
-          maxLength: 50
+        items:
+          maxItems: 100
+          type: array
+          items:
+            maxLength: 20
+            minLength: 1
+            type: string
+            example: reference-types
+    MasterDataCategory:
+      required:
+      - name
+      - values
+      type: object
+      properties:
+        name:
+          maxLength: 20
           minLength: 1
           type: string
-          example: MTQ
-        description:
-          maxLength: 250
+          example: reference-types
+        values:
+          maxLength: 200
+          minLength: 1
           type: string
-          example: cubic metre
+          example: '.../master-data-categories/<category-name>/values'
     MasterDataValues:
       required:
       - items
@@ -210,35 +224,21 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/MasterDataMapping'
-    MasterDataCategoryList:
+    MasterDataMapping:
       required:
-      - items
+      - description
+      - value
       type: object
       properties:
-        items:
-          maxItems: 100
-          type: array
-          items:
-            maxLength: 20
-            minLength: 1
-            type: string
-            example: reference-types
-    MasterDataCategory:
-      required:
-      - name
-      - values
-      type: object
-      properties:
-        name:
-          maxLength: 20
+        value:
+          maxLength: 50
           minLength: 1
           type: string
-          example: reference-types
-        values:
-          maxLength: 200
-          minLength: 1
+          example: MTQ
+        description:
+          maxLength: 250
           type: string
-          example: '.../master-data-categories/<category-name>/values'
+          example: cubic metre
   securitySchemes:
     default:
       type: oauth2

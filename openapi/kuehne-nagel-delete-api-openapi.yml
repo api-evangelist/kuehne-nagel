@@ -1,9 +1,7 @@
 openapi: 3.2.0
 info:
   title: ShipmentDocumentManagement Delete API
-  description: 'Document management (list, download, add and delete) of shipment related documents.
-
-    '
+  description: Document management (list, download, add and delete) of shipment related documents.
   contact:
     name: API Support
     email: support.api.ShipmentDocumentManagement@kuehne-nagel.com
@@ -39,6 +37,8 @@ paths:
       - api_key: []
       x-auth-type: Application & Application User
       x-throttling-tier: 10KPerMin
+      summary: Delete document
+      x-summary-source: derived
 components:
   parameters:
     uniqueShipmentReferenceParameter:

@@ -1,68 +1,7 @@
 openapi: 3.2.0
 info:
   title: PurchaseOrderManagement Purchase Order Layer API
-  description: 'This API is part of the Kuehne+Nagel API layer. It manages purchase orders
-
-    for external partners. To use this API you must be registered and set up as
-
-    an API user.
-
-
-    Processing of purchase order data depends on the customer''s eSOP order configuration in
-
-    K+N ESP.
-
-
-    Order attributes which are configured to be header attributes for the customer are stored
-
-    in the `orderHeader` property of purchase order requests and responses. Order attributes
-
-    that are not header attributes are stored in their respective purchase order lines.
-
-    Customer''s order attributes that are put into the wrong place are ignored. Missing
-
-    attributes, like any attribute with an incompleteness violation, are reported back in the
-
-    `incomplete` property of the response message.
-
-
-    Order attributes can be configured to auto-apply changes from the supplier
-
-    during order acceptance. Such attributes do not accept changes from the
-
-    customer after they have been set by the supplier. Update requests from a
-
-    customer are successful, even if a change to an auto-apply attribute is
-
-    rejected due to this business rule.
-
-
-    The endpoints of this API are designed to handle more than one purchase
-
-    order per request. A request with more than one order is considered a bulk
-
-    order that is processed asynchronously by K+N''s ESP system, provided it
-
-    passes the initial validation for syntactical correctness. A request with a
-
-    single purchase order will be handled synchronously returning the result of
-
-    the request as its response. As a client check for HTTP Status `202
-
-    Accepted` to distinguish the asynchronous from the synchronous case.
-
-
-    Bulk orders are limited in size to ensure error-free and fair processing of
-
-    orders from all clients. In order to be able to adapt the limits to the
-
-    current system load, they are not defined as an upper limit in the OpenAPI
-
-    specification. Details of the limitations are described in the respective
-
-    operation.
-
-    '
+  description: This API is part of the Kuehne+Nagel API layer.
   contact:
     name: Kuehne+Nagel ESP Public APIs
     url: https://esp.kuehne-nagel.com
@@ -83,8 +22,28 @@ paths:
     post:
       tags:
       - purchase-order-layer
-      summary: Used by customers to create new purchase orders in ESP.
-      description: "The customer identified by the `customerCode` creates new distinct\npurchase orders. Each requested purchase order is identified by its\n`purchaseOrderNumber` property. In background processing of bulk orders\neach single purchase order is treated as a separate transaction. The\nstatus of purchase orders can be queried with the `readPurchaseOrders`\noperation.\n\n*Bulk Order Limits:*\n\n- The size of a bulk request is limited by the total number of purchase\n  order lines per request. The upper limit is in the magnitude of 500\n  lines.\n"
+      summary: Used by customers to create new purchase orders in ESP
+      description: 'The customer identified by the `customerCode` creates new distinct
+
+        purchase orders. Each requested purchase order is identified by its
+
+        `purchaseOrderNumber` property. In background processing of bulk orders
+
+        each single purchase order is treated as a separate transaction. The
+
+        status of purchase orders can be queried with the `readPurchaseOrders`
+
+        operation.
+
+
+        *Bulk Order Limits:*
+
+
+        - The size of a bulk request is limited by the total number of purchase
+
+        order lines per request. The upper limit is in the magnitude of 500
+
+        lines.'
       operationId: createPurchaseOrders
       parameters:
       - $ref: '#/components/parameters/CustomerCodeParam'
@@ -183,8 +142,89 @@ paths:
     patch:
       tags:
       - purchase-order-layer
-      summary: Used by customers to update existing purchase orders.
-      description: "The customer identified by the `customerCode` updates one or more of his\nown orders. Updating a purchase order does not allow to delete values\nthat are already part of the purchase order. It is only possible to\nchange or add values. Key attributes of business parties and order lines\ncannot be changed. Purchase orders to be updated are identified by the\n`purchaseOrderNumber` property of the elements of the `purchaseOrders`\narray. Order lines that are added or updated are identified by their key\nattributes as defined in the customer's order configuration. Values of a\npurchase order that are not to be changed do not need to be part of the\nrequest.\n\nThere are additional rules which need to be considered:\n\n- If a cancelled order line is updated the order line will be\n  uncancelled\n\n- If the supplier's code is changed a new supplier is created\n\n- Changes to the supplier do not necessarily require information of the\n  customer\n\n  - If information about the customer is added then the customer code\n    must be part of the request\n\n- Changes to the address of the supplier are ignored. This will not\n  trigger a non-success HTTP status. \n\n- Changes to the factory require certain data about the supplier\n\n  - At a minimum, the suppliers' code and address name must be provided\n\n  - If the contact information is included, the supplier's contact\n    information name must be part of the request\n\n- Changes to auto-apply attributes that are already blocked for changes\n  from the customer are ignored. This will not trigger a non-success\n  HTTP status.\n\nIn background processing of bulk orders each single purchase order is\ntreated as a separate transaction. The status of purchase orders can be\nqueried with the `readPurchaseOrders` operation.\n\n*Bulk Order Limits:*\n\n- The size of a bulk request is limited by\n\n  1. the total number of purchase orders (≲500) and\n\n  2. the total number of purchase order lines (≲500).\n"
+      summary: Used by customers to update existing purchase orders
+      description: 'The customer identified by the `customerCode` updates one or more of his
+
+        own orders. Updating a purchase order does not allow to delete values
+
+        that are already part of the purchase order. It is only possible to
+
+        change or add values. Key attributes of business parties and order lines
+
+        cannot be changed. Purchase orders to be updated are identified by the
+
+        `purchaseOrderNumber` property of the elements of the `purchaseOrders`
+
+        array. Order lines that are added or updated are identified by their key
+
+        attributes as defined in the customer''s order configuration. Values of a
+
+        purchase order that are not to be changed do not need to be part of the
+
+        request.
+
+
+        There are additional rules which need to be considered:
+
+
+        - If a cancelled order line is updated the order line will be
+
+        uncancelled
+
+
+        - If the supplier''s code is changed a new supplier is created
+
+
+        - Changes to the supplier do not necessarily require information of the
+
+        customer
+
+
+        - If information about the customer is added then the customer code
+
+        must be part of the request
+
+
+        - Changes to the address of the supplier are ignored. This will not
+
+        trigger a non-success HTTP status.
+
+
+        - Changes to the factory require certain data about the supplier
+
+
+        - At a minimum, the suppliers'' code and address name must be provided
+
+
+        - If the contact information is included, the supplier''s contact
+
+        information name must be part of the request
+
+
+        - Changes to auto-apply attributes that are already blocked for changes
+
+        from the customer are ignored. This will not trigger a non-success
+
+        HTTP status.
+
+
+        In background processing of bulk orders each single purchase order is
+
+        treated as a separate transaction. The status of purchase orders can be
+
+        queried with the `readPurchaseOrders` operation.
+
+
+        *Bulk Order Limits:*
+
+
+        - The size of a bulk request is limited by
+
+
+        1. the total number of purchase orders (≲500) and
+
+
+        2. the total number of purchase order lines (≲500).'
       operationId: updatePurchaseOrders
       parameters:
       - $ref: '#/components/parameters/CustomerCodeParam'
@@ -284,10 +324,27 @@ paths:
     post:
       tags:
       - purchase-order-layer
-      summary: 'Used by business parties linked to a purchase order to read one or more existing purchase orders.
+      summary: Used by business parties linked to a purchase order to read one or more…
+      description: 'Reading purchase orders is accessible to all business parties that are linked as
 
-        '
-      description: "Reading purchase orders is accessible to all business parties that are linked as\n`parties` to the requested purchase order. The information provided as a response\ndepends on the permissions for the business party's role.\n\nIf the request does not fail completely, the response contains the\npurchase order for each successful read or a problem description for a\nfailed read of a single order. \n\n*Bulk Order Limits:*\n\n- The size of a bulk request is limited by the total number of purchase\n  orders. The limit is in the order of 500 maximum.\n"
+        `parties` to the requested purchase order. The information provided as a response
+
+        depends on the permissions for the business party''s role.
+
+
+        If the request does not fail completely, the response contains the
+
+        purchase order for each successful read or a problem description for a
+
+        failed read of a single order.
+
+
+        *Bulk Order Limits:*
+
+
+        - The size of a bulk request is limited by the total number of purchase
+
+        orders. The limit is in the order of 500 maximum.'
       operationId: readPurchaseOrders
       parameters:
       - $ref: '#/components/parameters/CustomerCodeParam'
@@ -320,10 +377,35 @@ paths:
     put:
       tags:
       - purchase-order-layer
-      summary: 'Used by customers to cancel all or only a selection of order lines from one or more purchase orders.
+      summary: Used by customers to cancel all or only a selection of order lines from one or…
+      description: 'The orders and any affected lines are referenced in the request body.
 
-        '
-      description: "The orders and any affected lines are referenced in the request body.\n\nA single order line is identified by a JSON object that contains only\nthe order attributes that are key attributes in the customer's order\nconfiguration.\n\nTo cancel a complete order, i.e. all order lines of that order, the\nattribute `orderLines` is omitted.\n\nIn background processing of bulk orders each single purchase order is\ntreated as a separate transaction. The status of purchase orders can be\nqueried with the `readPurchaseOrders` operation.\n\n*Bulk Order Limits:*\n\n- The size of a bulk request is limited by the total number of purchase\n  orders. The limit is in the order of 500 maximum.\n"
+
+        A single order line is identified by a JSON object that contains only
+
+        the order attributes that are key attributes in the customer''s order
+
+        configuration.
+
+
+        To cancel a complete order, i.e. all order lines of that order, the
+
+        attribute `orderLines` is omitted.
+
+
+        In background processing of bulk orders each single purchase order is
+
+        treated as a separate transaction. The status of purchase orders can be
+
+        queried with the `readPurchaseOrders` operation.
+
+
+        *Bulk Order Limits:*
+
+
+        - The size of a bulk request is limited by the total number of purchase
+
+        orders. The limit is in the order of 500 maximum.'
       operationId: cancelPurchaseOrderLines
       parameters:
       - $ref: '#/components/parameters/CustomerCodeParam'
@@ -377,27 +459,24 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/String'
-    OrderLineRequest:
+    CustomerCode:
+      pattern: ^[A-Z]{5}[0-9]{2}$
+      type: string
+      description: Unique identifier assigned to a customer
+    CancelPurchaseOrderLinesResponse:
       type: object
       properties:
-        attributes:
-          $ref: '#/components/schemas/OrderAttributes'
-        additionalReferences:
+        alreadyCancelledPurchaseOrders:
+          minItems: 1
           type: array
           items:
-            $ref: '#/components/schemas/AdditionalReferencesRequest'
-    Money:
-      required:
-      - amount
-      type: object
-      properties:
-        amount:
-          minimum: 0
-          type: number
-          format: decimal
-        currency:
-          type: string
-          format: iso-4217
+            $ref: '#/components/schemas/String'
+    BusinessParty:
+      allOf:
+      - $ref: '#/components/schemas/AdditionalParty'
+      - required:
+        - partyCode
+        type: object
     ItemIdentificationAttributes:
       type: object
       properties:
@@ -435,111 +514,19 @@ components:
           $ref: '#/components/schemas/String'
         universalProductCode:
           $ref: '#/components/schemas/String'
-    Cancellation:
-      required:
-      - purchaseOrderNumber
+    PostalAddress:
       type: object
       properties:
-        purchaseOrderNumber:
+        address1:
           $ref: '#/components/schemas/String'
-        purchaseOrderLineRefs:
-          type: array
-          items:
-            $ref: '#/components/schemas/KeyAttributes'
-    AmountAndUnit:
-      required:
-      - amount
-      type: object
-      properties:
-        amount:
-          minimum: 0
-          type: number
-          format: decimal
-        unit:
-          maxLength: 3
-          minLength: 1
-          type: string
-    BulkReadResponse:
-      type: object
-      properties:
-        purchaseOrders:
-          minItems: 1
-          type: array
-          items:
-            $ref: '#/components/schemas/PurchaseOrderResponse'
-        problems:
-          minItems: 1
-          type: array
-          items:
-            $ref: '#/components/schemas/Problem'
-    UpdatePurchaseOrdersRequest:
-      required:
-      - purchaseOrders
-      type: object
-      properties:
-        purchaseOrders:
-          minItems: 1
-          type: array
-          items:
-            $ref: '#/components/schemas/RequestPurchaseOrder'
-    Incoterms:
-      type: string
-      description: 'Internationally recognized delivery terms for commercial contracts published by the ICC
-
-        Possible values: `CFR`, `CIF`, `CIP`, `CPT`, `CTO`, `DAF`, `DAP`, `DAT`, `DCT`, `DDP`, `DDU`, `DEQ`, `DES`, `DIC`, `DIT`, `DPU`, `EXQ`, `EXW`, `FAS`, `FCA`, `FOB`, `FOC`, `FOT`, `PRC`, `PUO`'
-      x-extensible-enum:
-      - CFR
-      - CIF
-      - CIP
-      - CPT
-      - CTO
-      - DAF
-      - DAP
-      - DAT
-      - DCT
-      - DDP
-      - DDU
-      - DEQ
-      - DES
-      - DIC
-      - DIT
-      - DPU
-      - EXQ
-      - EXW
-      - FAS
-      - FCA
-      - FOB
-      - FOC
-      - FOT
-      - PRC
-      - PUO
-    CustomerCode:
-      pattern: ^[A-Z]{5}[0-9]{2}$
-      type: string
-      description: Unique identifier assigned to a customer
-    ResponsePurchaseOrder:
-      required:
-      - purchaseOrderNumber
-      type: object
-      properties:
-        purchaseOrderNumber:
+        address2:
           $ref: '#/components/schemas/String'
-        parties:
-          $ref: '#/components/schemas/Parties'
-        orderHeader:
-          $ref: '#/components/schemas/OrderAttributes'
-        orderLines:
-          minItems: 1
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderLineResponse'
-    DateWindow:
-      type: object
-      properties:
-        startDate:
-          $ref: '#/components/schemas/Date'
-        endDate:
-          $ref: '#/components/schemas/Date'
+        zipCode:
+          $ref: '#/components/schemas/String'
+        city:
+          $ref: '#/components/schemas/String'
+        countryCode:
+          $ref: '#/components/schemas/CountryCode'
     Problem:
       required:
       - detail
@@ -582,31 +569,142 @@ components:
             '
           format: uri-reference
           example: /problem/connection-error#token-info-read-timed-out
-    Integer:
-      type: integer
-      format: int64
     CountryCode:
       type: string
       format: iso-3166
-    OrderLineResponse:
+    AmountAndUnit:
+      required:
+      - amount
+      type: object
+      properties:
+        amount:
+          minimum: 0
+          type: number
+          format: decimal
+        unit:
+          maxLength: 3
+          minLength: 1
+          type: string
+    Incoterms:
+      type: string
+      description: 'Internationally recognized delivery terms for commercial contracts published by the ICC
+
+        Possible values: `CFR`, `CIF`, `CIP`, `CPT`, `CTO`, `DAF`, `DAP`, `DAT`, `DCT`, `DDP`, `DDU`, `DEQ`, `DES`, `DIC`, `DIT`, `DPU`, `EXQ`, `EXW`, `FAS`, `FCA`, `FOB`, `FOC`, `FOT`, `PRC`, `PUO`'
+      x-extensible-enum:
+      - CFR
+      - CIF
+      - CIP
+      - CPT
+      - CTO
+      - DAF
+      - DAP
+      - DAT
+      - DCT
+      - DDP
+      - DDU
+      - DEQ
+      - DES
+      - DIC
+      - DIT
+      - DPU
+      - EXQ
+      - EXW
+      - FAS
+      - FCA
+      - FOB
+      - FOC
+      - FOT
+      - PRC
+      - PUO
+    DateWindow:
+      type: object
+      properties:
+        startDate:
+          $ref: '#/components/schemas/Date'
+        endDate:
+          $ref: '#/components/schemas/Date'
+    Address:
       allOf:
-      - $ref: '#/components/schemas/OrderAttributes'
-      - required:
-        - state
-        type: object
+      - $ref: '#/components/schemas/PostalAddress'
+      - type: object
         properties:
+          name:
+            $ref: '#/components/schemas/String'
           state:
-            type: string
-            description: 'Possible values: `ACTIVE`, `INCOMPLETE`, `CANCELLED`'
-            x-extensible-enum:
-            - ACTIVE
-            - INCOMPLETE
-            - CANCELLED
-          additionalReferences:
-            type: array
-            items:
-              $ref: '#/components/schemas/AdditionalReferencesResponse'
-    RequestPurchaseOrder:
+            $ref: '#/components/schemas/String'
+          stateCode:
+            $ref: '#/components/schemas/String'
+          postBox:
+            $ref: '#/components/schemas/String'
+          identifier:
+            $ref: '#/components/schemas/String'
+    Incompleteness:
+      required:
+      - detail
+      - title
+      - violationAttribute
+      - violationType
+      type: object
+      properties:
+        type:
+          type: string
+          description: 'A URI reference that uniquely identifies the incompleteness type only in the context of the provided API. Opposed to the specification in RFC-7807, it is neither recommended to be dereferencable and point to a human-readable documentation nor globally unique for the problem type.
+
+            '
+          format: uri-reference
+          example: /purchase-order/incomplete/line
+          default: about:blank
+        title:
+          type: string
+          description: 'A short summary of the incompleteness type. Written in English and readable for engineers, usually not suited for non technical stakeholders and not localized.
+
+            '
+          example: Incomplete order line
+        detail:
+          type: string
+          description: 'A human readable explanation specific to this occurrence of the problem that is helpful to locate the problem and give advice on how to proceed. Written in English and readable for engineers, usually not suited for non technical stakeholders and not localized.
+
+            '
+        instance:
+          type: string
+          description: 'A URI reference that identifies the specific occurrence of the problem, e.g. by adding a fragment identifier or sub-path to the problem type. May be used to locate the root of this problem in the source code.
+
+            '
+          format: uri-reference
+          example: '#/orderLines/0'
+        violationAttribute:
+          type: string
+          description: 'The identifier of the offending attribute
+
+            '
+          example: orderIdentification.invoiceNumber
+        violationType:
+          type: string
+          description: 'Possible values: `ATTRIBUTE_MISSING`, `INVALID_VALUE`, `CUSTOM`, `ORDER_HEADER_ATTRIBUTE`'
+          x-extensible-enum:
+          - ATTRIBUTE_MISSING
+          - INVALID_VALUE
+          - CUSTOM
+          - ORDER_HEADER_ATTRIBUTE
+        violationValue:
+          type: string
+          description: 'The value attempted to be assigned to the offending attribute (provided in case of violationType INVALID_VALUE)
+
+            '
+    String:
+      minLength: 1
+      type: string
+    CancelPurchaseOrderLinesRequest:
+      required:
+      - cancellations
+      type: object
+      properties:
+        cancellations:
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/Cancellation'
+    ResponsePurchaseOrder:
       required:
       - purchaseOrderNumber
       type: object
@@ -616,12 +714,23 @@ components:
         parties:
           $ref: '#/components/schemas/Parties'
         orderHeader:
-          $ref: '#/components/schemas/OrderHeaderRequest'
+          $ref: '#/components/schemas/OrderAttributes'
         orderLines:
           minItems: 1
           type: array
           items:
-            $ref: '#/components/schemas/OrderLineRequest'
+            $ref: '#/components/schemas/OrderLineResponse'
+    AdditionalParty:
+      type: object
+      properties:
+        partyCode:
+          $ref: '#/components/schemas/String'
+        address:
+          $ref: '#/components/schemas/Address'
+        contactInformation:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactInformation'
     OrderIdentificationKeyAttributes:
       type: object
       properties:
@@ -691,22 +800,6 @@ components:
           $ref: '#/components/schemas/String'
         supplierOrderNumber:
           $ref: '#/components/schemas/String'
-    String:
-      minLength: 1
-      type: string
-    PostalAddress:
-      type: object
-      properties:
-        address1:
-          $ref: '#/components/schemas/String'
-        address2:
-          $ref: '#/components/schemas/String'
-        zipCode:
-          $ref: '#/components/schemas/String'
-        city:
-          $ref: '#/components/schemas/String'
-        countryCode:
-          $ref: '#/components/schemas/CountryCode'
     PurchaseOrderResponse:
       required:
       - purchaseOrder
@@ -719,6 +812,76 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Incompleteness'
+    Parties:
+      type: object
+      properties:
+        customer:
+          $ref: '#/components/schemas/BusinessParty'
+        supplier:
+          $ref: '#/components/schemas/BusinessParty'
+        factory:
+          $ref: '#/components/schemas/BusinessParty'
+        additionalParties:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/AdditionalParty'
+    UpdatePurchaseOrdersRequest:
+      required:
+      - purchaseOrders
+      type: object
+      properties:
+        purchaseOrders:
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/RequestPurchaseOrder'
+    Date:
+      type: string
+      format: date
+    BulkReadResponse:
+      type: object
+      properties:
+        purchaseOrders:
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/PurchaseOrderResponse'
+        problems:
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/Problem'
+    OrderLineRequest:
+      type: object
+      properties:
+        attributes:
+          $ref: '#/components/schemas/OrderAttributes'
+        additionalReferences:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdditionalReferencesRequest'
+    Integer:
+      type: integer
+      format: int64
+    OrderHeaderRequest:
+      type: object
+      properties:
+        attributes:
+          $ref: '#/components/schemas/OrderAttributes'
+        additionalReferences:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdditionalReferencesRequest'
+    AdditionalReferencesResponse:
+      type: object
+      properties:
+        referenceCode:
+          type: string
+        referenceValues:
+          minItems: 1
+          type: array
+          items:
+            type: string
     ContactInformation:
       type: object
       properties:
@@ -733,57 +896,10 @@ components:
           $ref: '#/components/schemas/String'
         fax:
           $ref: '#/components/schemas/String'
-    Address:
-      allOf:
-      - $ref: '#/components/schemas/PostalAddress'
-      - type: object
-        properties:
-          name:
-            $ref: '#/components/schemas/String'
-          state:
-            $ref: '#/components/schemas/String'
-          stateCode:
-            $ref: '#/components/schemas/String'
-          postBox:
-            $ref: '#/components/schemas/String'
-          identifier:
-            $ref: '#/components/schemas/String'
-    AdditionalReferencesRequest:
-      type: object
-      properties:
-        referenceCode:
-          type: string
-        referenceValues:
-          minItems: 1
-          type: array
-          items:
-            type: string
-    Date:
+    UnLocationCode:
+      pattern: '[A-Z]{2}[A-Z0-9]{3}'
       type: string
-      format: date
-    Parties:
-      type: object
-      properties:
-        customer:
-          $ref: '#/components/schemas/BusinessParty'
-        supplier:
-          $ref: '#/components/schemas/BusinessParty'
-        factory:
-          $ref: '#/components/schemas/BusinessParty'
-        additionalParties:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/AdditionalParty'
-    CreatePurchaseOrdersRequest:
-      required:
-      - purchaseOrders
-      type: object
-      properties:
-        purchaseOrders:
-          minItems: 1
-          type: array
-          items:
-            $ref: '#/components/schemas/RequestPurchaseOrder'
+      description: Standardized code for trade and transport locations including seaports and airports
     ItemAttributes:
       type: object
       properties:
@@ -805,79 +921,36 @@ components:
           $ref: '#/components/schemas/String'
         countryOfOrigin:
           $ref: '#/components/schemas/CountryCode'
-    Incompleteness:
+    Money:
       required:
-      - detail
-      - title
-      - violationAttribute
-      - violationType
+      - amount
       type: object
       properties:
-        type:
+        amount:
+          minimum: 0
+          type: number
+          format: decimal
+        currency:
           type: string
-          description: 'A URI reference that uniquely identifies the incompleteness type only in the context of the provided API. Opposed to the specification in RFC-7807, it is neither recommended to be dereferencable and point to a human-readable documentation nor globally unique for the problem type.
-
-            '
-          format: uri-reference
-          example: /purchase-order/incomplete/line
-          default: about:blank
-        title:
-          type: string
-          description: 'A short summary of the incompleteness type. Written in English and readable for engineers, usually not suited for non technical stakeholders and not localized.
-
-            '
-          example: Incomplete order line
-        detail:
-          type: string
-          description: 'A human readable explanation specific to this occurrence of the problem that is helpful to locate the problem and give advice on how to proceed. Written in English and readable for engineers, usually not suited for non technical stakeholders and not localized.
-
-            '
-        instance:
-          type: string
-          description: 'A URI reference that identifies the specific occurrence of the problem, e.g. by adding a fragment identifier or sub-path to the problem type. May be used to locate the root of this problem in the source code.
-
-            '
-          format: uri-reference
-          example: '#/orderLines/0'
-        violationAttribute:
-          type: string
-          description: 'The identifier of the offending attribute
-
-            '
-          example: orderIdentification.invoiceNumber
-        violationType:
-          type: string
-          description: 'Possible values: `ATTRIBUTE_MISSING`, `INVALID_VALUE`, `CUSTOM`, `ORDER_HEADER_ATTRIBUTE`'
-          x-extensible-enum:
-          - ATTRIBUTE_MISSING
-          - INVALID_VALUE
-          - CUSTOM
-          - ORDER_HEADER_ATTRIBUTE
-        violationValue:
-          type: string
-          description: 'The value attempted to be assigned to the offending attribute (provided in case of violationType INVALID_VALUE)
-
-            '
-    CancelPurchaseOrderLinesRequest:
-      required:
-      - cancellations
-      type: object
-      properties:
-        cancellations:
-          minItems: 1
-          type: array
-          items:
-            $ref: '#/components/schemas/Cancellation'
-    BusinessParty:
+          format: iso-4217
+    OrderLineResponse:
       allOf:
-      - $ref: '#/components/schemas/AdditionalParty'
+      - $ref: '#/components/schemas/OrderAttributes'
       - required:
-        - partyCode
+        - state
         type: object
-    UnLocationCode:
-      pattern: '[A-Z]{2}[A-Z0-9]{3}'
-      type: string
-      description: Standardized code for trade and transport locations including seaports and airports
+        properties:
+          state:
+            type: string
+            description: 'Possible values: `ACTIVE`, `INCOMPLETE`, `CANCELLED`'
+            x-extensible-enum:
+            - ACTIVE
+            - INCOMPLETE
+            - CANCELLED
+          additionalReferences:
+            type: array
+            items:
+              $ref: '#/components/schemas/AdditionalReferencesResponse'
     OrderAttributes:
       properties:
         orderIdentification:
@@ -1233,43 +1306,17 @@ components:
           description: 'This section of order attributes contains the customer specific order attributes as defined by the customer''s order configuration.
 
             '
-    AdditionalParty:
+    CreatePurchaseOrdersRequest:
+      required:
+      - purchaseOrders
       type: object
       properties:
-        partyCode:
-          $ref: '#/components/schemas/String'
-        address:
-          $ref: '#/components/schemas/Address'
-        contactInformation:
-          type: array
-          items:
-            $ref: '#/components/schemas/ContactInformation'
-    CancelPurchaseOrderLinesResponse:
-      type: object
-      properties:
-        alreadyCancelledPurchaseOrders:
+        purchaseOrders:
           minItems: 1
           type: array
           items:
-            $ref: '#/components/schemas/String'
-    OrderHeaderRequest:
-      type: object
-      properties:
-        attributes:
-          $ref: '#/components/schemas/OrderAttributes'
-        additionalReferences:
-          type: array
-          items:
-            $ref: '#/components/schemas/AdditionalReferencesRequest'
-    KeyAttributes:
-      properties:
-        orderIdentification:
-          $ref: '#/components/schemas/OrderIdentificationKeyAttributes'
-        itemIdentification:
-          $ref: '#/components/schemas/ItemIdentificationAttributes'
-        itemAttributes:
-          $ref: '#/components/schemas/ItemAttributes'
-    AdditionalReferencesResponse:
+            $ref: '#/components/schemas/RequestPurchaseOrder'
+    AdditionalReferencesRequest:
       type: object
       properties:
         referenceCode:
@@ -1279,6 +1326,41 @@ components:
           type: array
           items:
             type: string
+    RequestPurchaseOrder:
+      required:
+      - purchaseOrderNumber
+      type: object
+      properties:
+        purchaseOrderNumber:
+          $ref: '#/components/schemas/String'
+        parties:
+          $ref: '#/components/schemas/Parties'
+        orderHeader:
+          $ref: '#/components/schemas/OrderHeaderRequest'
+        orderLines:
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderLineRequest'
+    KeyAttributes:
+      properties:
+        orderIdentification:
+          $ref: '#/components/schemas/OrderIdentificationKeyAttributes'
+        itemIdentification:
+          $ref: '#/components/schemas/ItemIdentificationAttributes'
+        itemAttributes:
+          $ref: '#/components/schemas/ItemAttributes'
+    Cancellation:
+      required:
+      - purchaseOrderNumber
+      type: object
+      properties:
+        purchaseOrderNumber:
+          $ref: '#/components/schemas/String'
+        purchaseOrderLineRefs:
+          type: array
+          items:
+            $ref: '#/components/schemas/KeyAttributes'
   responses:
     default:
       description: Default Response for Error Cases

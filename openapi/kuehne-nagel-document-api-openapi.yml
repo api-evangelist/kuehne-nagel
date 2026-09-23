@@ -22,6 +22,10 @@ paths:
       x-throttling-tier: Unlimited
       tags:
       - Document
+      summary: Create document
+      x-summary-source: derived
+      operationId: postDocument
+      x-operation-id-source: derived
 components:
   securitySchemes:
     api_key:

@@ -23,11 +23,9 @@ paths:
 
         Before the document is actually added to the shipment the uploaded content must pass a
 
-        security scan and conversion to [PDF/A](https://en.wikipedia.org/wiki/PDF/A). This is done asynchronously
+        security scan and conversion to PDF/A. This is done asynchronously
 
-        and usually only takes a couple of seconds. For the future it is planned to immediately scan and convert the document.
-
-        '
+        and usually only takes a couple of seconds. For the future it is planned to immediately scan and convert the document.'
       operationId: addDocument
       parameters:
       - $ref: '#/components/parameters/uniqueShipmentReferenceParameter'
@@ -55,6 +53,8 @@ paths:
       - default: []
       x-auth-type: Application & Application User
       x-throttling-tier: 10KPerMin
+      summary: Add document
+      x-summary-source: derived
     servers:
     - url: https://gateway.api.kuehne-nagel.com/transport/execution/documentation/shipment/v2
   /shipments/{uniqueShipmentReference}/documents/{documentId}:
@@ -79,6 +79,8 @@ paths:
       - default: []
       x-auth-type: Application & Application User
       x-throttling-tier: 10KPerMin
+      summary: Retrieve document details
+      x-summary-source: derived
     servers:
     - url: https://gateway.api.kuehne-nagel.com/transport/execution/documentation/shipment/v2
   /shipments/{uniqueShipmentReference}/uploadable-document-types:
@@ -102,49 +104,94 @@ paths:
       - default: []
       x-auth-type: Application & Application User
       x-throttling-tier: 10KPerMin
+      summary: Retrieve uploadable document types
+      x-summary-source: derived
     servers:
     - url: https://gateway.api.kuehne-nagel.com/transport/execution/documentation/shipment/v2
 components:
   schemas:
+    RetrieveUploadableDocumentTypesResponse:
+      required:
+      - uploadableDocumentTypes
+      type: object
+      properties:
+        uploadableDocumentTypes:
+          maxItems: 512
+          uniqueItems: true
+          type: array
+          description: List of document types available for uploading to the shipment.
+          example:
+          - code: '380'
+            name: Commercial Invoice
+          - code: '271'
+            name: Packing List
+          items:
+            $ref: '#/components/schemas/DocumentType'
+      description: Response containing the document types that can be uploaded for a specific shipment.
     DocumentTypeName:
       maxLength: 255
       type: string
       description: Name of a document type according to the Kuehne+Nagel specific classification.
       example: Commercial Invoice
+    DocumentStatus:
+      maxLength: 128
+      type: string
+      description: 'Extensible enum:
+
+        * `OK`
+
+        * `PROCESSING_UPLOAD`
+
+        * `PROCESSING_UPLOAD_FAILED`
+
+        '
+      example: OK
+      x-extensible-enum:
+      - OK
+      - PROCESSING_UPLOAD
+      - PROCESSING_UPLOAD_FAILED
+    DocumentTypeCode:
+      maxLength: 3
+      minLength: 3
+      type: string
+      description: 'Code of a document type according to the Kuehne+Nagel specific classification.
+
+
+        The document types allowed for uploading a document can be retrieved via the operation `/shipments/{uniqueShipmentReference}/uploadable-document-types`.
+
+
+        Often uploaded document types:
+
+        * 380 (Commercial Invoice)
+
+        * 271 (Packing List)
+
+        * 944 (Customs Documents)
+
+        * 833 (Export Declaration)
+
+        '
+      example: '380'
     DocumentId:
       maxLength: 255
       minLength: 1
       type: string
       description: Unique identifier of a shipment document.
       example: Q1234S56
-    RetrieveDocumentDetailsResponse:
+    AddDocumentResponse:
       required:
       - documentId
-      - documentType
-      - status
+      - self
       type: object
       properties:
         documentId:
           $ref: '#/components/schemas/DocumentId'
-        documentType:
-          $ref: '#/components/schemas/DocumentType'
-        status:
-          $ref: '#/components/schemas/DocumentStatus'
-      description: Response containing the detailed metadata of a specific shipment document.
-    DocumentType:
-      required:
-      - code
-      - name
-      type: object
-      properties:
-        code:
-          $ref: '#/components/schemas/DocumentTypeCode'
-        name:
-          $ref: '#/components/schemas/DocumentTypeName'
-      description: Kuehne+Nagel specific classification of shipment documents.
-      example:
-        code: '380'
-        name: Commercial Invoice
+        self:
+          type: string
+          description: URI to retrieve the meta data of the uploaded shipment document.
+          format: uri
+          example: https://.../shipments/N4242/documents/Q1234S56
+      description: Response returned after a document upload request has been created.
     Problem:
       required:
       - detail
@@ -190,38 +237,20 @@ components:
           example: /problem/connection-error
           default: about:blank
       description: A problem details object as defined by RFC 7807, used to carry error information in HTTP API responses.
-    RetrieveUploadableDocumentTypesResponse:
+    DocumentType:
       required:
-      - uploadableDocumentTypes
+      - code
+      - name
       type: object
       properties:
-        uploadableDocumentTypes:
-          maxItems: 512
-          uniqueItems: true
-          type: array
-          description: List of document types available for uploading to the shipment.
-          example:
-          - code: '380'
-            name: Commercial Invoice
-          - code: '271'
-            name: Packing List
-          items:
-            $ref: '#/components/schemas/DocumentType'
-      description: Response containing the document types that can be uploaded for a specific shipment.
-    AddDocumentResponse:
-      required:
-      - documentId
-      - self
-      type: object
-      properties:
-        documentId:
-          $ref: '#/components/schemas/DocumentId'
-        self:
-          type: string
-          description: URI to retrieve the meta data of the uploaded shipment document.
-          format: uri
-          example: https://.../shipments/N4242/documents/Q1234S56
-      description: Response returned after a document upload request has been created.
+        code:
+          $ref: '#/components/schemas/DocumentTypeCode'
+        name:
+          $ref: '#/components/schemas/DocumentTypeName'
+      description: Kuehne+Nagel specific classification of shipment documents.
+      example:
+        code: '380'
+        name: Commercial Invoice
     AddDocumentRequest:
       required:
       - documentContent
@@ -235,45 +264,20 @@ components:
         documentTypeCode:
           $ref: '#/components/schemas/DocumentTypeCode'
       description: Request body for adding a document to a shipment.
-    DocumentStatus:
-      maxLength: 128
-      type: string
-      description: 'Extensible enum:
-
-        * `OK`
-
-        * `PROCESSING_UPLOAD`
-
-        * `PROCESSING_UPLOAD_FAILED`
-
-        '
-      example: OK
-      x-extensible-enum:
-      - OK
-      - PROCESSING_UPLOAD
-      - PROCESSING_UPLOAD_FAILED
-    DocumentTypeCode:
-      maxLength: 3
-      minLength: 3
-      type: string
-      description: 'Code of a document type according to the Kuehne+Nagel specific classification.
-
-
-        The document types allowed for uploading a document can be retrieved via the operation `/shipments/{uniqueShipmentReference}/uploadable-document-types`.
-
-
-        Often uploaded document types:
-
-        * 380 (Commercial Invoice)
-
-        * 271 (Packing List)
-
-        * 944 (Customs Documents)
-
-        * 833 (Export Declaration)
-
-        '
-      example: '380'
+    RetrieveDocumentDetailsResponse:
+      required:
+      - documentId
+      - documentType
+      - status
+      type: object
+      properties:
+        documentId:
+          $ref: '#/components/schemas/DocumentId'
+        documentType:
+          $ref: '#/components/schemas/DocumentType'
+        status:
+          $ref: '#/components/schemas/DocumentStatus'
+      description: Response containing the detailed metadata of a specific shipment document.
     AddDocumentRequest_2:
       required:
       - documentContent
@@ -288,15 +292,6 @@ components:
           $ref: '#/components/schemas/DocumentTypeCode'
       description: Request body for adding a document to a shipment.
   parameters:
-    documentIdParameter:
-      name: documentId
-      in: path
-      description: Unique identifier of a document
-      required: true
-      style: simple
-      explode: false
-      schema:
-        $ref: '#/components/schemas/DocumentId'
     uniqueShipmentReferenceParameter:
       name: uniqueShipmentReference
       in: path
@@ -309,6 +304,15 @@ components:
         pattern: ^(tracking-number:|booking-number:|shipment-id:)?[A-Za-z0-9]+$
         type: string
         example: N4242
+    documentIdParameter:
+      name: documentId
+      in: path
+      description: Unique identifier of a document
+      required: true
+      style: simple
+      explode: false
+      schema:
+        $ref: '#/components/schemas/DocumentId'
     uniqueShipmentReferenceParameter_2:
       name: uniqueShipmentReference
       in: path

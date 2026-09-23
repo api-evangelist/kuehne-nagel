@@ -22,6 +22,10 @@ paths:
       x-throttling-tier: Unlimited
       tags:
       - Order
+      summary: Create order
+      x-summary-source: derived
+      operationId: postOrder
+      x-operation-id-source: derived
 components:
   securitySchemes:
     api_key:

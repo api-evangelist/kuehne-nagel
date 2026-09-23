@@ -19,9 +19,7 @@ paths:
       tags:
       - Download
       summary: Download requested documents
-      description: 'Returns all documents matching the parameters passed as request input payload.
-
-        '
+      description: Returns all documents matching the parameters passed as request input payload.
       operationId: getDocumentsWithGet
       parameters:
       - name: referenceType
@@ -92,9 +90,7 @@ paths:
       description: 'Download the binary content of a specific shipment document.
 
 
-        This endpoint always returns exactly one content item (singleton collection, cardinality 1).
-
-        '
+        This endpoint always returns exactly one content item (singleton collection, cardinality 1).'
       operationId: downloadDocumentContent
       parameters:
       - $ref: '#/components/parameters/uniqueShipmentReferenceParameter'
@@ -122,10 +118,34 @@ paths:
       - api_key: []
       x-auth-type: Application & Application User
       x-throttling-tier: 10KPerMin
+      summary: Download document content
+      x-summary-source: derived
     servers:
     - url: https://gateway.api.kuehne-nagel.com/transport/execution/documentation/shipment/v3
 components:
   schemas:
+    DocumentTypeCode:
+      maxLength: 3
+      minLength: 3
+      type: string
+      description: 'Code of a document type according to the Kuehne+Nagel specific classification.
+
+
+        The document types allowed for uploading a document can be retrieved via the operation `/shipments/{uniqueShipmentReference}/uploadable-document-types`.
+
+
+        Often uploaded document types:
+
+        * 380 (Commercial Invoice)
+
+        * 271 (Packing List)
+
+        * 944 (Customs Documents)
+
+        * 833 (Export Declaration)
+
+        '
+      example: '380'
     Problem:
       required:
       - detail
@@ -171,28 +191,6 @@ components:
           example: /problem/connection-error
           default: about:blank
       description: A problem details object as defined by RFC 7807, used to carry error information in HTTP API responses.
-    DocumentTypeCode:
-      maxLength: 3
-      minLength: 3
-      type: string
-      description: 'Code of a document type according to the Kuehne+Nagel specific classification.
-
-
-        The document types allowed for uploading a document can be retrieved via the operation `/shipments/{uniqueShipmentReference}/uploadable-document-types`.
-
-
-        Often uploaded document types:
-
-        * 380 (Commercial Invoice)
-
-        * 271 (Packing List)
-
-        * 944 (Customs Documents)
-
-        * 833 (Export Declaration)
-
-        '
-      example: '380'
     DocumentId:
       maxLength: 255
       minLength: 1

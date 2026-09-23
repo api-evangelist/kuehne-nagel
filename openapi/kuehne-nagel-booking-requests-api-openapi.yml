@@ -155,137 +155,6 @@ components:
           items:
             $ref: '#/components/schemas/DangerousGoodsInformationModel'
       description: One component of the cargo booking request, in which individual items of the same type are grouped together for shipping as a unit.
-    BookingOptionsModel:
-      required:
-      - code
-      type: object
-      properties:
-        code:
-          maxLength: 3
-          minLength: 1
-          type: string
-          description: Option code determined by master data "booking-options" category. Call endpoint  /master-data-categories/booking-options/values for possible values.
-          example: RA
-        value:
-          minLength: 0
-          type: string
-          description: Optional value to accompany an option code. Not every option code requires a value, but when one is needed, this field supplies the relevant additional details.
-          example: '17'
-      description: A single free-form option for the booking. Allows for enabling or specifying many different types of details, chosen from a pre-defined list of options and pre-negotiated with Kuehne + Nagel. Not every option code requires a value to be entered alongside.
-    MonetaryValueModel:
-      required:
-      - totalValue
-      - valueCurrency
-      type: object
-      properties:
-        totalValue:
-          multipleOf: 0.01
-          maximum: 99999999.99
-          minimum: 0
-          type: number
-          format: double
-        valueCurrency:
-          maxLength: 3
-          minLength: 1
-          type: string
-          description: Currency code determined by master data "currencies" category. Call endpoint /master-data-categories/currencies/values for possible values.
-          example: EUR
-    AddressModel:
-      required:
-      - city
-      - countryCode
-      - name1
-      - postalCode
-      - street1
-      type: object
-      properties:
-        name1:
-          maxLength: 35
-          minLength: 1
-          type: string
-          description: Name or title of the party or location.
-        name2:
-          maxLength: 35
-          type: string
-          description: Additional name or title information.
-        street1:
-          maxLength: 35
-          minLength: 1
-          type: string
-          description: Street address or PO box.
-        street2:
-          maxLength: 35
-          type: string
-          description: Unit numbers, or additional street address information which did not fit in Street1.
-        city:
-          maxLength: 35
-          minLength: 1
-          type: string
-          description: Full city name.
-        stateProvinceCode:
-          maxLength: 3
-          minLength: 1
-          type: string
-          description: State/Province code determined by master data "region-codes" category. Call endpoint /master-data-categories/region-codes/values for possible values.
-          example: HH
-        postalCode:
-          maxLength: 12
-          type: string
-          description: Postal or zip code in native format for the country.
-          example: '20354'
-        countryCode:
-          maxLength: 2
-          minLength: 1
-          type: string
-          description: Country code determined by master data "country-codes" category. Call endpoint /master-data-categories/country-codes/values for possible values.
-          example: DE
-      description: A named address, representing a party or location involved with the freight booking request.
-    LocationModel:
-      required:
-      - address
-      - contact
-      type: object
-      properties:
-        address:
-          $ref: '#/components/schemas/AddressModel'
-        requestDate:
-          maxLength: 10
-          type: string
-          description: REQUIRED FOR PICKUP LOCATION. The requested date in which a transport should arrive at a waypoint, or is expected at a waypoint. Formatted based on YYYY-MM-DD.
-        requestBeginTime:
-          maxLength: 14
-          minLength: 6
-          type: string
-          description: An optional addition to the Request Date to define the earliest time in the day expected. Formatted based on a 24-hour clock, with timezone information appended to the end.
-          format: time
-          example: 13:30:00Z
-        requestEndTime:
-          maxLength: 14
-          minLength: 6
-          type: string
-          description: An optional addition to the Request Date to define the latest time in the day expected. Formatted based on a 24-hour clock, with timezone information appended to the end.
-          format: time
-          example: 19:00:00+01:00
-        additionalInformation:
-          maxLength: 210
-          type: string
-          description: Any additional instructions relevant to the waypoint or to the transport at this particular waypoint.
-        contact:
-          $ref: '#/components/schemas/ContactModel'
-      description: One location that comprises the overall journey of a freight booking request.
-    PartyModel:
-      required:
-      - address
-      type: object
-      properties:
-        address:
-          $ref: '#/components/schemas/AddressModel'
-        references:
-          maxItems: 100
-          type: array
-          items:
-            $ref: '#/components/schemas/ReferenceModel'
-      description: A party, involved with the cargo booking. Often represents a Freight Payer, a Shipper, a Consignee, or a Bill-To party, to name a few. Negotiate with Kuehne + Nagel ahead of time to determine which parties are important for your specific transactions.
     BookingFlagsModel:
       type: object
       properties:
@@ -308,6 +177,19 @@ components:
           type: boolean
           default: false
       description: Collection of flags denoting various conditions that apply to cargo booking as a whole.
+    ContactModel:
+      required:
+      - name
+      type: object
+      properties:
+        name:
+          type: string
+        phone:
+          type: string
+        mobilePhone:
+          type: string
+        email:
+          type: string
     IncoTermModel:
       type: object
       properties:
@@ -411,6 +293,54 @@ components:
           type: boolean
           default: false
       description: Denotes various details related to dangerous goods contained within the cargo item. Most fields within are optional, and as much as possible should be included if relevant.
+    MonetaryValueModel:
+      required:
+      - totalValue
+      - valueCurrency
+      type: object
+      properties:
+        totalValue:
+          multipleOf: 0.01
+          maximum: 99999999.99
+          minimum: 0
+          type: number
+          format: double
+        valueCurrency:
+          maxLength: 3
+          minLength: 1
+          type: string
+          description: Currency code determined by master data "currencies" category. Call endpoint /master-data-categories/currencies/values for possible values.
+          example: EUR
+    BookingResponse:
+      required:
+      - bookingID
+      - bookingIsSuccessful
+      - errorMessage
+      - shipmentLabel
+      - transactionID
+      type: object
+      properties:
+        errorMessage:
+          minLength: 0
+          type: string
+          description: Indicates problems with current booking request, if any. If booking was successful, will be blank.
+          example: ''
+        bookingID:
+          maxLength: 12
+          minLength: 0
+          type: string
+          description: Unique identifier for the submitted booking. If booking was unsuccessful, will be blank.
+          example: RAPI00000500
+        transactionID:
+          minLength: 1
+          type: string
+          description: Unique identifier for the API transaction, used for debugging.
+          example: '800100'
+        bookingIsSuccessful:
+          type: boolean
+          description: Indicates whether the booking was successful
+        shipmentLabel:
+          $ref: '#/components/schemas/LabelResponse'
     LabelResponse:
       required:
       - barcodeValue
@@ -490,36 +420,89 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/CargoItemModel'
-    BookingResponse:
+    AddressModel:
       required:
-      - bookingID
-      - bookingIsSuccessful
-      - errorMessage
-      - shipmentLabel
-      - transactionID
+      - city
+      - countryCode
+      - name1
+      - postalCode
+      - street1
       type: object
       properties:
-        errorMessage:
-          minLength: 0
-          type: string
-          description: Indicates problems with current booking request, if any. If booking was successful, will be blank.
-          example: ''
-        bookingID:
-          maxLength: 12
-          minLength: 0
-          type: string
-          description: Unique identifier for the submitted booking. If booking was unsuccessful, will be blank.
-          example: RAPI00000500
-        transactionID:
+        name1:
+          maxLength: 35
           minLength: 1
           type: string
-          description: Unique identifier for the API transaction, used for debugging.
-          example: '800100'
-        bookingIsSuccessful:
-          type: boolean
-          description: Indicates whether the booking was successful
-        shipmentLabel:
-          $ref: '#/components/schemas/LabelResponse'
+          description: Name or title of the party or location.
+        name2:
+          maxLength: 35
+          type: string
+          description: Additional name or title information.
+        street1:
+          maxLength: 35
+          minLength: 1
+          type: string
+          description: Street address or PO box.
+        street2:
+          maxLength: 35
+          type: string
+          description: Unit numbers, or additional street address information which did not fit in Street1.
+        city:
+          maxLength: 35
+          minLength: 1
+          type: string
+          description: Full city name.
+        stateProvinceCode:
+          maxLength: 3
+          minLength: 1
+          type: string
+          description: State/Province code determined by master data "region-codes" category. Call endpoint /master-data-categories/region-codes/values for possible values.
+          example: HH
+        postalCode:
+          maxLength: 12
+          type: string
+          description: Postal or zip code in native format for the country.
+          example: '20354'
+        countryCode:
+          maxLength: 2
+          minLength: 1
+          type: string
+          description: Country code determined by master data "country-codes" category. Call endpoint /master-data-categories/country-codes/values for possible values.
+          example: DE
+      description: A named address, representing a party or location involved with the freight booking request.
+    LocationModel:
+      required:
+      - address
+      - contact
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/AddressModel'
+        requestDate:
+          maxLength: 10
+          type: string
+          description: REQUIRED FOR PICKUP LOCATION. The requested date in which a transport should arrive at a waypoint, or is expected at a waypoint. Formatted based on YYYY-MM-DD.
+        requestBeginTime:
+          maxLength: 14
+          minLength: 6
+          type: string
+          description: An optional addition to the Request Date to define the earliest time in the day expected. Formatted based on a 24-hour clock, with timezone information appended to the end.
+          format: time
+          example: 13:30:00Z
+        requestEndTime:
+          maxLength: 14
+          minLength: 6
+          type: string
+          description: An optional addition to the Request Date to define the latest time in the day expected. Formatted based on a 24-hour clock, with timezone information appended to the end.
+          format: time
+          example: 19:00:00+01:00
+        additionalInformation:
+          maxLength: 210
+          type: string
+          description: Any additional instructions relevant to the waypoint or to the transport at this particular waypoint.
+        contact:
+          $ref: '#/components/schemas/ContactModel'
+      description: One location that comprises the overall journey of a freight booking request.
     ReferenceModel:
       required:
       - code
@@ -536,19 +519,36 @@ components:
           maxLength: 35
           type: string
       description: A shipping reference associated with either the named address, or the cargo booking as a whole.
-    ContactModel:
+    BookingOptionsModel:
       required:
-      - name
+      - code
       type: object
       properties:
-        name:
+        code:
+          maxLength: 3
+          minLength: 1
           type: string
-        phone:
+          description: Option code determined by master data "booking-options" category. Call endpoint  /master-data-categories/booking-options/values for possible values.
+          example: RA
+        value:
+          minLength: 0
           type: string
-        mobilePhone:
-          type: string
-        email:
-          type: string
+          description: Optional value to accompany an option code. Not every option code requires a value, but when one is needed, this field supplies the relevant additional details.
+          example: '17'
+      description: A single free-form option for the booking. Allows for enabling or specifying many different types of details, chosen from a pre-defined list of options and pre-negotiated with Kuehne + Nagel. Not every option code requires a value to be entered alongside.
+    PartyModel:
+      required:
+      - address
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/AddressModel'
+        references:
+          maxItems: 100
+          type: array
+          items:
+            $ref: '#/components/schemas/ReferenceModel'
+      description: A party, involved with the cargo booking. Often represents a Freight Payer, a Shipper, a Consignee, or a Bill-To party, to name a few. Negotiate with Kuehne + Nagel ahead of time to determine which parties are important for your specific transactions.
   securitySchemes:
     default:
       type: oauth2

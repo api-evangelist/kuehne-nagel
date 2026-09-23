@@ -7,9 +7,7 @@ info:
 
     up as an API user. Access to the booking API depends on the Task Owner in the customer''s
 
-    eSOP booking configuration.
-
-    '
+    eSOP booking configuration.'
   contact:
     name: Kuehne+Nagel ESP Public APIs
     url: https://esp.kuehne-nagel.com
@@ -32,9 +30,7 @@ paths:
       summary: Read an existing process state by processStateId
       description: 'The successful creation of the booking starts an async process. The current state of the process can be
 
-        requested via this endpoint.
-
-        '
+        requested via this endpoint.'
       operationId: readProcessState
       parameters:
       - $ref: '#/components/parameters/ProcessStateIdParam'
@@ -52,30 +48,20 @@ paths:
       x-auth-type: Application & Application User
       x-throttling-tier: 10KPerMin
 components:
-  parameters:
-    ProcessStateIdParam:
-      name: processStateId
-      in: path
-      description: The processStateIdParam identifies an booking process state.
-      required: true
-      style: simple
-      explode: false
-      schema:
-        $ref: '#/components/schemas/ProcessStateId'
   schemas:
+    ProcessState:
+      type: string
+      x-extensible-enum:
+      - IN_PROGRESS
+      - FINISHED
+      - ABORTED
     ProcessStateId:
       type: string
       description: Unique identifier of the requested operation
       format: uuid
       example: 930f1d05-5be4-4496-bb2b-3f40e60b3749
-    ProcessStep:
+    ProcessError:
       type: string
-      x-extensible-enum:
-      - BOOKING_CREATED
-      - ORDERS_IMPORTED
-      - BOOKING_IN_CREATION_VALIDATED
-      - EXCEPTIONS_EVALUATED
-      - BOOKING_REQUESTED
     Problem:
       required:
       - detail
@@ -118,6 +104,19 @@ components:
             '
           format: uri-reference
           example: /problem/connection-error#token-info-read-timed-out
+    ProcessStep:
+      type: string
+      x-extensible-enum:
+      - BOOKING_CREATED
+      - ORDERS_IMPORTED
+      - BOOKING_IN_CREATION_VALIDATED
+      - EXCEPTIONS_EVALUATED
+      - BOOKING_REQUESTED
+    BookingNumber:
+      maxLength: 12
+      minLength: 12
+      type: string
+      example: CN1234567890
     ProcessStateResponse:
       required:
       - errors
@@ -139,19 +138,16 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ProcessError'
-    ProcessState:
-      type: string
-      x-extensible-enum:
-      - IN_PROGRESS
-      - FINISHED
-      - ABORTED
-    BookingNumber:
-      maxLength: 12
-      minLength: 12
-      type: string
-      example: CN1234567890
-    ProcessError:
-      type: string
+  parameters:
+    ProcessStateIdParam:
+      name: processStateId
+      in: path
+      description: The processStateIdParam identifies an booking process state.
+      required: true
+      style: simple
+      explode: false
+      schema:
+        $ref: '#/components/schemas/ProcessStateId'
   responses:
     default:
       description: Default Response for Error Cases
