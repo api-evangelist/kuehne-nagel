@@ -69,32 +69,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    DocumentTypeName:
-      maxLength: 255
-      type: string
-      description: Name of a document type according to the Kuehne+Nagel specific classification.
-      example: Commercial Invoice
-    ListDocumentsResponse:
-      required:
-      - items
-      type: object
-      properties:
-        documents:
-          maxItems: 512
-          type: array
-          description: List of document summaries for the shipment.
-          example:
-          - creationDate: '2025-07-15T10:30:00Z'
-            documentId: Q1234S56
-            documentType:
-              code: '380'
-              name: Commercial Invoice
-            isDeletable: true
-            isUploadedByCustomer: true
-            status: OK
-          items:
-            $ref: '#/components/schemas/DocumentSummary'
-      description: Response containing the list of documents associated with a shipment.
     DocumentStatus:
       maxLength: 128
       type: string
@@ -112,34 +86,6 @@ components:
       - OK
       - PROCESSING_UPLOAD
       - PROCESSING_UPLOAD_FAILED
-    CreationDate:
-      type: string
-      description: Timestamp when the document was created.
-      format: date-time
-      example: '2025-07-15T10:30:00Z'
-    DocumentSummary:
-      required:
-      - creationDate
-      - documentId
-      - documentType
-      - isDeletable
-      - isUploadedByCustomer
-      - status
-      type: object
-      properties:
-        creationDate:
-          $ref: '#/components/schemas/CreationDate'
-        documentId:
-          $ref: '#/components/schemas/DocumentId'
-        documentType:
-          $ref: '#/components/schemas/DocumentType'
-        isDeletable:
-          $ref: '#/components/schemas/IsDeletable'
-        isUploadedByCustomer:
-          $ref: '#/components/schemas/IsUploadedByCustomer'
-        status:
-          $ref: '#/components/schemas/DocumentStatus'
-      description: Summary of a shipment document including its metadata and current status.
     DocumentTypeCode:
       maxLength: 3
       minLength: 3
@@ -213,6 +159,45 @@ components:
           example: /problem/connection-error
           default: about:blank
       description: A problem details object as defined by RFC 7807, used to carry error information in HTTP API responses.
+    DocumentTypeName:
+      maxLength: 255
+      type: string
+      description: Name of a document type according to the Kuehne+Nagel specific classification.
+      example: Commercial Invoice
+    ListDocumentsResponse:
+      required:
+      - items
+      type: object
+      properties:
+        documents:
+          maxItems: 512
+          type: array
+          description: List of document summaries for the shipment.
+          example:
+          - creationDate: '2025-07-15T10:30:00Z'
+            documentId: Q1234S56
+            documentType:
+              code: '380'
+              name: Commercial Invoice
+            isDeletable: true
+            isUploadedByCustomer: true
+            status: OK
+          items:
+            $ref: '#/components/schemas/DocumentSummary'
+      description: Response containing the list of documents associated with a shipment.
+    IsDeletable:
+      type: boolean
+      description: Whether the document can be deleted by the caller.
+      example: true
+    RetrieveDocumentDetailsResponse:
+      description: Response containing the detailed metadata of a specific shipment document.
+      allOf:
+      - $ref: '#/components/schemas/DocumentSummary'
+    CreationDate:
+      type: string
+      description: Timestamp when the document was created.
+      format: date-time
+      example: '2025-07-15T10:30:00Z'
     DocumentType:
       required:
       - code
@@ -231,14 +216,36 @@ components:
       type: boolean
       description: Whether the document was uploaded by a customer.
       example: true
-    IsDeletable:
-      type: boolean
-      description: Whether the document can be deleted by the caller.
-      example: true
-    RetrieveDocumentDetailsResponse:
-      description: Response containing the detailed metadata of a specific shipment document.
-      allOf:
-      - $ref: '#/components/schemas/DocumentSummary'
+    DocumentSummary:
+      required:
+      - creationDate
+      - documentId
+      - documentType
+      - isDeletable
+      - isUploadedByCustomer
+      - status
+      type: object
+      properties:
+        creationDate:
+          $ref: '#/components/schemas/CreationDate'
+        documentId:
+          $ref: '#/components/schemas/DocumentId'
+        documentType:
+          $ref: '#/components/schemas/DocumentType'
+        isDeletable:
+          $ref: '#/components/schemas/IsDeletable'
+        isUploadedByCustomer:
+          $ref: '#/components/schemas/IsUploadedByCustomer'
+        status:
+          $ref: '#/components/schemas/DocumentStatus'
+      description: Summary of a shipment document including its metadata and current status.
+  responses:
+    default:
+      description: An error occurred - please see the HTTP status code and the problem object for more information.
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Problem'
   parameters:
     uniqueShipmentReferenceParameter:
       name: uniqueShipmentReference
@@ -261,13 +268,6 @@ components:
       explode: false
       schema:
         $ref: '#/components/schemas/DocumentId'
-  responses:
-    default:
-      description: An error occurred - please see the HTTP status code and the problem object for more information.
-      content:
-        application/problem+json:
-          schema:
-            $ref: '#/components/schemas/Problem'
   securitySchemes:
     default:
       type: oauth2

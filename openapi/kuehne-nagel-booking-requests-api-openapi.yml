@@ -66,95 +66,6 @@ paths:
       x-auth-type: Application & Application User
 components:
   schemas:
-    CargoItemModel:
-      required:
-      - description
-      - packageCount
-      - packageType
-      - weight
-      - weightUom
-      type: object
-      properties:
-        description:
-          maxLength: 20
-          minLength: 1
-          type: string
-          description: A short summary or identifier of the item being shipped.
-        marksAndNumbers:
-          maxLength: 17
-          type: string
-          description: Additional identifiers or labels applied to the item.
-        stackable:
-          type: boolean
-          default: false
-        packageCount:
-          maximum: 999999
-          minimum: 0
-          type: integer
-          format: int32
-        packageType:
-          maxLength: 3
-          minLength: 1
-          type: string
-          description: Package type determined by master data "package-types" category. Call endpoint /master-data-categories/package-types/values for possible values.
-          example: CAS
-        weight:
-          maximum: 100000
-          minimum: 0
-          type: number
-          format: double
-        weightUom:
-          maxLength: 3
-          minLength: 1
-          type: string
-          description: Weight Unit of Measurement determined by master data "uoms" category. Call endpoint /master-data-categories/uoms/values for possible values.
-          example: KGM
-        volume:
-          maximum: 100000
-          minimum: 0
-          type: number
-          format: double
-        volumeUom:
-          maxLength: 3
-          minLength: 1
-          type: string
-          description: Volume Unit of Measurement determined by master data "uoms" category. Call endpoint /master-data-categories/uoms/values for possible values.
-          example: LTR
-        dimensionLength:
-          maximum: 10000
-          minimum: 0
-          type: number
-          format: double
-        dimensionWidth:
-          maximum: 10000
-          minimum: 0
-          type: number
-          format: double
-        dimensionHeight:
-          maximum: 10000
-          minimum: 0
-          type: number
-          format: double
-        dimensionsUom:
-          maxLength: 3
-          minLength: 1
-          type: string
-          description: Dimensions Unit of Measurement determined by master data "uoms" category. Call endpoint /master-data-categories/uoms/values for possible values.
-          example: M
-        monetaryValue:
-          $ref: '#/components/schemas/MonetaryValueModel'
-        barcodeValue:
-          type: array
-          items:
-            type:
-            - string
-            - 'null'
-            description: Provide a list of barcode values to be used on the shipping label
-        dangerousGoodsInformation:
-          type: array
-          items:
-            $ref: '#/components/schemas/DangerousGoodsInformationModel'
-      description: One component of the cargo booking request, in which individual items of the same type are grouped together for shipping as a unit.
     BookingFlagsModel:
       type: object
       properties:
@@ -177,19 +88,112 @@ components:
           type: boolean
           default: false
       description: Collection of flags denoting various conditions that apply to cargo booking as a whole.
-    ContactModel:
+    AddressModel:
       required:
-      - name
+      - city
+      - countryCode
+      - name1
+      - postalCode
+      - street1
       type: object
       properties:
-        name:
+        name1:
+          maxLength: 35
+          minLength: 1
           type: string
-        phone:
+          description: Name or title of the party or location.
+        name2:
+          maxLength: 35
           type: string
-        mobilePhone:
+          description: Additional name or title information.
+        street1:
+          maxLength: 35
+          minLength: 1
           type: string
-        email:
+          description: Street address or PO box.
+        street2:
+          maxLength: 35
           type: string
+          description: Unit numbers, or additional street address information which did not fit in Street1.
+        city:
+          maxLength: 35
+          minLength: 1
+          type: string
+          description: Full city name.
+        stateProvinceCode:
+          maxLength: 3
+          minLength: 1
+          type: string
+          description: State/Province code determined by master data "region-codes" category. Call endpoint /master-data-categories/region-codes/values for possible values.
+          example: HH
+        postalCode:
+          maxLength: 12
+          type: string
+          description: Postal or zip code in native format for the country.
+          example: '20354'
+        countryCode:
+          maxLength: 2
+          minLength: 1
+          type: string
+          description: Country code determined by master data "country-codes" category. Call endpoint /master-data-categories/country-codes/values for possible values.
+          example: DE
+      description: A named address, representing a party or location involved with the freight booking request.
+    BookingRequest:
+      required:
+      - cargoItems
+      - consigneeParty
+      - customerId
+      - customerKey
+      - deliveryLocation
+      - pickupLocation
+      - shipperParty
+      type: object
+      properties:
+        customerId:
+          maxLength: 50
+          minLength: 1
+          type: string
+          description: Key or code indicating customer or customer sub-entity. Negotiated with Kuehne + Nagel ahead of time.
+          example: CustomerBranchWest
+        customerKey:
+          maxLength: 50
+          minLength: 1
+          type: string
+          description: Additional key or code indicating customer or customer sub-entity. Negotiated with Kuehne + Nagel ahead of time.
+        bookingFlags:
+          $ref: '#/components/schemas/BookingFlagsModel'
+        bookingOptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/BookingOptionsModel'
+        dangerousGoodsPackageCount:
+          maximum: 999999
+          minimum: 0
+          type: integer
+          description: Denotes whether the cargo booking contains any dangerous goods, and if so, in what quantity.
+          format: int32
+          default: 0
+        incoterm:
+          $ref: '#/components/schemas/IncoTermModel'
+        totalMonetaryValue:
+          $ref: '#/components/schemas/MonetaryValueModel'
+        shipperParty:
+          $ref: '#/components/schemas/PartyModel'
+        consigneeParty:
+          $ref: '#/components/schemas/PartyModel'
+        billToParty:
+          $ref: '#/components/schemas/PartyModel'
+        notifyParty:
+          $ref: '#/components/schemas/PartyModel'
+        pickupLocation:
+          $ref: '#/components/schemas/LocationModel'
+        deliveryLocation:
+          $ref: '#/components/schemas/LocationModel'
+        cargoItems:
+          maxItems: 100
+          type: array
+          items:
+            $ref: '#/components/schemas/CargoItemModel'
     IncoTermModel:
       type: object
       properties:
@@ -293,183 +297,35 @@ components:
           type: boolean
           default: false
       description: Denotes various details related to dangerous goods contained within the cargo item. Most fields within are optional, and as much as possible should be included if relevant.
-    MonetaryValueModel:
+    PartyModel:
       required:
-      - totalValue
-      - valueCurrency
+      - address
       type: object
       properties:
-        totalValue:
-          multipleOf: 0.01
-          maximum: 99999999.99
-          minimum: 0
-          type: number
-          format: double
-        valueCurrency:
-          maxLength: 3
-          minLength: 1
-          type: string
-          description: Currency code determined by master data "currencies" category. Call endpoint /master-data-categories/currencies/values for possible values.
-          example: EUR
-    BookingResponse:
-      required:
-      - bookingID
-      - bookingIsSuccessful
-      - errorMessage
-      - shipmentLabel
-      - transactionID
-      type: object
-      properties:
-        errorMessage:
-          minLength: 0
-          type: string
-          description: Indicates problems with current booking request, if any. If booking was successful, will be blank.
-          example: ''
-        bookingID:
-          maxLength: 12
-          minLength: 0
-          type: string
-          description: Unique identifier for the submitted booking. If booking was unsuccessful, will be blank.
-          example: RAPI00000500
-        transactionID:
-          minLength: 1
-          type: string
-          description: Unique identifier for the API transaction, used for debugging.
-          example: '800100'
-        bookingIsSuccessful:
-          type: boolean
-          description: Indicates whether the booking was successful
-        shipmentLabel:
-          $ref: '#/components/schemas/LabelResponse'
-    LabelResponse:
-      required:
-      - barcodeValue
-      - labelPdfBase64Encoded
-      type: object
-      properties:
-        barcodeValue:
-          type: array
-          description: List of generates barcode values for the booking, represented on the related label. If booking was unsuccessful, will be empty.
-          items:
-            maxLength: 20
-            minLength: 0
-            type: string
-            example: '840482858000000000'
-        labelPdfBase64Encoded:
-          minLength: 0
-          type: string
-          description: Base64 encoded label PDF, automatically generated with booking details and barcodes. If booking was unsuccessful, will be blank.
-        labelZpl:
-          type: array
-          description: Optional ZPL based label format.
-          items:
-            type: string
-    BookingRequest:
-      required:
-      - cargoItems
-      - consigneeParty
-      - customerId
-      - customerKey
-      - deliveryLocation
-      - pickupLocation
-      - shipperParty
-      type: object
-      properties:
-        customerId:
-          maxLength: 50
-          minLength: 1
-          type: string
-          description: Key or code indicating customer or customer sub-entity. Negotiated with Kuehne + Nagel ahead of time.
-          example: CustomerBranchWest
-        customerKey:
-          maxLength: 50
-          minLength: 1
-          type: string
-          description: Additional key or code indicating customer or customer sub-entity. Negotiated with Kuehne + Nagel ahead of time.
-        bookingFlags:
-          $ref: '#/components/schemas/BookingFlagsModel'
-        bookingOptions:
-          type: array
-          items:
-            $ref: '#/components/schemas/BookingOptionsModel'
-        dangerousGoodsPackageCount:
-          maximum: 999999
-          minimum: 0
-          type: integer
-          description: Denotes whether the cargo booking contains any dangerous goods, and if so, in what quantity.
-          format: int32
-          default: 0
-        incoterm:
-          $ref: '#/components/schemas/IncoTermModel'
-        totalMonetaryValue:
-          $ref: '#/components/schemas/MonetaryValueModel'
-        shipperParty:
-          $ref: '#/components/schemas/PartyModel'
-        consigneeParty:
-          $ref: '#/components/schemas/PartyModel'
-        billToParty:
-          $ref: '#/components/schemas/PartyModel'
-        notifyParty:
-          $ref: '#/components/schemas/PartyModel'
-        pickupLocation:
-          $ref: '#/components/schemas/LocationModel'
-        deliveryLocation:
-          $ref: '#/components/schemas/LocationModel'
-        cargoItems:
+        address:
+          $ref: '#/components/schemas/AddressModel'
+        references:
           maxItems: 100
           type: array
           items:
-            $ref: '#/components/schemas/CargoItemModel'
-    AddressModel:
+            $ref: '#/components/schemas/ReferenceModel'
+      description: A party, involved with the cargo booking. Often represents a Freight Payer, a Shipper, a Consignee, or a Bill-To party, to name a few. Negotiate with Kuehne + Nagel ahead of time to determine which parties are important for your specific transactions.
+    ReferenceModel:
       required:
-      - city
-      - countryCode
-      - name1
-      - postalCode
-      - street1
+      - code
+      - value
       type: object
       properties:
-        name1:
-          maxLength: 35
-          minLength: 1
-          type: string
-          description: Name or title of the party or location.
-        name2:
-          maxLength: 35
-          type: string
-          description: Additional name or title information.
-        street1:
-          maxLength: 35
-          minLength: 1
-          type: string
-          description: Street address or PO box.
-        street2:
-          maxLength: 35
-          type: string
-          description: Unit numbers, or additional street address information which did not fit in Street1.
-        city:
-          maxLength: 35
-          minLength: 1
-          type: string
-          description: Full city name.
-        stateProvinceCode:
+        code:
           maxLength: 3
           minLength: 1
           type: string
-          description: State/Province code determined by master data "region-codes" category. Call endpoint /master-data-categories/region-codes/values for possible values.
-          example: HH
-        postalCode:
-          maxLength: 12
+          description: Reference type determined by master data "reference-types" category. Call endpoint /master-data-categories/reference-types/values for possible values.
+          example: SRN
+        value:
+          maxLength: 35
           type: string
-          description: Postal or zip code in native format for the country.
-          example: '20354'
-        countryCode:
-          maxLength: 2
-          minLength: 1
-          type: string
-          description: Country code determined by master data "country-codes" category. Call endpoint /master-data-categories/country-codes/values for possible values.
-          example: DE
-      description: A named address, representing a party or location involved with the freight booking request.
+      description: A shipping reference associated with either the named address, or the cargo booking as a whole.
     LocationModel:
       required:
       - address
@@ -503,22 +359,6 @@ components:
         contact:
           $ref: '#/components/schemas/ContactModel'
       description: One location that comprises the overall journey of a freight booking request.
-    ReferenceModel:
-      required:
-      - code
-      - value
-      type: object
-      properties:
-        code:
-          maxLength: 3
-          minLength: 1
-          type: string
-          description: Reference type determined by master data "reference-types" category. Call endpoint /master-data-categories/reference-types/values for possible values.
-          example: SRN
-        value:
-          maxLength: 35
-          type: string
-      description: A shipping reference associated with either the named address, or the cargo booking as a whole.
     BookingOptionsModel:
       required:
       - code
@@ -536,19 +376,179 @@ components:
           description: Optional value to accompany an option code. Not every option code requires a value, but when one is needed, this field supplies the relevant additional details.
           example: '17'
       description: A single free-form option for the booking. Allows for enabling or specifying many different types of details, chosen from a pre-defined list of options and pre-negotiated with Kuehne + Nagel. Not every option code requires a value to be entered alongside.
-    PartyModel:
+    ContactModel:
       required:
-      - address
+      - name
       type: object
       properties:
-        address:
-          $ref: '#/components/schemas/AddressModel'
-        references:
-          maxItems: 100
+        name:
+          type: string
+        phone:
+          type: string
+        mobilePhone:
+          type: string
+        email:
+          type: string
+    LabelResponse:
+      required:
+      - barcodeValue
+      - labelPdfBase64Encoded
+      type: object
+      properties:
+        barcodeValue:
+          type: array
+          description: List of generates barcode values for the booking, represented on the related label. If booking was unsuccessful, will be empty.
+          items:
+            maxLength: 20
+            minLength: 0
+            type: string
+            example: '840482858000000000'
+        labelPdfBase64Encoded:
+          minLength: 0
+          type: string
+          description: Base64 encoded label PDF, automatically generated with booking details and barcodes. If booking was unsuccessful, will be blank.
+        labelZpl:
+          type: array
+          description: Optional ZPL based label format.
+          items:
+            type: string
+    BookingResponse:
+      required:
+      - bookingID
+      - bookingIsSuccessful
+      - errorMessage
+      - shipmentLabel
+      - transactionID
+      type: object
+      properties:
+        errorMessage:
+          minLength: 0
+          type: string
+          description: Indicates problems with current booking request, if any. If booking was successful, will be blank.
+          example: ''
+        bookingID:
+          maxLength: 12
+          minLength: 0
+          type: string
+          description: Unique identifier for the submitted booking. If booking was unsuccessful, will be blank.
+          example: RAPI00000500
+        transactionID:
+          minLength: 1
+          type: string
+          description: Unique identifier for the API transaction, used for debugging.
+          example: '800100'
+        bookingIsSuccessful:
+          type: boolean
+          description: Indicates whether the booking was successful
+        shipmentLabel:
+          $ref: '#/components/schemas/LabelResponse'
+    CargoItemModel:
+      required:
+      - description
+      - packageCount
+      - packageType
+      - weight
+      - weightUom
+      type: object
+      properties:
+        description:
+          maxLength: 20
+          minLength: 1
+          type: string
+          description: A short summary or identifier of the item being shipped.
+        marksAndNumbers:
+          maxLength: 17
+          type: string
+          description: Additional identifiers or labels applied to the item.
+        stackable:
+          type: boolean
+          default: false
+        packageCount:
+          maximum: 999999
+          minimum: 0
+          type: integer
+          format: int32
+        packageType:
+          maxLength: 3
+          minLength: 1
+          type: string
+          description: Package type determined by master data "package-types" category. Call endpoint /master-data-categories/package-types/values for possible values.
+          example: CAS
+        weight:
+          maximum: 100000
+          minimum: 0
+          type: number
+          format: double
+        weightUom:
+          maxLength: 3
+          minLength: 1
+          type: string
+          description: Weight Unit of Measurement determined by master data "uoms" category. Call endpoint /master-data-categories/uoms/values for possible values.
+          example: KGM
+        volume:
+          maximum: 100000
+          minimum: 0
+          type: number
+          format: double
+        volumeUom:
+          maxLength: 3
+          minLength: 1
+          type: string
+          description: Volume Unit of Measurement determined by master data "uoms" category. Call endpoint /master-data-categories/uoms/values for possible values.
+          example: LTR
+        dimensionLength:
+          maximum: 10000
+          minimum: 0
+          type: number
+          format: double
+        dimensionWidth:
+          maximum: 10000
+          minimum: 0
+          type: number
+          format: double
+        dimensionHeight:
+          maximum: 10000
+          minimum: 0
+          type: number
+          format: double
+        dimensionsUom:
+          maxLength: 3
+          minLength: 1
+          type: string
+          description: Dimensions Unit of Measurement determined by master data "uoms" category. Call endpoint /master-data-categories/uoms/values for possible values.
+          example: M
+        monetaryValue:
+          $ref: '#/components/schemas/MonetaryValueModel'
+        barcodeValue:
           type: array
           items:
-            $ref: '#/components/schemas/ReferenceModel'
-      description: A party, involved with the cargo booking. Often represents a Freight Payer, a Shipper, a Consignee, or a Bill-To party, to name a few. Negotiate with Kuehne + Nagel ahead of time to determine which parties are important for your specific transactions.
+            type:
+            - string
+            - 'null'
+            description: Provide a list of barcode values to be used on the shipping label
+        dangerousGoodsInformation:
+          type: array
+          items:
+            $ref: '#/components/schemas/DangerousGoodsInformationModel'
+      description: One component of the cargo booking request, in which individual items of the same type are grouped together for shipping as a unit.
+    MonetaryValueModel:
+      required:
+      - totalValue
+      - valueCurrency
+      type: object
+      properties:
+        totalValue:
+          multipleOf: 0.01
+          maximum: 99999999.99
+          minimum: 0
+          type: number
+          format: double
+        valueCurrency:
+          maxLength: 3
+          minLength: 1
+          type: string
+          description: Currency code determined by master data "currencies" category. Call endpoint /master-data-categories/currencies/values for possible values.
+          example: EUR
   securitySchemes:
     default:
       type: oauth2

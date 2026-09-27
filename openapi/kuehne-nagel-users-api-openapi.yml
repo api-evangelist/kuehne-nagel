@@ -252,23 +252,41 @@ paths:
       x-throttling-tier: Unlimited
 components:
   schemas:
-    UserListResponse:
+    ValidationError:
       type: object
-      description: Response model for listing users in a workspace.
       properties:
-        users:
+        loc:
           type: array
           items:
-            $ref: '#/components/schemas/UserResponse'
-          title: Users
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
       required:
-      - users
-      title: UserListResponse
-    Body_update_user_role_in_workspace_v3_workspaces__workspace_id__users__user_id__role_put:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    Body_add_user_to_workspace_v3_workspaces__workspace_id__users_post:
       type: object
       properties:
+        sso_username:
+          type: string
+          title: Sso Username
         role:
           type: string
+          default: PROMPT_VIEWER
           title: Role
         display_name:
           anyOf:
@@ -276,8 +294,8 @@ components:
           - type: 'null'
           title: Display Name
       required:
-      - role
-      title: Body_update_user_role_in_workspace_v3_workspaces__workspace_id__users__user_id__role_put
+      - sso_username
+      title: Body_add_user_to_workspace_v3_workspaces__workspace_id__users_post
     UserResponse:
       type: object
       description: Response model for user information.
@@ -322,32 +340,32 @@ components:
       - updated_at
       - user_id
       title: UserResponse
-    ValidationError:
+    Body_update_user_role_in_workspace_v3_workspaces__workspace_id__users__user_id__role_put:
       type: object
       properties:
-        loc:
+        role:
+          type: string
+          title: Role
+        display_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Display Name
+      required:
+      - role
+      title: Body_update_user_role_in_workspace_v3_workspaces__workspace_id__users__user_id__role_put
+    UserListResponse:
+      type: object
+      description: Response model for listing users in a workspace.
+      properties:
+        users:
           type: array
           items:
-            anyOf:
-            - type: string
-            - type: integer
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
+            $ref: '#/components/schemas/UserResponse'
+          title: Users
       required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+      - users
+      title: UserListResponse
     HTTPValidationError:
       type: object
       properties:
@@ -357,24 +375,6 @@ components:
             $ref: '#/components/schemas/ValidationError'
           title: Detail
       title: HTTPValidationError
-    Body_add_user_to_workspace_v3_workspaces__workspace_id__users_post:
-      type: object
-      properties:
-        sso_username:
-          type: string
-          title: Sso Username
-        role:
-          type: string
-          default: PROMPT_VIEWER
-          title: Role
-        display_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Display Name
-      required:
-      - sso_username
-      title: Body_add_user_to_workspace_v3_workspaces__workspace_id__users_post
     DeleteUserResponse:
       type: object
       description: Response model for user removal from workspace.

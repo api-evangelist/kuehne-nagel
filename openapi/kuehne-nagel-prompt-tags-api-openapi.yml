@@ -536,35 +536,32 @@ paths:
       x-throttling-tier: Unlimited
 components:
   schemas:
-    TagAssignmentResponse:
+    ValidationError:
       type: object
-      description: Response model for tag assignment operations.
       properties:
-        success:
-          type: boolean
-          title: Success
-        tag_id:
+        loc:
+          type: array
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+        msg:
           type: string
-          format: uuid
-          title: Tag Id
-        prompt_id:
+          title: Message
+        type:
           type: string
-          format: uuid
-          title: Prompt Id
-        version_id:
-          type: string
-          format: uuid
-          title: Version Id
-        tag_name:
-          type: string
-          title: Tag Name
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
       required:
-      - prompt_id
-      - success
-      - tag_id
-      - tag_name
-      - version_id
-      title: TagAssignmentResponse
+      - loc
+      - msg
+      - type
+      title: ValidationError
     PromptVersionDetail:
       type: object
       properties:
@@ -602,6 +599,89 @@ components:
       - updated_at
       - version_id
       title: PromptVersionDetail
+    TagListResponse:
+      type: object
+      properties:
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/TagListItem'
+          title: Tags
+      required:
+      - tags
+      title: TagListResponse
+    Body_remove_tag_from_version_v3_workspaces__workspace_id__prompts__prompt_id__versions__version_id__tags__tag_id__delete:
+      type: object
+      properties:
+        hard_delete:
+          type: boolean
+          default: false
+          title: Hard Delete
+      title: Body_remove_tag_from_version_v3_workspaces__workspace_id__prompts__prompt_id__versions__version_id__tags__tag_id__delete
+    ? Body_remove_tag_from_version_api_key_v3_api_key_auth_workspaces__workspace_id__prompts__prompt_id__versions__version_id__tags__tag_id__delete
+    : type: object
+      properties:
+        hard_delete:
+          type: boolean
+          default: false
+          title: Hard Delete
+      title: Body_remove_tag_from_version_api_key_v3_api_key_auth_workspaces__workspace_id__prompts__prompt_id__versions__version_id__tags__tag_id__delete
+    TagListItem:
+      type: object
+      properties:
+        name:
+          type: string
+          title: Name
+        tag_id:
+          type: string
+          format: uuid
+          title: Tag Id
+        is_system:
+          type: boolean
+          title: Is System
+      required:
+      - is_system
+      - name
+      - tag_id
+      title: TagListItem
+    TagAssignmentResponse:
+      type: object
+      description: Response model for tag assignment operations.
+      properties:
+        success:
+          type: boolean
+          title: Success
+        tag_id:
+          type: string
+          format: uuid
+          title: Tag Id
+        prompt_id:
+          type: string
+          format: uuid
+          title: Prompt Id
+        version_id:
+          type: string
+          format: uuid
+          title: Version Id
+        tag_name:
+          type: string
+          title: Tag Name
+      required:
+      - prompt_id
+      - success
+      - tag_id
+      - tag_name
+      - version_id
+      title: TagAssignmentResponse
+    HTTPValidationError:
+      type: object
+      properties:
+        detail:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+      title: HTTPValidationError
     PromptDetailResponse:
       type: object
       properties:
@@ -663,86 +743,6 @@ components:
       - versions
       - workspace_id
       title: PromptDetailResponse
-    TagListResponse:
-      type: object
-      properties:
-        tags:
-          type: array
-          items:
-            $ref: '#/components/schemas/TagListItem'
-          title: Tags
-      required:
-      - tags
-      title: TagListResponse
-    ValidationError:
-      type: object
-      properties:
-        loc:
-          type: array
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    HTTPValidationError:
-      type: object
-      properties:
-        detail:
-          type: array
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-      title: HTTPValidationError
-    Body_remove_tag_from_version_v3_workspaces__workspace_id__prompts__prompt_id__versions__version_id__tags__tag_id__delete:
-      type: object
-      properties:
-        hard_delete:
-          type: boolean
-          default: false
-          title: Hard Delete
-      title: Body_remove_tag_from_version_v3_workspaces__workspace_id__prompts__prompt_id__versions__version_id__tags__tag_id__delete
-    TagListItem:
-      type: object
-      properties:
-        name:
-          type: string
-          title: Name
-        tag_id:
-          type: string
-          format: uuid
-          title: Tag Id
-        is_system:
-          type: boolean
-          title: Is System
-      required:
-      - is_system
-      - name
-      - tag_id
-      title: TagListItem
-    ? Body_remove_tag_from_version_api_key_v3_api_key_auth_workspaces__workspace_id__prompts__prompt_id__versions__version_id__tags__tag_id__delete
-    : type: object
-      properties:
-        hard_delete:
-          type: boolean
-          default: false
-          title: Hard Delete
-      title: Body_remove_tag_from_version_api_key_v3_api_key_auth_workspaces__workspace_id__prompts__prompt_id__versions__version_id__tags__tag_id__delete
   securitySchemes:
     default:
       type: oauth2

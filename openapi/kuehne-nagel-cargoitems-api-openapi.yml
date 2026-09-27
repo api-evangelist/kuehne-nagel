@@ -122,6 +122,16 @@ components:
           type: string
           example: CMAU1234567
       description: A single cargo asset (package or container)
+    CargoItemPage:
+      type: object
+      properties:
+        data:
+          maxItems: 1000
+          type: array
+          items:
+            $ref: '#/components/schemas/CargoItem'
+        pageInfo:
+          $ref: '#/components/schemas/Paging'
     Problem:
       required:
       - detail
@@ -180,16 +190,6 @@ components:
           maxLength: 10000
           type: string
           example: NA==
-    CargoItemPage:
-      type: object
-      properties:
-        data:
-          maxItems: 1000
-          type: array
-          items:
-            $ref: '#/components/schemas/CargoItem'
-        pageInfo:
-          $ref: '#/components/schemas/Paging'
   securitySchemes:
     default:
       type: oauth2

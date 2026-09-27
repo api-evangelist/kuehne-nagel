@@ -49,19 +49,32 @@ paths:
       x-throttling-tier: 10KPerMin
 components:
   schemas:
-    ProcessState:
-      type: string
-      x-extensible-enum:
-      - IN_PROGRESS
-      - FINISHED
-      - ABORTED
     ProcessStateId:
       type: string
       description: Unique identifier of the requested operation
       format: uuid
       example: 930f1d05-5be4-4496-bb2b-3f40e60b3749
-    ProcessError:
-      type: string
+    ProcessStateResponse:
+      required:
+      - errors
+      - lastFinishedProcessStep
+      - processState
+      - processStateId
+      type: object
+      properties:
+        bookingNumber:
+          $ref: '#/components/schemas/BookingNumber'
+        processStateId:
+          $ref: '#/components/schemas/ProcessStateId'
+        processState:
+          $ref: '#/components/schemas/ProcessState'
+        lastFinishedProcessStep:
+          $ref: '#/components/schemas/ProcessStep'
+        errors:
+          minItems: 0
+          type: array
+          items:
+            $ref: '#/components/schemas/ProcessError'
     Problem:
       required:
       - detail
@@ -117,27 +130,14 @@ components:
       minLength: 12
       type: string
       example: CN1234567890
-    ProcessStateResponse:
-      required:
-      - errors
-      - lastFinishedProcessStep
-      - processState
-      - processStateId
-      type: object
-      properties:
-        bookingNumber:
-          $ref: '#/components/schemas/BookingNumber'
-        processStateId:
-          $ref: '#/components/schemas/ProcessStateId'
-        processState:
-          $ref: '#/components/schemas/ProcessState'
-        lastFinishedProcessStep:
-          $ref: '#/components/schemas/ProcessStep'
-        errors:
-          minItems: 0
-          type: array
-          items:
-            $ref: '#/components/schemas/ProcessError'
+    ProcessState:
+      type: string
+      x-extensible-enum:
+      - IN_PROGRESS
+      - FINISHED
+      - ABORTED
+    ProcessError:
+      type: string
   parameters:
     ProcessStateIdParam:
       name: processStateId

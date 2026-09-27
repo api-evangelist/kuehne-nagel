@@ -125,6 +125,77 @@ paths:
       x-throttling-tier: Unlimited
 components:
   schemas:
+    ValidationError:
+      type: object
+      properties:
+        loc:
+          type: array
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    ExtractZipResult:
+      type: object
+      properties:
+        data:
+          anyOf:
+          - {}
+          - type: 'null'
+          title: Data
+        metadata:
+          anyOf:
+          - $ref: '#/components/schemas/FileMetadata'
+          - type: 'null'
+        error:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Error
+      title: ExtractZipResult
+    ExtractFileResponse:
+      type: object
+      properties:
+        filename:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Filename
+        data:
+          anyOf:
+          - type: array
+            items: {}
+          - type: object
+            additionalProperties: true
+          - type: string
+          - type: 'null'
+          title: Data
+        metadata:
+          anyOf:
+          - $ref: '#/components/schemas/FileMetadata'
+          - type: 'null'
+        error:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Error
+      title: ExtractFileResponse
     ZipMetadata:
       type: object
       properties:
@@ -155,19 +226,45 @@ components:
       - started_at
       - total_files
       title: ZipMetadata
-    ExtractZipFileResult:
+    ExtractZipResponse:
       type: object
       properties:
-        filename:
+        results:
+          anyOf:
+          - type: array
+            items:
+              $ref: '#/components/schemas/ExtractZipFileResult'
+          - type: 'null'
+          title: Results
+        metadata:
+          anyOf:
+          - $ref: '#/components/schemas/ZipMetadata'
+          - type: 'null'
+        error:
           anyOf:
           - type: string
           - type: 'null'
-          title: Filename
-        result:
-          $ref: '#/components/schemas/ExtractZipResult'
-      required:
-      - result
-      title: ExtractZipFileResult
+          title: Error
+      title: ExtractZipResponse
+    ModelType:
+      type: string
+      enum:
+      - flash_25_lite
+      - flash_25_low
+      - flash_25
+      - flash_3
+      - flash_35
+      - pro_25
+      - pro_31
+      - claude_haiku_45
+      - claude_sonnet_46
+      - claude_sonnet_46_low
+      - claude_opus_46
+      - claude_opus_46_low
+      - nova_2_lite
+      - nova_2_pro_preview
+      - nova_2_pro_preview_low
+      title: ModelType
     FileMetadata:
       type: object
       properties:
@@ -228,116 +325,6 @@ components:
       - processed_at
       - token_costs
       title: FileMetadata
-    ExtractZipResult:
-      type: object
-      properties:
-        data:
-          anyOf:
-          - {}
-          - type: 'null'
-          title: Data
-        metadata:
-          anyOf:
-          - $ref: '#/components/schemas/FileMetadata'
-          - type: 'null'
-        error:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Error
-      title: ExtractZipResult
-    ExtractZipResponse:
-      type: object
-      properties:
-        results:
-          anyOf:
-          - type: array
-            items:
-              $ref: '#/components/schemas/ExtractZipFileResult'
-          - type: 'null'
-          title: Results
-        metadata:
-          anyOf:
-          - $ref: '#/components/schemas/ZipMetadata'
-          - type: 'null'
-        error:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Error
-      title: ExtractZipResponse
-    ModelType:
-      type: string
-      enum:
-      - flash_25_lite
-      - flash_25_low
-      - flash_25
-      - flash_3
-      - flash_35
-      - pro_25
-      - pro_31
-      - claude_haiku_45
-      - claude_sonnet_46
-      - claude_sonnet_46_low
-      - claude_opus_46
-      - claude_opus_46_low
-      - nova_2_lite
-      - nova_2_pro_preview
-      - nova_2_pro_preview_low
-      title: ModelType
-    ExtractFileResponse:
-      type: object
-      properties:
-        filename:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Filename
-        data:
-          anyOf:
-          - type: array
-            items: {}
-          - type: object
-            additionalProperties: true
-          - type: string
-          - type: 'null'
-          title: Data
-        metadata:
-          anyOf:
-          - $ref: '#/components/schemas/FileMetadata'
-          - type: 'null'
-        error:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Error
-      title: ExtractFileResponse
-    ValidationError:
-      type: object
-      properties:
-        loc:
-          type: array
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
     ExtractAsyncJobResponse:
       type: object
       properties:
@@ -376,6 +363,19 @@ components:
             $ref: '#/components/schemas/ValidationError'
           title: Detail
       title: HTTPValidationError
+    ExtractZipFileResult:
+      type: object
+      properties:
+        filename:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Filename
+        result:
+          $ref: '#/components/schemas/ExtractZipResult'
+      required:
+      - result
+      title: ExtractZipFileResult
   securitySchemes:
     default:
       type: oauth2

@@ -104,18 +104,32 @@ paths:
       x-throttling-tier: Unlimited
 components:
   schemas:
-    ToolsListResponse:
+    ValidationError:
       type: object
-      description: Response model for listing available tools.
       properties:
-        tools:
+        loc:
           type: array
           items:
-            $ref: '#/components/schemas/ToolInfo'
-          title: Tools
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
       required:
-      - tools
-      title: ToolsListResponse
+      - loc
+      - msg
+      - type
+      title: ValidationError
     ToolInfo:
       type: object
       description: Information about an individual tool.
@@ -151,32 +165,6 @@ components:
       - module
       - name
       title: ToolInfo
-    ValidationError:
-      type: object
-      properties:
-        loc:
-          type: array
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
     HTTPValidationError:
       type: object
       properties:
@@ -193,6 +181,18 @@ components:
       - native
       - mcp
       title: ToolSource
+    ToolsListResponse:
+      type: object
+      description: Response model for listing available tools.
+      properties:
+        tools:
+          type: array
+          items:
+            $ref: '#/components/schemas/ToolInfo'
+          title: Tools
+      required:
+      - tools
+      title: ToolsListResponse
   securitySchemes:
     default:
       type: oauth2

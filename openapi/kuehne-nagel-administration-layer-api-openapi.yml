@@ -53,45 +53,58 @@ paths:
       x-throttling-tier: 500_PerMin
 components:
   schemas:
-    CustomerCode:
-      pattern: ^[A-Z]{5}[0-9]{2}$
-      type: string
-      description: Unique identifier assigned to a customer
-    CustomerAttribute:
+    CommonAttributeProperties:
+      required:
+      - use
       type: object
-      description: "In addition to the well-known order attributes, the customer can use a set of attributes\nwith freely chosen meaning in purchase orders. The set of these attributes is limited both\nin number and type. This object describes the configuration of these customer-specific\nattributes. \n\nThe ten possible attributes of type string have the names string1 to string10. The ten\npossible Boolean attributes have the names bool1 to bool10. Customer-specific attributes\ncannot be used as key attributes.\n"
-      allOf:
-      - $ref: '#/components/schemas/CommonAttributeProperties'
-      - type: object
-        properties:
-          referenceLabel:
-            minLength: 1
-            type: string
-            description: 'The reference label makes it possible to name customer-specific attributes in the ESP
+      properties:
+        id:
+          type: string
+          description: 'This property represents the identifier of the attribute
 
-              user interface.
+            '
+        use:
+          type: boolean
+          description: 'This property indicates whether an attribute is used in a customer''s order
 
-              '
-    Attribute:
-      type: object
-      description: 'The Attribute object describes the use of an order attribute in the customer''s
+            configuration. If it is not used (false), no further information about the attribute is
 
-        order configuration.
+            provided. Nevertheless, this gives the customer a comprehensive overview of the set of
 
-        '
-      allOf:
-      - $ref: '#/components/schemas/CommonAttributeProperties'
-      - type: object
-        properties:
-          partOfKey:
-            type: boolean
-            description: 'Each line of an order can be identified by a specified subset of its attributes, called
+            attributes that can be configured for use in purchase orders. If the attribute is used
 
-              key attributes. Exactly for such attributes partOfKey is true. Key attributes are always
+            (true), the other attributes provide further information.
 
-              mandatory and must be part of the order lines.
+            '
+        reference:
+          pattern: ^[A-Z0-9]{2,3}$
+          type: string
+          description: 'This optional property specifies a unique identifier that can be used to establish
 
-              '
+            interoperability with other interfaces offered by Kuehne+Nagel.
+
+            '
+        mandatory:
+          type: boolean
+          description: 'If this property is true, then the attribute must always be specified at the intended
+
+            position in the purchase order, header or lines. Otherwise, the attribute is optional.
+
+            '
+        partOfHeader:
+          type: boolean
+          description: 'This property specifies whether the attribute is to be used either in the header (true)
+
+            or in the lines (false) of a purchase order.
+
+            '
+        category:
+          type: string
+          description: 'In order to clearly organize the large number of possible order attributes, the attributes
+
+            are divided into categories.
+
+            '
     OrderConfiguration:
       type: object
       properties:
@@ -181,58 +194,52 @@ components:
             '
           format: uri-reference
           example: /problem/connection-error#token-info-read-timed-out
-    CommonAttributeProperties:
-      required:
-      - use
+    CustomerAttribute:
       type: object
-      properties:
-        id:
-          type: string
-          description: 'This property represents the identifier of the attribute
+      description: "In addition to the well-known order attributes, the customer can use a set of attributes\nwith freely chosen meaning in purchase orders. The set of these attributes is limited both\nin number and type. This object describes the configuration of these customer-specific\nattributes. \n\nThe ten possible attributes of type string have the names string1 to string10. The ten\npossible Boolean attributes have the names bool1 to bool10. Customer-specific attributes\ncannot be used as key attributes.\n"
+      allOf:
+      - $ref: '#/components/schemas/CommonAttributeProperties'
+      - type: object
+        properties:
+          referenceLabel:
+            minLength: 1
+            type: string
+            description: 'The reference label makes it possible to name customer-specific attributes in the ESP
 
-            '
-        use:
-          type: boolean
-          description: 'This property indicates whether an attribute is used in a customer''s order
+              user interface.
 
-            configuration. If it is not used (false), no further information about the attribute is
+              '
+    Attribute:
+      type: object
+      description: 'The Attribute object describes the use of an order attribute in the customer''s
 
-            provided. Nevertheless, this gives the customer a comprehensive overview of the set of
+        order configuration.
 
-            attributes that can be configured for use in purchase orders. If the attribute is used
+        '
+      allOf:
+      - $ref: '#/components/schemas/CommonAttributeProperties'
+      - type: object
+        properties:
+          partOfKey:
+            type: boolean
+            description: 'Each line of an order can be identified by a specified subset of its attributes, called
 
-            (true), the other attributes provide further information.
+              key attributes. Exactly for such attributes partOfKey is true. Key attributes are always
 
-            '
-        reference:
-          pattern: ^[A-Z0-9]{2,3}$
-          type: string
-          description: 'This optional property specifies a unique identifier that can be used to establish
+              mandatory and must be part of the order lines.
 
-            interoperability with other interfaces offered by Kuehne+Nagel.
-
-            '
-        mandatory:
-          type: boolean
-          description: 'If this property is true, then the attribute must always be specified at the intended
-
-            position in the purchase order, header or lines. Otherwise, the attribute is optional.
-
-            '
-        partOfHeader:
-          type: boolean
-          description: 'This property specifies whether the attribute is to be used either in the header (true)
-
-            or in the lines (false) of a purchase order.
-
-            '
-        category:
-          type: string
-          description: 'In order to clearly organize the large number of possible order attributes, the attributes
-
-            are divided into categories.
-
-            '
+              '
+    CustomerCode:
+      pattern: ^[A-Z]{5}[0-9]{2}$
+      type: string
+      description: Unique identifier assigned to a customer
+  responses:
+    default:
+      description: Default Response for Error Cases
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Problem'
   parameters:
     CustomerCodeParam:
       name: customerCode
@@ -243,13 +250,6 @@ components:
       explode: false
       schema:
         $ref: '#/components/schemas/CustomerCode'
-  responses:
-    default:
-      description: Default Response for Error Cases
-      content:
-        application/problem+json:
-          schema:
-            $ref: '#/components/schemas/Problem'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

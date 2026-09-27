@@ -457,39 +457,6 @@ paths:
       x-throttling-tier: Unlimited
 components:
   schemas:
-    DeleteDocumentResponse:
-      type: object
-      description: Response model for document deletion.
-      properties:
-        success:
-          type: boolean
-          title: Success
-        document_id:
-          type: string
-          format: uuid
-          title: Document Id
-      required:
-      - document_id
-      - success
-      title: DeleteDocumentResponse
-    Body_delete_document_api_key_v3_api_key_auth_workspaces__workspace_id__documents__document_id__delete:
-      type: object
-      properties:
-        hard_delete:
-          type: boolean
-          default: false
-          title: Hard Delete
-      title: Body_delete_document_api_key_v3_api_key_auth_workspaces__workspace_id__documents__document_id__delete
-    Body_upload_document_api_key_v3_api_key_auth_workspaces__workspace_id__documents_post:
-      type: object
-      properties:
-        file:
-          type: string
-          format: binary
-          title: File
-      required:
-      - file
-      title: Body_upload_document_api_key_v3_api_key_auth_workspaces__workspace_id__documents_post
     ValidationError:
       type: object
       properties:
@@ -516,15 +483,29 @@ components:
       - msg
       - type
       title: ValidationError
-    HTTPValidationError:
+    Body_delete_document_api_key_v3_api_key_auth_workspaces__workspace_id__documents__document_id__delete:
       type: object
       properties:
-        detail:
-          type: array
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-      title: HTTPValidationError
+        hard_delete:
+          type: boolean
+          default: false
+          title: Hard Delete
+      title: Body_delete_document_api_key_v3_api_key_auth_workspaces__workspace_id__documents__document_id__delete
+    DeleteDocumentResponse:
+      type: object
+      description: Response model for document deletion.
+      properties:
+        success:
+          type: boolean
+          title: Success
+        document_id:
+          type: string
+          format: uuid
+          title: Document Id
+      required:
+      - document_id
+      - success
+      title: DeleteDocumentResponse
     DocumentListResponse:
       type: object
       description: Response model for listing documents.
@@ -549,6 +530,34 @@ components:
       - count
       - documents
       title: DocumentListResponse
+    Body_upload_document_v3_v3_workspaces__workspace_id__documents_post:
+      type: object
+      properties:
+        file:
+          type: string
+          format: binary
+          title: File
+      required:
+      - file
+      title: Body_upload_document_v3_v3_workspaces__workspace_id__documents_post
+    Body_upload_document_api_key_v3_api_key_auth_workspaces__workspace_id__documents_post:
+      type: object
+      properties:
+        file:
+          type: string
+          format: binary
+          title: File
+      required:
+      - file
+      title: Body_upload_document_api_key_v3_api_key_auth_workspaces__workspace_id__documents_post
+    Body_delete_document_v3_v3_workspaces__workspace_id__documents__document_id__delete:
+      type: object
+      properties:
+        hard_delete:
+          type: boolean
+          default: false
+          title: Hard Delete
+      title: Body_delete_document_v3_v3_workspaces__workspace_id__documents__document_id__delete
     DocumentResponse:
       type: object
       description: Response model for individual document.
@@ -580,24 +589,15 @@ components:
       - name
       - s3_key_document
       title: DocumentResponse
-    Body_delete_document_v3_v3_workspaces__workspace_id__documents__document_id__delete:
+    HTTPValidationError:
       type: object
       properties:
-        hard_delete:
-          type: boolean
-          default: false
-          title: Hard Delete
-      title: Body_delete_document_v3_v3_workspaces__workspace_id__documents__document_id__delete
-    Body_upload_document_v3_v3_workspaces__workspace_id__documents_post:
-      type: object
-      properties:
-        file:
-          type: string
-          format: binary
-          title: File
-      required:
-      - file
-      title: Body_upload_document_v3_v3_workspaces__workspace_id__documents_post
+        detail:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+      title: HTTPValidationError
   securitySchemes:
     default:
       type: oauth2

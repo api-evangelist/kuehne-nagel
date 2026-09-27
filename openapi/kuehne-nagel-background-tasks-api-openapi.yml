@@ -88,6 +88,15 @@ components:
       - msg
       - type
       title: ValidationError
+    HTTPValidationError:
+      type: object
+      properties:
+        detail:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+      title: HTTPValidationError
     TaskInfo:
       type: object
       description: Information about a scheduled background task.
@@ -136,15 +145,6 @@ components:
       - scheduled_at
       - task_name
       title: TaskInfo
-    HTTPValidationError:
-      type: object
-      properties:
-        detail:
-          type: array
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-      title: HTTPValidationError
     TaskStatusResponse:
       type: object
       description: Response model for task status queries.
