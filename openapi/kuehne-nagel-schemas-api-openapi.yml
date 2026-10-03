@@ -358,6 +358,103 @@ paths:
       x-throttling-tier: Unlimited
 components:
   schemas:
+    Body_delete_schema_v3_v3_workspaces__workspace_id__schemas__schema_id__delete:
+      type: object
+      properties:
+        hard_delete:
+          type: boolean
+          default: false
+          description: 'Set to true for permanent deletion, false for soft delete. Default: false.'
+          example: false
+          title: Hard Delete
+      title: Body_delete_schema_v3_v3_workspaces__workspace_id__schemas__schema_id__delete
+    Body_update_schema_v3_v3_workspaces__workspace_id__schemas__schema_id__put:
+      type: object
+      properties:
+        schema_content:
+          type: string
+          description: Updated JSON Schema content
+          example: '{"type": "object", "properties": {"field1": {"type": "string"}}}'
+          title: Schema Content
+        schema_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Updated schema name. Leave empty to keep unchanged.
+          example: ''
+          title: Schema Name
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Updated description. Leave empty to keep unchanged.
+          example: ''
+          title: Description
+      required:
+      - schema_content
+      title: Body_update_schema_v3_v3_workspaces__workspace_id__schemas__schema_id__put
+    HTTPValidationError:
+      type: object
+      properties:
+        detail:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+      title: HTTPValidationError
+    Body_create_schema_v3_v3_workspaces__workspace_id__schemas_post:
+      type: object
+      properties:
+        schema_content:
+          type: string
+          description: JSON Schema defining the structure of extracted data
+          example: '{"type": "object", "properties": {"field1": {"type": "string"}}}'
+          title: Schema Content
+        schema_name:
+          type: string
+          description: Unique name for the schema
+          example: Invoice Schema
+          title: Schema Name
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Optional description of what this schema defines. Leave empty if not needed.
+          example: ''
+          title: Description
+      required:
+      - schema_content
+      - schema_name
+      title: Body_create_schema_v3_v3_workspaces__workspace_id__schemas_post
+    DeleteSchemaResponse:
+      type: object
+      description: Response model for schema deletion.
+      properties:
+        success:
+          type: boolean
+          title: Success
+        schema_id:
+          type: string
+          format: uuid
+          title: Schema Id
+      required:
+      - schema_id
+      - success
+      title: DeleteSchemaResponse
+    SchemaListItem:
+      type: object
+      properties:
+        name:
+          type: string
+          title: Name
+        schema_id:
+          type: string
+          format: uuid
+          title: Schema Id
+      required:
+      - name
+      - schema_id
+      title: SchemaListItem
     ValidationError:
       type: object
       properties:
@@ -384,20 +481,6 @@ components:
       - msg
       - type
       title: ValidationError
-    SchemaListItem:
-      type: object
-      properties:
-        name:
-          type: string
-          title: Name
-        schema_id:
-          type: string
-          format: uuid
-          title: Schema Id
-      required:
-      - name
-      - schema_id
-      title: SchemaListItem
     SchemaDetailResponse:
       type: object
       properties:
@@ -431,55 +514,6 @@ components:
       - updated_at
       - workspace_id
       title: SchemaDetailResponse
-    Body_create_schema_v3_v3_workspaces__workspace_id__schemas_post:
-      type: object
-      properties:
-        schema_content:
-          type: string
-          description: JSON Schema defining the structure of extracted data
-          example: '{"type": "object", "properties": {"field1": {"type": "string"}}}'
-          title: Schema Content
-        schema_name:
-          type: string
-          description: Unique name for the schema
-          example: Invoice Schema
-          title: Schema Name
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          description: Optional description of what this schema defines. Leave empty if not needed.
-          example: ''
-          title: Description
-      required:
-      - schema_content
-      - schema_name
-      title: Body_create_schema_v3_v3_workspaces__workspace_id__schemas_post
-    Body_update_schema_v3_v3_workspaces__workspace_id__schemas__schema_id__put:
-      type: object
-      properties:
-        schema_content:
-          type: string
-          description: Updated JSON Schema content
-          example: '{"type": "object", "properties": {"field1": {"type": "string"}}}'
-          title: Schema Content
-        schema_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          description: Updated schema name. Leave empty to keep unchanged.
-          example: ''
-          title: Schema Name
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          description: Updated description. Leave empty to keep unchanged.
-          example: ''
-          title: Description
-      required:
-      - schema_content
-      title: Body_update_schema_v3_v3_workspaces__workspace_id__schemas__schema_id__put
     SchemaListResponse:
       type: object
       properties:
@@ -491,40 +525,6 @@ components:
       required:
       - schemas
       title: SchemaListResponse
-    HTTPValidationError:
-      type: object
-      properties:
-        detail:
-          type: array
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-      title: HTTPValidationError
-    Body_delete_schema_v3_v3_workspaces__workspace_id__schemas__schema_id__delete:
-      type: object
-      properties:
-        hard_delete:
-          type: boolean
-          default: false
-          description: 'Set to true for permanent deletion, false for soft delete. Default: false.'
-          example: false
-          title: Hard Delete
-      title: Body_delete_schema_v3_v3_workspaces__workspace_id__schemas__schema_id__delete
-    DeleteSchemaResponse:
-      type: object
-      description: Response model for schema deletion.
-      properties:
-        success:
-          type: boolean
-          title: Success
-        schema_id:
-          type: string
-          format: uuid
-          title: Schema Id
-      required:
-      - schema_id
-      - success
-      title: DeleteSchemaResponse
   securitySchemes:
     default:
       type: oauth2

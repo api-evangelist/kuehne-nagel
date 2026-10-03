@@ -713,51 +713,146 @@ paths:
       x-throttling-tier: Unlimited
 components:
   schemas:
-    ValidationError:
+    VerifiedProcessingResponse:
       type: object
+      description: Response model for verified file processing with multiple concurrent runs.
       properties:
-        loc:
+        filename:
+          type: string
+          title: Filename
+        runs:
           type: array
           items:
-            anyOf:
-            - type: string
-            - type: integer
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
+            $ref: '#/components/schemas/VerifiedProcessingRun'
+          title: Runs
+        summary:
+          $ref: '#/components/schemas/VerifiedProcessingSummary'
       required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    ModelType:
-      type: string
-      enum:
-      - flash_25_lite
-      - flash_25_low
-      - flash_25
-      - flash_3
-      - flash_35
-      - pro_25
-      - pro_31
-      - claude_haiku_45
-      - claude_sonnet_46
-      - claude_sonnet_46_low
-      - claude_opus_46
-      - claude_opus_46_low
-      - nova_2_lite
-      - nova_2_pro_preview
-      - nova_2_pro_preview_low
-      title: ModelType
+      - filename
+      - runs
+      - summary
+      title: VerifiedProcessingResponse
+    Body_post_process_file_v2_v2_process_file__post:
+      type: object
+      properties:
+        workspace:
+          type: string
+          title: Workspace
+        file:
+          type: string
+          format: binary
+          title: File
+        prompt_name:
+          type: string
+          title: Prompt Name
+        prompt_kwargs:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Prompt Kwargs
+        model_type:
+          $ref: '#/components/schemas/ModelType'
+          default: flash_25
+        enforce_schema:
+          type: boolean
+          default: false
+          title: Enforce Schema
+      required:
+      - file
+      - prompt_name
+      - workspace
+      title: Body_post_process_file_v2_v2_process_file__post
+    Body_post_async_process_file_base64_v3_api_key_v3_api_key_auth_workspaces__workspace_id__async_process_file_base64_post:
+      type: object
+      properties:
+        file_content:
+          type: string
+          description: Base64 encoded file content
+          title: File Content
+        filename:
+          type: string
+          description: Original filename with extension
+          example: document.pdf
+          title: Filename
+        prompt_id:
+          type: string
+          format: uuid
+          description: The ID of the prompt to use for extraction.
+          example: <PROMPT_ID>
+          title: Prompt Id
+        prompt_kwargs:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Optional JSON string with template variables. Leave empty if not using template variables.
+          example: ''
+          title: Prompt Kwargs
+        model_type:
+          $ref: '#/components/schemas/ModelType'
+          default: flash_25
+          description: 'The AI model to use. Default: flash_25.'
+          example: flash_25
+        enforce_schema:
+          type: boolean
+          default: false
+          description: 'Whether to strictly enforce output schema validation. Default: false.'
+          example: false
+          title: Enforce Schema
+        output_schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Optional JSON Schema for output validation. Overrides prompt schema.
+          example: '{"type": "object", "properties": {"field1": {"type": "string"}}}'
+          title: Output Schema
+        tools:
+          anyOf:
+          - type: array
+            items:
+              type: string
+          - type: 'null'
+          description: Optional list of tool names. Leave empty if no tools should be used/available.
+          example: []
+          title: Tools
+        prompt_version_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Optional specific prompt version ID. Leave empty for latest.
+          example: ''
+          title: Prompt Version Id
+        tag:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Optional tag to select prompt version. Leave empty for latest.
+          example: ''
+          title: Tag
+        max_retries:
+          type: integer
+          default: 1
+          description: 'Max retry attempts (0-2). Default: 1.'
+          example: 1
+          maximum: 2
+          minimum: 0
+          title: Max Retries
+        enable_mep_output:
+          type: boolean
+          default: false
+          description: 'Enable MEP connector notification. Default: false.'
+          example: false
+          title: Enable Mep Output
+        convert_pdf_to_images:
+          type: boolean
+          default: false
+          description: 'Convert PDF pages to PNG images for LLM processing. Default: false.'
+          example: false
+          title: Convert Pdf To Images
+      required:
+      - file_content
+      - filename
+      - prompt_id
+      title: Body_post_async_process_file_base64_v3_api_key_v3_api_key_auth_workspaces__workspace_id__async_process_file_base64_post
     Body_post_process_file_base64_v3_api_key_v3_api_key_auth_workspaces__workspace_id__process_file_base64_post:
       type: object
       properties:
@@ -843,276 +938,15 @@ components:
       - filename
       - prompt_id
       title: Body_post_process_file_base64_v3_api_key_v3_api_key_auth_workspaces__workspace_id__process_file_base64_post
-    ExtractAsyncResponse:
+    HTTPValidationError:
       type: object
       properties:
-        tracking_id:
-          type: string
-          format: uuid
-          title: Tracking Id
-        status:
-          type: string
-          title: Status
-      required:
-      - status
-      - tracking_id
-      title: ExtractAsyncResponse
-    Body_post_process_file_verified_v3_api_key_v3_api_key_auth_workspaces__workspace_id__process_file_verified_post:
-      type: object
-      properties:
-        file:
-          type: string
-          format: binary
-          description: Document file for verified processing
-          title: File
-        prompt_id:
-          type: string
-          format: uuid
-          description: The ID of the prompt to use for extraction.
-          example: <PROMPT_ID>
-          title: Prompt Id
-        num_runs:
-          type: integer
-          description: Number of parallel runs for verification (1-5)
-          example: 1
-          maximum: 5
-          minimum: 1
-          title: Num Runs
-        prompt_kwargs:
-          anyOf:
-          - type: string
-          - type: 'null'
-          description: Optional JSON string with template variables. Leave empty if not using template variables.
-          example: ''
-          title: Prompt Kwargs
-        model_type:
-          $ref: '#/components/schemas/ModelType'
-          default: flash_25
-          description: 'The AI model to use. Default: flash_25.'
-          example: flash_25
-        enforce_schema:
-          type: boolean
-          default: false
-          description: 'Whether to strictly enforce output schema validation. Default: false.'
-          example: false
-          title: Enforce Schema
-        output_schema:
-          anyOf:
-          - type: string
-          - type: 'null'
-          description: Optional JSON Schema for output validation. Overrides prompt schema.
-          example: '{"type": "object", "properties": {"field1": {"type": "string"}}}'
-          title: Output Schema
-        tools:
-          anyOf:
-          - type: array
-            items:
-              type: string
-          - type: 'null'
-          description: Optional list of tool names. Leave empty if no tools should be used/available.
-          example: []
-          title: Tools
-        prompt_version_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          description: Optional specific prompt version ID. Leave empty for latest.
-          example: ''
-          title: Prompt Version Id
-        tag:
-          anyOf:
-          - type: string
-          - type: 'null'
-          description: Optional tag to select prompt version. Leave empty for latest.
-          example: ''
-          title: Tag
-        max_retries:
-          type: integer
-          default: 1
-          description: 'Max retry attempts (0-2). Default: 1.'
-          example: 1
-          maximum: 2
-          minimum: 0
-          title: Max Retries
-        convert_pdf_to_images:
-          type: boolean
-          default: false
-          description: 'Convert PDF pages to PNG images for LLM processing. Default: false.'
-          example: false
-          title: Convert Pdf To Images
-      required:
-      - file
-      - num_runs
-      - prompt_id
-      title: Body_post_process_file_verified_v3_api_key_v3_api_key_auth_workspaces__workspace_id__process_file_verified_post
-    ? Body_post_process_file_with_prompt_base64_v3_api_key_v3_api_key_auth_workspaces__workspace_id__process_file_with_prompt_base64_post
-    : type: object
-      properties:
-        file_content:
-          type: string
-          description: Base64 encoded file content
-          title: File Content
-        filename:
-          type: string
-          description: Original filename with extension
-          example: document.pdf
-          title: Filename
-        prompt:
-          type: string
-          description: Prompt text for extraction
-          example: Extract all invoice data from the document...
-          title: Prompt
-        prompt_kwargs:
-          anyOf:
-          - type: string
-          - type: 'null'
-          description: Optional JSON string with template variables. Leave empty if not using template variables.
-          example: ''
-          title: Prompt Kwargs
-        model_type:
-          $ref: '#/components/schemas/ModelType'
-          default: flash_25
-          description: 'The AI model to use. Default: flash_25.'
-          example: flash_25
-        output_schema:
-          anyOf:
-          - type: string
-          - type: 'null'
-          description: Optional JSON Schema for output validation. Overrides prompt schema.
-          example: '{"type": "object", "properties": {"field1": {"type": "string"}}}'
-          title: Output Schema
-        tools:
-          anyOf:
-          - type: array
-            items:
-              type: string
-          - type: 'null'
-          description: Optional list of tool names. Leave empty if no tools should be used/available.
-          example: []
-          title: Tools
-        convert_pdf_to_images:
-          type: boolean
-          default: false
-          description: 'Convert PDF pages to PNG images for LLM processing. Default: false.'
-          example: false
-          title: Convert Pdf To Images
-      required:
-      - file_content
-      - filename
-      - prompt
-      title: Body_post_process_file_with_prompt_base64_v3_api_key_v3_api_key_auth_workspaces__workspace_id__process_file_with_prompt_base64_post
-    ExtractFileResponse:
-      type: object
-      properties:
-        filename:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Filename
-        data:
-          anyOf:
-          - type: array
-            items: {}
-          - type: object
-            additionalProperties: true
-          - type: string
-          - type: 'null'
-          title: Data
-        metadata:
-          anyOf:
-          - $ref: '#/components/schemas/FileMetadata'
-          - type: 'null'
-        error:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Error
-      title: ExtractFileResponse
-    Body_post_process_file_base64_v3_v3_workspaces__workspace_id__process_file_base64_post:
-      type: object
-      properties:
-        file_content:
-          type: string
-          description: Base64 encoded file content (PDF, DOCX, TXT, etc.)
-          title: File Content
-        filename:
-          type: string
-          description: Original filename with extension
-          example: invoice.pdf
-          title: Filename
-        prompt_id:
-          type: string
-          format: uuid
-          description: The ID of the prompt to use for extraction. Use /workspaces/{workspace_id}/prompts to list available prompts.
-          example: <PROMPT_ID>
-          title: Prompt Id
-        prompt_kwargs:
-          anyOf:
-          - type: string
-          - type: 'null'
-          description: 'Optional JSON string containing variables for prompt template substitution (e.g., ''{"company": "Acme Corp", "year": "2024"}''). Leave empty if not using template variables.'
-          example: ''
-          title: Prompt Kwargs
-        model_type:
-          $ref: '#/components/schemas/ModelType'
-          default: flash_25
-          description: 'The AI model to use for extraction. Options: flash_25_lite (fast), flash_25 (more accurate), pro_25. Default: flash_25.'
-          example: flash_25
-        enforce_schema:
-          type: boolean
-          default: false
-          description: 'Whether to strictly enforce the output schema. When true, the API will validate extracted data against the schema. Default: false.'
-          example: false
-          title: Enforce Schema
-        output_schema:
-          anyOf:
-          - type: string
-          - type: 'null'
-          description: Optional JSON Schema to enforce on the extraction output. When provided, the API will validate extracted data against this schema. This takes precedence over any schema attached to the prompt version. Must be a valid JSON Schema (Draft 2020-12). Leave empty to use the prompt version's schema (if enforce_schema is true) or no schema.
-          example: '{"type": "object", "properties": {"field1": {"type": "string"}}}'
-          title: Output Schema
-        tools:
-          anyOf:
-          - type: array
-            items:
-              type: string
-          - type: 'null'
-          description: Optional list of tool names to enable for this extraction (e.g., ['calculator', 'web_search']). Leave empty if no tools should be used/available.
-          example: []
-          title: Tools
-        prompt_version_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          description: Optional specific version ID of the prompt to use. Leave empty to automatically use the latest version or version matching the tag.
-          example: ''
-          title: Prompt Version Id
-        tag:
-          anyOf:
-          - type: string
-          - type: 'null'
-          description: Optional tag to select a specific prompt version (e.g., 'production', 'staging'). Leave empty to use the latest version.
-          example: ''
-          title: Tag
-        max_retries:
-          type: integer
-          default: 1
-          description: 'Maximum number of retry attempts if extraction fails (0-2). Default: 1.'
-          example: 1
-          maximum: 2
-          minimum: 0
-          title: Max Retries
-        convert_pdf_to_images:
-          type: boolean
-          default: false
-          description: 'If true and the file is a PDF, convert each page to PNG images before LLM processing. This forces the LLM to use OCR capabilities for the entire page content, which can improve extraction quality for PDFs with incomplete or unreliable text layers. Default: false.'
-          example: false
-          title: Convert Pdf To Images
-      required:
-      - file_content
-      - filename
-      - prompt_id
-      title: Body_post_process_file_base64_v3_v3_workspaces__workspace_id__process_file_base64_post
+        detail:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+      title: HTTPValidationError
     Body_post_process_file_verified_base64_v3_v3_workspaces__workspace_id__process_file_verified_base64_post:
       type: object
       properties:
@@ -1206,202 +1040,33 @@ components:
       - num_runs
       - prompt_id
       title: Body_post_process_file_verified_base64_v3_v3_workspaces__workspace_id__process_file_verified_base64_post
-    Body_post_process_file_with_prompt_v3_api_key_v3_api_key_auth_workspaces__workspace_id__process_file_with_prompt_post:
+    ValidationError:
       type: object
       properties:
-        file:
-          type: string
-          format: binary
-          description: The document file to process (PDF, DOCX, TXT, etc.)
-          title: File
-        prompt:
-          type: string
-          description: Prompt text for extraction
-          example: Extract all invoice data from the document...
-          title: Prompt
-        prompt_kwargs:
-          anyOf:
-          - type: string
-          - type: 'null'
-          description: Optional JSON string with template variables. Leave empty if not using template variables.
-          example: ''
-          title: Prompt Kwargs
-        model_type:
-          $ref: '#/components/schemas/ModelType'
-          default: flash_25
-          description: 'The AI model to use. Default: flash_25.'
-          example: flash_25
-        output_schema:
-          anyOf:
-          - type: string
-          - type: 'null'
-          description: Optional JSON Schema for output validation. Overrides prompt schema.
-          example: '{"type": "object", "properties": {"field1": {"type": "string"}}}'
-          title: Output Schema
-        tools:
-          anyOf:
-          - type: array
-            items:
-              type: string
-          - type: 'null'
-          description: Optional list of tool names. Leave empty if no tools should be used/available.
-          example: []
-          title: Tools
-        convert_pdf_to_images:
-          type: boolean
-          default: false
-          description: 'If true and the file is a PDF, convert each page to PNG images before LLM processing. This forces the LLM to use OCR capabilities for the entire page content, which can improve extraction quality for PDFs with incomplete or unreliable text layers. Default: false.'
-          example: false
-          title: Convert Pdf To Images
-      required:
-      - file
-      - prompt
-      title: Body_post_process_file_with_prompt_v3_api_key_v3_api_key_auth_workspaces__workspace_id__process_file_with_prompt_post
-    HTTPValidationError:
-      type: object
-      properties:
-        detail:
+        loc:
           type: array
           items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-      title: HTTPValidationError
-    Body_post_process_file_async_v2_v2_async_process_file__post:
-      type: object
-      properties:
-        workspace:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+        msg:
           type: string
-          title: Workspace
-        file:
+          title: Message
+        type:
           type: string
-          format: binary
-          title: File
-        prompt_name:
-          type: string
-          title: Prompt Name
-        prompt_kwargs:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Prompt Kwargs
-        model_type:
-          $ref: '#/components/schemas/ModelType'
-          default: flash_25
-        enforce_schema:
-          type: boolean
-          default: false
-          title: Enforce Schema
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
       required:
-      - file
-      - prompt_name
-      - workspace
-      title: Body_post_process_file_async_v2_v2_async_process_file__post
-    VerifiedProcessingResponse:
-      type: object
-      description: Response model for verified file processing with multiple concurrent runs.
-      properties:
-        filename:
-          type: string
-          title: Filename
-        runs:
-          type: array
-          items:
-            $ref: '#/components/schemas/VerifiedProcessingRun'
-          title: Runs
-        summary:
-          $ref: '#/components/schemas/VerifiedProcessingSummary'
-      required:
-      - filename
-      - runs
-      - summary
-      title: VerifiedProcessingResponse
-    Body_post_process_file_async_v3_api_key_v3_api_key_auth_workspaces__workspace_id__async_process_file_post:
-      type: object
-      properties:
-        file:
-          type: string
-          format: binary
-          description: Document file to process asynchronously
-          title: File
-        prompt_id:
-          type: string
-          format: uuid
-          description: The ID of the prompt to use for extraction.
-          example: <PROMPT_ID>
-          title: Prompt Id
-        prompt_kwargs:
-          anyOf:
-          - type: string
-          - type: 'null'
-          description: Optional JSON string with template variables. Leave empty if not using template variables.
-          example: ''
-          title: Prompt Kwargs
-        model_type:
-          $ref: '#/components/schemas/ModelType'
-          default: flash_25
-          description: 'The AI model to use. Default: flash_25.'
-          example: flash_25
-        enforce_schema:
-          type: boolean
-          default: false
-          description: 'Whether to strictly enforce output schema validation. Default: false.'
-          example: false
-          title: Enforce Schema
-        output_schema:
-          anyOf:
-          - type: string
-          - type: 'null'
-          description: Optional JSON Schema for output validation. Overrides prompt schema.
-          example: '{"type": "object", "properties": {"field1": {"type": "string"}}}'
-          title: Output Schema
-        tools:
-          anyOf:
-          - type: array
-            items:
-              type: string
-          - type: 'null'
-          description: Optional list of tool names. Leave empty if no tools should be used/available.
-          example: []
-          title: Tools
-        prompt_version_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          description: Optional specific prompt version ID. Leave empty for latest.
-          example: ''
-          title: Prompt Version Id
-        tag:
-          anyOf:
-          - type: string
-          - type: 'null'
-          description: Optional tag to select prompt version. Leave empty for latest.
-          example: ''
-          title: Tag
-        max_retries:
-          type: integer
-          default: 1
-          description: 'Max retry attempts (0-2). Default: 1.'
-          example: 1
-          maximum: 2
-          minimum: 0
-          title: Max Retries
-        enable_mep_output:
-          type: boolean
-          default: false
-          description: 'Enable MEP connector notification. Default: false.'
-          example: false
-          title: Enable Mep Output
-        convert_pdf_to_images:
-          type: boolean
-          default: false
-          description: 'Convert PDF pages to PNG images for LLM processing. Default: false.'
-          example: false
-          title: Convert Pdf To Images
-      required:
-      - file
-      - prompt_id
-      title: Body_post_process_file_async_v3_api_key_v3_api_key_auth_workspaces__workspace_id__async_process_file_post
-    Body_post_process_file_with_prompt_base64_v3_v3_workspaces__workspace_id__process_file_with_prompt_base64_post:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    Body_post_process_file_base64_v3_v3_workspaces__workspace_id__process_file_base64_post:
       type: object
       properties:
         file_content:
@@ -1413,58 +1078,6 @@ components:
           description: Original filename with extension
           example: invoice.pdf
           title: Filename
-        prompt:
-          type: string
-          description: The prompt text to use for extraction. Provide the full prompt instruction here instead of using a saved prompt ID.
-          example: Extract all invoice data from the document...
-          title: Prompt
-        prompt_kwargs:
-          anyOf:
-          - type: string
-          - type: 'null'
-          description: 'Optional JSON string containing variables for prompt template substitution (e.g., ''{"company": "Acme Corp", "year": "2024"}''). Leave empty if not using template variables.'
-          example: ''
-          title: Prompt Kwargs
-        model_type:
-          $ref: '#/components/schemas/ModelType'
-          default: flash_25
-          description: 'The AI model to use for extraction. Options: flash_25_lite (fast), flash_25 (more accurate), pro_25. Default: flash_25.'
-          example: flash_25
-        output_schema:
-          anyOf:
-          - type: string
-          - type: 'null'
-          description: Optional JSON Schema to enforce on the extraction output. When provided, the API will validate extracted data against this schema. This takes precedence over any schema attached to the prompt version. Must be a valid JSON Schema (Draft 2020-12). Leave empty to use the prompt version's schema (if enforce_schema is true) or no schema.
-          example: '{"type": "object", "properties": {"field1": {"type": "string"}}}'
-          title: Output Schema
-        tools:
-          anyOf:
-          - type: array
-            items:
-              type: string
-          - type: 'null'
-          description: Optional list of tool names to enable for this extraction (e.g., ['calculator', 'web_search']). Leave empty if no tools should be used/available.
-          example: []
-          title: Tools
-        convert_pdf_to_images:
-          type: boolean
-          default: false
-          description: 'If true and the file is a PDF, convert each page to PNG images before LLM processing. This forces the LLM to use OCR capabilities for the entire page content, which can improve extraction quality for PDFs with incomplete or unreliable text layers. Default: false.'
-          example: false
-          title: Convert Pdf To Images
-      required:
-      - file_content
-      - filename
-      - prompt
-      title: Body_post_process_file_with_prompt_base64_v3_v3_workspaces__workspace_id__process_file_with_prompt_base64_post
-    Body_post_process_file_v3_v3_workspaces__workspace_id__process_file_post:
-      type: object
-      properties:
-        file:
-          type: string
-          format: binary
-          description: The document file to process (PDF, DOCX, TXT, etc.)
-          title: File
         prompt_id:
           type: string
           format: uuid
@@ -1534,32 +1147,11 @@ components:
           example: false
           title: Convert Pdf To Images
       required:
-      - file
+      - file_content
+      - filename
       - prompt_id
-      title: Body_post_process_file_v3_v3_workspaces__workspace_id__process_file_post
-    VerifiedProcessingRun:
-      type: object
-      description: Individual run result in verified processing.
-      properties:
-        run_id:
-          type: integer
-          title: Run Id
-        result:
-          $ref: '#/components/schemas/ExtractFileResponse'
-        processing_time:
-          type: number
-          title: Processing Time
-        error:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Error
-      required:
-      - processing_time
-      - result
-      - run_id
-      title: VerifiedProcessingRun
-    Body_post_process_file_v2_v2_process_file__post:
+      title: Body_post_process_file_base64_v3_v3_workspaces__workspace_id__process_file_base64_post
+    Body_post_process_file_async_v2_v2_async_process_file__post:
       type: object
       properties:
         workspace:
@@ -1588,67 +1180,77 @@ components:
       - file
       - prompt_name
       - workspace
-      title: Body_post_process_file_v2_v2_process_file__post
-    FileMetadata:
-      type: object
+      title: Body_post_process_file_async_v2_v2_async_process_file__post
+    ? Body_post_process_file_with_prompt_base64_v3_api_key_v3_api_key_auth_workspaces__workspace_id__process_file_with_prompt_base64_post
+    : type: object
       properties:
-        uuid:
+        file_content:
+          type: string
+          description: Base64 encoded file content
+          title: File Content
+        filename:
+          type: string
+          description: Original filename with extension
+          example: document.pdf
+          title: Filename
+        prompt:
+          type: string
+          description: Prompt text for extraction
+          example: Extract all invoice data from the document...
+          title: Prompt
+        prompt_kwargs:
           anyOf:
           - type: string
           - type: 'null'
-          title: Uuid
-        request_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Request Id
+          description: Optional JSON string with template variables. Leave empty if not using template variables.
+          example: ''
+          title: Prompt Kwargs
         model_type:
           $ref: '#/components/schemas/ModelType'
-        input_tokens:
-          type: integer
-          title: Input Tokens
-        output_tokens:
-          type: integer
-          title: Output Tokens
-        thinking_tokens:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Thinking Tokens
-        token_costs:
-          type: number
-          title: Token Costs
-        processed_at:
-          type: string
-          title: Processed At
-        finish_reason:
+          default: flash_25
+          description: 'The AI model to use. Default: flash_25.'
+          example: flash_25
+        output_schema:
           anyOf:
           - type: string
           - type: 'null'
-          title: Finish Reason
-        finish_message:
+          description: Optional JSON Schema for output validation. Overrides prompt schema.
+          example: '{"type": "object", "properties": {"field1": {"type": "string"}}}'
+          title: Output Schema
+        tools:
           anyOf:
-          - type: string
+          - type: array
+            items:
+              type: string
           - type: 'null'
-          title: Finish Message
-        tool_calls:
-          type: array
-          default: []
-          items:
-            type: string
-          title: Tool Calls
-        processing_time_ms:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Processing Time Ms
+          description: Optional list of tool names. Leave empty if no tools should be used/available.
+          example: []
+          title: Tools
+        convert_pdf_to_images:
+          type: boolean
+          default: false
+          description: 'Convert PDF pages to PNG images for LLM processing. Default: false.'
+          example: false
+          title: Convert Pdf To Images
       required:
-      - input_tokens
-      - model_type
-      - output_tokens
-      - processed_at
-      - token_costs
-      title: FileMetadata
+      - file_content
+      - filename
+      - prompt
+      title: Body_post_process_file_with_prompt_base64_v3_api_key_v3_api_key_auth_workspaces__workspace_id__process_file_with_prompt_base64_post
+    ExtractAsyncResponse:
+      type: object
+      properties:
+        tracking_id:
+          type: string
+          format: uuid
+          title: Tracking Id
+        status:
+          type: string
+          title: Status
+      required:
+      - status
+      - tracking_id
+      title: ExtractAsyncResponse
     Body_post_process_file_v3_api_key_v3_api_key_auth_workspaces__workspace_id__process_file_post:
       type: object
       properties:
@@ -1729,6 +1331,409 @@ components:
       - file
       - prompt_id
       title: Body_post_process_file_v3_api_key_v3_api_key_auth_workspaces__workspace_id__process_file_post
+    FileMetadata:
+      type: object
+      properties:
+        uuid:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Uuid
+        request_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Request Id
+        model_type:
+          $ref: '#/components/schemas/ModelType'
+        input_tokens:
+          type: integer
+          title: Input Tokens
+        output_tokens:
+          type: integer
+          title: Output Tokens
+        thinking_tokens:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Thinking Tokens
+        token_costs:
+          type: number
+          title: Token Costs
+        processed_at:
+          type: string
+          title: Processed At
+        finish_reason:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Finish Reason
+        finish_message:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Finish Message
+        tool_calls:
+          type: array
+          default: []
+          items:
+            type: string
+          title: Tool Calls
+        processing_time_ms:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Processing Time Ms
+      required:
+      - input_tokens
+      - model_type
+      - output_tokens
+      - processed_at
+      - token_costs
+      title: FileMetadata
+    Body_post_process_file_with_prompt_base64_v3_v3_workspaces__workspace_id__process_file_with_prompt_base64_post:
+      type: object
+      properties:
+        file_content:
+          type: string
+          description: Base64 encoded file content (PDF, DOCX, TXT, etc.)
+          title: File Content
+        filename:
+          type: string
+          description: Original filename with extension
+          example: invoice.pdf
+          title: Filename
+        prompt:
+          type: string
+          description: The prompt text to use for extraction. Provide the full prompt instruction here instead of using a saved prompt ID.
+          example: Extract all invoice data from the document...
+          title: Prompt
+        prompt_kwargs:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: 'Optional JSON string containing variables for prompt template substitution (e.g., ''{"company": "Acme Corp", "year": "2024"}''). Leave empty if not using template variables.'
+          example: ''
+          title: Prompt Kwargs
+        model_type:
+          $ref: '#/components/schemas/ModelType'
+          default: flash_25
+          description: 'The AI model to use for extraction. Options: flash_25_lite (fast), flash_25 (more accurate), pro_25. Default: flash_25.'
+          example: flash_25
+        output_schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Optional JSON Schema to enforce on the extraction output. When provided, the API will validate extracted data against this schema. This takes precedence over any schema attached to the prompt version. Must be a valid JSON Schema (Draft 2020-12). Leave empty to use the prompt version's schema (if enforce_schema is true) or no schema.
+          example: '{"type": "object", "properties": {"field1": {"type": "string"}}}'
+          title: Output Schema
+        tools:
+          anyOf:
+          - type: array
+            items:
+              type: string
+          - type: 'null'
+          description: Optional list of tool names to enable for this extraction (e.g., ['calculator', 'web_search']). Leave empty if no tools should be used/available.
+          example: []
+          title: Tools
+        convert_pdf_to_images:
+          type: boolean
+          default: false
+          description: 'If true and the file is a PDF, convert each page to PNG images before LLM processing. This forces the LLM to use OCR capabilities for the entire page content, which can improve extraction quality for PDFs with incomplete or unreliable text layers. Default: false.'
+          example: false
+          title: Convert Pdf To Images
+      required:
+      - file_content
+      - filename
+      - prompt
+      title: Body_post_process_file_with_prompt_base64_v3_v3_workspaces__workspace_id__process_file_with_prompt_base64_post
+    Body_post_process_file_with_prompt_v3_api_key_v3_api_key_auth_workspaces__workspace_id__process_file_with_prompt_post:
+      type: object
+      properties:
+        file:
+          type: string
+          format: binary
+          description: The document file to process (PDF, DOCX, TXT, etc.)
+          title: File
+        prompt:
+          type: string
+          description: Prompt text for extraction
+          example: Extract all invoice data from the document...
+          title: Prompt
+        prompt_kwargs:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Optional JSON string with template variables. Leave empty if not using template variables.
+          example: ''
+          title: Prompt Kwargs
+        model_type:
+          $ref: '#/components/schemas/ModelType'
+          default: flash_25
+          description: 'The AI model to use. Default: flash_25.'
+          example: flash_25
+        output_schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Optional JSON Schema for output validation. Overrides prompt schema.
+          example: '{"type": "object", "properties": {"field1": {"type": "string"}}}'
+          title: Output Schema
+        tools:
+          anyOf:
+          - type: array
+            items:
+              type: string
+          - type: 'null'
+          description: Optional list of tool names. Leave empty if no tools should be used/available.
+          example: []
+          title: Tools
+        convert_pdf_to_images:
+          type: boolean
+          default: false
+          description: 'If true and the file is a PDF, convert each page to PNG images before LLM processing. This forces the LLM to use OCR capabilities for the entire page content, which can improve extraction quality for PDFs with incomplete or unreliable text layers. Default: false.'
+          example: false
+          title: Convert Pdf To Images
+      required:
+      - file
+      - prompt
+      title: Body_post_process_file_with_prompt_v3_api_key_v3_api_key_auth_workspaces__workspace_id__process_file_with_prompt_post
+    VerifiedProcessingRun:
+      type: object
+      description: Individual run result in verified processing.
+      properties:
+        run_id:
+          type: integer
+          title: Run Id
+        result:
+          $ref: '#/components/schemas/ExtractFileResponse'
+        processing_time:
+          type: number
+          title: Processing Time
+        error:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Error
+      required:
+      - processing_time
+      - result
+      - run_id
+      title: VerifiedProcessingRun
+    Body_post_process_file_verified_v3_api_key_v3_api_key_auth_workspaces__workspace_id__process_file_verified_post:
+      type: object
+      properties:
+        file:
+          type: string
+          format: binary
+          description: Document file for verified processing
+          title: File
+        prompt_id:
+          type: string
+          format: uuid
+          description: The ID of the prompt to use for extraction.
+          example: <PROMPT_ID>
+          title: Prompt Id
+        num_runs:
+          type: integer
+          description: Number of parallel runs for verification (1-5)
+          example: 1
+          maximum: 5
+          minimum: 1
+          title: Num Runs
+        prompt_kwargs:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Optional JSON string with template variables. Leave empty if not using template variables.
+          example: ''
+          title: Prompt Kwargs
+        model_type:
+          $ref: '#/components/schemas/ModelType'
+          default: flash_25
+          description: 'The AI model to use. Default: flash_25.'
+          example: flash_25
+        enforce_schema:
+          type: boolean
+          default: false
+          description: 'Whether to strictly enforce output schema validation. Default: false.'
+          example: false
+          title: Enforce Schema
+        output_schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Optional JSON Schema for output validation. Overrides prompt schema.
+          example: '{"type": "object", "properties": {"field1": {"type": "string"}}}'
+          title: Output Schema
+        tools:
+          anyOf:
+          - type: array
+            items:
+              type: string
+          - type: 'null'
+          description: Optional list of tool names. Leave empty if no tools should be used/available.
+          example: []
+          title: Tools
+        prompt_version_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Optional specific prompt version ID. Leave empty for latest.
+          example: ''
+          title: Prompt Version Id
+        tag:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Optional tag to select prompt version. Leave empty for latest.
+          example: ''
+          title: Tag
+        max_retries:
+          type: integer
+          default: 1
+          description: 'Max retry attempts (0-2). Default: 1.'
+          example: 1
+          maximum: 2
+          minimum: 0
+          title: Max Retries
+        convert_pdf_to_images:
+          type: boolean
+          default: false
+          description: 'Convert PDF pages to PNG images for LLM processing. Default: false.'
+          example: false
+          title: Convert Pdf To Images
+      required:
+      - file
+      - num_runs
+      - prompt_id
+      title: Body_post_process_file_verified_v3_api_key_v3_api_key_auth_workspaces__workspace_id__process_file_verified_post
+    ExtractFileResponse:
+      type: object
+      properties:
+        filename:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Filename
+        data:
+          anyOf:
+          - type: array
+            items: {}
+          - type: object
+            additionalProperties: true
+          - type: string
+          - type: 'null'
+          title: Data
+        metadata:
+          anyOf:
+          - $ref: '#/components/schemas/FileMetadata'
+          - type: 'null'
+        error:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Error
+      title: ExtractFileResponse
+    ModelType:
+      type: string
+      enum:
+      - flash_25_lite
+      - flash_25_low
+      - flash_25
+      - flash_3
+      - flash_35
+      - pro_25
+      - pro_31
+      - claude_haiku_45
+      - claude_sonnet_46
+      - claude_sonnet_46_low
+      - claude_opus_46
+      - claude_opus_46_low
+      - nova_2_lite
+      - nova_2_pro_preview
+      - nova_2_pro_preview_low
+      title: ModelType
+    Body_post_process_file_v3_v3_workspaces__workspace_id__process_file_post:
+      type: object
+      properties:
+        file:
+          type: string
+          format: binary
+          description: The document file to process (PDF, DOCX, TXT, etc.)
+          title: File
+        prompt_id:
+          type: string
+          format: uuid
+          description: The ID of the prompt to use for extraction. Use /workspaces/{workspace_id}/prompts to list available prompts.
+          example: <PROMPT_ID>
+          title: Prompt Id
+        prompt_kwargs:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: 'Optional JSON string containing variables for prompt template substitution (e.g., ''{"company": "Acme Corp", "year": "2024"}''). Leave empty if not using template variables.'
+          example: ''
+          title: Prompt Kwargs
+        model_type:
+          $ref: '#/components/schemas/ModelType'
+          default: flash_25
+          description: 'The AI model to use for extraction. Options: flash_25_lite (fast), flash_25 (more accurate), pro_25. Default: flash_25.'
+          example: flash_25
+        enforce_schema:
+          type: boolean
+          default: false
+          description: 'Whether to strictly enforce the output schema. When true, the API will validate extracted data against the schema. Default: false.'
+          example: false
+          title: Enforce Schema
+        output_schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Optional JSON Schema to enforce on the extraction output. When provided, the API will validate extracted data against this schema. This takes precedence over any schema attached to the prompt version. Must be a valid JSON Schema (Draft 2020-12). Leave empty to use the prompt version's schema (if enforce_schema is true) or no schema.
+          example: '{"type": "object", "properties": {"field1": {"type": "string"}}}'
+          title: Output Schema
+        tools:
+          anyOf:
+          - type: array
+            items:
+              type: string
+          - type: 'null'
+          description: Optional list of tool names to enable for this extraction (e.g., ['calculator', 'web_search']). Leave empty if no tools should be used/available.
+          example: []
+          title: Tools
+        prompt_version_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Optional specific version ID of the prompt to use. Leave empty to automatically use the latest version or version matching the tag.
+          example: ''
+          title: Prompt Version Id
+        tag:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Optional tag to select a specific prompt version (e.g., 'production', 'staging'). Leave empty to use the latest version.
+          example: ''
+          title: Tag
+        max_retries:
+          type: integer
+          default: 1
+          description: 'Maximum number of retry attempts if extraction fails (0-2). Default: 1.'
+          example: 1
+          maximum: 2
+          minimum: 0
+          title: Max Retries
+        convert_pdf_to_images:
+          type: boolean
+          default: false
+          description: 'If true and the file is a PDF, convert each page to PNG images before LLM processing. This forces the LLM to use OCR capabilities for the entire page content, which can improve extraction quality for PDFs with incomplete or unreliable text layers. Default: false.'
+          example: false
+          title: Convert Pdf To Images
+      required:
+      - file
+      - prompt_id
+      title: Body_post_process_file_v3_v3_workspaces__workspace_id__process_file_post
     VerifiedProcessingSummary:
       type: object
       description: Summary information for verified processing results.
@@ -1816,18 +1821,14 @@ components:
       - file
       - prompt
       title: Body_post_process_file_with_prompt_v3_v3_workspaces__workspace_id__process_file_with_prompt_post
-    Body_post_async_process_file_base64_v3_api_key_v3_api_key_auth_workspaces__workspace_id__async_process_file_base64_post:
+    Body_post_process_file_async_v3_api_key_v3_api_key_auth_workspaces__workspace_id__async_process_file_post:
       type: object
       properties:
-        file_content:
+        file:
           type: string
-          description: Base64 encoded file content
-          title: File Content
-        filename:
-          type: string
-          description: Original filename with extension
-          example: document.pdf
-          title: Filename
+          format: binary
+          description: Document file to process asynchronously
+          title: File
         prompt_id:
           type: string
           format: uuid
@@ -1903,10 +1904,9 @@ components:
           example: false
           title: Convert Pdf To Images
       required:
-      - file_content
-      - filename
+      - file
       - prompt_id
-      title: Body_post_async_process_file_base64_v3_api_key_v3_api_key_auth_workspaces__workspace_id__async_process_file_base64_post
+      title: Body_post_process_file_async_v3_api_key_v3_api_key_auth_workspaces__workspace_id__async_process_file_post
   securitySchemes:
     default:
       type: oauth2

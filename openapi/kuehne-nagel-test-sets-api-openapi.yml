@@ -883,6 +883,123 @@ paths:
       x-throttling-tier: Unlimited
 components:
   schemas:
+    TestSetListResponse:
+      type: object
+      description: Response model for listing test sets.
+      properties:
+        test_sets:
+          type: array
+          items:
+            $ref: '#/components/schemas/TestSetListItem'
+          title: Test Sets
+      required:
+      - test_sets
+      title: TestSetListResponse
+    Body_update_test_set_v3_workspaces__workspace_id__test_sets__test_set_id__put:
+      type: object
+      properties:
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+      title: Body_update_test_set_v3_workspaces__workspace_id__test_sets__test_set_id__put
+    Body_delete_test_set_v3_workspaces__workspace_id__test_sets__test_set_id__delete:
+      type: object
+      properties:
+        hard_delete:
+          type: boolean
+          default: false
+          title: Hard Delete
+      title: Body_delete_test_set_v3_workspaces__workspace_id__test_sets__test_set_id__delete
+    Body_update_test_set_api_key_v3_api_key_auth_workspaces__workspace_id__test_sets__test_set_id__put:
+      type: object
+      properties:
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+      title: Body_update_test_set_api_key_v3_api_key_auth_workspaces__workspace_id__test_sets__test_set_id__put
+    Body_delete_test_set_api_key_v3_api_key_auth_workspaces__workspace_id__test_sets__test_set_id__delete:
+      type: object
+      properties:
+        hard_delete:
+          type: boolean
+          default: false
+          title: Hard Delete
+      title: Body_delete_test_set_api_key_v3_api_key_auth_workspaces__workspace_id__test_sets__test_set_id__delete
+    HTTPValidationError:
+      type: object
+      properties:
+        detail:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+      title: HTTPValidationError
+    TestCaseEvaluationResult:
+      type: object
+      description: Response model for individual test case evaluation within a test set.
+      properties:
+        test_case_id:
+          type: string
+          format: uuid
+          title: Test Case Id
+        test_case_name:
+          type: string
+          title: Test Case Name
+        overall_status:
+          type: string
+          title: Overall Status
+        status_message:
+          type: string
+          title: Status Message
+        schema_validation:
+          anyOf:
+          - $ref: '#/components/schemas/ValidationResult'
+          - type: 'null'
+        value_comparison:
+          anyOf:
+          - $ref: '#/components/schemas/ComparisonResult'
+          - type: 'null'
+      required:
+      - overall_status
+      - status_message
+      - test_case_id
+      - test_case_name
+      title: TestCaseEvaluationResult
+    ComparisonResult:
+      type: object
+      description: Response model for value comparison results.
+      properties:
+        status:
+          type: string
+          title: Status
+        message:
+          type: string
+          title: Message
+        formatted_diff:
+          anyOf:
+          - type: object
+            additionalProperties: true
+          - type: string
+          - type: 'null'
+          title: Formatted Diff
+      required:
+      - message
+      - status
+      title: ComparisonResult
     ValidationError:
       type: object
       properties:
@@ -909,47 +1026,54 @@ components:
       - msg
       - type
       title: ValidationError
-    ModelType:
-      type: string
-      enum:
-      - flash_25_lite
-      - flash_25_low
-      - flash_25
-      - flash_3
-      - flash_35
-      - pro_25
-      - pro_31
-      - claude_haiku_45
-      - claude_sonnet_46
-      - claude_sonnet_46_low
-      - claude_opus_46
-      - claude_opus_46_low
-      - nova_2_lite
-      - nova_2_pro_preview
-      - nova_2_pro_preview_low
-      title: ModelType
-    Body_update_test_set_api_key_v3_api_key_auth_workspaces__workspace_id__test_sets__test_set_id__put:
+    Body_evaluate_test_set_v3_workspaces__workspace_id__test_sets__test_set_id__evaluate__prompt_version_id__post:
       type: object
       properties:
+        model_type:
+          $ref: '#/components/schemas/ModelType'
+          default: flash_25
+      title: Body_evaluate_test_set_v3_workspaces__workspace_id__test_sets__test_set_id__evaluate__prompt_version_id__post
+    TestSetListItem:
+      type: object
+      description: Response model for test set list items.
+      properties:
         name:
+          type: string
+          title: Name
+        test_set_id:
+          type: string
+          format: uuid
+          title: Test Set Id
+        description:
           anyOf:
           - type: string
           - type: 'null'
+          title: Description
+      required:
+      - name
+      - test_set_id
+      title: TestSetListItem
+    Body_create_test_set_api_key_v3_api_key_auth_workspaces__workspace_id__test_sets_post:
+      type: object
+      properties:
+        name:
+          type: string
           title: Name
         description:
           anyOf:
           - type: string
           - type: 'null'
           title: Description
-      title: Body_update_test_set_api_key_v3_api_key_auth_workspaces__workspace_id__test_sets__test_set_id__put
-    Body_delete_test_set_api_key_v3_api_key_auth_workspaces__workspace_id__test_sets__test_set_id__delete:
-      type: object
+      required:
+      - name
+      title: Body_create_test_set_api_key_v3_api_key_auth_workspaces__workspace_id__test_sets_post
+    ? Body_evaluate_test_set_api_key_v3_api_key_auth_workspaces__workspace_id__test_sets__test_set_id__evaluate__prompt_version_id__post
+    : type: object
       properties:
-        hard_delete:
-          type: boolean
-          default: false
-          title: Hard Delete
-      title: Body_delete_test_set_api_key_v3_api_key_auth_workspaces__workspace_id__test_sets__test_set_id__delete
+        model_type:
+          $ref: '#/components/schemas/ModelType'
+          default: flash_25
+      title: Body_evaluate_test_set_api_key_v3_api_key_auth_workspaces__workspace_id__test_sets__test_set_id__evaluate__prompt_version_id__post
     TestSetEvaluationResponse:
       type: object
       description: Response model for test set evaluation.
@@ -1016,9 +1140,28 @@ components:
       - total_test_cases
       - workspace_id
       title: TestSetEvaluationResponse
-    ComparisonResult:
+    ModelType:
+      type: string
+      enum:
+      - flash_25_lite
+      - flash_25_low
+      - flash_25
+      - flash_3
+      - flash_35
+      - pro_25
+      - pro_31
+      - claude_haiku_45
+      - claude_sonnet_46
+      - claude_sonnet_46_low
+      - claude_opus_46
+      - claude_opus_46_low
+      - nova_2_lite
+      - nova_2_pro_preview
+      - nova_2_pro_preview_low
+      title: ModelType
+    ValidationResult:
       type: object
-      description: Response model for value comparison results.
+      description: Response model for schema validation results.
       properties:
         status:
           type: string
@@ -1026,74 +1169,19 @@ components:
         message:
           type: string
           title: Message
-        formatted_diff:
+        formatted_errors:
           anyOf:
-          - type: object
-            additionalProperties: true
+          - type: array
+            items:
+              type: object
+              additionalProperties: true
           - type: string
           - type: 'null'
-          title: Formatted Diff
+          title: Formatted Errors
       required:
       - message
       - status
-      title: ComparisonResult
-    HTTPValidationError:
-      type: object
-      properties:
-        detail:
-          type: array
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-      title: HTTPValidationError
-    ? Body_evaluate_test_set_api_key_v3_api_key_auth_workspaces__workspace_id__test_sets__test_set_id__evaluate__prompt_version_id__post
-    : type: object
-      properties:
-        model_type:
-          $ref: '#/components/schemas/ModelType'
-          default: flash_25
-      title: Body_evaluate_test_set_api_key_v3_api_key_auth_workspaces__workspace_id__test_sets__test_set_id__evaluate__prompt_version_id__post
-    DeleteTestSetResponse:
-      type: object
-      description: Response model for test set deletion.
-      properties:
-        success:
-          type: boolean
-          title: Success
-        test_set_id:
-          type: string
-          format: uuid
-          title: Test Set Id
-      required:
-      - success
-      - test_set_id
-      title: DeleteTestSetResponse
-    TestSetListResponse:
-      type: object
-      description: Response model for listing test sets.
-      properties:
-        test_sets:
-          type: array
-          items:
-            $ref: '#/components/schemas/TestSetListItem'
-          title: Test Sets
-      required:
-      - test_sets
-      title: TestSetListResponse
-    Body_create_test_set_v3_workspaces__workspace_id__test_sets_post:
-      type: object
-      properties:
-        name:
-          type: string
-          title: Name
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-      required:
-      - name
-      title: Body_create_test_set_v3_workspaces__workspace_id__test_sets_post
+      title: ValidationResult
     TestSetDetailResponse:
       type: object
       description: Response model for detailed test set information.
@@ -1136,123 +1224,35 @@ components:
       - updated_at
       - workspace_id
       title: TestSetDetailResponse
-    TestSetListItem:
+    Body_create_test_set_v3_workspaces__workspace_id__test_sets_post:
       type: object
-      description: Response model for test set list items.
       properties:
         name:
           type: string
           title: Name
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+      required:
+      - name
+      title: Body_create_test_set_v3_workspaces__workspace_id__test_sets_post
+    DeleteTestSetResponse:
+      type: object
+      description: Response model for test set deletion.
+      properties:
+        success:
+          type: boolean
+          title: Success
         test_set_id:
           type: string
           format: uuid
           title: Test Set Id
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
       required:
-      - name
+      - success
       - test_set_id
-      title: TestSetListItem
-    Body_evaluate_test_set_v3_workspaces__workspace_id__test_sets__test_set_id__evaluate__prompt_version_id__post:
-      type: object
-      properties:
-        model_type:
-          $ref: '#/components/schemas/ModelType'
-          default: flash_25
-      title: Body_evaluate_test_set_v3_workspaces__workspace_id__test_sets__test_set_id__evaluate__prompt_version_id__post
-    Body_delete_test_set_v3_workspaces__workspace_id__test_sets__test_set_id__delete:
-      type: object
-      properties:
-        hard_delete:
-          type: boolean
-          default: false
-          title: Hard Delete
-      title: Body_delete_test_set_v3_workspaces__workspace_id__test_sets__test_set_id__delete
-    TestCaseEvaluationResult:
-      type: object
-      description: Response model for individual test case evaluation within a test set.
-      properties:
-        test_case_id:
-          type: string
-          format: uuid
-          title: Test Case Id
-        test_case_name:
-          type: string
-          title: Test Case Name
-        overall_status:
-          type: string
-          title: Overall Status
-        status_message:
-          type: string
-          title: Status Message
-        schema_validation:
-          anyOf:
-          - $ref: '#/components/schemas/ValidationResult'
-          - type: 'null'
-        value_comparison:
-          anyOf:
-          - $ref: '#/components/schemas/ComparisonResult'
-          - type: 'null'
-      required:
-      - overall_status
-      - status_message
-      - test_case_id
-      - test_case_name
-      title: TestCaseEvaluationResult
-    Body_update_test_set_v3_workspaces__workspace_id__test_sets__test_set_id__put:
-      type: object
-      properties:
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-      title: Body_update_test_set_v3_workspaces__workspace_id__test_sets__test_set_id__put
-    Body_create_test_set_api_key_v3_api_key_auth_workspaces__workspace_id__test_sets_post:
-      type: object
-      properties:
-        name:
-          type: string
-          title: Name
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-      required:
-      - name
-      title: Body_create_test_set_api_key_v3_api_key_auth_workspaces__workspace_id__test_sets_post
-    ValidationResult:
-      type: object
-      description: Response model for schema validation results.
-      properties:
-        status:
-          type: string
-          title: Status
-        message:
-          type: string
-          title: Message
-        formatted_errors:
-          anyOf:
-          - type: array
-            items:
-              type: object
-              additionalProperties: true
-          - type: string
-          - type: 'null'
-          title: Formatted Errors
-      required:
-      - message
-      - status
-      title: ValidationResult
+      title: DeleteTestSetResponse
   securitySchemes:
     default:
       type: oauth2

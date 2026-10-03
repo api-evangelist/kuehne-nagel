@@ -69,51 +69,38 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    DocumentStatus:
-      maxLength: 128
+    IsDeletable:
+      type: boolean
+      description: Whether the document can be deleted by the caller.
+      example: true
+    CreationDate:
       type: string
-      description: 'Extensible enum:
-
-        * `OK`
-
-        * `PROCESSING_UPLOAD`
-
-        * `PROCESSING_UPLOAD_FAILED`
-
-        '
-      example: OK
-      x-extensible-enum:
-      - OK
-      - PROCESSING_UPLOAD
-      - PROCESSING_UPLOAD_FAILED
-    DocumentTypeCode:
-      maxLength: 3
-      minLength: 3
-      type: string
-      description: 'Code of a document type according to the Kuehne+Nagel specific classification.
-
-
-        The document types allowed for uploading a document can be retrieved via the operation `/shipments/{uniqueShipmentReference}/uploadable-document-types`.
-
-
-        Often uploaded document types:
-
-        * 380 (Commercial Invoice)
-
-        * 271 (Packing List)
-
-        * 944 (Customs Documents)
-
-        * 833 (Export Declaration)
-
-        '
-      example: '380'
-    DocumentId:
-      maxLength: 255
-      minLength: 1
-      type: string
-      description: Unique identifier of a shipment document.
-      example: Q1234S56
+      description: Timestamp when the document was created.
+      format: date-time
+      example: '2025-07-15T10:30:00Z'
+    DocumentSummary:
+      required:
+      - creationDate
+      - documentId
+      - documentType
+      - isDeletable
+      - isUploadedByCustomer
+      - status
+      type: object
+      properties:
+        creationDate:
+          $ref: '#/components/schemas/CreationDate'
+        documentId:
+          $ref: '#/components/schemas/DocumentId'
+        documentType:
+          $ref: '#/components/schemas/DocumentType'
+        isDeletable:
+          $ref: '#/components/schemas/IsDeletable'
+        isUploadedByCustomer:
+          $ref: '#/components/schemas/IsUploadedByCustomer'
+        status:
+          $ref: '#/components/schemas/DocumentStatus'
+      description: Summary of a shipment document including its metadata and current status.
     Problem:
       required:
       - detail
@@ -159,11 +146,61 @@ components:
           example: /problem/connection-error
           default: about:blank
       description: A problem details object as defined by RFC 7807, used to carry error information in HTTP API responses.
+    DocumentType:
+      required:
+      - code
+      - name
+      type: object
+      properties:
+        code:
+          $ref: '#/components/schemas/DocumentTypeCode'
+        name:
+          $ref: '#/components/schemas/DocumentTypeName'
+      description: Kuehne+Nagel specific classification of shipment documents.
+      example:
+        code: '380'
+        name: Commercial Invoice
+    RetrieveDocumentDetailsResponse:
+      description: Response containing the detailed metadata of a specific shipment document.
+      allOf:
+      - $ref: '#/components/schemas/DocumentSummary'
+    DocumentId:
+      maxLength: 255
+      minLength: 1
+      type: string
+      description: Unique identifier of a shipment document.
+      example: Q1234S56
+    DocumentTypeCode:
+      maxLength: 3
+      minLength: 3
+      type: string
+      description: 'Code of a document type according to the Kuehne+Nagel specific classification.
+
+
+        The document types allowed for uploading a document can be retrieved via the operation `/shipments/{uniqueShipmentReference}/uploadable-document-types`.
+
+
+        Often uploaded document types:
+
+        * 380 (Commercial Invoice)
+
+        * 271 (Packing List)
+
+        * 944 (Customs Documents)
+
+        * 833 (Export Declaration)
+
+        '
+      example: '380'
     DocumentTypeName:
       maxLength: 255
       type: string
       description: Name of a document type according to the Kuehne+Nagel specific classification.
       example: Commercial Invoice
+    IsUploadedByCustomer:
+      type: boolean
+      description: Whether the document was uploaded by a customer.
+      example: true
     ListDocumentsResponse:
       required:
       - items
@@ -185,67 +222,23 @@ components:
           items:
             $ref: '#/components/schemas/DocumentSummary'
       description: Response containing the list of documents associated with a shipment.
-    IsDeletable:
-      type: boolean
-      description: Whether the document can be deleted by the caller.
-      example: true
-    RetrieveDocumentDetailsResponse:
-      description: Response containing the detailed metadata of a specific shipment document.
-      allOf:
-      - $ref: '#/components/schemas/DocumentSummary'
-    CreationDate:
+    DocumentStatus:
+      maxLength: 128
       type: string
-      description: Timestamp when the document was created.
-      format: date-time
-      example: '2025-07-15T10:30:00Z'
-    DocumentType:
-      required:
-      - code
-      - name
-      type: object
-      properties:
-        code:
-          $ref: '#/components/schemas/DocumentTypeCode'
-        name:
-          $ref: '#/components/schemas/DocumentTypeName'
-      description: Kuehne+Nagel specific classification of shipment documents.
-      example:
-        code: '380'
-        name: Commercial Invoice
-    IsUploadedByCustomer:
-      type: boolean
-      description: Whether the document was uploaded by a customer.
-      example: true
-    DocumentSummary:
-      required:
-      - creationDate
-      - documentId
-      - documentType
-      - isDeletable
-      - isUploadedByCustomer
-      - status
-      type: object
-      properties:
-        creationDate:
-          $ref: '#/components/schemas/CreationDate'
-        documentId:
-          $ref: '#/components/schemas/DocumentId'
-        documentType:
-          $ref: '#/components/schemas/DocumentType'
-        isDeletable:
-          $ref: '#/components/schemas/IsDeletable'
-        isUploadedByCustomer:
-          $ref: '#/components/schemas/IsUploadedByCustomer'
-        status:
-          $ref: '#/components/schemas/DocumentStatus'
-      description: Summary of a shipment document including its metadata and current status.
-  responses:
-    default:
-      description: An error occurred - please see the HTTP status code and the problem object for more information.
-      content:
-        application/problem+json:
-          schema:
-            $ref: '#/components/schemas/Problem'
+      description: 'Extensible enum:
+
+        * `OK`
+
+        * `PROCESSING_UPLOAD`
+
+        * `PROCESSING_UPLOAD_FAILED`
+
+        '
+      example: OK
+      x-extensible-enum:
+      - OK
+      - PROCESSING_UPLOAD
+      - PROCESSING_UPLOAD_FAILED
   parameters:
     uniqueShipmentReferenceParameter:
       name: uniqueShipmentReference
@@ -268,6 +261,13 @@ components:
       explode: false
       schema:
         $ref: '#/components/schemas/DocumentId'
+  responses:
+    default:
+      description: An error occurred - please see the HTTP status code and the problem object for more information.
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Problem'
   securitySchemes:
     default:
       type: oauth2

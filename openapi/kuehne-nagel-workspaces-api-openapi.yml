@@ -450,47 +450,6 @@ paths:
       x-throttling-tier: Unlimited
 components:
   schemas:
-    ValidationError:
-      type: object
-      properties:
-        loc:
-          type: array
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    DeleteWorkspaceResponse:
-      type: object
-      description: Response model for workspace deletion.
-      properties:
-        success:
-          type: boolean
-          title: Success
-        workspace_id:
-          type: string
-          format: uuid
-          title: Workspace Id
-      required:
-      - success
-      - workspace_id
-      title: DeleteWorkspaceResponse
     Body_update_workspace_dataset_collection_v3_v3_workspaces__workspace_id__dataset_collection_patch:
       type: object
       properties:
@@ -502,44 +461,6 @@ components:
       required:
       - enabled
       title: Body_update_workspace_dataset_collection_v3_v3_workspaces__workspace_id__dataset_collection_patch
-    WorkspaceResponse:
-      type: object
-      properties:
-        workspace_id:
-          type: string
-          format: uuid
-          title: Workspace Id
-        name:
-          type: string
-          title: Name
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-        is_public:
-          type: boolean
-          title: Is Public
-        dataset_collection_enabled:
-          type: boolean
-          default: false
-          title: Dataset Collection Enabled
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        updated_at:
-          type: string
-          format: date-time
-          title: Updated At
-      required:
-      - created_at
-      - description
-      - is_public
-      - name
-      - updated_at
-      - workspace_id
-      title: WorkspaceResponse
     Body_delete_workspace_v3_v3_workspaces__workspace_id__delete:
       type: object
       properties:
@@ -550,45 +471,16 @@ components:
           example: false
           title: Hard Delete
       title: Body_delete_workspace_v3_v3_workspaces__workspace_id__delete
-    WorkspaceListResponse:
-      type: object
-      description: Response model for workspace listing.
-      properties:
-        workspaces:
-          type: array
-          items:
-            $ref: '#/components/schemas/WorkspaceResponse'
-          title: Workspaces
-      required:
-      - workspaces
-      title: WorkspaceListResponse
-    HTTPValidationError:
-      type: object
-      properties:
-        detail:
-          type: array
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-      title: HTTPValidationError
-    Body_create_workspace_v3_v3_workspaces_post:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Unique name for the workspace
-          example: My Workspace
-          title: Name
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          description: Optional description of the workspace purpose. Leave empty if not needed.
-          example: ''
-          title: Description
-      required:
-      - name
-      title: Body_create_workspace_v3_v3_workspaces_post
+    TimePeriod:
+      type: string
+      enum:
+      - current_month
+      - previous_month
+      - last_two_months
+      - last_three_months
+      - current_year
+      - previous_year
+      title: TimePeriod
     UsageStatisticsResponse:
       type: object
       description: "Response model for workspace usage statistics.\n\nAttributes:\n    workspace_id: Unique identifier of the workspace\n    period_start: Start of the aggregation period\n    period_end: End of the aggregation period\n    total_requests: Number of requests in the period\n    total_input_tokens: Sum of input tokens used\n    total_output_tokens: Sum of output tokens generated\n    total_cost: Total cost of processing in the period\n    average_processing_time_ms: Average processing time per request in milliseconds.\n                               For hourly data, this is the simple average.\n                               For longer periods, this is a weighted average based on request counts.\n    data_complete_until: Timestamp until which statistics data is complete and accessible.\n                        This represents the latest hour boundary for which complete data is available."
@@ -632,16 +524,6 @@ components:
       - total_requests
       - workspace_id
       title: UsageStatisticsResponse
-    TimePeriod:
-      type: string
-      enum:
-      - current_month
-      - previous_month
-      - last_two_months
-      - last_three_months
-      - current_year
-      - previous_year
-      title: TimePeriod
     Body_update_workspace_public_status_v3_v3_workspaces__workspace_id__public_status_patch:
       type: object
       properties:
@@ -653,6 +535,98 @@ components:
       required:
       - is_public
       title: Body_update_workspace_public_status_v3_v3_workspaces__workspace_id__public_status_patch
+    DeleteWorkspaceResponse:
+      type: object
+      description: Response model for workspace deletion.
+      properties:
+        success:
+          type: boolean
+          title: Success
+        workspace_id:
+          type: string
+          format: uuid
+          title: Workspace Id
+      required:
+      - success
+      - workspace_id
+      title: DeleteWorkspaceResponse
+    Body_create_workspace_v3_v3_workspaces_post:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Unique name for the workspace
+          example: My Workspace
+          title: Name
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Optional description of the workspace purpose. Leave empty if not needed.
+          example: ''
+          title: Description
+      required:
+      - name
+      title: Body_create_workspace_v3_v3_workspaces_post
+    WorkspaceResponse:
+      type: object
+      properties:
+        workspace_id:
+          type: string
+          format: uuid
+          title: Workspace Id
+        name:
+          type: string
+          title: Name
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        is_public:
+          type: boolean
+          title: Is Public
+        dataset_collection_enabled:
+          type: boolean
+          default: false
+          title: Dataset Collection Enabled
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+      required:
+      - created_at
+      - description
+      - is_public
+      - name
+      - updated_at
+      - workspace_id
+      title: WorkspaceResponse
+    HTTPValidationError:
+      type: object
+      properties:
+        detail:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+      title: HTTPValidationError
+    WorkspaceListResponse:
+      type: object
+      description: Response model for workspace listing.
+      properties:
+        workspaces:
+          type: array
+          items:
+            $ref: '#/components/schemas/WorkspaceResponse'
+          title: Workspaces
+      required:
+      - workspaces
+      title: WorkspaceListResponse
     TimeFrame:
       type: string
       enum:
@@ -661,6 +635,32 @@ components:
       - month
       - year
       title: TimeFrame
+    ValidationError:
+      type: object
+      properties:
+        loc:
+          type: array
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
   securitySchemes:
     default:
       type: oauth2

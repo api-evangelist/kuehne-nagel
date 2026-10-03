@@ -98,6 +98,14 @@ paths:
       x-throttling-tier: Unlimited
 components:
   schemas:
+    TimeFrame:
+      type: string
+      enum:
+      - day
+      - week
+      - month
+      - year
+      title: TimeFrame
     ValidationError:
       type: object
       properties:
@@ -124,15 +132,6 @@ components:
       - msg
       - type
       title: ValidationError
-    HTTPValidationError:
-      type: object
-      properties:
-        detail:
-          type: array
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-      title: HTTPValidationError
     UsageStatisticsResponse:
       type: object
       description: "Response model for workspace usage statistics.\n\nAttributes:\n    workspace_id: Unique identifier of the workspace\n    period_start: Start of the aggregation period\n    period_end: End of the aggregation period\n    total_requests: Number of requests in the period\n    total_input_tokens: Sum of input tokens used\n    total_output_tokens: Sum of output tokens generated\n    total_cost: Total cost of processing in the period\n    average_processing_time_ms: Average processing time per request in milliseconds.\n                               For hourly data, this is the simple average.\n                               For longer periods, this is a weighted average based on request counts.\n    data_complete_until: Timestamp until which statistics data is complete and accessible.\n                        This represents the latest hour boundary for which complete data is available."
@@ -176,14 +175,15 @@ components:
       - total_requests
       - workspace_id
       title: UsageStatisticsResponse
-    TimeFrame:
-      type: string
-      enum:
-      - day
-      - week
-      - month
-      - year
-      title: TimeFrame
+    HTTPValidationError:
+      type: object
+      properties:
+        detail:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+      title: HTTPValidationError
   securitySchemes:
     default:
       type: oauth2

@@ -174,19 +174,43 @@ paths:
       x-auth-type: Application & Application User
 components:
   schemas:
-    UomVolume:
-      allOf:
-      - $ref: '#/components/schemas/UomBase'
-      - type: object
-        properties:
-          uom:
-            type: string
-            x-extensible-enum:
-            - M3
-            - IN3
-            - CM3
-            - FT3
-        description: Object representing a Unit of measurement for volumes
+    Order:
+      required:
+      - externalOrderNumber
+      type: object
+      properties:
+        externalOrderNumber:
+          maxLength: 128
+          type: string
+          description: Order external order number
+      description: Object representing an order
+    PlannedCost:
+      required:
+      - amount
+      - currencyCode
+      - type
+      type: object
+      properties:
+        type:
+          type: string
+          description: 'Planned cost types: (A) - Actual Cost; (O) - Operational Cost; (B) - Budget Cost'
+          x-extensible-enum:
+          - A
+          - O
+          - B
+        code:
+          maxLength: 128
+          type: string
+          description: Planned cost code
+        amount:
+          type: number
+          description: Planned cost amount
+          format: double
+        currencyCode:
+          maxLength: 3
+          type: string
+          description: Planned cost currency code
+      description: Object representing a planned cost
     Contact:
       required:
       - code
@@ -223,6 +247,263 @@ components:
           type: string
           description: Contact fax
       description: Object representing a contact
+    Flag:
+      required:
+      - qualifier
+      - value
+      type: object
+      properties:
+        qualifier:
+          maxLength: 4
+          type: string
+          description: Flag qualifier
+        value:
+          type: boolean
+          description: Flag value
+      description: Object representing a flag
+    UomWeight:
+      allOf:
+      - $ref: '#/components/schemas/UomBase'
+      - type: object
+        properties:
+          uom:
+            type: string
+            x-extensible-enum:
+            - KG
+            - G
+            - OZ
+            - LB
+        description: Object representing a Unit of measurement for weights
+    ShipmentResponse:
+      type: object
+      properties:
+        uuid:
+          maxLength: 36
+          minLength: 36
+          type: string
+          description: Message Unique Universal Identifier
+        customerCode:
+          maxLength: 7
+          minLength: 7
+          type: string
+          description: Customer code must exist in ODS
+        shipmentNumber:
+          maxLength: 128
+          type: string
+          description: Shipment number
+        requestTime:
+          type: string
+          description: Request datetime string in ISO-8601 format with milliseconds - YYYY-MM-DDTHH:MM:SS.sssZ
+          format: date-time
+      description: Shipment response body
+      example:
+        uuid: 4510c67f-818c-4d70-9867-5df6864a77a3
+        shipmentNumber: ML0374691
+        customerCode: CUSTEXP
+        requestTime: '2024-08-30T07:15:20.885Z'
+    Location:
+      required:
+      - countryCode
+      - locationCode
+      - locationType
+      type: object
+      properties:
+        locationType:
+          type: string
+          description: Location type
+          x-extensible-enum:
+          - CA
+          - SF
+          - ST
+          - PLD
+          - PDC
+        locationCode:
+          maxLength: 101
+          type: string
+          description: Location code
+        timeZone:
+          maxLength: 101
+          type: string
+          description: Location timezone
+        name1:
+          maxLength: 360
+          type: string
+          description: Location name 1
+        name2:
+          maxLength: 1000
+          type: string
+          description: Location name 2
+        street1:
+          maxLength: 1000
+          type: string
+          description: Location street 1
+        street2:
+          maxLength: 1000
+          type: string
+          description: Location street 2
+        regionName:
+          maxLength: 240
+          type: string
+          description: Location region name
+        regionCode:
+          maxLength: 6
+          type: string
+          description: Location region code
+        city:
+          maxLength: 240
+          type: string
+          description: Location city
+        postalCode:
+          maxLength: 240
+          type: string
+          description: Location postal code
+        countryCode:
+          maxLength: 2
+          minLength: 2
+          type: string
+          description: Location country code
+      description: Object representing a location
+    UomVolume:
+      allOf:
+      - $ref: '#/components/schemas/UomBase'
+      - type: object
+        properties:
+          uom:
+            type: string
+            x-extensible-enum:
+            - M3
+            - IN3
+            - CM3
+            - FT3
+        description: Object representing a Unit of measurement for volumes
+    UomSize:
+      allOf:
+      - $ref: '#/components/schemas/UomBase'
+      - type: object
+        properties:
+          uom:
+            type: string
+            x-extensible-enum:
+            - M
+            - CM
+            - IN
+            - FT
+        description: Object representing a Unit of measurement for sizes
+    Stop:
+      required:
+      - locationCode
+      - sequenceNumber
+      - type
+      type: object
+      properties:
+        sequenceNumber:
+          type: integer
+          description: Stop sequence number
+          format: int32
+        type:
+          type: string
+          description: 'Stop types: (P) - Pickup; (D) - Delivery'
+          x-extensible-enum:
+          - P
+          - D
+        locationCode:
+          maxLength: 101
+          type: string
+          description: Code of Location related to Stop
+        linkedPackages:
+          type: array
+          description: Stop linked packages list
+          items:
+            required:
+            - externalPackageNumber
+            type: object
+            properties:
+              externalPackageNumber:
+                maxLength: 25
+                type: string
+        linkedOrders:
+          type: array
+          description: Stop linked orders list
+          items:
+            required:
+            - externalOrderNumber
+            type: object
+            properties:
+              externalOrderNumber:
+                maxLength: 128
+                type: string
+        plannedArrival:
+          maxLength: 40
+          type: string
+          description: Stop linked planned arrival date in ISO-8601 format
+        plannedDeparture:
+          maxLength: 40
+          type: string
+          description: Stop linked planned departure date in ISO-8601 format
+      description: Object representing a stop
+    Problem:
+      required:
+      - code
+      - detail
+      - instance
+      - status
+      - timestamp
+      - title
+      type: object
+      properties:
+        code:
+          description: Error code identifying the issue.
+          example: ERR001
+          x-extensible-enum:
+          - ERR001
+          - ERR002
+          - ERR003
+          - ERR004
+          - ERR005
+          - ERR006
+        title:
+          maxLength: 128
+          type: string
+          description: 'A short summary of the problem type. Written in English and readable for engineers, usually not suited for non technical stakeholders and not localized.
+
+            '
+          example: The requested container is not available.
+        status:
+          minimum: 100
+          type: integer
+          description: 'The HTTP status code generated by the origin server for this occurrence of the problem.
+
+            '
+          format: int32
+          example: 409
+          exclusiveMaximum: 600
+        detail:
+          maxLength: 256
+          type: string
+          description: 'A human readable explanation specific to this occurrence of the problem that is helpful to locate the problem and give advice on how to proceed.
+
+            '
+          example: The requested container is already in use during the requested period.
+        instance:
+          type: string
+          description: A URI reference that identifies the specific occurrence of the problem.
+          format: uri-reference
+          example: /shipments
+        timestamp:
+          type: integer
+          description: 'The Unix Epoch time in milliseconds at which the event described  by the error occurred.
+
+            '
+          format: int64
+          example: 1714648020821
+        details:
+          maxItems: 1000
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/ProblemDetail'
+        requestIdentifier:
+          $ref: '#/components/schemas/RequestIdentifier'
     UomBase:
       required:
       - uom
@@ -238,31 +519,71 @@ components:
           type: string
           description: Unit of measurement
       description: Base object representing a unit of measurement
-    Order:
+    UomTemperature:
+      allOf:
+      - $ref: '#/components/schemas/UomBase'
+      - type: object
+        properties:
+          uom:
+            type: string
+            x-extensible-enum:
+            - CEL
+            - FAH
+        description: Object representing a Unit of measurement for temperatures
+    LinkedEquipment:
       required:
-      - externalOrderNumber
+      - externalEquipmentNumber
       type: object
       properties:
-        externalOrderNumber:
-          maxLength: 128
+        externalEquipmentNumber:
+          maxLength: 30
           type: string
-          description: Order external order number
-      description: Object representing an order
-    Note:
+          description: Linked equipment external number
+        type:
+          type: object
+          properties:
+            code:
+              maxLength: 50
+              type: string
+              description: Linked equipment type code
+            name:
+              maxLength: 120
+              type: string
+              description: Linked equipment type name
+            teuEquivalent:
+              type: integer
+              description: Linked equipment type number
+              format: int32
+            temperature:
+              type: object
+              properties:
+                name:
+                  maxLength: 120
+                  type: string
+                  description: Linked equipment type temperature name
+                min:
+                  $ref: '#/components/schemas/UomTemperature'
+                max:
+                  $ref: '#/components/schemas/UomTemperature'
+              description: Linked equipment temperature
+            length:
+              $ref: '#/components/schemas/UomSize'
+            width:
+              $ref: '#/components/schemas/UomSize'
+            height:
+              $ref: '#/components/schemas/UomSize'
+          description: Linked equipment type
+      description: Object representing a linked equipment
+    ShipmentDeleteRequest:
       required:
-      - qualifier
-      - value
+      - requestTime
       type: object
       properties:
-        qualifier:
-          maxLength: 4
+        requestTime:
           type: string
-          description: Note qualifier
-        value:
-          maxLength: 4000
-          type: string
-          description: Note value
-      description: Object representing a note
+          description: Request datetime string in ISO-8601 format with milliseconds - YYYY-MM-DDTHH:MM:SS.sssZ
+          format: date-time
+      description: Shipment message body
     Addition:
       required:
       - references
@@ -285,24 +606,21 @@ components:
           items:
             $ref: '#/components/schemas/Note'
       description: Object representing an addition
-    RequestIdentifier:
+    Note:
+      required:
+      - qualifier
+      - value
       type: object
       properties:
-        customerCode:
-          maxLength: 7
-          minLength: 7
+        qualifier:
+          maxLength: 4
           type: string
-          description: Customer code
-        shipmentNumber:
-          maxLength: 128
-          minLength: 1
+          description: Note qualifier
+        value:
+          maxLength: 4000
           type: string
-          description: Shipment number
-        requestTime:
-          type: string
-          description: Request datetime string in ISO-8601 format with milliseconds - YYYY-MM-DDTHH:MM:SS.sssZ
-          format: date-time
-      description: Request Business Key
+          description: Note value
+      description: Object representing a note
     ShipmentRequest:
       required:
       - additions
@@ -443,126 +761,44 @@ components:
           description: Request datetime string in ISO-8601 format with milliseconds - YYYY-MM-DDTHH:MM:SS.sssZ
           format: date-time
       description: Shipment message body
-    UomWeight:
-      allOf:
-      - $ref: '#/components/schemas/UomBase'
-      - type: object
-        properties:
-          uom:
-            type: string
-            x-extensible-enum:
-            - KG
-            - G
-            - OZ
-            - LB
-        description: Object representing a Unit of measurement for weights
-    Problem:
-      required:
-      - code
-      - detail
-      - instance
-      - status
-      - timestamp
-      - title
+    RequestIdentifier:
       type: object
       properties:
-        code:
-          description: Error code identifying the issue.
-          example: ERR001
-          x-extensible-enum:
-          - ERR001
-          - ERR002
-          - ERR003
-          - ERR004
-          - ERR005
-          - ERR006
-        title:
+        customerCode:
+          maxLength: 7
+          minLength: 7
+          type: string
+          description: Customer code
+        shipmentNumber:
           maxLength: 128
+          minLength: 1
           type: string
-          description: 'A short summary of the problem type. Written in English and readable for engineers, usually not suited for non technical stakeholders and not localized.
-
-            '
-          example: The requested container is not available.
-        status:
-          minimum: 100
-          type: integer
-          description: 'The HTTP status code generated by the origin server for this occurrence of the problem.
-
-            '
-          format: int32
-          example: 409
-          exclusiveMaximum: 600
-        detail:
-          maxLength: 256
+          description: Shipment number
+        requestTime:
           type: string
-          description: 'A human readable explanation specific to this occurrence of the problem that is helpful to locate the problem and give advice on how to proceed.
-
-            '
-          example: The requested container is already in use during the requested period.
-        instance:
-          type: string
-          description: A URI reference that identifies the specific occurrence of the problem.
-          format: uri-reference
-          example: /shipments
-        timestamp:
-          type: integer
-          description: 'The Unix Epoch time in milliseconds at which the event described  by the error occurred.
-
-            '
-          format: int64
-          example: 1714648020821
-        details:
-          maxItems: 1000
-          minItems: 1
-          type: array
-          items:
-            $ref: '#/components/schemas/ProblemDetail'
-        requestIdentifier:
-          $ref: '#/components/schemas/RequestIdentifier'
-    UomSize:
-      allOf:
-      - $ref: '#/components/schemas/UomBase'
-      - type: object
-        properties:
-          uom:
-            type: string
-            x-extensible-enum:
-            - M
-            - CM
-            - IN
-            - FT
-        description: Object representing a Unit of measurement for sizes
-    UomTemperature:
-      allOf:
-      - $ref: '#/components/schemas/UomBase'
-      - type: object
-        properties:
-          uom:
-            type: string
-            x-extensible-enum:
-            - CEL
-            - FAH
-        description: Object representing a Unit of measurement for temperatures
-    ProblemDetail:
+          description: Request datetime string in ISO-8601 format with milliseconds - YYYY-MM-DDTHH:MM:SS.sssZ
+          format: date-time
+      description: Request Business Key
+    MonetaryValue:
       required:
-      - detail
-      - title
+      - currencyCode
+      - qualifier
+      - value
       type: object
       properties:
-        title:
-          maxLength: 128
+        qualifier:
+          maxLength: 4
           type: string
-          description: 'A short summary of the problem type. Written in English and readable for engineers, usually not suited for non technical stakeholders and not localized.
-
-            '
-          example: The requested container is not available.
-        detail:
-          maxLength: 256
+          description: Monetary value qualifier
+        currencyCode:
+          maxLength: 3
           type: string
-          description: 'A human readable explanation specific to this occurrence of the problem that is helpful to locate the problem and give advice on how to proceed.
-
-            '
-          example: The requested container is already in use during the requested period.
+          description: Monetary value currency code
+        value:
+          type: number
+          description: Monetary value
+          format: double
+      description: Object representing a monetary value
     LinkedPackage:
       required:
       - count
@@ -602,235 +838,6 @@ components:
           items:
             $ref: '#/components/schemas/Addition'
       description: Object representing a linked package
-    MonetaryValue:
-      required:
-      - currencyCode
-      - qualifier
-      - value
-      type: object
-      properties:
-        qualifier:
-          maxLength: 4
-          type: string
-          description: Monetary value qualifier
-        currencyCode:
-          maxLength: 3
-          type: string
-          description: Monetary value currency code
-        value:
-          type: number
-          description: Monetary value
-          format: double
-      description: Object representing a monetary value
-    LinkedEquipment:
-      required:
-      - externalEquipmentNumber
-      type: object
-      properties:
-        externalEquipmentNumber:
-          maxLength: 30
-          type: string
-          description: Linked equipment external number
-        type:
-          type: object
-          properties:
-            code:
-              maxLength: 50
-              type: string
-              description: Linked equipment type code
-            name:
-              maxLength: 120
-              type: string
-              description: Linked equipment type name
-            teuEquivalent:
-              type: integer
-              description: Linked equipment type number
-              format: int32
-            temperature:
-              type: object
-              properties:
-                name:
-                  maxLength: 120
-                  type: string
-                  description: Linked equipment type temperature name
-                min:
-                  $ref: '#/components/schemas/UomTemperature'
-                max:
-                  $ref: '#/components/schemas/UomTemperature'
-              description: Linked equipment temperature
-            length:
-              $ref: '#/components/schemas/UomSize'
-            width:
-              $ref: '#/components/schemas/UomSize'
-            height:
-              $ref: '#/components/schemas/UomSize'
-          description: Linked equipment type
-      description: Object representing a linked equipment
-    Stop:
-      required:
-      - locationCode
-      - sequenceNumber
-      - type
-      type: object
-      properties:
-        sequenceNumber:
-          type: integer
-          description: Stop sequence number
-          format: int32
-        type:
-          type: string
-          description: 'Stop types: (P) - Pickup; (D) - Delivery'
-          x-extensible-enum:
-          - P
-          - D
-        locationCode:
-          maxLength: 101
-          type: string
-          description: Code of Location related to Stop
-        linkedPackages:
-          type: array
-          description: Stop linked packages list
-          items:
-            required:
-            - externalPackageNumber
-            type: object
-            properties:
-              externalPackageNumber:
-                maxLength: 25
-                type: string
-        linkedOrders:
-          type: array
-          description: Stop linked orders list
-          items:
-            required:
-            - externalOrderNumber
-            type: object
-            properties:
-              externalOrderNumber:
-                maxLength: 128
-                type: string
-        plannedArrival:
-          maxLength: 40
-          type: string
-          description: Stop linked planned arrival date in ISO-8601 format
-        plannedDeparture:
-          maxLength: 40
-          type: string
-          description: Stop linked planned departure date in ISO-8601 format
-      description: Object representing a stop
-    Flag:
-      required:
-      - qualifier
-      - value
-      type: object
-      properties:
-        qualifier:
-          maxLength: 4
-          type: string
-          description: Flag qualifier
-        value:
-          type: boolean
-          description: Flag value
-      description: Object representing a flag
-    ShipmentDeleteRequest:
-      required:
-      - requestTime
-      type: object
-      properties:
-        requestTime:
-          type: string
-          description: Request datetime string in ISO-8601 format with milliseconds - YYYY-MM-DDTHH:MM:SS.sssZ
-          format: date-time
-      description: Shipment message body
-    Location:
-      required:
-      - countryCode
-      - locationCode
-      - locationType
-      type: object
-      properties:
-        locationType:
-          type: string
-          description: Location type
-          x-extensible-enum:
-          - CA
-          - SF
-          - ST
-          - PLD
-          - PDC
-        locationCode:
-          maxLength: 101
-          type: string
-          description: Location code
-        timeZone:
-          maxLength: 101
-          type: string
-          description: Location timezone
-        name1:
-          maxLength: 360
-          type: string
-          description: Location name 1
-        name2:
-          maxLength: 1000
-          type: string
-          description: Location name 2
-        street1:
-          maxLength: 1000
-          type: string
-          description: Location street 1
-        street2:
-          maxLength: 1000
-          type: string
-          description: Location street 2
-        regionName:
-          maxLength: 240
-          type: string
-          description: Location region name
-        regionCode:
-          maxLength: 6
-          type: string
-          description: Location region code
-        city:
-          maxLength: 240
-          type: string
-          description: Location city
-        postalCode:
-          maxLength: 240
-          type: string
-          description: Location postal code
-        countryCode:
-          maxLength: 2
-          minLength: 2
-          type: string
-          description: Location country code
-      description: Object representing a location
-    PlannedCost:
-      required:
-      - amount
-      - currencyCode
-      - type
-      type: object
-      properties:
-        type:
-          type: string
-          description: 'Planned cost types: (A) - Actual Cost; (O) - Operational Cost; (B) - Budget Cost'
-          x-extensible-enum:
-          - A
-          - O
-          - B
-        code:
-          maxLength: 128
-          type: string
-          description: Planned cost code
-        amount:
-          type: number
-          description: Planned cost amount
-          format: double
-        currencyCode:
-          maxLength: 3
-          type: string
-          description: Planned cost currency code
-      description: Object representing a planned cost
     Reference:
       required:
       - qualifier
@@ -848,34 +855,45 @@ components:
             maxLength: 70
             type: string
       description: Object representing a reference
-    ShipmentResponse:
+    ProblemDetail:
+      required:
+      - detail
+      - title
       type: object
       properties:
-        uuid:
-          maxLength: 36
-          minLength: 36
-          type: string
-          description: Message Unique Universal Identifier
-        customerCode:
-          maxLength: 7
-          minLength: 7
-          type: string
-          description: Customer code must exist in ODS
-        shipmentNumber:
+        title:
           maxLength: 128
           type: string
-          description: Shipment number
-        requestTime:
+          description: 'A short summary of the problem type. Written in English and readable for engineers, usually not suited for non technical stakeholders and not localized.
+
+            '
+          example: The requested container is not available.
+        detail:
+          maxLength: 256
           type: string
-          description: Request datetime string in ISO-8601 format with milliseconds - YYYY-MM-DDTHH:MM:SS.sssZ
-          format: date-time
-      description: Shipment response body
-      example:
-        uuid: 4510c67f-818c-4d70-9867-5df6864a77a3
-        shipmentNumber: ML0374691
-        customerCode: CUSTEXP
-        requestTime: '2024-08-30T07:15:20.885Z'
+          description: 'A human readable explanation specific to this occurrence of the problem that is helpful to locate the problem and give advice on how to proceed.
+
+            '
+          example: The requested container is already in use during the requested period.
   examples:
+    InternalServerError:
+      summary: Internal server error
+      value:
+        code: ERR006
+        title: Internal server error
+        status: 500
+        detail: 'An unexpected error occurred. Please contact support with reference: 0191fb2a-c8ad-7607-8a06-144400c6fce5'
+        instance: /v1/shipments
+        timestamp: 1714648020821
+    MissingRequestBody:
+      summary: Missing request body
+      value:
+        code: ERR001
+        title: Missing request body
+        status: 400
+        detail: No body was sent in the request.
+        instance: /v1/shipments
+        timestamp: 1714648020821
     UnsupportedContentType:
       summary: Unsupported content type
       value:
@@ -885,6 +903,18 @@ components:
         detail: Content type must be 'application/json'.
         instance: /v1/shipments
         timestamp: 1714648020821
+    BusinessRuleViolation:
+      summary: Business rule violation
+      value:
+        code: ERR004
+        title: Unsupported value for field
+        status: 400
+        detail: Customer validation error(s). Check details for more info
+        instance: /v1/shipments
+        timestamp: 1714648020821
+        details:
+        - title: Unsupported value for field
+          detail: 'Customer code: CUST123 not found in ODS'
     MissingOrInvalidParameter:
       summary: Missing required parameter
       value:
@@ -906,36 +936,6 @@ components:
         title: Service Unavailable
         status: 503
         detail: Service Unavailable, please try again later
-        instance: /v1/shipments
-        timestamp: 1714648020821
-    InternalServerError:
-      summary: Internal server error
-      value:
-        code: ERR006
-        title: Internal server error
-        status: 500
-        detail: 'An unexpected error occurred. Please contact support with reference: 0191fb2a-c8ad-7607-8a06-144400c6fce5'
-        instance: /v1/shipments
-        timestamp: 1714648020821
-    BusinessRuleViolation:
-      summary: Business rule violation
-      value:
-        code: ERR004
-        title: Unsupported value for field
-        status: 400
-        detail: Customer validation error(s). Check details for more info
-        instance: /v1/shipments
-        timestamp: 1714648020821
-        details:
-        - title: Unsupported value for field
-          detail: 'Customer code: CUST123 not found in ODS'
-    MissingRequestBody:
-      summary: Missing request body
-      value:
-        code: ERR001
-        title: Missing request body
-        status: 400
-        detail: No body was sent in the request.
         instance: /v1/shipments
         timestamp: 1714648020821
   securitySchemes:

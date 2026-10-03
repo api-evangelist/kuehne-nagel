@@ -52,106 +52,24 @@ paths:
       x-auth-type: Application & Application User
       x-throttling-tier: 500_PerMin
 components:
+  parameters:
+    CustomerCodeParam:
+      name: customerCode
+      in: path
+      description: The unique key identifying the customer
+      required: true
+      style: simple
+      explode: false
+      schema:
+        $ref: '#/components/schemas/CustomerCode'
+  responses:
+    default:
+      description: Default Response for Error Cases
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Problem'
   schemas:
-    CommonAttributeProperties:
-      required:
-      - use
-      type: object
-      properties:
-        id:
-          type: string
-          description: 'This property represents the identifier of the attribute
-
-            '
-        use:
-          type: boolean
-          description: 'This property indicates whether an attribute is used in a customer''s order
-
-            configuration. If it is not used (false), no further information about the attribute is
-
-            provided. Nevertheless, this gives the customer a comprehensive overview of the set of
-
-            attributes that can be configured for use in purchase orders. If the attribute is used
-
-            (true), the other attributes provide further information.
-
-            '
-        reference:
-          pattern: ^[A-Z0-9]{2,3}$
-          type: string
-          description: 'This optional property specifies a unique identifier that can be used to establish
-
-            interoperability with other interfaces offered by Kuehne+Nagel.
-
-            '
-        mandatory:
-          type: boolean
-          description: 'If this property is true, then the attribute must always be specified at the intended
-
-            position in the purchase order, header or lines. Otherwise, the attribute is optional.
-
-            '
-        partOfHeader:
-          type: boolean
-          description: 'This property specifies whether the attribute is to be used either in the header (true)
-
-            or in the lines (false) of a purchase order.
-
-            '
-        category:
-          type: string
-          description: 'In order to clearly organize the large number of possible order attributes, the attributes
-
-            are divided into categories.
-
-            '
-    OrderConfiguration:
-      type: object
-      properties:
-        regularAttributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/Attribute'
-        customerSpecificAttributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/CustomerAttribute'
-      description: 'Purchase orders may contain a variety of information depending on the requirements of the
-
-        business parties involved, especially the customer. ESP supports the customer''s individual
-
-        requirements with an explicit configuration of the order attributes used by the customer.
-
-        Purchase order data must not only comply with the respective OpenAPI specification, but also
-
-        with the restrictions from the customer''s individual order configuration. Therefore, it is
-
-        important for the customer to be able to retrieve his order configuration.
-
-        '
-      example:
-        regularAttributes:
-        - id: itemNumber
-          use: true
-          reference: IID
-          mandatory: true
-          partOfHeader: false
-          partOfKey: true
-          category: itemIdentification
-        - id: color
-          use: true
-          reference: COL
-          mandatory: true
-          partOfHeader: true
-          partOfKey: false
-          category: itemAttributes
-        - id: size
-          use: true
-          reference: SZ
-          mandatory: false
-          partOfHeader: false
-          partOfKey: false
-          category: itemAttributes
     Problem:
       required:
       - detail
@@ -229,27 +147,109 @@ components:
               mandatory and must be part of the order lines.
 
               '
+    OrderConfiguration:
+      type: object
+      properties:
+        regularAttributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/Attribute'
+        customerSpecificAttributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomerAttribute'
+      description: 'Purchase orders may contain a variety of information depending on the requirements of the
+
+        business parties involved, especially the customer. ESP supports the customer''s individual
+
+        requirements with an explicit configuration of the order attributes used by the customer.
+
+        Purchase order data must not only comply with the respective OpenAPI specification, but also
+
+        with the restrictions from the customer''s individual order configuration. Therefore, it is
+
+        important for the customer to be able to retrieve his order configuration.
+
+        '
+      example:
+        regularAttributes:
+        - id: itemNumber
+          use: true
+          reference: IID
+          mandatory: true
+          partOfHeader: false
+          partOfKey: true
+          category: itemIdentification
+        - id: color
+          use: true
+          reference: COL
+          mandatory: true
+          partOfHeader: true
+          partOfKey: false
+          category: itemAttributes
+        - id: size
+          use: true
+          reference: SZ
+          mandatory: false
+          partOfHeader: false
+          partOfKey: false
+          category: itemAttributes
+    CommonAttributeProperties:
+      required:
+      - use
+      type: object
+      properties:
+        id:
+          type: string
+          description: 'This property represents the identifier of the attribute
+
+            '
+        use:
+          type: boolean
+          description: 'This property indicates whether an attribute is used in a customer''s order
+
+            configuration. If it is not used (false), no further information about the attribute is
+
+            provided. Nevertheless, this gives the customer a comprehensive overview of the set of
+
+            attributes that can be configured for use in purchase orders. If the attribute is used
+
+            (true), the other attributes provide further information.
+
+            '
+        reference:
+          pattern: ^[A-Z0-9]{2,3}$
+          type: string
+          description: 'This optional property specifies a unique identifier that can be used to establish
+
+            interoperability with other interfaces offered by Kuehne+Nagel.
+
+            '
+        mandatory:
+          type: boolean
+          description: 'If this property is true, then the attribute must always be specified at the intended
+
+            position in the purchase order, header or lines. Otherwise, the attribute is optional.
+
+            '
+        partOfHeader:
+          type: boolean
+          description: 'This property specifies whether the attribute is to be used either in the header (true)
+
+            or in the lines (false) of a purchase order.
+
+            '
+        category:
+          type: string
+          description: 'In order to clearly organize the large number of possible order attributes, the attributes
+
+            are divided into categories.
+
+            '
     CustomerCode:
       pattern: ^[A-Z]{5}[0-9]{2}$
       type: string
       description: Unique identifier assigned to a customer
-  responses:
-    default:
-      description: Default Response for Error Cases
-      content:
-        application/problem+json:
-          schema:
-            $ref: '#/components/schemas/Problem'
-  parameters:
-    CustomerCodeParam:
-      name: customerCode
-      in: path
-      description: The unique key identifying the customer
-      required: true
-      style: simple
-      explode: false
-      schema:
-        $ref: '#/components/schemas/CustomerCode'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

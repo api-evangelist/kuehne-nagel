@@ -123,6 +123,13 @@ paths:
     servers:
     - url: https://gateway.api.kuehne-nagel.com/transport/execution/documentation/shipment/v3
 components:
+  responses:
+    default:
+      description: An error occurred - please see the HTTP status code and the problem object for more information.
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Problem'
   schemas:
     DocumentTypeCode:
       maxLength: 3
@@ -197,13 +204,6 @@ components:
       type: string
       description: Unique identifier of a shipment document.
       example: Q1234S56
-  responses:
-    default:
-      description: An error occurred - please see the HTTP status code and the problem object for more information.
-      content:
-        application/problem+json:
-          schema:
-            $ref: '#/components/schemas/Problem'
   parameters:
     uniqueShipmentReferenceParameter:
       name: uniqueShipmentReference

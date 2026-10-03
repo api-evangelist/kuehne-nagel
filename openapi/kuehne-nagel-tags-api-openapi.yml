@@ -514,6 +514,135 @@ paths:
       x-throttling-tier: Unlimited
 components:
   schemas:
+    Body_delete_tag_api_key_v3_api_key_auth_workspaces__workspace_id__tags__tag_id__delete:
+      type: object
+      properties:
+        hard_delete:
+          type: boolean
+          default: false
+          title: Hard Delete
+      title: Body_delete_tag_api_key_v3_api_key_auth_workspaces__workspace_id__tags__tag_id__delete
+    Body_create_tag_api_key_v3_api_key_auth_workspaces__workspace_id__tags_post:
+      type: object
+      properties:
+        name:
+          type: string
+          title: Name
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+      required:
+      - name
+      title: Body_create_tag_api_key_v3_api_key_auth_workspaces__workspace_id__tags_post
+    Body_create_tag_v3_workspaces__workspace_id__tags_post:
+      type: object
+      properties:
+        name:
+          type: string
+          title: Name
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+      required:
+      - name
+      title: Body_create_tag_v3_workspaces__workspace_id__tags_post
+    DeleteTagResponse:
+      type: object
+      description: Response model for tag deletion.
+      properties:
+        success:
+          type: boolean
+          title: Success
+        tag_id:
+          type: string
+          format: uuid
+          title: Tag Id
+        message:
+          type: string
+          title: Message
+      required:
+      - message
+      - success
+      - tag_id
+      title: DeleteTagResponse
+    HTTPValidationError:
+      type: object
+      properties:
+        detail:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+      title: HTTPValidationError
+    Body_delete_tag_v3_workspaces__workspace_id__tags__tag_id__delete:
+      type: object
+      properties:
+        hard_delete:
+          type: boolean
+          default: false
+          title: Hard Delete
+      title: Body_delete_tag_v3_workspaces__workspace_id__tags__tag_id__delete
+    TagListItem:
+      type: object
+      properties:
+        name:
+          type: string
+          title: Name
+        tag_id:
+          type: string
+          format: uuid
+          title: Tag Id
+        is_system:
+          type: boolean
+          title: Is System
+      required:
+      - is_system
+      - name
+      - tag_id
+      title: TagListItem
+    TagListResponse:
+      type: object
+      properties:
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/TagListItem'
+          title: Tags
+      required:
+      - tags
+      title: TagListResponse
+    Body_update_tag_api_key_v3_api_key_auth_workspaces__workspace_id__tags__tag_id__put:
+      type: object
+      properties:
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+      title: Body_update_tag_api_key_v3_api_key_auth_workspaces__workspace_id__tags__tag_id__put
+    Body_update_tag_v3_workspaces__workspace_id__tags__tag_id__put:
+      type: object
+      properties:
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+      title: Body_update_tag_v3_workspaces__workspace_id__tags__tag_id__put
     ValidationError:
       type: object
       properties:
@@ -540,34 +669,6 @@ components:
       - msg
       - type
       title: ValidationError
-    Body_create_tag_api_key_v3_api_key_auth_workspaces__workspace_id__tags_post:
-      type: object
-      properties:
-        name:
-          type: string
-          title: Name
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-      required:
-      - name
-      title: Body_create_tag_api_key_v3_api_key_auth_workspaces__workspace_id__tags_post
-    Body_update_tag_v3_workspaces__workspace_id__tags__tag_id__put:
-      type: object
-      properties:
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-      title: Body_update_tag_v3_workspaces__workspace_id__tags__tag_id__put
     TagDetailResponse:
       type: object
       properties:
@@ -607,107 +708,6 @@ components:
       - updated_at
       - workspace_id
       title: TagDetailResponse
-    TagListResponse:
-      type: object
-      properties:
-        tags:
-          type: array
-          items:
-            $ref: '#/components/schemas/TagListItem'
-          title: Tags
-      required:
-      - tags
-      title: TagListResponse
-    DeleteTagResponse:
-      type: object
-      description: Response model for tag deletion.
-      properties:
-        success:
-          type: boolean
-          title: Success
-        tag_id:
-          type: string
-          format: uuid
-          title: Tag Id
-        message:
-          type: string
-          title: Message
-      required:
-      - message
-      - success
-      - tag_id
-      title: DeleteTagResponse
-    TagListItem:
-      type: object
-      properties:
-        name:
-          type: string
-          title: Name
-        tag_id:
-          type: string
-          format: uuid
-          title: Tag Id
-        is_system:
-          type: boolean
-          title: Is System
-      required:
-      - is_system
-      - name
-      - tag_id
-      title: TagListItem
-    Body_delete_tag_v3_workspaces__workspace_id__tags__tag_id__delete:
-      type: object
-      properties:
-        hard_delete:
-          type: boolean
-          default: false
-          title: Hard Delete
-      title: Body_delete_tag_v3_workspaces__workspace_id__tags__tag_id__delete
-    Body_create_tag_v3_workspaces__workspace_id__tags_post:
-      type: object
-      properties:
-        name:
-          type: string
-          title: Name
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-      required:
-      - name
-      title: Body_create_tag_v3_workspaces__workspace_id__tags_post
-    HTTPValidationError:
-      type: object
-      properties:
-        detail:
-          type: array
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-      title: HTTPValidationError
-    Body_update_tag_api_key_v3_api_key_auth_workspaces__workspace_id__tags__tag_id__put:
-      type: object
-      properties:
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-      title: Body_update_tag_api_key_v3_api_key_auth_workspaces__workspace_id__tags__tag_id__put
-    Body_delete_tag_api_key_v3_api_key_auth_workspaces__workspace_id__tags__tag_id__delete:
-      type: object
-      properties:
-        hard_delete:
-          type: boolean
-          default: false
-          title: Hard Delete
-      title: Body_delete_tag_api_key_v3_api_key_auth_workspaces__workspace_id__tags__tag_id__delete
   securitySchemes:
     default:
       type: oauth2
