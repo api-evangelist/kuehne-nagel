@@ -48,18 +48,14 @@ paths:
       x-auth-type: Application & Application User
       x-throttling-tier: 10KPerMin
 components:
+  responses:
+    default:
+      description: Default Response for Error Cases
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Problem'
   schemas:
-    BookingNumber:
-      maxLength: 12
-      minLength: 12
-      type: string
-      example: CN1234567890
-    ProcessState:
-      type: string
-      x-extensible-enum:
-      - IN_PROGRESS
-      - FINISHED
-      - ABORTED
     ProcessStateResponse:
       required:
       - errors
@@ -81,6 +77,11 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ProcessError'
+    ProcessStateId:
+      type: string
+      description: Unique identifier of the requested operation
+      format: uuid
+      example: 930f1d05-5be4-4496-bb2b-3f40e60b3749
     Problem:
       required:
       - detail
@@ -123,6 +124,12 @@ components:
             '
           format: uri-reference
           example: /problem/connection-error#token-info-read-timed-out
+    ProcessState:
+      type: string
+      x-extensible-enum:
+      - IN_PROGRESS
+      - FINISHED
+      - ABORTED
     ProcessStep:
       type: string
       x-extensible-enum:
@@ -131,13 +138,13 @@ components:
       - BOOKING_IN_CREATION_VALIDATED
       - EXCEPTIONS_EVALUATED
       - BOOKING_REQUESTED
-    ProcessStateId:
-      type: string
-      description: Unique identifier of the requested operation
-      format: uuid
-      example: 930f1d05-5be4-4496-bb2b-3f40e60b3749
     ProcessError:
       type: string
+    BookingNumber:
+      maxLength: 12
+      minLength: 12
+      type: string
+      example: CN1234567890
   parameters:
     ProcessStateIdParam:
       name: processStateId
@@ -148,13 +155,6 @@ components:
       explode: false
       schema:
         $ref: '#/components/schemas/ProcessStateId'
-  responses:
-    default:
-      description: Default Response for Error Cases
-      content:
-        application/problem+json:
-          schema:
-            $ref: '#/components/schemas/Problem'
   securitySchemes:
     default:
       type: oauth2

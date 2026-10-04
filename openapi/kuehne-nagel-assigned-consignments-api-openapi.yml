@@ -93,54 +93,19 @@ paths:
       x-throttling-tier: Unlimited
 components:
   schemas:
-    Address:
+    Temperature:
       type: object
       properties:
-        address1:
-          maxLength: 50
-          type: string
-          description: Address line 1 of the address.
-          example: 221B Baker Street
-        address2:
-          maxLength: 50
-          type: string
-          description: Address line 2 of the address.
-          example: Marylebone
-        address3:
-          maxLength: 50
-          type: string
-          description: Address line 3 of the address.
-          example: Sherlock Holmes Museum
-        town:
-          maxLength: 50
-          type: string
-          description: Town of the address.
-          example: London
-        postCode:
-          maxLength: 8
-          type: string
-          description: Postcode of the address.
-          example: NW1 6XE
-        county:
-          maxLength: 30
-          type: string
-          description: County/State of the address.
-          example: Greater London
-        countryCode:
-          maxLength: 3
-          type: string
-          description: ISO Country code of the address.
-          example: GBR
-        latitude:
+        value:
           type: number
-          description: Latitude coordinate of the address.
+          description: The temperature value.
           format: float
-          example: 51.523751
-        longitude:
-          type: number
-          description: Longitude coordinate of the address.
-          format: float
-          example: -0.158555
+          example: -10
+        units:
+          maxLength: 10
+          type: string
+          description: Temperature measure unit.
+          example: deg C
     CustomsData:
       type: object
       properties:
@@ -193,33 +158,6 @@ components:
           type: string
           description: ATC number of the cargo mentioned in customs data.
           example: ATC123456789
-    AssignedConsignmentsResponse:
-      type: object
-      properties:
-        self:
-          type: string
-          description: Current or requested page.
-          format: uri
-          example: https://gateway.api-staging.kuehne-nagel.com/transport/execution/pickup-and-delivery/sea/v1/assigned-consignments?cursor=4kudW8z78FZyD8IQjxaVeX
-        prev:
-          type: string
-          description: the page before the current or requested page.
-          format: uri
-          example: https://gateway.api-staging.kuehne-nagel.com/transport/execution/pickup-and-delivery/sea/v1/assigned-consignments?cursor=63FP5Jy351AIv3CqC5oNg4
-        next:
-          type: string
-          description: the page after the current or requested page. It'll be null if the last page from the provisioned page table from database.
-          format: uri
-          example: https://gateway.api-staging.kuehne-nagel.com/transport/execution/pickup-and-delivery/sea/v1/assigned-consignments?cursor=0Ocf5uCUN23ZerO6aULyU6
-        hasMorePage:
-          type: boolean
-          description: Indicates if there are more pages available in the result set.
-          example: false
-        consignments:
-          maxItems: 50
-          type: array
-          items:
-            $ref: '#/components/schemas/Consignment'
     Problem:
       required:
       - detail
@@ -254,6 +192,180 @@ components:
           description: A URI reference that identifies the specific occurrence of the problem, e.g. by adding a fragment identifier or sub-path to the problem type. May be used to locate the root of this problem in the source code.\n
           format: uri-reference
           example: /problem/connection-error#token-info-read-timed-out
+    Consignment:
+      required:
+      - action
+      - assignedDateTime
+      - id
+      - jobs
+      - recipientUniqueShortName
+      - senderBranch
+      - senderCompanyName
+      type: object
+      properties:
+        assignedDateTime:
+          type: string
+          description: The date and time when the consignment was assigned to the respective haulier in our system.
+          format: date-time
+          example: '2025-09-24T10:30:00Z'
+        action:
+          $ref: '#/components/schemas/Action'
+        id:
+          maxLength: 50
+          type: string
+          description: A unique identifier of the consignment.
+          example: 1690222-918
+        haulageType:
+          maxLength: 3
+          type: string
+          description: Specifies the type of haulage, can be either Container "CON" or General "GEN".
+          example: CON
+          x-extensible-enum:
+          - CON
+          - GEN
+        isProvisional:
+          type: boolean
+          description: Indicates whether the consignment is provisional.
+          example: false
+        recipientUniqueShortName:
+          maxLength: 8
+          type: string
+          description: Indicates the internal identifier of the recipient. This reference should be included in your request (Status/GPS) messages.
+          example: VRTRAN
+        senderCompanyName:
+          maxLength: 100
+          type: string
+          description: Specifies the trading name of Kuehne+Nagel's regional entity. This name must be used on invoices.
+          example: Kuehne+Nagel (AG & Co.) KG
+        senderCompanyAddress:
+          $ref: '#/components/schemas/Address'
+        senderBranch:
+          maxLength: 20
+          type: string
+          description: The branch of Kuehne+Nagel's entity assigning the consignment.
+          example: BREMEN
+        truckName:
+          maxLength: 20
+          type: string
+          description: Name of the truck as define by Kuehne+Nagel Intermodal.
+          example: BALTRUCK-01
+        truckLicensePlate:
+          maxLength: 12
+          type: string
+          description: Truck license plate number.
+          example: HH VR 2025
+        trailerLicensePlate:
+          maxLength: 20
+          type: string
+          description: Trailer registration allocated to this consignment.
+          example: 12345TR
+        trailerSupplier:
+          maxLength: 50
+          type: string
+          description: Trailer Supplier Name.
+          example: Blue Anchor Line Trailer
+        trailerSource:
+          maxLength: 10
+          type: string
+          description: Whether the trailer is from "Pool" or "Private".
+          example: Pool
+        combineType:
+          maxLength: 3
+          type: string
+          description: If multiple Jobs have been combined into the same Consignment, this defines that combination. The values allowed are, GEN = General, RLD = Reload or TWN = Twin.
+          x-extensible-enum:
+          - TWN
+          - RLD
+          - GEN
+        jobs:
+          maxItems: 100
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/Job'
+    RequestId:
+      maxLength: 36
+      type: string
+      description: 'UUID identifying the request which will be generated by the client.
+
+        '
+      format: uuid
+      example: 019a1641-02a3-7a08-a83b-de93c338ed0e
+    AssignedConsignmentsResponse:
+      type: object
+      properties:
+        self:
+          type: string
+          description: Current or requested page.
+          format: uri
+          example: https://gateway.api-staging.kuehne-nagel.com/transport/execution/pickup-and-delivery/sea/v1/assigned-consignments?cursor=4kudW8z78FZyD8IQjxaVeX
+        prev:
+          type: string
+          description: the page before the current or requested page.
+          format: uri
+          example: https://gateway.api-staging.kuehne-nagel.com/transport/execution/pickup-and-delivery/sea/v1/assigned-consignments?cursor=63FP5Jy351AIv3CqC5oNg4
+        next:
+          type: string
+          description: the page after the current or requested page. It'll be null if the last page from the provisioned page table from database.
+          format: uri
+          example: https://gateway.api-staging.kuehne-nagel.com/transport/execution/pickup-and-delivery/sea/v1/assigned-consignments?cursor=0Ocf5uCUN23ZerO6aULyU6
+        hasMorePage:
+          type: boolean
+          description: Indicates if there are more pages available in the result set.
+          example: false
+        consignments:
+          maxItems: 50
+          type: array
+          items:
+            $ref: '#/components/schemas/Consignment'
+    Address:
+      type: object
+      properties:
+        address1:
+          maxLength: 50
+          type: string
+          description: Address line 1 of the address.
+          example: 221B Baker Street
+        address2:
+          maxLength: 50
+          type: string
+          description: Address line 2 of the address.
+          example: Marylebone
+        address3:
+          maxLength: 50
+          type: string
+          description: Address line 3 of the address.
+          example: Sherlock Holmes Museum
+        town:
+          maxLength: 50
+          type: string
+          description: Town of the address.
+          example: London
+        postCode:
+          maxLength: 8
+          type: string
+          description: Postcode of the address.
+          example: NW1 6XE
+        county:
+          maxLength: 30
+          type: string
+          description: County/State of the address.
+          example: Greater London
+        countryCode:
+          maxLength: 3
+          type: string
+          description: ISO Country code of the address.
+          example: GBR
+        latitude:
+          type: number
+          description: Latitude coordinate of the address.
+          format: float
+          example: 51.523751
+        longitude:
+          type: number
+          description: Longitude coordinate of the address.
+          format: float
+          example: -0.158555
     Amount:
       type: object
       properties:
@@ -267,19 +379,6 @@ components:
           type: string
           description: Currency of the amount.
           example: EUR
-    Weight:
-      type: object
-      properties:
-        value:
-          type: number
-          description: Value of weight.
-          format: float
-          example: 28300
-        units:
-          maxLength: 10
-          type: string
-          description: Unit of weight.
-          example: KG
     Hazard:
       type: object
       properties:
@@ -481,137 +580,6 @@ components:
           maxLength: 500
           type: string
           description: Specific handling instructions related to the hazardous material.
-    Action:
-      maxLength: 6
-      type: string
-      description: Specifies the action performed, one of INSERT/UPDATE/DELETE.
-      example: INSERT
-      x-extensible-enum:
-      - INSERT
-      - UPDATE
-      - DELETE
-    Consignment:
-      required:
-      - action
-      - assignedDateTime
-      - id
-      - jobs
-      - recipientUniqueShortName
-      - senderBranch
-      - senderCompanyName
-      type: object
-      properties:
-        assignedDateTime:
-          type: string
-          description: The date and time when the consignment was assigned to the respective haulier in our system.
-          format: date-time
-          example: '2025-09-24T10:30:00Z'
-        action:
-          $ref: '#/components/schemas/Action'
-        id:
-          maxLength: 50
-          type: string
-          description: A unique identifier of the consignment.
-          example: 1690222-918
-        haulageType:
-          maxLength: 3
-          type: string
-          description: Specifies the type of haulage, can be either Container "CON" or General "GEN".
-          example: CON
-          x-extensible-enum:
-          - CON
-          - GEN
-        isProvisional:
-          type: boolean
-          description: Indicates whether the consignment is provisional.
-          example: false
-        recipientUniqueShortName:
-          maxLength: 8
-          type: string
-          description: Indicates the internal identifier of the recipient. This reference should be included in your request (Status/GPS) messages.
-          example: VRTRAN
-        senderCompanyName:
-          maxLength: 100
-          type: string
-          description: Specifies the trading name of Kuehne+Nagel's regional entity. This name must be used on invoices.
-          example: Kuehne+Nagel (AG & Co.) KG
-        senderCompanyAddress:
-          $ref: '#/components/schemas/Address'
-        senderBranch:
-          maxLength: 20
-          type: string
-          description: The branch of Kuehne+Nagel's entity assigning the consignment.
-          example: BREMEN
-        truckName:
-          maxLength: 20
-          type: string
-          description: Name of the truck as define by Kuehne+Nagel Intermodal.
-          example: BALTRUCK-01
-        truckLicensePlate:
-          maxLength: 12
-          type: string
-          description: Truck license plate number.
-          example: HH VR 2025
-        trailerLicensePlate:
-          maxLength: 20
-          type: string
-          description: Trailer registration allocated to this consignment.
-          example: 12345TR
-        trailerSupplier:
-          maxLength: 50
-          type: string
-          description: Trailer Supplier Name.
-          example: Blue Anchor Line Trailer
-        trailerSource:
-          maxLength: 10
-          type: string
-          description: Whether the trailer is from "Pool" or "Private".
-          example: Pool
-        combineType:
-          maxLength: 3
-          type: string
-          description: If multiple Jobs have been combined into the same Consignment, this defines that combination. The values allowed are, GEN = General, RLD = Reload or TWN = Twin.
-          x-extensible-enum:
-          - TWN
-          - RLD
-          - GEN
-        jobs:
-          maxItems: 100
-          minItems: 1
-          type: array
-          items:
-            $ref: '#/components/schemas/Job'
-    Rate:
-      required:
-      - amount
-      - chargeTypeCode
-      type: object
-      properties:
-        amount:
-          $ref: '#/components/schemas/Amount'
-        chargeTypeCode:
-          maxLength: 10
-          type: string
-          description: Charge Type Code of the rate.
-          example: '156'
-        chargeTypeDescription:
-          maxLength: 20
-          type: string
-          description: Charge Type Description of the rate.
-          example: TRANSPORTATION
-    Temperature:
-      type: object
-      properties:
-        value:
-          type: number
-          description: The temperature value.
-          format: float
-          example: -10
-        units:
-          maxLength: 10
-          type: string
-          description: Temperature measure unit.
-          example: deg C
     CustomsPlace:
       type: object
       properties:
@@ -629,87 +597,6 @@ components:
 
         '
       example: DE
-    RequestId:
-      maxLength: 36
-      type: string
-      description: 'UUID identifying the request which will be generated by the client.
-
-        '
-      format: uuid
-      example: 019a1641-02a3-7a08-a83b-de93c338ed0e
-    Waypoint:
-      required:
-      - activity
-      - id
-      - locationAddress
-      - locationName
-      type: object
-      properties:
-        id:
-          maxLength: 20
-          type: integer
-          description: Unique identifier for the waypoint. This reference should be included in your status request messages.
-          format: int32
-          example: 6606341
-        activity:
-          maxLength: 3
-          type: string
-          description: Indicates the type of waypoints. The values allowed are LOA = Load, C/D = Collect or Delivery, CUS = Customs, UNL = Unload or VGM = Verified Gross Mass.
-          example: LOA
-          x-extensible-enum:
-          - LOA
-          - C/D
-          - CUS
-          - UNL
-          - VGM
-        date:
-          type: string
-          description: Date of visit to the waypoint (YYYY-MM-DD).
-          format: date
-        time:
-          type: string
-          description: Time of visit to the waypoint (HH:MM:SS).
-          format: time
-          example: '11:14:55'
-        reference:
-          maxLength: 50
-          type: string
-          description: Any reference belong to the waypoint.
-          example: '495677'
-        referenceExpiryDate:
-          type: string
-          description: Expiry date of the reference.
-          format: date
-        isOnOffHire:
-          type: boolean
-          description: Indicates whether the container is on or off hire.
-        terminalCode:
-          maxLength: 6
-          type: string
-          description: If Location is a Port, the Terminal Code is output.
-          example: EGHAM
-        depotCode:
-          maxLength: 6
-          type: string
-          description: If Location is a Depot, the Depot Code is output.
-          example: EGHAM
-        unLocationCode:
-          maxLength: 6
-          type: string
-          description: UN Location Code of the waypoint.
-          example: DBIDST
-        locationName:
-          maxLength: 60
-          type: string
-          description: Name of the waypoint location.
-          example: EUROGATE CONTAINER TERMINAL HAMBURG
-        locationAddress:
-          $ref: '#/components/schemas/Address'
-        instructions:
-          maxLength: 255
-          type: string
-          description: Specific instructions related to waypoint.
-          example: EMA:cust@customer-company.com
     Job:
       required:
       - action
@@ -1009,6 +896,119 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Rate'
+    Waypoint:
+      required:
+      - activity
+      - id
+      - locationAddress
+      - locationName
+      type: object
+      properties:
+        id:
+          maxLength: 20
+          type: integer
+          description: Unique identifier for the waypoint. This reference should be included in your status request messages.
+          format: int32
+          example: 6606341
+        activity:
+          maxLength: 3
+          type: string
+          description: Indicates the type of waypoints. The values allowed are LOA = Load, C/D = Collect or Delivery, CUS = Customs, UNL = Unload or VGM = Verified Gross Mass.
+          example: LOA
+          x-extensible-enum:
+          - LOA
+          - C/D
+          - CUS
+          - UNL
+          - VGM
+        date:
+          type: string
+          description: Date of visit to the waypoint (YYYY-MM-DD).
+          format: date
+        time:
+          type: string
+          description: Time of visit to the waypoint (HH:MM:SS).
+          format: time
+          example: '11:14:55'
+        reference:
+          maxLength: 50
+          type: string
+          description: Any reference belong to the waypoint.
+          example: '495677'
+        referenceExpiryDate:
+          type: string
+          description: Expiry date of the reference.
+          format: date
+        isOnOffHire:
+          type: boolean
+          description: Indicates whether the container is on or off hire.
+        terminalCode:
+          maxLength: 6
+          type: string
+          description: If Location is a Port, the Terminal Code is output.
+          example: EGHAM
+        depotCode:
+          maxLength: 6
+          type: string
+          description: If Location is a Depot, the Depot Code is output.
+          example: EGHAM
+        unLocationCode:
+          maxLength: 6
+          type: string
+          description: UN Location Code of the waypoint.
+          example: DBIDST
+        locationName:
+          maxLength: 60
+          type: string
+          description: Name of the waypoint location.
+          example: EUROGATE CONTAINER TERMINAL HAMBURG
+        locationAddress:
+          $ref: '#/components/schemas/Address'
+        instructions:
+          maxLength: 255
+          type: string
+          description: Specific instructions related to waypoint.
+          example: EMA:cust@customer-company.com
+    Weight:
+      type: object
+      properties:
+        value:
+          type: number
+          description: Value of weight.
+          format: float
+          example: 28300
+        units:
+          maxLength: 10
+          type: string
+          description: Unit of weight.
+          example: KG
+    Action:
+      maxLength: 6
+      type: string
+      description: Specifies the action performed, one of INSERT/UPDATE/DELETE.
+      example: INSERT
+      x-extensible-enum:
+      - INSERT
+      - UPDATE
+      - DELETE
+    Rate:
+      required:
+      - amount
+      - chargeTypeCode
+      type: object
+      properties:
+        amount:
+          $ref: '#/components/schemas/Amount'
+        chargeTypeCode:
+          maxLength: 10
+          type: string
+          description: Charge Type Code of the rate.
+          example: '156'
+        chargeTypeDescription:
+          maxLength: 20
+          type: string
+          description: Charge Type Description of the rate.
+          example: TRANSPORTATION
   securitySchemes:
     default:
       type: oauth2

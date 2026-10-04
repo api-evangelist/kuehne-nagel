@@ -111,20 +111,6 @@ components:
             $ref: '#/components/schemas/CargoItem'
         pageInfo:
           $ref: '#/components/schemas/Paging'
-    Paging:
-      properties:
-        hasNextPage:
-          type: boolean
-        hasPreviousPage:
-          type: boolean
-        startCursor:
-          maxLength: 10000
-          type: string
-          example: Mg==
-        endCursor:
-          maxLength: 10000
-          type: string
-          example: NA==
     CargoItem:
       required:
       - id
@@ -146,6 +132,20 @@ components:
           type: string
           example: CMAU1234567
       description: A single cargo asset (package or container)
+    Paging:
+      properties:
+        hasNextPage:
+          type: boolean
+        hasPreviousPage:
+          type: boolean
+        startCursor:
+          maxLength: 10000
+          type: string
+          example: Mg==
+        endCursor:
+          maxLength: 10000
+          type: string
+          example: NA==
     Problem:
       required:
       - detail

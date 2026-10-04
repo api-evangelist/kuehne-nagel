@@ -187,71 +187,6 @@ paths:
     - url: https://internal.api.kuehne-nagel.com/order-management/order-booking/v1
 components:
   schemas:
-    Address:
-      required:
-      - city
-      - countryCode
-      - name
-      type: object
-      properties:
-        name:
-          maxLength: 35
-          minLength: 1
-          type: string
-          description: Name of the customer
-          example: Dummy customer Inc.
-        name2:
-          maxLength: 35
-          minLength: 1
-          type: string
-          description: Name of the customer - 2nd part
-          example: Further name of Dummy customer Inc
-        street:
-          maxLength: 35
-          minLength: 1
-          type: string
-          description: Street name
-          example: Dummy street name
-        street2:
-          maxLength: 35
-          minLength: 1
-          type: string
-          description: Street name - 2nd part
-          example: Other part of street name
-        city:
-          maxLength: 35
-          minLength: 1
-          type: string
-          description: City name
-          example: London
-        countryCode:
-          type: string
-          description: Country code
-          format: iso-3166
-          example: GB
-        stateCode:
-          maxLength: 3
-          minLength: 1
-          type: string
-          description: State code
-          example: LXE
-        poBox:
-          maxLength: 10
-          minLength: 1
-          type: string
-          description: PO Box
-          example: '52011'
-        postalCode:
-          maxLength: 35
-          minLength: 1
-          type: string
-          description: Postal code
-          example: 5201AX
-        customerReferences:
-          minItems: 0
-          type: array
-          items:
-            $ref: '#/components/schemas/Reference'
     Booking:
       required:
       - cargo
@@ -397,120 +332,103 @@ components:
           - MISC
         tradeControlDetails:
           $ref: '#/components/schemas/TradeControlDetails'
-    BookingError:
+    Address:
       required:
-      - detail
-      - title
+      - city
+      - countryCode
+      - name
       type: object
       properties:
-        type:
-          type: string
-          description: A URI-style unique identifier of the problem
-          format: uri-reference
-          example: /problem/connection-error
-        title:
-          maxLength: 32
-          type: string
-          description: Summary of the problem type
-          example: Service Unavailable
-        status:
-          minimum: 100
-          type: integer
-          description: The HTTP status code of the problem
-          format: int32
-          example: 503
-          exclusiveMaximum: 600
-        detail:
-          maxLength: 256
-          type: string
-          description: Detailed information of the problem
-          example: Connection to database timed out
-        instance:
-          type: string
-          description: URI reference that describes the specific occurrence of the problem
-          format: uri-reference
-          example: /problem/connection-error#token-info-read-timed-out
-    Origin:
-      required:
-      - exportAvailabilityTime
-      - sellerAddress
-      type: object
-      properties:
-        sellerAddress:
-          $ref: '#/components/schemas/Address'
-        airWaybillShipperAddress:
-          $ref: '#/components/schemas/Address'
-        pickupContact:
-          $ref: '#/components/schemas/Contact'
-        pickupAddress:
-          $ref: '#/components/schemas/Address'
-        pickupByKn:
-          type: boolean
-          description: Denotes if pickup should be arranged by KN
-          example: false
-        pickupHandlingText:
-          maxLength: 1000
-          minLength: 1
-          type: string
-          description: Pickup handling text
-          example: Example pickup handling text
-        exportAvailabilityTime:
-          type: string
-          description: Export availability time
-          format: date-time
-          example: '2024-05-02T07:55:53.356Z'
-        airportCode:
-          pattern: ^[A-Z]{3}$
-          type: string
-          description: The IATA airport code
-          example: FRA
-    Contact:
-      required:
-      - lastName
-      type: object
-      properties:
-        email:
-          maxLength: 256
-          minLength: 1
-          type: string
-          description: E-mail address
-          format: email
-          example: donotreply@kuehne-nagel.com
-        firstName:
+        name:
           maxLength: 35
           minLength: 1
           type: string
-          description: First name
-          example: John
-        lastName:
+          description: Name of the customer
+          example: Dummy customer Inc.
+        name2:
           maxLength: 35
           minLength: 1
           type: string
-          description: Last name
-          example: Smith
-        phone:
-          maxLength: 256
+          description: Name of the customer - 2nd part
+          example: Further name of Dummy customer Inc
+        street:
+          maxLength: 35
           minLength: 1
           type: string
-          description: Contact phone number
-          example: '123456789'
-    HSCode:
+          description: Street name
+          example: Dummy street name
+        street2:
+          maxLength: 35
+          minLength: 1
+          type: string
+          description: Street name - 2nd part
+          example: Other part of street name
+        city:
+          maxLength: 35
+          minLength: 1
+          type: string
+          description: City name
+          example: London
+        countryCode:
+          type: string
+          description: Country code
+          format: iso-3166
+          example: GB
+        stateCode:
+          maxLength: 3
+          minLength: 1
+          type: string
+          description: State code
+          example: LXE
+        poBox:
+          maxLength: 10
+          minLength: 1
+          type: string
+          description: PO Box
+          example: '52011'
+        postalCode:
+          maxLength: 35
+          minLength: 1
+          type: string
+          description: Postal code
+          example: 5201AX
+        customerReferences:
+          minItems: 0
+          type: array
+          items:
+            $ref: '#/components/schemas/Reference'
+    DangerousGoodsPosition:
       required:
-      - code
+      - numberOfPackages
+      - packageType
       type: object
       properties:
-        code:
-          maxLength: 18
-          minLength: 1
+        numberOfPackages:
+          type: number
+          description: Number of packages
+          format: double
+          example: 42
+        packageType:
+          maxLength: 3
           type: string
-          description: Single HS code
-          example: '870899'
-        notes:
-          maxLength: 512
-          minLength: 1
+          description: Package type
+          example: PCS
+        overpackNumber:
+          maxLength: 64
           type: string
-          description: Detailed description of the HS Code
-          example: Civil aircraft parts
+          description: Overpack Number
+          example: '#A01'
+        limitedQuantityGrossWeightInKg:
+          type: number
+          description: Limited Quatity Gross Weight in KG.
+          format: double
+          example: 3.2
+        dangerousGoodsDetails:
+          minItems: 0
+          type: array
+          description: List of dangerous goods details
+          items:
+            $ref: '#/components/schemas/DangerousGoodsDetail'
     RadioactiveDetails:
       type: object
       properties:
@@ -544,22 +462,75 @@ components:
           type: string
           description: Unit of measure
           example: MBQ
-    Amount:
+    Reference:
       required:
-      - amount
-      - currency
+      - code
+      - value
       type: object
       properties:
-        amount:
-          type: number
-          description: Value of the price
-          format: double
-          example: 10.5
-        currency:
+        code:
+          maxLength: 3
+          minLength: 1
           type: string
-          description: The ISO 4217 standard three-letter code of a currency.
-          format: iso-4217
-          example: EUR
+          description: Reference code
+          example: INN
+        value:
+          maxLength: 35
+          minLength: 1
+          type: string
+          description: Reference value
+          example: ABCD1234567890
+    TradeControlDetails:
+      required:
+      - exportControl
+      - exportCustomsClearance
+      - importControl
+      - importCustomsClearance
+      - military
+      - sanctions
+      - transitControl
+      type: object
+      properties:
+        sanctions:
+          type: boolean
+          description: Indicates whether the shipment is subject to sanctions or embargoes
+          example: true
+        exportControl:
+          type: boolean
+          description: Indicates whether the shipment is subject to export control
+          example: true
+        importControl:
+          type: boolean
+          description: Indicates whether the shipment is subject to import control
+          example: true
+        transitControl:
+          type: boolean
+          description: Indicates whether the shipment is subject to transit control
+          example: true
+        military:
+          type: boolean
+          description: Indicates whether the shipment is related to defense or the military
+          example: true
+        exportCustomsClearance:
+          type: boolean
+          description: Indicates whether the shipment is subject to export customs clearance
+          example: true
+        exportCustomsClearanceDocuments:
+          maxLength: 500
+          type: string
+          description: Indicates which documents will be provided with HS Code, Country of Origin, Country of Ultimate Destination, and Value of Goods for export customs clearance
+          example: Commercial Invoice
+        importCustomsClearance:
+          type: boolean
+          description: Indicates whether the shipment is subject to import customs clearance
+          example: true
+        importCustomsClearanceDocuments:
+          maxLength: 500
+          type: string
+          description: Indicates which documents will be provided with HS Code, Country of Origin, Country of Ultimate Destination, and Value of Goods for import customs clearance
+          example: Commercial Invoice
+      description: To indicate if the shipment contains defence commodities the new includesDefenceCommodity field should be used.
+      deprecated: true
     Dimensions:
       required:
       - heightInCentimeter
@@ -588,39 +559,83 @@ components:
           description: Width in centimeter
           format: int32
           example: 12
-    Destination:
+    Cargo:
       required:
-      - buyerAddress
+      - description
+      - isDangerousGoods
+      - weightInKilogram
       type: object
       properties:
-        deliveryByKn:
-          type: boolean
-          description: Denotes if delivery should be arranged by KN
-          example: false
-        buyerAddress:
-          $ref: '#/components/schemas/Address'
-        airWaybillConsigneeAddress:
-          $ref: '#/components/schemas/Address'
-        deliveryContact:
-          $ref: '#/components/schemas/Contact'
-        deliveryAddress:
-          $ref: '#/components/schemas/Address'
-        importAvailabilityTime:
+        description:
+          maxLength: 256
           type: string
-          description: Import availability time
-          format: date-time
-          example: '2024-05-03T07:55:53.356Z'
-        deliveryHandlingText:
+          description: Description of cargo
+          example: A lot of chairs
+        numberOfPieces:
+          type: integer
+          description: Number of pieces
+          format: int32
+          example: 42
+        shippersLoadAndCount:
+          type: integer
+          description: Shippers load and count
+          format: int32
+          example: 42
+        dimensions:
+          minItems: 1
+          type: array
+          description: Dimensions of transported goods
+          items:
+            $ref: '#/components/schemas/Dimensions'
+        hsCodes:
+          minItems: 0
+          type: array
+          description: Collection of HSCodes
+          items:
+            $ref: '#/components/schemas/HSCode'
+        generalHandlingText:
           maxLength: 1000
           minLength: 1
           type: string
-          description: Delivery handling text
-          example: Example delivery handling text
-        airportCode:
-          pattern: ^[A-Z]{3}$
+          description: General handling text
+          example: This is a general handling text example
+        weightInKilogram:
+          type: number
+          description: Weight of cargo in kilograms
+          format: double
+          example: 42.5
+        volumeInCubicMeter:
+          type: number
+          description: Volume of cargo in cubic meters
+          format: double
+          example: 42.5
+        isDangerousGoods:
+          type: boolean
+          description: Identifies whether the booking is applicable for dangerous goods
+          example: false
+        dangerousGoodsPositions:
+          minItems: 0
+          type: array
+          description: Collection of Dangerous goods positions
+          items:
+            $ref: '#/components/schemas/DangerousGoodsPosition'
+    HSCode:
+      required:
+      - code
+      type: object
+      properties:
+        code:
+          maxLength: 18
+          minLength: 1
           type: string
-          description: The IATA airport code
-          example: JFK
+          description: Single HS code
+          example: '870899'
+        notes:
+          maxLength: 512
+          minLength: 1
+          type: string
+          description: Detailed description of the HS Code
+          example: Civil aircraft parts
     DangerousGoodsDetail:
       required:
       - properShippingName
@@ -752,149 +767,6 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/BookingError'
-    TradeControlDetails:
-      required:
-      - exportControl
-      - exportCustomsClearance
-      - importControl
-      - importCustomsClearance
-      - military
-      - sanctions
-      - transitControl
-      type: object
-      properties:
-        sanctions:
-          type: boolean
-          description: Indicates whether the shipment is subject to sanctions or embargoes
-          example: true
-        exportControl:
-          type: boolean
-          description: Indicates whether the shipment is subject to export control
-          example: true
-        importControl:
-          type: boolean
-          description: Indicates whether the shipment is subject to import control
-          example: true
-        transitControl:
-          type: boolean
-          description: Indicates whether the shipment is subject to transit control
-          example: true
-        military:
-          type: boolean
-          description: Indicates whether the shipment is related to defense or the military
-          example: true
-        exportCustomsClearance:
-          type: boolean
-          description: Indicates whether the shipment is subject to export customs clearance
-          example: true
-        exportCustomsClearanceDocuments:
-          maxLength: 500
-          type: string
-          description: Indicates which documents will be provided with HS Code, Country of Origin, Country of Ultimate Destination, and Value of Goods for export customs clearance
-          example: Commercial Invoice
-        importCustomsClearance:
-          type: boolean
-          description: Indicates whether the shipment is subject to import customs clearance
-          example: true
-        importCustomsClearanceDocuments:
-          maxLength: 500
-          type: string
-          description: Indicates which documents will be provided with HS Code, Country of Origin, Country of Ultimate Destination, and Value of Goods for import customs clearance
-          example: Commercial Invoice
-      description: To indicate if the shipment contains defence commodities the new includesDefenceCommodity field should be used.
-      deprecated: true
-    DangerousGoodsPosition:
-      required:
-      - numberOfPackages
-      - packageType
-      type: object
-      properties:
-        numberOfPackages:
-          type: number
-          description: Number of packages
-          format: double
-          example: 42
-        packageType:
-          maxLength: 3
-          type: string
-          description: Package type
-          example: PCS
-        overpackNumber:
-          maxLength: 64
-          type: string
-          description: Overpack Number
-          example: '#A01'
-        limitedQuantityGrossWeightInKg:
-          type: number
-          description: Limited Quatity Gross Weight in KG.
-          format: double
-          example: 3.2
-        dangerousGoodsDetails:
-          minItems: 0
-          type: array
-          description: List of dangerous goods details
-          items:
-            $ref: '#/components/schemas/DangerousGoodsDetail'
-    Cargo:
-      required:
-      - description
-      - isDangerousGoods
-      - weightInKilogram
-      type: object
-      properties:
-        description:
-          maxLength: 256
-          type: string
-          description: Description of cargo
-          example: A lot of chairs
-        numberOfPieces:
-          type: integer
-          description: Number of pieces
-          format: int32
-          example: 42
-        shippersLoadAndCount:
-          type: integer
-          description: Shippers load and count
-          format: int32
-          example: 42
-        dimensions:
-          minItems: 1
-          type: array
-          description: Dimensions of transported goods
-          items:
-            $ref: '#/components/schemas/Dimensions'
-        hsCodes:
-          minItems: 0
-          type: array
-          description: Collection of HSCodes
-          items:
-            $ref: '#/components/schemas/HSCode'
-        generalHandlingText:
-          maxLength: 1000
-          minLength: 1
-          type: string
-          description: General handling text
-          example: This is a general handling text example
-        weightInKilogram:
-          type: number
-          description: Weight of cargo in kilograms
-          format: double
-          example: 42.5
-        volumeInCubicMeter:
-          type: number
-          description: Volume of cargo in cubic meters
-          format: double
-          example: 42.5
-        isDangerousGoods:
-          type: boolean
-          description: Identifies whether the booking is applicable for dangerous goods
-          example: false
-        dangerousGoodsPositions:
-          minItems: 0
-          type: array
-          description: Collection of Dangerous goods positions
-          items:
-            $ref: '#/components/schemas/DangerousGoodsPosition'
     BookingResponse:
       required:
       - trackingNumber
@@ -905,52 +777,226 @@ components:
           description: Tracking number of the shipment
           format: int64
           example: 1000100123
-    Reference:
+    Origin:
       required:
-      - code
-      - value
+      - exportAvailabilityTime
+      - sellerAddress
       type: object
       properties:
-        code:
-          maxLength: 3
+        sellerAddress:
+          $ref: '#/components/schemas/Address'
+        airWaybillShipperAddress:
+          $ref: '#/components/schemas/Address'
+        pickupContact:
+          $ref: '#/components/schemas/Contact'
+        pickupAddress:
+          $ref: '#/components/schemas/Address'
+        pickupByKn:
+          type: boolean
+          description: Denotes if pickup should be arranged by KN
+          example: false
+        pickupHandlingText:
+          maxLength: 1000
           minLength: 1
           type: string
-          description: Reference code
-          example: INN
-        value:
+          description: Pickup handling text
+          example: Example pickup handling text
+        exportAvailabilityTime:
+          type: string
+          description: Export availability time
+          format: date-time
+          example: '2024-05-02T07:55:53.356Z'
+        airportCode:
+          pattern: ^[A-Z]{3}$
+          type: string
+          description: The IATA airport code
+          example: FRA
+    Amount:
+      required:
+      - amount
+      - currency
+      type: object
+      properties:
+        amount:
+          type: number
+          description: Value of the price
+          format: double
+          example: 10.5
+        currency:
+          type: string
+          description: The ISO 4217 standard three-letter code of a currency.
+          format: iso-4217
+          example: EUR
+    Contact:
+      required:
+      - lastName
+      type: object
+      properties:
+        email:
+          maxLength: 256
+          minLength: 1
+          type: string
+          description: E-mail address
+          format: email
+          example: donotreply@kuehne-nagel.com
+        firstName:
           maxLength: 35
           minLength: 1
           type: string
-          description: Reference value
-          example: ABCD1234567890
-    Height:
-      description: Height in centimeter with up to 1 decimal place
-      allOf:
-      - $ref: '#/components/schemas/Dimension'
-    Address_2:
-      allOf:
-      - $ref: '#/components/schemas/PostalAddress'
-      - type: object
-        properties:
-          name:
-            maxLength: 255
-            minLength: 1
-            type: string
-    BookingCreated:
+          description: First name
+          example: John
+        lastName:
+          maxLength: 35
+          minLength: 1
+          type: string
+          description: Last name
+          example: Smith
+        phone:
+          maxLength: 256
+          minLength: 1
+          type: string
+          description: Contact phone number
+          example: '123456789'
+    BookingError:
       required:
-      - bookingNumber
-      - processStateId
+      - detail
+      - title
       type: object
       properties:
-        bookingNumber:
-          $ref: '#/components/schemas/BookingNumber'
-        processStateId:
-          $ref: '#/components/schemas/ProcessStateId'
-      description: 'BookingCreated confirms that the booking is created. Further asynchronous operations like the
-
-        order line allocation are scheduled for the booking. It identifies the booking and the request regarding that booking.
-
-        '
+        type:
+          type: string
+          description: A URI-style unique identifier of the problem
+          format: uri-reference
+          example: /problem/connection-error
+        title:
+          maxLength: 32
+          type: string
+          description: Summary of the problem type
+          example: Service Unavailable
+        status:
+          minimum: 100
+          type: integer
+          description: The HTTP status code of the problem
+          format: int32
+          example: 503
+          exclusiveMaximum: 600
+        detail:
+          maxLength: 256
+          type: string
+          description: Detailed information of the problem
+          example: Connection to database timed out
+        instance:
+          type: string
+          description: URI reference that describes the specific occurrence of the problem
+          format: uri-reference
+          example: /problem/connection-error#token-info-read-timed-out
+    Destination:
+      required:
+      - buyerAddress
+      type: object
+      properties:
+        deliveryByKn:
+          type: boolean
+          description: Denotes if delivery should be arranged by KN
+          example: false
+        buyerAddress:
+          $ref: '#/components/schemas/Address'
+        airWaybillConsigneeAddress:
+          $ref: '#/components/schemas/Address'
+        deliveryContact:
+          $ref: '#/components/schemas/Contact'
+        deliveryAddress:
+          $ref: '#/components/schemas/Address'
+        importAvailabilityTime:
+          type: string
+          description: Import availability time
+          format: date-time
+          example: '2024-05-03T07:55:53.356Z'
+        deliveryHandlingText:
+          maxLength: 1000
+          minLength: 1
+          type: string
+          description: Delivery handling text
+          example: Example delivery handling text
+        airportCode:
+          pattern: ^[A-Z]{3}$
+          type: string
+          description: The IATA airport code
+          example: JFK
+    OrderIdentificationKeyAttributes:
+      type: object
+      properties:
+        purchaseOrderDate:
+          $ref: '#/components/schemas/Date'
+        orderNumber:
+          $ref: '#/components/schemas/NonEmptyString'
+        orderDate:
+          $ref: '#/components/schemas/Date'
+        invoiceNumber:
+          $ref: '#/components/schemas/NonEmptyString'
+        invoiceDate:
+          $ref: '#/components/schemas/Date'
+        shipmentId:
+          $ref: '#/components/schemas/NonEmptyString'
+        shipmentDate:
+          $ref: '#/components/schemas/Date'
+        contractNumber:
+          $ref: '#/components/schemas/NonEmptyString'
+        contractDate:
+          $ref: '#/components/schemas/Date'
+        salesOrderNumber:
+          $ref: '#/components/schemas/NonEmptyString'
+        salesOrderDate:
+          $ref: '#/components/schemas/Date'
+        deliveryNoteNumber:
+          $ref: '#/components/schemas/NonEmptyString'
+        deliveryNoteDate:
+          $ref: '#/components/schemas/Date'
+        warehouseReceiptNumber:
+          $ref: '#/components/schemas/NonEmptyString'
+        warehouseReceiptDate:
+          $ref: '#/components/schemas/Date'
+        commercialInvoiceNumber:
+          $ref: '#/components/schemas/NonEmptyString'
+        commercialInvoiceDate:
+          $ref: '#/components/schemas/Date'
+        packingListNumber:
+          $ref: '#/components/schemas/NonEmptyString'
+        packingListDate:
+          $ref: '#/components/schemas/Date'
+        deliveryTicketNumber:
+          $ref: '#/components/schemas/NonEmptyString'
+        deliveryTicketDate:
+          $ref: '#/components/schemas/Date'
+        proformaInvoiceNumber:
+          $ref: '#/components/schemas/NonEmptyString'
+        proformaInvoiceDate:
+          $ref: '#/components/schemas/Date'
+        transactionId:
+          $ref: '#/components/schemas/NonEmptyString'
+        transactionDate:
+          $ref: '#/components/schemas/Date'
+        orderReleaseNumber:
+          $ref: '#/components/schemas/NonEmptyString'
+        orderReleaseDate:
+          $ref: '#/components/schemas/Date'
+        raisedBy:
+          $ref: '#/components/schemas/NonEmptyString'
+        supplierReference:
+          $ref: '#/components/schemas/NonEmptyString'
+        workOrderNumber:
+          $ref: '#/components/schemas/NonEmptyString'
+        proformaOrderNumber:
+          $ref: '#/components/schemas/NonEmptyString'
+        allocationNumber:
+          $ref: '#/components/schemas/NonEmptyString'
+        supplierOrderNumber:
+          $ref: '#/components/schemas/NonEmptyString'
+    PositiveInteger:
+      maximum: 999999
+      minimum: 1
+      type: integer
+      format: int32
     Booking_2:
       required:
       - bookingType
@@ -1016,29 +1062,120 @@ components:
           AIR: '#/components/schemas/AirBooking'
           FCL: '#/components/schemas/FclBooking'
           LCL: '#/components/schemas/LclBooking'
-    DateWindow:
+    Address_2:
+      allOf:
+      - $ref: '#/components/schemas/PostalAddress'
+      - type: object
+        properties:
+          name:
+            maxLength: 255
+            minLength: 1
+            type: string
+    SupplierCode:
+      maxLength: 70
+      minLength: 1
+      type: string
+      description: Unique identifier assigned to a supplier
+    ShippersReference:
+      maxLength: 35
+      minLength: 1
+      type: string
+    Date:
+      type: string
+      format: date
+    AddressTypeCode:
+      maxLength: 3
+      minLength: 2
+      type: string
+    ContactInformation:
       type: object
       properties:
-        startDate:
-          $ref: '#/components/schemas/Date'
-        endDate:
-          $ref: '#/components/schemas/Date'
+        name:
+          $ref: '#/components/schemas/NonEmptyString'
+        email:
+          $ref: '#/components/schemas/Email'
+        phone:
+          $ref: '#/components/schemas/NonEmptyString'
+        mobile:
+          $ref: '#/components/schemas/NonEmptyString'
+        fax:
+          $ref: '#/components/schemas/NonEmptyString'
+    Packages:
+      required:
+      - amount
+      - packageType
+      type: object
+      properties:
+        amount:
+          maximum: 999999
+          minimum: 1
+          type: integer
+          format: int32
+        packageType:
+          pattern: BAG|BAR|BLK|BOX|CRT|CTN|IBC|PKG|PLT|SLP
+          type: string
+          description: 'Package types: Bag (bag), Bar (bar), Bulk Grain (blk), Box (box), Carton (ctn),
+
+            Intermediate Bulk Container (ibc), Package (pkg), Pallet (plt), Slip Sheet (slp)
+
+            '
+    Integer:
+      type: integer
+      format: int32
+    LetterOfCredit:
+      type: object
+      properties:
+        letterOfCreditNumber:
+          maxLength: 35
+          minLength: 1
+          type: string
+          description: Unique identification number associated with the letter of credit
+        letterOfCreditExpiryDate:
+          type: string
+          description: Denotes the date on which the letter of credit expires
+          format: date
+      description: Financial instrument guaranteeing payment to the exporter upon satisfactory delivery of goods
+    TermsOfTrade:
+      type: object
+      properties:
+        incoterm:
+          $ref: '#/components/schemas/Incoterm'
+        location:
+          maxLength: 35
+          minLength: 1
+          type: string
+          description: Specifies the location where the incoterm standards are applied
+    UnLocationCode:
+      pattern: ^[A-Z]{2}[A-Z0-9]{3}$
+      type: string
+      description: Standardized code for trade and transport locations including seaports and airports
+      example: DEHAM
     BusinessParty:
       allOf:
       - $ref: '#/components/schemas/AdditionalParty'
       - required:
         - partyCode
         type: object
-    PositiveInteger:
-      maximum: 999999
-      minimum: 1
-      type: integer
-      format: int32
-    ProcessStateId:
+    DateTime:
       type: string
-      description: Unique identifier of the requested operation
-      format: uuid
-      example: 930f1d05-5be4-4496-bb2b-3f40e60b3749
+      format: date-time
+    NonEmptyString:
+      minLength: 1
+      type: string
+    Length:
+      description: Length in centimeter with up to 1 decimal place
+      allOf:
+      - $ref: '#/components/schemas/Dimension'
+    ContainerNumber:
+      maxLength: 11
+      minLength: 1
+      pattern: ^[A-Za-z]{3}[A-Za-z][0-9]{7}$|^[0-9]{1,3}$
+      type: string
+      example: ABCU1234567
+    MediumLengthString:
+      maxLength: 255
+      minLength: 1
+      type: string
     FactoryCode:
       maxLength: 255
       minLength: 1
@@ -1055,74 +1192,129 @@ components:
           $ref: '#/components/schemas/MediumLengthString'
         plannedDate:
           $ref: '#/components/schemas/DateTime'
-    NonEmptyString:
-      minLength: 1
-      type: string
-    Email:
-      type: string
-      format: email
-    UnLocationCode:
-      pattern: ^[A-Z]{2}[A-Z0-9]{3}$
-      type: string
-      description: Standardized code for trade and transport locations including seaports and airports
-      example: DEHAM
-    ContactInformation:
-      type: object
-      properties:
-        name:
-          $ref: '#/components/schemas/NonEmptyString'
-        email:
-          $ref: '#/components/schemas/Email'
-        phone:
-          $ref: '#/components/schemas/NonEmptyString'
-        mobile:
-          $ref: '#/components/schemas/NonEmptyString'
-        fax:
-          $ref: '#/components/schemas/NonEmptyString'
-    Quantity:
+    Width:
+      description: Width in centimeter with up to 1 decimal place
+      allOf:
+      - $ref: '#/components/schemas/Dimension'
+    Dimension:
       required:
-      - amount
-      - unit
+      - amountInCentimeter
       type: object
       properties:
-        amount:
-          minimum: 0
+        amountInCentimeter:
+          multipleOf: 0.1
+          maximum: 999999
+          minimum: 0.1
+          type: number
+          format: decimal
+    BookingNumber:
+      maxLength: 12
+      minLength: 12
+      type: string
+      example: CN1234567890
+    BookingCreated:
+      required:
+      - bookingNumber
+      - processStateId
+      type: object
+      properties:
+        bookingNumber:
+          $ref: '#/components/schemas/BookingNumber'
+        processStateId:
+          $ref: '#/components/schemas/ProcessStateId'
+      description: 'BookingCreated confirms that the booking is created. Further asynchronous operations like the
+
+        order line allocation are scheduled for the booking. It identifies the booking and the request regarding that booking.
+
+        '
+    Volume:
+      required:
+      - amountInCubicMeter
+      type: object
+      properties:
+        amountInCubicMeter:
+          multipleOf: 0.001
+          maximum: 99999
+          minimum: 0.001
+          type: number
+          format: decimal
+      description: Volume in cubic meter
+    BookingAccepted:
+      required:
+      - bookingNumber
+      - processStateId
+      type: object
+      properties:
+        bookingNumber:
+          $ref: '#/components/schemas/BookingNumber'
+        processStateId:
+          $ref: '#/components/schemas/ProcessStateId'
+      description: 'BookingAccepted is a positive confirmation of an asynchronous booking
+
+        related request. It identifies the booking and the request regarding
+
+        that booking.
+
+        '
+    ProcessStateId:
+      type: string
+      description: Unique identifier of the requested operation
+      format: uuid
+      example: 930f1d05-5be4-4496-bb2b-3f40e60b3749
+    Problem:
+      required:
+      - detail
+      - title
+      type: object
+      properties:
+        type:
+          type: string
+          description: 'A URI reference that uniquely identifies the problem type only in the context of the provided API. Opposed to the specification in RFC-7807, it is neither recommended to be dereferencable and point to a human-readable documentation nor globally unique for the problem type.
+
+            '
+          format: uri-reference
+          example: /problem/connection-error
+          default: about:blank
+        title:
+          type: string
+          description: 'A short summary of the problem type. Written in English and readable for engineers, usually not suited for non technical stakeholders and not localized.
+
+            '
+          example: Service Unavailable
+        status:
+          minimum: 100
           type: integer
+          description: 'The HTTP status code generated by the origin server for this occurrence of the problem.
+
+            '
           format: int32
-        unit:
-          maxLength: 10
-          minLength: 1
+          example: 503
+          exclusiveMaximum: 600
+        detail:
           type: string
-    TermsOfTrade:
+          description: 'A human readable explanation specific to this occurrence of the problem that is helpful to locate the problem and give advice on how to proceed. Written in English and readable for engineers, usually not suited for non technical stakeholders and not localized.
+
+            '
+          example: Connection to database timed out
+        instance:
+          type: string
+          description: 'A URI reference that identifies the specific occurrence of the problem, e.g. by adding a fragment identifier or sub-path to the problem type. May be used to locate the root of this problem in the source code.
+
+            '
+          format: uri-reference
+          example: /problem/connection-error#token-info-read-timed-out
+    AdditionalParty:
       type: object
       properties:
-        incoterm:
-          $ref: '#/components/schemas/Incoterm'
-        location:
-          maxLength: 35
-          minLength: 1
-          type: string
-          description: Specifies the location where the incoterm standards are applied
-    Parties:
-      required:
-      - customer
-      - supplier
-      type: object
-      properties:
-        customer:
-          $ref: '#/components/schemas/BusinessParty'
-        supplier:
-          $ref: '#/components/schemas/BusinessParty'
-        factory:
-          $ref: '#/components/schemas/BusinessParty'
-        additionalParties:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/AdditionalParty'
-    Incoterm:
-      pattern: ^CFR|CIF|CIP|CPT|CTO|DAF|DAP|DAT|DCT|DDP|DDU|DEQ|DES|DIC|DIT|DPU|EXQ|EXW|FAS|FCA|FOB|FOC|FOT|PRC|PUO$
-      type: string
-      description: Internationally recognized delivery terms for commercial contracts published by the ICC
+        partyCode:
+          $ref: '#/components/schemas/NonEmptyString'
+        address:
+          $ref: '#/components/schemas/OrderAddress'
+        contactInformation:
+          minItems: 0
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactInformation'
     ItemAttributes:
       type: object
       properties:
@@ -1144,15 +1336,160 @@ components:
           $ref: '#/components/schemas/NonEmptyString'
         countryOfOrigin:
           $ref: '#/components/schemas/CountryCode'
-    CountryCode:
-      pattern: ^AD|AE|AF|AG|AI|AL|AM|AO|AQ|AR|AS|AT|AU|AW|AX|AZ|BA|BB|BD|BE|BF|BG|BH|BI|BJ|BL|BM|BN|BO|BQ|BR|BS|BT|BV|BW|BY|BZ|CA|CC|CD|CF|CG|CH|CI|CK|CL|CM|CN|CO|CR|CU|CV|CW|CX|CY|CZ|DE|DJ|DK|DM|DO|DZ|EC|EE|EG|EH|ER|ES|ET|FI|FJ|FK|FM|FO|FR|GA|GB|GD|GE|GF|GG|GH|GI|GL|GM|GN|GP|GQ|GR|GS|GT|GU|GW|GY|HK|HM|HN|HR|HT|HU|IC|ID|IE|IL|IM|IN|IO|IQ|IR|IS|IT|JE|JM|JO|JP|KE|KG|KH|KI|KM|KN|KP|KR|KW|KY|KZ|LA|LB|LC|LI|LK|LR|LS|LT|LU|LV|LY|MA|MC|MD|ME|MF|MG|MH|MK|ML|MM|MN|MO|MP|MQ|MR|MS|MT|MU|MV|MW|MX|MY|MZ|NA|NC|NE|NF|NG|NI|NL|NO|NP|NR|NU|NZ|OM|PA|PE|PF|PG|PH|PK|PL|PM|PN|PR|PS|PT|PW|PY|QA|RE|RO|RS|RU|RW|SA|SB|SC|SD|SE|SG|SH|SI|SJ|SK|SL|SM|SN|SO|SR|SS|ST|SV|SX|SY|SZ|TC|TD|TF|TG|TH|TJ|TK|TL|TM|TN|TO|TR|TT|TV|TW|TZ|UA|UG|UM|US|UY|UZ|VA|VC|VE|VG|VI|VN|VU|WF|WS|XK|YE|YT|ZA|ZM|ZW$
+    PostalAddress:
+      type: object
+      properties:
+        address1:
+          maxLength: 255
+          minLength: 1
+          type: string
+        address2:
+          maxLength: 255
+          minLength: 1
+          type: string
+        zipCode:
+          maxLength: 12
+          minLength: 1
+          type: string
+        city:
+          maxLength: 255
+          minLength: 1
+          type: string
+        countryCode:
+          $ref: '#/components/schemas/CountryCode'
+    PurchaseOrderLineAllocation:
+      required:
+      - orderLine
+      - packageInformation
+      - quantity
+      type: object
+      properties:
+        orderLine:
+          $ref: '#/components/schemas/OrderAttributes'
+        quantity:
+          $ref: '#/components/schemas/Quantity'
+        packageInformation:
+          $ref: '#/components/schemas/PackageInformation'
+    ReferenceDataPerAddressTypeCode:
+      required:
+      - addressTypeCode
+      - referenceCodeToValue
+      type: object
+      properties:
+        addressTypeCode:
+          $ref: '#/components/schemas/AddressTypeCode'
+        referenceCodeToValue:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/NonEmptyString'
+      description: 'ReferenceDataPerAddressTypeCode allows the user to store arbitrary key/values pairs where
+
+        keys and values are strings.
+
+        '
+    DateWindow:
+      type: object
+      properties:
+        startDate:
+          $ref: '#/components/schemas/Date'
+        endDate:
+          $ref: '#/components/schemas/Date'
+    Weight:
+      required:
+      - amountInKilogram
+      type: object
+      properties:
+        amountInKilogram:
+          multipleOf: 0.01
+          maximum: 999999
+          minimum: 0.01
+          type: number
+          format: decimal
+      description: Weight in kilogram
+    Incoterm:
+      pattern: ^CFR|CIF|CIP|CPT|CTO|DAF|DAP|DAT|DCT|DDP|DDU|DEQ|DES|DIC|DIT|DPU|EXQ|EXW|FAS|FCA|FOB|FOC|FOT|PRC|PUO$
       type: string
-      format: iso-3166
-      example: DE
-    ShippersReference:
-      maxLength: 35
-      minLength: 1
-      type: string
+      description: Internationally recognized delivery terms for commercial contracts published by the ICC
+    PackageInformation:
+      type: object
+      properties:
+        weight:
+          $ref: '#/components/schemas/Weight'
+        volume:
+          $ref: '#/components/schemas/Volume'
+        packages:
+          $ref: '#/components/schemas/Packages'
+        height:
+          $ref: '#/components/schemas/Height'
+        width:
+          $ref: '#/components/schemas/Width'
+        length:
+          $ref: '#/components/schemas/Length'
+        containerNumber:
+          $ref: '#/components/schemas/ContainerNumber'
+        containerLoadingSequence:
+          $ref: '#/components/schemas/PositiveInteger'
+    Money:
+      required:
+      - amount
+      type: object
+      properties:
+        amount:
+          minimum: 0
+          type: number
+          format: decimal
+        currency:
+          pattern: '[A-Z]{3}'
+          type: string
+          format: iso-4217
+    Quantity:
+      required:
+      - amount
+      - unit
+      type: object
+      properties:
+        amount:
+          minimum: 0
+          type: integer
+          format: int32
+        unit:
+          maxLength: 10
+          minLength: 1
+          type: string
+    Height:
+      description: Height in centimeter with up to 1 decimal place
+      allOf:
+      - $ref: '#/components/schemas/Dimension'
+    CargoInformation:
+      type: object
+      properties:
+        dangerousGoods:
+          type: boolean
+          description: Indicates if the freight contains dangerous goods
+        batteries:
+          type: boolean
+          description: Indicates if the freight contains batteries
+        batteriesRemarks:
+          maxLength: 1024
+          minLength: 1
+          type: string
+          description: Further details for the contained batteries
+        woodenPackagingMaterial:
+          type: boolean
+          description: Indicates if the freight contains wooden packaging material
+    OrderAddress:
+      allOf:
+      - $ref: '#/components/schemas/Address_2'
+      - type: object
+        properties:
+          state:
+            $ref: '#/components/schemas/NonEmptyString'
+          stateCode:
+            $ref: '#/components/schemas/NonEmptyString'
+          postBox:
+            $ref: '#/components/schemas/NonEmptyString'
+          identifier:
+            $ref: '#/components/schemas/NonEmptyString'
     OrderAttributes:
       properties:
         orderIdentification:
@@ -1500,236 +1837,35 @@ components:
           description: 'This section of order attributes contains the customer specific order attributes as defined by the customer''s order configuration.
 
             '
-    BookingAccepted:
-      required:
-      - bookingNumber
-      - processStateId
-      type: object
-      properties:
-        bookingNumber:
-          $ref: '#/components/schemas/BookingNumber'
-        processStateId:
-          $ref: '#/components/schemas/ProcessStateId'
-      description: 'BookingAccepted is a positive confirmation of an asynchronous booking
-
-        related request. It identifies the booking and the request regarding
-
-        that booking.
-
-        '
-    Problem:
-      required:
-      - detail
-      - title
-      type: object
-      properties:
-        type:
-          type: string
-          description: 'A URI reference that uniquely identifies the problem type only in the context of the provided API. Opposed to the specification in RFC-7807, it is neither recommended to be dereferencable and point to a human-readable documentation nor globally unique for the problem type.
-
-            '
-          format: uri-reference
-          example: /problem/connection-error
-          default: about:blank
-        title:
-          type: string
-          description: 'A short summary of the problem type. Written in English and readable for engineers, usually not suited for non technical stakeholders and not localized.
-
-            '
-          example: Service Unavailable
-        status:
-          minimum: 100
-          type: integer
-          description: 'The HTTP status code generated by the origin server for this occurrence of the problem.
-
-            '
-          format: int32
-          example: 503
-          exclusiveMaximum: 600
-        detail:
-          type: string
-          description: 'A human readable explanation specific to this occurrence of the problem that is helpful to locate the problem and give advice on how to proceed. Written in English and readable for engineers, usually not suited for non technical stakeholders and not localized.
-
-            '
-          example: Connection to database timed out
-        instance:
-          type: string
-          description: 'A URI reference that identifies the specific occurrence of the problem, e.g. by adding a fragment identifier or sub-path to the problem type. May be used to locate the root of this problem in the source code.
-
-            '
-          format: uri-reference
-          example: /problem/connection-error#token-info-read-timed-out
-    Weight:
-      required:
-      - amountInKilogram
-      type: object
-      properties:
-        amountInKilogram:
-          multipleOf: 0.01
-          maximum: 999999
-          minimum: 0.01
-          type: number
-          format: decimal
-      description: Weight in kilogram
-    Width:
-      description: Width in centimeter with up to 1 decimal place
-      allOf:
-      - $ref: '#/components/schemas/Dimension'
-    PostalAddress:
-      type: object
-      properties:
-        address1:
-          maxLength: 255
-          minLength: 1
-          type: string
-        address2:
-          maxLength: 255
-          minLength: 1
-          type: string
-        zipCode:
-          maxLength: 12
-          minLength: 1
-          type: string
-        city:
-          maxLength: 255
-          minLength: 1
-          type: string
-        countryCode:
-          $ref: '#/components/schemas/CountryCode'
-    SupplierCode:
-      maxLength: 70
-      minLength: 1
+    Email:
       type: string
-      description: Unique identifier assigned to a supplier
-    Length:
-      description: Length in centimeter with up to 1 decimal place
-      allOf:
-      - $ref: '#/components/schemas/Dimension'
-    ReferenceDataPerAddressTypeCode:
+      format: email
+    CountryCode:
+      pattern: ^AD|AE|AF|AG|AI|AL|AM|AO|AQ|AR|AS|AT|AU|AW|AX|AZ|BA|BB|BD|BE|BF|BG|BH|BI|BJ|BL|BM|BN|BO|BQ|BR|BS|BT|BV|BW|BY|BZ|CA|CC|CD|CF|CG|CH|CI|CK|CL|CM|CN|CO|CR|CU|CV|CW|CX|CY|CZ|DE|DJ|DK|DM|DO|DZ|EC|EE|EG|EH|ER|ES|ET|FI|FJ|FK|FM|FO|FR|GA|GB|GD|GE|GF|GG|GH|GI|GL|GM|GN|GP|GQ|GR|GS|GT|GU|GW|GY|HK|HM|HN|HR|HT|HU|IC|ID|IE|IL|IM|IN|IO|IQ|IR|IS|IT|JE|JM|JO|JP|KE|KG|KH|KI|KM|KN|KP|KR|KW|KY|KZ|LA|LB|LC|LI|LK|LR|LS|LT|LU|LV|LY|MA|MC|MD|ME|MF|MG|MH|MK|ML|MM|MN|MO|MP|MQ|MR|MS|MT|MU|MV|MW|MX|MY|MZ|NA|NC|NE|NF|NG|NI|NL|NO|NP|NR|NU|NZ|OM|PA|PE|PF|PG|PH|PK|PL|PM|PN|PR|PS|PT|PW|PY|QA|RE|RO|RS|RU|RW|SA|SB|SC|SD|SE|SG|SH|SI|SJ|SK|SL|SM|SN|SO|SR|SS|ST|SV|SX|SY|SZ|TC|TD|TF|TG|TH|TJ|TK|TL|TM|TN|TO|TR|TT|TV|TW|TZ|UA|UG|UM|US|UY|UZ|VA|VC|VE|VG|VI|VN|VU|WF|WS|XK|YE|YT|ZA|ZM|ZW$
+      type: string
+      format: iso-3166
+      example: DE
+    CustomerCode:
+      pattern: ^[A-Z]{5}[0-9]{2}$
+      type: string
+      description: Unique identifier assigned to a customer
+      example: DEHAM01
+    Parties:
       required:
-      - addressTypeCode
-      - referenceCodeToValue
+      - customer
+      - supplier
       type: object
       properties:
-        addressTypeCode:
-          $ref: '#/components/schemas/AddressTypeCode'
-        referenceCodeToValue:
+        customer:
+          $ref: '#/components/schemas/BusinessParty'
+        supplier:
+          $ref: '#/components/schemas/BusinessParty'
+        factory:
+          $ref: '#/components/schemas/BusinessParty'
+        additionalParties:
           type: object
           additionalProperties:
-            $ref: '#/components/schemas/NonEmptyString'
-      description: 'ReferenceDataPerAddressTypeCode allows the user to store arbitrary key/values pairs where
-
-        keys and values are strings.
-
-        '
-    MediumLengthString:
-      maxLength: 255
-      minLength: 1
-      type: string
-    Packages:
-      required:
-      - amount
-      - packageType
-      type: object
-      properties:
-        amount:
-          maximum: 999999
-          minimum: 1
-          type: integer
-          format: int32
-        packageType:
-          pattern: BAG|BAR|BLK|BOX|CRT|CTN|IBC|PKG|PLT|SLP
-          type: string
-          description: 'Package types: Bag (bag), Bar (bar), Bulk Grain (blk), Box (box), Carton (ctn),
-
-            Intermediate Bulk Container (ibc), Package (pkg), Pallet (plt), Slip Sheet (slp)
-
-            '
-    Volume:
-      required:
-      - amountInCubicMeter
-      type: object
-      properties:
-        amountInCubicMeter:
-          multipleOf: 0.001
-          maximum: 99999
-          minimum: 0.001
-          type: number
-          format: decimal
-      description: Volume in cubic meter
-    AddressTypeCode:
-      maxLength: 3
-      minLength: 2
-      type: string
-    Date:
-      type: string
-      format: date
-    AdditionalParty:
-      type: object
-      properties:
-        partyCode:
-          $ref: '#/components/schemas/NonEmptyString'
-        address:
-          $ref: '#/components/schemas/OrderAddress'
-        contactInformation:
-          minItems: 0
-          type: array
-          items:
-            $ref: '#/components/schemas/ContactInformation'
-    Money:
-      required:
-      - amount
-      type: object
-      properties:
-        amount:
-          minimum: 0
-          type: number
-          format: decimal
-        currency:
-          pattern: '[A-Z]{3}'
-          type: string
-          format: iso-4217
-    BookingNumber:
-      maxLength: 12
-      minLength: 12
-      type: string
-      example: CN1234567890
-    PackageInformation:
-      type: object
-      properties:
-        weight:
-          $ref: '#/components/schemas/Weight'
-        volume:
-          $ref: '#/components/schemas/Volume'
-        packages:
-          $ref: '#/components/schemas/Packages'
-        height:
-          $ref: '#/components/schemas/Height'
-        width:
-          $ref: '#/components/schemas/Width'
-        length:
-          $ref: '#/components/schemas/Length'
-        containerNumber:
-          $ref: '#/components/schemas/ContainerNumber'
-        containerLoadingSequence:
-          $ref: '#/components/schemas/PositiveInteger'
-    CargoInformation:
-      type: object
-      properties:
-        dangerousGoods:
-          type: boolean
-          description: Indicates if the freight contains dangerous goods
-        batteries:
-          type: boolean
-          description: Indicates if the freight contains batteries
-        batteriesRemarks:
-          maxLength: 1024
-          minLength: 1
-          type: string
-          description: Further details for the contained batteries
-        woodenPackagingMaterial:
-          type: boolean
-          description: Indicates if the freight contains wooden packaging material
+            $ref: '#/components/schemas/AdditionalParty'
     ItemIdentificationAttributes:
       type: object
       properties:
@@ -1767,124 +1903,6 @@ components:
           $ref: '#/components/schemas/NonEmptyString'
         universalProductCode:
           $ref: '#/components/schemas/NonEmptyString'
-    OrderIdentificationKeyAttributes:
-      type: object
-      properties:
-        purchaseOrderDate:
-          $ref: '#/components/schemas/Date'
-        orderNumber:
-          $ref: '#/components/schemas/NonEmptyString'
-        orderDate:
-          $ref: '#/components/schemas/Date'
-        invoiceNumber:
-          $ref: '#/components/schemas/NonEmptyString'
-        invoiceDate:
-          $ref: '#/components/schemas/Date'
-        shipmentId:
-          $ref: '#/components/schemas/NonEmptyString'
-        shipmentDate:
-          $ref: '#/components/schemas/Date'
-        contractNumber:
-          $ref: '#/components/schemas/NonEmptyString'
-        contractDate:
-          $ref: '#/components/schemas/Date'
-        salesOrderNumber:
-          $ref: '#/components/schemas/NonEmptyString'
-        salesOrderDate:
-          $ref: '#/components/schemas/Date'
-        deliveryNoteNumber:
-          $ref: '#/components/schemas/NonEmptyString'
-        deliveryNoteDate:
-          $ref: '#/components/schemas/Date'
-        warehouseReceiptNumber:
-          $ref: '#/components/schemas/NonEmptyString'
-        warehouseReceiptDate:
-          $ref: '#/components/schemas/Date'
-        commercialInvoiceNumber:
-          $ref: '#/components/schemas/NonEmptyString'
-        commercialInvoiceDate:
-          $ref: '#/components/schemas/Date'
-        packingListNumber:
-          $ref: '#/components/schemas/NonEmptyString'
-        packingListDate:
-          $ref: '#/components/schemas/Date'
-        deliveryTicketNumber:
-          $ref: '#/components/schemas/NonEmptyString'
-        deliveryTicketDate:
-          $ref: '#/components/schemas/Date'
-        proformaInvoiceNumber:
-          $ref: '#/components/schemas/NonEmptyString'
-        proformaInvoiceDate:
-          $ref: '#/components/schemas/Date'
-        transactionId:
-          $ref: '#/components/schemas/NonEmptyString'
-        transactionDate:
-          $ref: '#/components/schemas/Date'
-        orderReleaseNumber:
-          $ref: '#/components/schemas/NonEmptyString'
-        orderReleaseDate:
-          $ref: '#/components/schemas/Date'
-        raisedBy:
-          $ref: '#/components/schemas/NonEmptyString'
-        supplierReference:
-          $ref: '#/components/schemas/NonEmptyString'
-        workOrderNumber:
-          $ref: '#/components/schemas/NonEmptyString'
-        proformaOrderNumber:
-          $ref: '#/components/schemas/NonEmptyString'
-        allocationNumber:
-          $ref: '#/components/schemas/NonEmptyString'
-        supplierOrderNumber:
-          $ref: '#/components/schemas/NonEmptyString'
-    LetterOfCredit:
-      type: object
-      properties:
-        letterOfCreditNumber:
-          maxLength: 35
-          minLength: 1
-          type: string
-          description: Unique identification number associated with the letter of credit
-        letterOfCreditExpiryDate:
-          type: string
-          description: Denotes the date on which the letter of credit expires
-          format: date
-      description: Financial instrument guaranteeing payment to the exporter upon satisfactory delivery of goods
-    Integer:
-      type: integer
-      format: int32
-    Dimension:
-      required:
-      - amountInCentimeter
-      type: object
-      properties:
-        amountInCentimeter:
-          multipleOf: 0.1
-          maximum: 999999
-          minimum: 0.1
-          type: number
-          format: decimal
-    DateTime:
-      type: string
-      format: date-time
-    PurchaseOrderLineAllocation:
-      required:
-      - orderLine
-      - packageInformation
-      - quantity
-      type: object
-      properties:
-        orderLine:
-          $ref: '#/components/schemas/OrderAttributes'
-        quantity:
-          $ref: '#/components/schemas/Quantity'
-        packageInformation:
-          $ref: '#/components/schemas/PackageInformation'
-    ContainerNumber:
-      maxLength: 11
-      minLength: 1
-      pattern: ^[A-Za-z]{3}[A-Za-z][0-9]{7}$|^[0-9]{1,3}$
-      type: string
-      example: ABCU1234567
     PurchaseOrder:
       required:
       - parties
@@ -1902,107 +1920,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/PurchaseOrderLineAllocation'
-    OrderAddress:
-      allOf:
-      - $ref: '#/components/schemas/Address_2'
-      - type: object
-        properties:
-          state:
-            $ref: '#/components/schemas/NonEmptyString'
-          stateCode:
-            $ref: '#/components/schemas/NonEmptyString'
-          postBox:
-            $ref: '#/components/schemas/NonEmptyString'
-          identifier:
-            $ref: '#/components/schemas/NonEmptyString'
-    CustomerCode:
-      pattern: ^[A-Z]{5}[0-9]{2}$
-      type: string
-      description: Unique identifier assigned to a customer
-      example: DEHAM01
   examples:
-    BookingRequestExampleAA:
-      summary: Airport to airport booking request
-      value:
-        origin:
-          sellerAddress:
-            name: Dummy customer Inc.
-            street: Baoan South Road
-            city: Shenzhen
-            countryCode: CN
-            postalCode: '518001'
-          exportAvailabilityTime: '2021-03-02T10:00:00.000Z'
-          airportCode: SZX
-        destination:
-          buyerAddress:
-            name: Another dummy customer Inc.
-            street: Avenue Vincent Negrel
-            city: La Cadière-dAzur
-            countryCode: FR
-            postalCode: '83740'
-          airportCode: MRS
-        cargo:
-          description: A lot of chairs
-          numberOfPieces: 42
-          shippersLoadAndCount: 42
-          dimensions:
-          - numberOfPieces: 42
-            heightInCentimeter: 100
-            lengthInCentimeter: 200
-            widthInCentimeter: 100
-          weightInKilogram: 150
-          volumeInCubicMeter: 8.4
-          isDangerousGoods: false
-        commercialInvoiceAmount:
-          amount: 10000
-          currency: EUR
-        incoterm: EXW
-        product: GEN-PX
-        insuranceAmount:
-          amount: 5000
-          currency: EUR
-        customsClearanceByKn: false
-    BookingRequestExampleAAWithPriceReference:
-      summary: Airport to airport booking request with a previously quoted priceReference
-      value:
-        priceReference: d412607a-16b4-4ab3-821f-52e282152c26
-        origin:
-          sellerAddress:
-            name: Dummy customer Inc.
-            street: Baoan South Road
-            city: Shenzhen
-            countryCode: CN
-            postalCode: '518001'
-          exportAvailabilityTime: '2021-03-02T10:00:00.000Z'
-          airportCode: SZX
-        destination:
-          buyerAddress:
-            name: Another dummy customer Inc.
-            street: Avenue Vincent Negrel
-            city: La Cadière-dAzur
-            countryCode: FR
-            postalCode: '83740'
-          airportCode: MRS
-        cargo:
-          description: A lot of chairs
-          numberOfPieces: 42
-          shippersLoadAndCount: 42
-          dimensions:
-          - numberOfPieces: 42
-            heightInCentimeter: 100
-            lengthInCentimeter: 200
-            widthInCentimeter: 100
-          weightInKilogram: 150
-          volumeInCubicMeter: 8.4
-          isDangerousGoods: false
-        commercialInvoiceAmount:
-          amount: 10000
-          currency: EUR
-        incoterm: EXW
-        insuranceAmount:
-          amount: 5000
-          currency: EUR
-        customsClearanceByKn: false
     Error500Example:
       summary: 500 - Internal Server Error
       value:
@@ -2017,44 +1935,6 @@ components:
         title: Booking not found
         status: 404
         detail: 'Booking not found for Tracking Number: %TrackingNumber%'
-    Error400Example2:
-      summary: 400 - Validation error
-      value:
-        type: /problem/validation
-        title: Validation failed
-        status: 400
-        detail: Some validation errors occurred. Please amend your request.
-        errors:
-        - type: /problem/validation/invalid-parameter
-          title: Invalid parameter
-          instance: /request/booking
-          detail: Update request cannot be processed because affected Shipment couldn’t be determined
-        - type: /problem/validation/invalid-parameter
-          title: Invalid parameter
-          instance: request/sender
-          detail: Sender Information could not be determined.
-    Error503Example:
-      summary: 503 - Service Unavailable
-      value:
-        type: problem/service-unavailable
-        title: Service is unavailable
-        status: 503
-        detail: System(s) unavailable. Please try again later.
-    Error400Example1:
-      summary: 400 - Validation error
-      value:
-        type: /problem/validation/invalid-parameter
-        title: Invalid parameter
-        status: 400
-        instance: /request/booking
-        detail: Update request cannot be processed because affected Shipment couldn’t be determined
-    Error401Example:
-      summary: 401 - Unauthorized
-      value:
-        type: problem/unauthorized
-        title: Customer is not authorized
-        status: 401
-        detail: The customer is not authorized to make this request
     BookingRequestExampleDD:
       summary: Door to door booking request
       value:
@@ -2135,7 +2015,137 @@ components:
           amount: 5000
           currency: EUR
         customsClearanceByKn: false
+    Error401Example:
+      summary: 401 - Unauthorized
+      value:
+        type: problem/unauthorized
+        title: Customer is not authorized
+        status: 401
+        detail: The customer is not authorized to make this request
+    Error503Example:
+      summary: 503 - Service Unavailable
+      value:
+        type: problem/service-unavailable
+        title: Service is unavailable
+        status: 503
+        detail: System(s) unavailable. Please try again later.
+    Error400Example2:
+      summary: 400 - Validation error
+      value:
+        type: /problem/validation
+        title: Validation failed
+        status: 400
+        detail: Some validation errors occurred. Please amend your request.
+        errors:
+        - type: /problem/validation/invalid-parameter
+          title: Invalid parameter
+          instance: /request/booking
+          detail: Update request cannot be processed because affected Shipment couldn’t be determined
+        - type: /problem/validation/invalid-parameter
+          title: Invalid parameter
+          instance: request/sender
+          detail: Sender Information could not be determined.
+    BookingRequestExampleAAWithPriceReference:
+      summary: Airport to airport booking request with a previously quoted priceReference
+      value:
+        priceReference: d412607a-16b4-4ab3-821f-52e282152c26
+        origin:
+          sellerAddress:
+            name: Dummy customer Inc.
+            street: Baoan South Road
+            city: Shenzhen
+            countryCode: CN
+            postalCode: '518001'
+          exportAvailabilityTime: '2021-03-02T10:00:00.000Z'
+          airportCode: SZX
+        destination:
+          buyerAddress:
+            name: Another dummy customer Inc.
+            street: Avenue Vincent Negrel
+            city: La Cadière-dAzur
+            countryCode: FR
+            postalCode: '83740'
+          airportCode: MRS
+        cargo:
+          description: A lot of chairs
+          numberOfPieces: 42
+          shippersLoadAndCount: 42
+          dimensions:
+          - numberOfPieces: 42
+            heightInCentimeter: 100
+            lengthInCentimeter: 200
+            widthInCentimeter: 100
+          weightInKilogram: 150
+          volumeInCubicMeter: 8.4
+          isDangerousGoods: false
+        commercialInvoiceAmount:
+          amount: 10000
+          currency: EUR
+        incoterm: EXW
+        insuranceAmount:
+          amount: 5000
+          currency: EUR
+        customsClearanceByKn: false
+    Error400Example1:
+      summary: 400 - Validation error
+      value:
+        type: /problem/validation/invalid-parameter
+        title: Invalid parameter
+        status: 400
+        instance: /request/booking
+        detail: Update request cannot be processed because affected Shipment couldn’t be determined
+    BookingRequestExampleAA:
+      summary: Airport to airport booking request
+      value:
+        origin:
+          sellerAddress:
+            name: Dummy customer Inc.
+            street: Baoan South Road
+            city: Shenzhen
+            countryCode: CN
+            postalCode: '518001'
+          exportAvailabilityTime: '2021-03-02T10:00:00.000Z'
+          airportCode: SZX
+        destination:
+          buyerAddress:
+            name: Another dummy customer Inc.
+            street: Avenue Vincent Negrel
+            city: La Cadière-dAzur
+            countryCode: FR
+            postalCode: '83740'
+          airportCode: MRS
+        cargo:
+          description: A lot of chairs
+          numberOfPieces: 42
+          shippersLoadAndCount: 42
+          dimensions:
+          - numberOfPieces: 42
+            heightInCentimeter: 100
+            lengthInCentimeter: 200
+            widthInCentimeter: 100
+          weightInKilogram: 150
+          volumeInCubicMeter: 8.4
+          isDangerousGoods: false
+        commercialInvoiceAmount:
+          amount: 10000
+          currency: EUR
+        incoterm: EXW
+        product: GEN-PX
+        insuranceAmount:
+          amount: 5000
+          currency: EUR
+        customsClearanceByKn: false
   parameters:
+    trackingNumberParam:
+      name: trackingNumber
+      in: query
+      description: The tracking number of a specific KN shipment
+      required: false
+      style: form
+      explode: true
+      schema:
+        type: integer
+        format: int64
     uniqueReferenceParam:
       name: uniqueReference
       in: query
@@ -2147,16 +2157,6 @@ components:
         maxLength: 35
         minLength: 1
         type: string
-    trackingNumberParam:
-      name: trackingNumber
-      in: query
-      description: The tracking number of a specific KN shipment
-      required: false
-      style: form
-      explode: true
-      schema:
-        type: integer
-        format: int64
     ShippersReferenceParam:
       name: shippersReference
       in: path

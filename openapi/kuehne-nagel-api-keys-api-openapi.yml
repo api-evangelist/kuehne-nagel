@@ -536,30 +536,45 @@ paths:
       x-throttling-tier: Unlimited
 components:
   schemas:
-    Body_get_api_key_v2_workspaces_api_keys__key_id__get:
+    Body_create_api_key_v3_v3_workspaces__workspace_id__api_keys_post:
       type: object
       properties:
-        workspace:
+        key_description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Key Description
+        expires_in_days:
+          type: integer
+          default: 90
+          title: Expires In Days
+      title: Body_create_api_key_v3_v3_workspaces__workspace_id__api_keys_post
+    ValidationError:
+      type: object
+      properties:
+        loc:
+          type: array
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+        msg:
           type: string
-          default: ''
-          title: Workspace
-      title: Body_get_api_key_v2_workspaces_api_keys__key_id__get
-    Body_delete_api_key_v2_workspaces_api_keys__key_id__delete:
-      type: object
-      properties:
-        workspace:
+          title: Message
+        type:
           type: string
-          default: ''
-          title: Workspace
-      title: Body_delete_api_key_v2_workspaces_api_keys__key_id__delete
-    Body_delete_api_key_v3_v3_workspaces__workspace_id__api_keys__key_id__delete:
-      type: object
-      properties:
-        hard_delete:
-          type: boolean
-          default: false
-          title: Hard Delete
-      title: Body_delete_api_key_v3_v3_workspaces__workspace_id__api_keys__key_id__delete
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     DeleteApiKeyResponse:
       type: object
       description: Response model for API key deletion.
@@ -575,28 +590,6 @@ components:
       - api_key_id
       - success
       title: DeleteApiKeyResponse
-    HTTPValidationError:
-      type: object
-      properties:
-        detail:
-          type: array
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-      title: HTTPValidationError
-    Body_create_api_key_v2_workspaces_api_keys__post:
-      type: object
-      properties:
-        workspace:
-          type: string
-          default: ''
-          title: Workspace
-        key_description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Key Description
-      title: Body_create_api_key_v2_workspaces_api_keys__post
     ApiKeyResponse:
       type: object
       properties:
@@ -651,45 +644,44 @@ components:
           - type: 'null'
           title: Key Description
       title: Body_update_api_key_v2_workspaces_api_keys__key_id__patch
-    Body_create_api_key_v3_v3_workspaces__workspace_id__api_keys_post:
+    Body_delete_api_key_v2_workspaces_api_keys__key_id__delete:
       type: object
       properties:
+        workspace:
+          type: string
+          default: ''
+          title: Workspace
+      title: Body_delete_api_key_v2_workspaces_api_keys__key_id__delete
+    HTTPValidationError:
+      type: object
+      properties:
+        detail:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+      title: HTTPValidationError
+    Body_create_api_key_v2_workspaces_api_keys__post:
+      type: object
+      properties:
+        workspace:
+          type: string
+          default: ''
+          title: Workspace
         key_description:
           anyOf:
           - type: string
           - type: 'null'
           title: Key Description
-        expires_in_days:
-          type: integer
-          default: 90
-          title: Expires In Days
-      title: Body_create_api_key_v3_v3_workspaces__workspace_id__api_keys_post
-    ValidationError:
+      title: Body_create_api_key_v2_workspaces_api_keys__post
+    Body_get_api_key_v2_workspaces_api_keys__key_id__get:
       type: object
       properties:
-        loc:
-          type: array
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          title: Location
-        msg:
+        workspace:
           type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+          default: ''
+          title: Workspace
+      title: Body_get_api_key_v2_workspaces_api_keys__key_id__get
     Body_rotate_api_key_v3_v3_workspaces__workspace_id__api_keys__key_id__rotate_post:
       type: object
       properties:
@@ -703,6 +695,14 @@ components:
           default: 90
           title: Expires In Days
       title: Body_rotate_api_key_v3_v3_workspaces__workspace_id__api_keys__key_id__rotate_post
+    Body_delete_api_key_v3_v3_workspaces__workspace_id__api_keys__key_id__delete:
+      type: object
+      properties:
+        hard_delete:
+          type: boolean
+          default: false
+          title: Hard Delete
+      title: Body_delete_api_key_v3_v3_workspaces__workspace_id__api_keys__key_id__delete
   securitySchemes:
     default:
       type: oauth2

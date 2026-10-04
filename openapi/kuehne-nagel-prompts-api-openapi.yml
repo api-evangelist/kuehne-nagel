@@ -622,38 +622,6 @@ paths:
       x-throttling-tier: Unlimited
 components:
   schemas:
-    Body_update_prompt_v3_workspaces__workspace_id__prompts__prompt_id__put:
-      type: object
-      properties:
-        prompt_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          description: Updated prompt name. Leave empty to keep unchanged.
-          example: ''
-          title: Prompt Name
-        prompt_content:
-          anyOf:
-          - type: string
-          - type: 'null'
-          description: Updated prompt text. Leave empty to keep unchanged.
-          example: ''
-          title: Prompt Content
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          description: Updated description. Leave empty to keep unchanged.
-          example: ''
-          title: Description
-        schema_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          description: Updated schema ID (UUID) to associate with this prompt. Use 'NO_SCHEMA' (case-insensitive) to detach any existing schema. Leave empty to keep existing schema unchanged.
-          example: ''
-          title: Schema Id
-      title: Body_update_prompt_v3_workspaces__workspace_id__prompts__prompt_id__put
     ModelType:
       type: string
       enum:
@@ -699,38 +667,66 @@ components:
       - msg
       - type
       title: ValidationError
-    Body_update_prompt_api_key_v3_api_key_auth_workspaces__workspace_id__prompts__prompt_id__put:
+    FileMetadata:
       type: object
       properties:
-        prompt_name:
+        uuid:
           anyOf:
           - type: string
           - type: 'null'
-          description: Updated prompt name. Leave empty to keep unchanged.
-          example: ''
-          title: Prompt Name
-        prompt_content:
+          title: Uuid
+        request_id:
           anyOf:
           - type: string
           - type: 'null'
-          description: Updated prompt text. Leave empty to keep unchanged.
-          example: ''
-          title: Prompt Content
-        description:
+          title: Request Id
+        model_type:
+          $ref: '#/components/schemas/ModelType'
+        input_tokens:
+          type: integer
+          title: Input Tokens
+        output_tokens:
+          type: integer
+          title: Output Tokens
+        thinking_tokens:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Thinking Tokens
+        token_costs:
+          type: number
+          title: Token Costs
+        processed_at:
+          type: string
+          title: Processed At
+        finish_reason:
           anyOf:
           - type: string
           - type: 'null'
-          description: Updated description. Leave empty to keep unchanged.
-          example: ''
-          title: Description
-        schema_id:
+          title: Finish Reason
+        finish_message:
           anyOf:
           - type: string
           - type: 'null'
-          description: Updated schema ID (UUID) to associate with this prompt. Use 'NO_SCHEMA' (case-insensitive) to detach any existing schema. Leave empty to keep existing schema unchanged.
-          example: ''
-          title: Schema Id
-      title: Body_update_prompt_api_key_v3_api_key_auth_workspaces__workspace_id__prompts__prompt_id__put
+          title: Finish Message
+        tool_calls:
+          type: array
+          default: []
+          items:
+            type: string
+          title: Tool Calls
+        processing_time_ms:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Processing Time Ms
+      required:
+      - input_tokens
+      - model_type
+      - output_tokens
+      - processed_at
+      - token_costs
+      title: FileMetadata
     PromptDetailResponse:
       type: object
       properties:
@@ -823,6 +819,62 @@ components:
       - prompt_content
       - prompt_name
       title: Body_create_prompt_api_key_v3_api_key_auth_workspaces__workspace_id__prompts_post
+    PromptListResponse:
+      type: object
+      properties:
+        prompts:
+          type: array
+          items:
+            $ref: '#/components/schemas/PromptListItem'
+          title: Prompts
+      required:
+      - prompts
+      title: PromptListResponse
+    Body_update_prompt_v3_workspaces__workspace_id__prompts__prompt_id__put:
+      type: object
+      properties:
+        prompt_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Updated prompt name. Leave empty to keep unchanged.
+          example: ''
+          title: Prompt Name
+        prompt_content:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Updated prompt text. Leave empty to keep unchanged.
+          example: ''
+          title: Prompt Content
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Updated description. Leave empty to keep unchanged.
+          example: ''
+          title: Description
+        schema_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Updated schema ID (UUID) to associate with this prompt. Use 'NO_SCHEMA' (case-insensitive) to detach any existing schema. Leave empty to keep existing schema unchanged.
+          example: ''
+          title: Schema Id
+      title: Body_update_prompt_v3_workspaces__workspace_id__prompts__prompt_id__put
+    GeneratePromptResponse:
+      type: object
+      description: Response model for prompt generation endpoint.
+      properties:
+        generated_prompt:
+          type: string
+          title: Generated Prompt
+        metadata:
+          $ref: '#/components/schemas/FileMetadata'
+      required:
+      - generated_prompt
+      - metadata
+      title: GeneratePromptResponse
     DeletePromptResponse:
       type: object
       description: Response model for prompt deletion.
@@ -838,6 +890,26 @@ components:
       - prompt_id
       - success
       title: DeletePromptResponse
+    Body_delete_prompt_api_key_v3_api_key_auth_workspaces__workspace_id__prompts__prompt_id__delete:
+      type: object
+      properties:
+        hard_delete:
+          type: boolean
+          default: false
+          description: 'Set to true for permanent deletion, false for soft delete. Default: false.'
+          example: false
+          title: Hard Delete
+      title: Body_delete_prompt_api_key_v3_api_key_auth_workspaces__workspace_id__prompts__prompt_id__delete
+    Body_delete_prompt_v3_workspaces__workspace_id__prompts__prompt_id__delete:
+      type: object
+      properties:
+        hard_delete:
+          type: boolean
+          default: false
+          description: 'Set to true for permanent deletion, false for soft delete. Default: false.'
+          example: false
+          title: Hard Delete
+      title: Body_delete_prompt_v3_workspaces__workspace_id__prompts__prompt_id__delete
     HTTPValidationError:
       type: object
       properties:
@@ -847,6 +919,118 @@ components:
             $ref: '#/components/schemas/ValidationError'
           title: Detail
       title: HTTPValidationError
+    PromptListItem:
+      type: object
+      properties:
+        name:
+          type: string
+          title: Name
+        prompt_id:
+          type: string
+          format: uuid
+          title: Prompt Id
+      required:
+      - name
+      - prompt_id
+      title: PromptListItem
+    Body_post_generate_prompt_v3_v3_workspaces__workspace_id__generate_prompt_post:
+      type: object
+      properties:
+        file:
+          type: string
+          format: binary
+          description: The example document file to use as reference (PDF, DOCX, TXT, images, JSON, Excel, etc.)
+          title: File
+        expected_output:
+          type: string
+          description: JSON string representing the desired extraction output structure. This defines what information should be extracted from similar documents. Must be valid JSON.
+          example: '{"invoice_number": "INV-001", "total": 1234.56}'
+          title: Expected Output
+      required:
+      - expected_output
+      - file
+      title: Body_post_generate_prompt_v3_v3_workspaces__workspace_id__generate_prompt_post
+    TagListItem:
+      type: object
+      properties:
+        name:
+          type: string
+          title: Name
+        tag_id:
+          type: string
+          format: uuid
+          title: Tag Id
+        is_system:
+          type: boolean
+          title: Is System
+      required:
+      - is_system
+      - name
+      - tag_id
+      title: TagListItem
+    Body_update_prompt_api_key_v3_api_key_auth_workspaces__workspace_id__prompts__prompt_id__put:
+      type: object
+      properties:
+        prompt_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Updated prompt name. Leave empty to keep unchanged.
+          example: ''
+          title: Prompt Name
+        prompt_content:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Updated prompt text. Leave empty to keep unchanged.
+          example: ''
+          title: Prompt Content
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Updated description. Leave empty to keep unchanged.
+          example: ''
+          title: Description
+        schema_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Updated schema ID (UUID) to associate with this prompt. Use 'NO_SCHEMA' (case-insensitive) to detach any existing schema. Leave empty to keep existing schema unchanged.
+          example: ''
+          title: Schema Id
+      title: Body_update_prompt_api_key_v3_api_key_auth_workspaces__workspace_id__prompts__prompt_id__put
+    Body_create_prompt_v3_workspaces__workspace_id__prompts_post:
+      type: object
+      properties:
+        prompt_name:
+          type: string
+          description: Unique name for the prompt
+          example: Invoice Extractor
+          title: Prompt Name
+        prompt_content:
+          type: string
+          description: The prompt text/instructions for the AI model
+          example: Extract all fields from the invoice including...
+          title: Prompt Content
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Optional description of what this prompt does. Leave empty if not needed.
+          example: ''
+          title: Description
+        schema_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Optional schema ID (UUID) to enforce structured output. Use 'NO_SCHEMA' (case-insensitive) to explicitly not attach a schema. Leave empty if not using schema validation.
+          example: ''
+          title: Schema Id
+      required:
+      - prompt_content
+      - prompt_name
+      title: Body_create_prompt_v3_workspaces__workspace_id__prompts_post
     PromptVersionDetail:
       type: object
       properties:
@@ -884,190 +1068,6 @@ components:
       - updated_at
       - version_id
       title: PromptVersionDetail
-    FileMetadata:
-      type: object
-      properties:
-        uuid:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Uuid
-        request_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Request Id
-        model_type:
-          $ref: '#/components/schemas/ModelType'
-        input_tokens:
-          type: integer
-          title: Input Tokens
-        output_tokens:
-          type: integer
-          title: Output Tokens
-        thinking_tokens:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Thinking Tokens
-        token_costs:
-          type: number
-          title: Token Costs
-        processed_at:
-          type: string
-          title: Processed At
-        finish_reason:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Finish Reason
-        finish_message:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Finish Message
-        tool_calls:
-          type: array
-          default: []
-          items:
-            type: string
-          title: Tool Calls
-        processing_time_ms:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Processing Time Ms
-      required:
-      - input_tokens
-      - model_type
-      - output_tokens
-      - processed_at
-      - token_costs
-      title: FileMetadata
-    Body_post_generate_prompt_v3_v3_workspaces__workspace_id__generate_prompt_post:
-      type: object
-      properties:
-        file:
-          type: string
-          format: binary
-          description: The example document file to use as reference (PDF, DOCX, TXT, images, JSON, Excel, etc.)
-          title: File
-        expected_output:
-          type: string
-          description: JSON string representing the desired extraction output structure. This defines what information should be extracted from similar documents. Must be valid JSON.
-          example: '{"invoice_number": "INV-001", "total": 1234.56}'
-          title: Expected Output
-      required:
-      - expected_output
-      - file
-      title: Body_post_generate_prompt_v3_v3_workspaces__workspace_id__generate_prompt_post
-    PromptListResponse:
-      type: object
-      properties:
-        prompts:
-          type: array
-          items:
-            $ref: '#/components/schemas/PromptListItem'
-          title: Prompts
-      required:
-      - prompts
-      title: PromptListResponse
-    PromptListItem:
-      type: object
-      properties:
-        name:
-          type: string
-          title: Name
-        prompt_id:
-          type: string
-          format: uuid
-          title: Prompt Id
-      required:
-      - name
-      - prompt_id
-      title: PromptListItem
-    TagListItem:
-      type: object
-      properties:
-        name:
-          type: string
-          title: Name
-        tag_id:
-          type: string
-          format: uuid
-          title: Tag Id
-        is_system:
-          type: boolean
-          title: Is System
-      required:
-      - is_system
-      - name
-      - tag_id
-      title: TagListItem
-    Body_delete_prompt_v3_workspaces__workspace_id__prompts__prompt_id__delete:
-      type: object
-      properties:
-        hard_delete:
-          type: boolean
-          default: false
-          description: 'Set to true for permanent deletion, false for soft delete. Default: false.'
-          example: false
-          title: Hard Delete
-      title: Body_delete_prompt_v3_workspaces__workspace_id__prompts__prompt_id__delete
-    Body_create_prompt_v3_workspaces__workspace_id__prompts_post:
-      type: object
-      properties:
-        prompt_name:
-          type: string
-          description: Unique name for the prompt
-          example: Invoice Extractor
-          title: Prompt Name
-        prompt_content:
-          type: string
-          description: The prompt text/instructions for the AI model
-          example: Extract all fields from the invoice including...
-          title: Prompt Content
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          description: Optional description of what this prompt does. Leave empty if not needed.
-          example: ''
-          title: Description
-        schema_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          description: Optional schema ID (UUID) to enforce structured output. Use 'NO_SCHEMA' (case-insensitive) to explicitly not attach a schema. Leave empty if not using schema validation.
-          example: ''
-          title: Schema Id
-      required:
-      - prompt_content
-      - prompt_name
-      title: Body_create_prompt_v3_workspaces__workspace_id__prompts_post
-    GeneratePromptResponse:
-      type: object
-      description: Response model for prompt generation endpoint.
-      properties:
-        generated_prompt:
-          type: string
-          title: Generated Prompt
-        metadata:
-          $ref: '#/components/schemas/FileMetadata'
-      required:
-      - generated_prompt
-      - metadata
-      title: GeneratePromptResponse
-    Body_delete_prompt_api_key_v3_api_key_auth_workspaces__workspace_id__prompts__prompt_id__delete:
-      type: object
-      properties:
-        hard_delete:
-          type: boolean
-          default: false
-          description: 'Set to true for permanent deletion, false for soft delete. Default: false.'
-          example: false
-          title: Hard Delete
-      title: Body_delete_prompt_api_key_v3_api_key_auth_workspaces__workspace_id__prompts__prompt_id__delete
   securitySchemes:
     default:
       type: oauth2

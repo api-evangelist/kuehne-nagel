@@ -516,73 +516,51 @@ paths:
       x-throttling-tier: Unlimited
 components:
   schemas:
-    Body_update_test_case_api_key_v3_api_key_auth_workspaces__workspace_id__test_cases__test_case_id__put:
+    ValidationError:
       type: object
       properties:
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-        document_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Document Id
-        expected_output:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Expected Output
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-      title: Body_update_test_case_api_key_v3_api_key_auth_workspaces__workspace_id__test_cases__test_case_id__put
-    Body_create_test_case_v3_workspaces__workspace_id__test_cases_post:
-      type: object
-      properties:
-        name:
+        loc:
+          type: array
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+        msg:
           type: string
-          title: Name
-        document_id:
+          title: Message
+        type:
           type: string
-          format: uuid
-          title: Document Id
-        expected_output:
-          type: string
-          title: Expected Output
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
       required:
-      - document_id
-      - expected_output
-      - name
-      title: Body_create_test_case_v3_workspaces__workspace_id__test_cases_post
-    TestCaseListItem:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    Body_delete_test_case_v3_v3_workspaces__workspace_id__test_cases__test_case_id__delete:
       type: object
       properties:
-        name:
-          type: string
-          title: Name
-        test_case_id:
-          type: string
-          format: uuid
-          title: Test Case Id
-        document_id:
-          type: string
-          format: uuid
-          title: Document Id
+        hard_delete:
+          type: boolean
+          default: false
+          title: Hard Delete
+      title: Body_delete_test_case_v3_v3_workspaces__workspace_id__test_cases__test_case_id__delete
+    TestCaseListResponse:
+      type: object
+      properties:
+        test_cases:
+          type: array
+          items:
+            $ref: '#/components/schemas/TestCaseListItem'
+          title: Test Cases
       required:
-      - document_id
-      - name
-      - test_case_id
-      title: TestCaseListItem
+      - test_cases
+      title: TestCaseListResponse
     Body_create_test_case_api_key_v3_api_key_auth_workspaces__workspace_id__test_cases_post:
       type: object
       properties:
@@ -615,74 +593,29 @@ components:
             $ref: '#/components/schemas/ValidationError'
           title: Detail
       title: HTTPValidationError
-    Body_delete_test_case_api_key_v3_api_key_auth_workspaces__workspace_id__test_cases__test_case_id__delete:
+    Body_create_test_case_v3_workspaces__workspace_id__test_cases_post:
       type: object
       properties:
-        hard_delete:
-          type: boolean
-          default: false
-          title: Hard Delete
-      title: Body_delete_test_case_api_key_v3_api_key_auth_workspaces__workspace_id__test_cases__test_case_id__delete
-    Body_delete_test_case_v3_v3_workspaces__workspace_id__test_cases__test_case_id__delete:
-      type: object
-      properties:
-        hard_delete:
-          type: boolean
-          default: false
-          title: Hard Delete
-      title: Body_delete_test_case_v3_v3_workspaces__workspace_id__test_cases__test_case_id__delete
-    TestCaseListResponse:
-      type: object
-      properties:
-        test_cases:
-          type: array
-          items:
-            $ref: '#/components/schemas/TestCaseListItem'
-          title: Test Cases
-      required:
-      - test_cases
-      title: TestCaseListResponse
-    DeleteTestCaseResponse:
-      type: object
-      description: Response model for test case deletion.
-      properties:
-        success:
-          type: boolean
-          title: Success
-        test_case_id:
+        name:
+          type: string
+          title: Name
+        document_id:
           type: string
           format: uuid
-          title: Test Case Id
-      required:
-      - success
-      - test_case_id
-      title: DeleteTestCaseResponse
-    ValidationError:
-      type: object
-      properties:
-        loc:
-          type: array
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          title: Location
-        msg:
+          title: Document Id
+        expected_output:
           type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
+          title: Expected Output
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
       required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+      - document_id
+      - expected_output
+      - name
+      title: Body_create_test_case_v3_workspaces__workspace_id__test_cases_post
     TestCaseDetailResponse:
       type: object
       properties:
@@ -741,6 +674,39 @@ components:
       - updated_at
       - workspace_id
       title: TestCaseDetailResponse
+    Body_update_test_case_api_key_v3_api_key_auth_workspaces__workspace_id__test_cases__test_case_id__put:
+      type: object
+      properties:
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        document_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Document Id
+        expected_output:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Expected Output
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+      title: Body_update_test_case_api_key_v3_api_key_auth_workspaces__workspace_id__test_cases__test_case_id__put
+    Body_delete_test_case_api_key_v3_api_key_auth_workspaces__workspace_id__test_cases__test_case_id__delete:
+      type: object
+      properties:
+        hard_delete:
+          type: boolean
+          default: false
+          title: Hard Delete
+      title: Body_delete_test_case_api_key_v3_api_key_auth_workspaces__workspace_id__test_cases__test_case_id__delete
     Body_update_test_case_v3_v3_workspaces__workspace_id__test_cases__test_case_id__put:
       type: object
       properties:
@@ -766,6 +732,40 @@ components:
           - type: 'null'
           title: Description
       title: Body_update_test_case_v3_v3_workspaces__workspace_id__test_cases__test_case_id__put
+    DeleteTestCaseResponse:
+      type: object
+      description: Response model for test case deletion.
+      properties:
+        success:
+          type: boolean
+          title: Success
+        test_case_id:
+          type: string
+          format: uuid
+          title: Test Case Id
+      required:
+      - success
+      - test_case_id
+      title: DeleteTestCaseResponse
+    TestCaseListItem:
+      type: object
+      properties:
+        name:
+          type: string
+          title: Name
+        test_case_id:
+          type: string
+          format: uuid
+          title: Test Case Id
+        document_id:
+          type: string
+          format: uuid
+          title: Document Id
+      required:
+      - document_id
+      - name
+      - test_case_id
+      title: TestCaseListItem
   securitySchemes:
     default:
       type: oauth2

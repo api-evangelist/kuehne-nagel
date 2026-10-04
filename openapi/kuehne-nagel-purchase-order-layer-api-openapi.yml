@@ -449,176 +449,75 @@ paths:
       x-throttling-tier: 50KPerMin
 components:
   schemas:
-    Address:
-      allOf:
-      - $ref: '#/components/schemas/PostalAddress'
-      - type: object
-        properties:
-          name:
-            $ref: '#/components/schemas/String'
-          state:
-            $ref: '#/components/schemas/String'
-          stateCode:
-            $ref: '#/components/schemas/String'
-          postBox:
-            $ref: '#/components/schemas/String'
-          identifier:
-            $ref: '#/components/schemas/String'
-    CreatePurchaseOrdersRequest:
-      required:
-      - purchaseOrders
+    OrderIdentificationKeyAttributes:
       type: object
       properties:
-        purchaseOrders:
-          minItems: 1
-          type: array
-          items:
-            $ref: '#/components/schemas/RequestPurchaseOrder'
-    AmountAndUnit:
-      required:
-      - amount
-      type: object
-      properties:
-        amount:
-          minimum: 0
-          type: number
-          format: decimal
-        unit:
-          maxLength: 3
-          minLength: 1
-          type: string
-    ResponsePurchaseOrder:
-      required:
-      - purchaseOrderNumber
-      type: object
-      properties:
-        purchaseOrderNumber:
-          $ref: '#/components/schemas/String'
-        parties:
-          $ref: '#/components/schemas/Parties'
-        orderHeader:
-          $ref: '#/components/schemas/OrderAttributes'
-        orderLines:
-          minItems: 1
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderLineResponse'
-    DateWindow:
-      type: object
-      properties:
-        startDate:
+        purchaseOrderDate:
           $ref: '#/components/schemas/Date'
-        endDate:
+        orderNumber:
+          $ref: '#/components/schemas/String'
+        orderDate:
           $ref: '#/components/schemas/Date'
-    BusinessParty:
-      allOf:
-      - $ref: '#/components/schemas/AdditionalParty'
-      - required:
-        - partyCode
-        type: object
-    String:
-      minLength: 1
-      type: string
-    UnLocationCode:
-      pattern: '[A-Z]{2}[A-Z0-9]{3}'
-      type: string
-      description: Standardized code for trade and transport locations including seaports and airports
-    ContactInformation:
-      type: object
-      properties:
-        name:
+        invoiceNumber:
           $ref: '#/components/schemas/String'
-        email:
-          type: string
-          format: email
-        phone:
+        invoiceDate:
+          $ref: '#/components/schemas/Date'
+        shipmentId:
           $ref: '#/components/schemas/String'
-        mobile:
+        shipmentDate:
+          $ref: '#/components/schemas/Date'
+        contractNumber:
           $ref: '#/components/schemas/String'
-        fax:
+        contractDate:
+          $ref: '#/components/schemas/Date'
+        salesOrderNumber:
           $ref: '#/components/schemas/String'
-    AdditionalReferencesResponse:
-      type: object
-      properties:
-        referenceCode:
-          type: string
-        referenceValues:
-          minItems: 1
-          type: array
-          items:
-            type: string
-    KeyAttributes:
-      properties:
-        orderIdentification:
-          $ref: '#/components/schemas/OrderIdentificationKeyAttributes'
-        itemIdentification:
-          $ref: '#/components/schemas/ItemIdentificationAttributes'
-        itemAttributes:
-          $ref: '#/components/schemas/ItemAttributes'
-    CancelPurchaseOrderLinesRequest:
-      required:
-      - cancellations
-      type: object
-      properties:
-        cancellations:
-          minItems: 1
-          type: array
-          items:
-            $ref: '#/components/schemas/Cancellation'
-    RequestPurchaseOrder:
-      required:
-      - purchaseOrderNumber
-      type: object
-      properties:
-        purchaseOrderNumber:
+        salesOrderDate:
+          $ref: '#/components/schemas/Date'
+        deliveryNoteNumber:
           $ref: '#/components/schemas/String'
-        parties:
-          $ref: '#/components/schemas/Parties'
-        orderHeader:
-          $ref: '#/components/schemas/OrderHeaderRequest'
-        orderLines:
-          minItems: 1
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderLineRequest'
-    BulkReadResponse:
-      type: object
-      properties:
-        purchaseOrders:
-          minItems: 1
-          type: array
-          items:
-            $ref: '#/components/schemas/PurchaseOrderResponse'
-        problems:
-          minItems: 1
-          type: array
-          items:
-            $ref: '#/components/schemas/Problem'
-    PurchaseOrderResponse:
-      required:
-      - purchaseOrder
-      type: object
-      properties:
-        purchaseOrder:
-          $ref: '#/components/schemas/ResponsePurchaseOrder'
-        incompleteness:
-          minItems: 1
-          type: array
-          items:
-            $ref: '#/components/schemas/Incompleteness'
-    Parties:
-      type: object
-      properties:
-        customer:
-          $ref: '#/components/schemas/BusinessParty'
-        supplier:
-          $ref: '#/components/schemas/BusinessParty'
-        factory:
-          $ref: '#/components/schemas/BusinessParty'
-        additionalParties:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/AdditionalParty'
+        deliveryNoteDate:
+          $ref: '#/components/schemas/Date'
+        warehouseReceiptNumber:
+          $ref: '#/components/schemas/String'
+        warehouseReceiptDate:
+          $ref: '#/components/schemas/Date'
+        commercialInvoiceNumber:
+          $ref: '#/components/schemas/String'
+        commercialInvoiceDate:
+          $ref: '#/components/schemas/Date'
+        packingListNumber:
+          $ref: '#/components/schemas/String'
+        packingListDate:
+          $ref: '#/components/schemas/Date'
+        deliveryTicketNumber:
+          $ref: '#/components/schemas/String'
+        deliveryTicketDate:
+          $ref: '#/components/schemas/Date'
+        proformaInvoiceNumber:
+          $ref: '#/components/schemas/String'
+        proformaInvoiceDate:
+          $ref: '#/components/schemas/Date'
+        transactionId:
+          $ref: '#/components/schemas/String'
+        transactionDate:
+          $ref: '#/components/schemas/Date'
+        orderReleaseNumber:
+          $ref: '#/components/schemas/String'
+        orderReleaseDate:
+          $ref: '#/components/schemas/Date'
+        raisedBy:
+          $ref: '#/components/schemas/String'
+        supplierReference:
+          $ref: '#/components/schemas/String'
+        workOrderNumber:
+          $ref: '#/components/schemas/String'
+        proformaOrderNumber:
+          $ref: '#/components/schemas/String'
+        allocationNumber:
+          $ref: '#/components/schemas/String'
+        supplierOrderNumber:
+          $ref: '#/components/schemas/String'
     OrderLineResponse:
       allOf:
       - $ref: '#/components/schemas/OrderAttributes'
@@ -637,6 +536,233 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/AdditionalReferencesResponse'
+    AmountAndUnit:
+      required:
+      - amount
+      type: object
+      properties:
+        amount:
+          minimum: 0
+          type: number
+          format: decimal
+        unit:
+          maxLength: 3
+          minLength: 1
+          type: string
+    KeyAttributes:
+      properties:
+        orderIdentification:
+          $ref: '#/components/schemas/OrderIdentificationKeyAttributes'
+        itemIdentification:
+          $ref: '#/components/schemas/ItemIdentificationAttributes'
+        itemAttributes:
+          $ref: '#/components/schemas/ItemAttributes'
+    Address:
+      allOf:
+      - $ref: '#/components/schemas/PostalAddress'
+      - type: object
+        properties:
+          name:
+            $ref: '#/components/schemas/String'
+          state:
+            $ref: '#/components/schemas/String'
+          stateCode:
+            $ref: '#/components/schemas/String'
+          postBox:
+            $ref: '#/components/schemas/String'
+          identifier:
+            $ref: '#/components/schemas/String'
+    BulkReadResponse:
+      type: object
+      properties:
+        purchaseOrders:
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/PurchaseOrderResponse'
+        problems:
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/Problem'
+    Date:
+      type: string
+      format: date
+    RequestPurchaseOrder:
+      required:
+      - purchaseOrderNumber
+      type: object
+      properties:
+        purchaseOrderNumber:
+          $ref: '#/components/schemas/String'
+        parties:
+          $ref: '#/components/schemas/Parties'
+        orderHeader:
+          $ref: '#/components/schemas/OrderHeaderRequest'
+        orderLines:
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderLineRequest'
+    ContactInformation:
+      type: object
+      properties:
+        name:
+          $ref: '#/components/schemas/String'
+        email:
+          type: string
+          format: email
+        phone:
+          $ref: '#/components/schemas/String'
+        mobile:
+          $ref: '#/components/schemas/String'
+        fax:
+          $ref: '#/components/schemas/String'
+    OrderLineRequest:
+      type: object
+      properties:
+        attributes:
+          $ref: '#/components/schemas/OrderAttributes'
+        additionalReferences:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdditionalReferencesRequest'
+    Integer:
+      type: integer
+      format: int64
+    UnLocationCode:
+      pattern: '[A-Z]{2}[A-Z0-9]{3}'
+      type: string
+      description: Standardized code for trade and transport locations including seaports and airports
+    CancelPurchaseOrderLinesResponse:
+      type: object
+      properties:
+        alreadyCancelledPurchaseOrders:
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/String'
+    BusinessParty:
+      allOf:
+      - $ref: '#/components/schemas/AdditionalParty'
+      - required:
+        - partyCode
+        type: object
+    AdditionalReferencesRequest:
+      type: object
+      properties:
+        referenceCode:
+          type: string
+        referenceValues:
+          minItems: 1
+          type: array
+          items:
+            type: string
+    Parties:
+      type: object
+      properties:
+        customer:
+          $ref: '#/components/schemas/BusinessParty'
+        supplier:
+          $ref: '#/components/schemas/BusinessParty'
+        factory:
+          $ref: '#/components/schemas/BusinessParty'
+        additionalParties:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/AdditionalParty'
+    Cancellation:
+      required:
+      - purchaseOrderNumber
+      type: object
+      properties:
+        purchaseOrderNumber:
+          $ref: '#/components/schemas/String'
+        purchaseOrderLineRefs:
+          type: array
+          items:
+            $ref: '#/components/schemas/KeyAttributes'
+    ResponsePurchaseOrder:
+      required:
+      - purchaseOrderNumber
+      type: object
+      properties:
+        purchaseOrderNumber:
+          $ref: '#/components/schemas/String'
+        parties:
+          $ref: '#/components/schemas/Parties'
+        orderHeader:
+          $ref: '#/components/schemas/OrderAttributes'
+        orderLines:
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderLineResponse'
+    PurchaseOrderResponse:
+      required:
+      - purchaseOrder
+      type: object
+      properties:
+        purchaseOrder:
+          $ref: '#/components/schemas/ResponsePurchaseOrder'
+        incompleteness:
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/Incompleteness'
+    Problem:
+      required:
+      - detail
+      - title
+      type: object
+      properties:
+        type:
+          type: string
+          description: 'A URI reference that uniquely identifies the problem type only in the context of the provided API. Opposed to the specification in RFC-7807, it is neither recommended to be dereferencable and point to a human-readable documentation nor globally unique for the problem type.
+
+            '
+          format: uri-reference
+          example: /problem/connection-error
+          default: about:blank
+        title:
+          type: string
+          description: 'A short summary of the problem type. Written in English and readable for engineers, usually not suited for non technical stakeholders and not localized.
+
+            '
+          example: Service Unavailable
+        status:
+          minimum: 100
+          type: integer
+          description: 'The HTTP status code generated by the origin server for this occurrence of the problem.
+
+            '
+          format: int32
+          example: 503
+          exclusiveMaximum: 600
+        detail:
+          type: string
+          description: 'A human readable explanation specific to this occurrence of the problem that is helpful to locate the problem and give advice on how to proceed. Written in English and readable for engineers, usually not suited for non technical stakeholders and not localized.
+
+            '
+          example: Connection to database timed out
+        instance:
+          type: string
+          description: 'A URI reference that identifies the specific occurrence of the problem, e.g. by adding a fragment identifier or sub-path to the problem type. May be used to locate the root of this problem in the source code.
+
+            '
+          format: uri-reference
+          example: /problem/connection-error#token-info-read-timed-out
+    AdditionalParty:
+      type: object
+      properties:
+        partyCode:
+          $ref: '#/components/schemas/String'
+        address:
+          $ref: '#/components/schemas/Address'
+        contactInformation:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactInformation'
     ItemAttributes:
       type: object
       properties:
@@ -658,9 +784,164 @@ components:
           $ref: '#/components/schemas/String'
         countryOfOrigin:
           $ref: '#/components/schemas/CountryCode'
-    CountryCode:
+    String:
+      minLength: 1
       type: string
-      format: iso-3166
+    PostalAddress:
+      type: object
+      properties:
+        address1:
+          $ref: '#/components/schemas/String'
+        address2:
+          $ref: '#/components/schemas/String'
+        zipCode:
+          $ref: '#/components/schemas/String'
+        city:
+          $ref: '#/components/schemas/String'
+        countryCode:
+          $ref: '#/components/schemas/CountryCode'
+    Incoterms:
+      type: string
+      description: 'Internationally recognized delivery terms for commercial contracts published by the ICC
+
+        Possible values: `CFR`, `CIF`, `CIP`, `CPT`, `CTO`, `DAF`, `DAP`, `DAT`, `DCT`, `DDP`, `DDU`, `DEQ`, `DES`, `DIC`, `DIT`, `DPU`, `EXQ`, `EXW`, `FAS`, `FCA`, `FOB`, `FOC`, `FOT`, `PRC`, `PUO`'
+      x-extensible-enum:
+      - CFR
+      - CIF
+      - CIP
+      - CPT
+      - CTO
+      - DAF
+      - DAP
+      - DAT
+      - DCT
+      - DDP
+      - DDU
+      - DEQ
+      - DES
+      - DIC
+      - DIT
+      - DPU
+      - EXQ
+      - EXW
+      - FAS
+      - FCA
+      - FOB
+      - FOC
+      - FOT
+      - PRC
+      - PUO
+    DateWindow:
+      type: object
+      properties:
+        startDate:
+          $ref: '#/components/schemas/Date'
+        endDate:
+          $ref: '#/components/schemas/Date'
+    ReadPurchaseOrdersRequest:
+      required:
+      - purchaseOrderNumbers
+      type: object
+      properties:
+        purchaseOrderNumbers:
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/String'
+    OrderHeaderRequest:
+      type: object
+      properties:
+        attributes:
+          $ref: '#/components/schemas/OrderAttributes'
+        additionalReferences:
+          type: array
+          items:
+            $ref: '#/components/schemas/AdditionalReferencesRequest'
+    AdditionalReferencesResponse:
+      type: object
+      properties:
+        referenceCode:
+          type: string
+        referenceValues:
+          minItems: 1
+          type: array
+          items:
+            type: string
+    Money:
+      required:
+      - amount
+      type: object
+      properties:
+        amount:
+          minimum: 0
+          type: number
+          format: decimal
+        currency:
+          type: string
+          format: iso-4217
+    CancelPurchaseOrderLinesRequest:
+      required:
+      - cancellations
+      type: object
+      properties:
+        cancellations:
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/Cancellation'
+    Incompleteness:
+      required:
+      - detail
+      - title
+      - violationAttribute
+      - violationType
+      type: object
+      properties:
+        type:
+          type: string
+          description: 'A URI reference that uniquely identifies the incompleteness type only in the context of the provided API. Opposed to the specification in RFC-7807, it is neither recommended to be dereferencable and point to a human-readable documentation nor globally unique for the problem type.
+
+            '
+          format: uri-reference
+          example: /purchase-order/incomplete/line
+          default: about:blank
+        title:
+          type: string
+          description: 'A short summary of the incompleteness type. Written in English and readable for engineers, usually not suited for non technical stakeholders and not localized.
+
+            '
+          example: Incomplete order line
+        detail:
+          type: string
+          description: 'A human readable explanation specific to this occurrence of the problem that is helpful to locate the problem and give advice on how to proceed. Written in English and readable for engineers, usually not suited for non technical stakeholders and not localized.
+
+            '
+        instance:
+          type: string
+          description: 'A URI reference that identifies the specific occurrence of the problem, e.g. by adding a fragment identifier or sub-path to the problem type. May be used to locate the root of this problem in the source code.
+
+            '
+          format: uri-reference
+          example: '#/orderLines/0'
+        violationAttribute:
+          type: string
+          description: 'The identifier of the offending attribute
+
+            '
+          example: orderIdentification.invoiceNumber
+        violationType:
+          type: string
+          description: 'Possible values: `ATTRIBUTE_MISSING`, `INVALID_VALUE`, `CUSTOM`, `ORDER_HEADER_ATTRIBUTE`'
+          x-extensible-enum:
+          - ATTRIBUTE_MISSING
+          - INVALID_VALUE
+          - CUSTOM
+          - ORDER_HEADER_ATTRIBUTE
+        violationValue:
+          type: string
+          description: 'The value attempted to be assigned to the offending attribute (provided in case of violationType INVALID_VALUE)
+
+            '
     OrderAttributes:
       properties:
         orderIdentification:
@@ -1016,155 +1297,6 @@ components:
           description: 'This section of order attributes contains the customer specific order attributes as defined by the customer''s order configuration.
 
             '
-    Incoterms:
-      type: string
-      description: 'Internationally recognized delivery terms for commercial contracts published by the ICC
-
-        Possible values: `CFR`, `CIF`, `CIP`, `CPT`, `CTO`, `DAF`, `DAP`, `DAT`, `DCT`, `DDP`, `DDU`, `DEQ`, `DES`, `DIC`, `DIT`, `DPU`, `EXQ`, `EXW`, `FAS`, `FCA`, `FOB`, `FOC`, `FOT`, `PRC`, `PUO`'
-      x-extensible-enum:
-      - CFR
-      - CIF
-      - CIP
-      - CPT
-      - CTO
-      - DAF
-      - DAP
-      - DAT
-      - DCT
-      - DDP
-      - DDU
-      - DEQ
-      - DES
-      - DIC
-      - DIT
-      - DPU
-      - EXQ
-      - EXW
-      - FAS
-      - FCA
-      - FOB
-      - FOC
-      - FOT
-      - PRC
-      - PUO
-    Problem:
-      required:
-      - detail
-      - title
-      type: object
-      properties:
-        type:
-          type: string
-          description: 'A URI reference that uniquely identifies the problem type only in the context of the provided API. Opposed to the specification in RFC-7807, it is neither recommended to be dereferencable and point to a human-readable documentation nor globally unique for the problem type.
-
-            '
-          format: uri-reference
-          example: /problem/connection-error
-          default: about:blank
-        title:
-          type: string
-          description: 'A short summary of the problem type. Written in English and readable for engineers, usually not suited for non technical stakeholders and not localized.
-
-            '
-          example: Service Unavailable
-        status:
-          minimum: 100
-          type: integer
-          description: 'The HTTP status code generated by the origin server for this occurrence of the problem.
-
-            '
-          format: int32
-          example: 503
-          exclusiveMaximum: 600
-        detail:
-          type: string
-          description: 'A human readable explanation specific to this occurrence of the problem that is helpful to locate the problem and give advice on how to proceed. Written in English and readable for engineers, usually not suited for non technical stakeholders and not localized.
-
-            '
-          example: Connection to database timed out
-        instance:
-          type: string
-          description: 'A URI reference that identifies the specific occurrence of the problem, e.g. by adding a fragment identifier or sub-path to the problem type. May be used to locate the root of this problem in the source code.
-
-            '
-          format: uri-reference
-          example: /problem/connection-error#token-info-read-timed-out
-    Incompleteness:
-      required:
-      - detail
-      - title
-      - violationAttribute
-      - violationType
-      type: object
-      properties:
-        type:
-          type: string
-          description: 'A URI reference that uniquely identifies the incompleteness type only in the context of the provided API. Opposed to the specification in RFC-7807, it is neither recommended to be dereferencable and point to a human-readable documentation nor globally unique for the problem type.
-
-            '
-          format: uri-reference
-          example: /purchase-order/incomplete/line
-          default: about:blank
-        title:
-          type: string
-          description: 'A short summary of the incompleteness type. Written in English and readable for engineers, usually not suited for non technical stakeholders and not localized.
-
-            '
-          example: Incomplete order line
-        detail:
-          type: string
-          description: 'A human readable explanation specific to this occurrence of the problem that is helpful to locate the problem and give advice on how to proceed. Written in English and readable for engineers, usually not suited for non technical stakeholders and not localized.
-
-            '
-        instance:
-          type: string
-          description: 'A URI reference that identifies the specific occurrence of the problem, e.g. by adding a fragment identifier or sub-path to the problem type. May be used to locate the root of this problem in the source code.
-
-            '
-          format: uri-reference
-          example: '#/orderLines/0'
-        violationAttribute:
-          type: string
-          description: 'The identifier of the offending attribute
-
-            '
-          example: orderIdentification.invoiceNumber
-        violationType:
-          type: string
-          description: 'Possible values: `ATTRIBUTE_MISSING`, `INVALID_VALUE`, `CUSTOM`, `ORDER_HEADER_ATTRIBUTE`'
-          x-extensible-enum:
-          - ATTRIBUTE_MISSING
-          - INVALID_VALUE
-          - CUSTOM
-          - ORDER_HEADER_ATTRIBUTE
-        violationValue:
-          type: string
-          description: 'The value attempted to be assigned to the offending attribute (provided in case of violationType INVALID_VALUE)
-
-            '
-    PostalAddress:
-      type: object
-      properties:
-        address1:
-          $ref: '#/components/schemas/String'
-        address2:
-          $ref: '#/components/schemas/String'
-        zipCode:
-          $ref: '#/components/schemas/String'
-        city:
-          $ref: '#/components/schemas/String'
-        countryCode:
-          $ref: '#/components/schemas/CountryCode'
-    AdditionalReferencesRequest:
-      type: object
-      properties:
-        referenceCode:
-          type: string
-        referenceValues:
-          minItems: 1
-          type: array
-          items:
-            type: string
     UpdatePurchaseOrdersRequest:
       required:
       - purchaseOrders
@@ -1175,42 +1307,23 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/RequestPurchaseOrder'
-    Date:
+    CustomerCode:
+      pattern: ^[A-Z]{5}[0-9]{2}$
       type: string
-      format: date
-    AdditionalParty:
-      type: object
-      properties:
-        partyCode:
-          $ref: '#/components/schemas/String'
-        address:
-          $ref: '#/components/schemas/Address'
-        contactInformation:
-          type: array
-          items:
-            $ref: '#/components/schemas/ContactInformation'
-    Money:
+      description: Unique identifier assigned to a customer
+    CreatePurchaseOrdersRequest:
       required:
-      - amount
+      - purchaseOrders
       type: object
       properties:
-        amount:
-          minimum: 0
-          type: number
-          format: decimal
-        currency:
-          type: string
-          format: iso-4217
-    ReadPurchaseOrdersRequest:
-      required:
-      - purchaseOrderNumbers
-      type: object
-      properties:
-        purchaseOrderNumbers:
+        purchaseOrders:
           minItems: 1
           type: array
           items:
-            $ref: '#/components/schemas/String'
+            $ref: '#/components/schemas/RequestPurchaseOrder'
+    CountryCode:
+      type: string
+      format: iso-3166
     ItemIdentificationAttributes:
       type: object
       properties:
@@ -1248,119 +1361,13 @@ components:
           $ref: '#/components/schemas/String'
         universalProductCode:
           $ref: '#/components/schemas/String'
-    OrderLineRequest:
-      type: object
-      properties:
-        attributes:
-          $ref: '#/components/schemas/OrderAttributes'
-        additionalReferences:
-          type: array
-          items:
-            $ref: '#/components/schemas/AdditionalReferencesRequest'
-    OrderIdentificationKeyAttributes:
-      type: object
-      properties:
-        purchaseOrderDate:
-          $ref: '#/components/schemas/Date'
-        orderNumber:
-          $ref: '#/components/schemas/String'
-        orderDate:
-          $ref: '#/components/schemas/Date'
-        invoiceNumber:
-          $ref: '#/components/schemas/String'
-        invoiceDate:
-          $ref: '#/components/schemas/Date'
-        shipmentId:
-          $ref: '#/components/schemas/String'
-        shipmentDate:
-          $ref: '#/components/schemas/Date'
-        contractNumber:
-          $ref: '#/components/schemas/String'
-        contractDate:
-          $ref: '#/components/schemas/Date'
-        salesOrderNumber:
-          $ref: '#/components/schemas/String'
-        salesOrderDate:
-          $ref: '#/components/schemas/Date'
-        deliveryNoteNumber:
-          $ref: '#/components/schemas/String'
-        deliveryNoteDate:
-          $ref: '#/components/schemas/Date'
-        warehouseReceiptNumber:
-          $ref: '#/components/schemas/String'
-        warehouseReceiptDate:
-          $ref: '#/components/schemas/Date'
-        commercialInvoiceNumber:
-          $ref: '#/components/schemas/String'
-        commercialInvoiceDate:
-          $ref: '#/components/schemas/Date'
-        packingListNumber:
-          $ref: '#/components/schemas/String'
-        packingListDate:
-          $ref: '#/components/schemas/Date'
-        deliveryTicketNumber:
-          $ref: '#/components/schemas/String'
-        deliveryTicketDate:
-          $ref: '#/components/schemas/Date'
-        proformaInvoiceNumber:
-          $ref: '#/components/schemas/String'
-        proformaInvoiceDate:
-          $ref: '#/components/schemas/Date'
-        transactionId:
-          $ref: '#/components/schemas/String'
-        transactionDate:
-          $ref: '#/components/schemas/Date'
-        orderReleaseNumber:
-          $ref: '#/components/schemas/String'
-        orderReleaseDate:
-          $ref: '#/components/schemas/Date'
-        raisedBy:
-          $ref: '#/components/schemas/String'
-        supplierReference:
-          $ref: '#/components/schemas/String'
-        workOrderNumber:
-          $ref: '#/components/schemas/String'
-        proformaOrderNumber:
-          $ref: '#/components/schemas/String'
-        allocationNumber:
-          $ref: '#/components/schemas/String'
-        supplierOrderNumber:
-          $ref: '#/components/schemas/String'
-    Cancellation:
-      required:
-      - purchaseOrderNumber
-      type: object
-      properties:
-        purchaseOrderNumber:
-          $ref: '#/components/schemas/String'
-        purchaseOrderLineRefs:
-          type: array
-          items:
-            $ref: '#/components/schemas/KeyAttributes'
-    Integer:
-      type: integer
-      format: int64
-    CancelPurchaseOrderLinesResponse:
-      type: object
-      properties:
-        alreadyCancelledPurchaseOrders:
-          minItems: 1
-          type: array
-          items:
-            $ref: '#/components/schemas/String'
-    OrderHeaderRequest:
-      type: object
-      properties:
-        attributes:
-          $ref: '#/components/schemas/OrderAttributes'
-        additionalReferences:
-          type: array
-          items:
-            $ref: '#/components/schemas/AdditionalReferencesRequest'
-    CustomerCode:
-      pattern: ^[A-Z]{5}[0-9]{2}$
-      type: string
-      description: Unique identifier assigned to a customer
+  responses:
+    default:
+      description: Default Response for Error Cases
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Problem'
   parameters:
     CustomerCodeParam:
       name: customerCode
@@ -1371,13 +1378,6 @@ components:
       explode: false
       schema:
         $ref: '#/components/schemas/CustomerCode'
-  responses:
-    default:
-      description: Default Response for Error Cases
-      content:
-        application/problem+json:
-          schema:
-            $ref: '#/components/schemas/Problem'
   securitySchemes:
     default:
       type: oauth2

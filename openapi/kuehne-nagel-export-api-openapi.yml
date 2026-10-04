@@ -57,26 +57,15 @@ paths:
       x-throttling-tier: Unlimited
 components:
   schemas:
-    Body_export_json_to_excel_v3_v3_workspaces__workspace_id__export_json_to_excel_post:
+    HTTPValidationError:
       type: object
       properties:
-        json_data:
-          type: string
-          description: JSON data to convert to Excel
-          title: Json Data
-        filename:
-          type: string
-          default: export
-          description: Base filename for the Excel file (without extension)
-          title: Filename
-        sheet_name:
-          type: string
-          default: Sheet1
-          description: Name of the Excel sheet
-          title: Sheet Name
-      required:
-      - json_data
-      title: Body_export_json_to_excel_v3_v3_workspaces__workspace_id__export_json_to_excel_post
+        detail:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+      title: HTTPValidationError
     ValidationError:
       type: object
       properties:
@@ -103,15 +92,26 @@ components:
       - msg
       - type
       title: ValidationError
-    HTTPValidationError:
+    Body_export_json_to_excel_v3_v3_workspaces__workspace_id__export_json_to_excel_post:
       type: object
       properties:
-        detail:
-          type: array
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-      title: HTTPValidationError
+        json_data:
+          type: string
+          description: JSON data to convert to Excel
+          title: Json Data
+        filename:
+          type: string
+          default: export
+          description: Base filename for the Excel file (without extension)
+          title: Filename
+        sheet_name:
+          type: string
+          default: Sheet1
+          description: Name of the Excel sheet
+          title: Sheet Name
+      required:
+      - json_data
+      title: Body_export_json_to_excel_v3_v3_workspaces__workspace_id__export_json_to_excel_post
   securitySchemes:
     default:
       type: oauth2

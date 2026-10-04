@@ -40,28 +40,13 @@ paths:
       summary: Delete document
       x-summary-source: derived
 components:
-  parameters:
-    uniqueShipmentReferenceParameter:
-      name: uniqueShipmentReference
-      in: path
-      description: "By default this is the shipment __tracking number__ e.g. `N4242`. \n\nIn case a tracking number is not available a limited set of alternative references can be used.\nPlease use the track and trace API to first search for shipment details (e.g. by a customer specific reference)\nif none of the supported references are available .\n    \nSupported references:\n* __tracking number__\n  * `{trackingNumber}` or `tracking-number:{trackingNumber}`\n  * e.g. `N4242` or `tracking-number:N4242`\n* __booking number__\n  * `booking-number:{bookingNumber}`\n  * e.g. `booking-number:B1`\n* __shipment id__\n  * `shipment-id:{shipmentId}` \n  * e.g. `shipment-id:S1`\n"
-      required: true
-      style: simple
-      explode: false
-      schema:
-        maxLength: 255
-        pattern: ^(tracking-number:|booking-number:|shipment-id:)?[A-Za-z0-9]+$
-        type: string
-        example: N4242
-    documentIdParameter:
-      name: documentId
-      in: path
-      description: Unique identifier of a document
-      required: true
-      style: simple
-      explode: false
-      schema:
-        $ref: '#/components/schemas/DocumentId'
+  responses:
+    default:
+      description: An error occurred - please see the HTTP status code and the problem object for more information.
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Problem'
   schemas:
     Problem:
       required:
@@ -114,13 +99,28 @@ components:
       type: string
       description: Unique identifier of a shipment document.
       example: Q1234S56
-  responses:
-    default:
-      description: An error occurred - please see the HTTP status code and the problem object for more information.
-      content:
-        application/problem+json:
-          schema:
-            $ref: '#/components/schemas/Problem'
+  parameters:
+    uniqueShipmentReferenceParameter:
+      name: uniqueShipmentReference
+      in: path
+      description: "By default this is the shipment __tracking number__ e.g. `N4242`. \n\nIn case a tracking number is not available a limited set of alternative references can be used.\nPlease use the track and trace API to first search for shipment details (e.g. by a customer specific reference)\nif none of the supported references are available .\n    \nSupported references:\n* __tracking number__\n  * `{trackingNumber}` or `tracking-number:{trackingNumber}`\n  * e.g. `N4242` or `tracking-number:N4242`\n* __booking number__\n  * `booking-number:{bookingNumber}`\n  * e.g. `booking-number:B1`\n* __shipment id__\n  * `shipment-id:{shipmentId}` \n  * e.g. `shipment-id:S1`\n"
+      required: true
+      style: simple
+      explode: false
+      schema:
+        maxLength: 255
+        pattern: ^(tracking-number:|booking-number:|shipment-id:)?[A-Za-z0-9]+$
+        type: string
+        example: N4242
+    documentIdParameter:
+      name: documentId
+      in: path
+      description: Unique identifier of a document
+      required: true
+      style: simple
+      explode: false
+      schema:
+        $ref: '#/components/schemas/DocumentId'
   securitySchemes:
     default:
       type: oauth2

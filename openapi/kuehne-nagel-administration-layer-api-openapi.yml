@@ -52,16 +52,6 @@ paths:
       x-auth-type: Application & Application User
       x-throttling-tier: 500_PerMin
 components:
-  parameters:
-    CustomerCodeParam:
-      name: customerCode
-      in: path
-      description: The unique key identifying the customer
-      required: true
-      style: simple
-      explode: false
-      schema:
-        $ref: '#/components/schemas/CustomerCode'
   responses:
     default:
       description: Default Response for Error Cases
@@ -70,6 +60,21 @@ components:
           schema:
             $ref: '#/components/schemas/Problem'
   schemas:
+    CustomerAttribute:
+      type: object
+      description: "In addition to the well-known order attributes, the customer can use a set of attributes\nwith freely chosen meaning in purchase orders. The set of these attributes is limited both\nin number and type. This object describes the configuration of these customer-specific\nattributes. \n\nThe ten possible attributes of type string have the names string1 to string10. The ten\npossible Boolean attributes have the names bool1 to bool10. Customer-specific attributes\ncannot be used as key attributes.\n"
+      allOf:
+      - $ref: '#/components/schemas/CommonAttributeProperties'
+      - type: object
+        properties:
+          referenceLabel:
+            minLength: 1
+            type: string
+            description: 'The reference label makes it possible to name customer-specific attributes in the ESP
+
+              user interface.
+
+              '
     Problem:
       required:
       - detail
@@ -112,88 +117,6 @@ components:
             '
           format: uri-reference
           example: /problem/connection-error#token-info-read-timed-out
-    CustomerAttribute:
-      type: object
-      description: "In addition to the well-known order attributes, the customer can use a set of attributes\nwith freely chosen meaning in purchase orders. The set of these attributes is limited both\nin number and type. This object describes the configuration of these customer-specific\nattributes. \n\nThe ten possible attributes of type string have the names string1 to string10. The ten\npossible Boolean attributes have the names bool1 to bool10. Customer-specific attributes\ncannot be used as key attributes.\n"
-      allOf:
-      - $ref: '#/components/schemas/CommonAttributeProperties'
-      - type: object
-        properties:
-          referenceLabel:
-            minLength: 1
-            type: string
-            description: 'The reference label makes it possible to name customer-specific attributes in the ESP
-
-              user interface.
-
-              '
-    Attribute:
-      type: object
-      description: 'The Attribute object describes the use of an order attribute in the customer''s
-
-        order configuration.
-
-        '
-      allOf:
-      - $ref: '#/components/schemas/CommonAttributeProperties'
-      - type: object
-        properties:
-          partOfKey:
-            type: boolean
-            description: 'Each line of an order can be identified by a specified subset of its attributes, called
-
-              key attributes. Exactly for such attributes partOfKey is true. Key attributes are always
-
-              mandatory and must be part of the order lines.
-
-              '
-    OrderConfiguration:
-      type: object
-      properties:
-        regularAttributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/Attribute'
-        customerSpecificAttributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/CustomerAttribute'
-      description: 'Purchase orders may contain a variety of information depending on the requirements of the
-
-        business parties involved, especially the customer. ESP supports the customer''s individual
-
-        requirements with an explicit configuration of the order attributes used by the customer.
-
-        Purchase order data must not only comply with the respective OpenAPI specification, but also
-
-        with the restrictions from the customer''s individual order configuration. Therefore, it is
-
-        important for the customer to be able to retrieve his order configuration.
-
-        '
-      example:
-        regularAttributes:
-        - id: itemNumber
-          use: true
-          reference: IID
-          mandatory: true
-          partOfHeader: false
-          partOfKey: true
-          category: itemIdentification
-        - id: color
-          use: true
-          reference: COL
-          mandatory: true
-          partOfHeader: true
-          partOfKey: false
-          category: itemAttributes
-        - id: size
-          use: true
-          reference: SZ
-          mandatory: false
-          partOfHeader: false
-          partOfKey: false
-          category: itemAttributes
     CommonAttributeProperties:
       required:
       - use
@@ -246,10 +169,87 @@ components:
             are divided into categories.
 
             '
+    OrderConfiguration:
+      type: object
+      properties:
+        regularAttributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/Attribute'
+        customerSpecificAttributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomerAttribute'
+      description: 'Purchase orders may contain a variety of information depending on the requirements of the
+
+        business parties involved, especially the customer. ESP supports the customer''s individual
+
+        requirements with an explicit configuration of the order attributes used by the customer.
+
+        Purchase order data must not only comply with the respective OpenAPI specification, but also
+
+        with the restrictions from the customer''s individual order configuration. Therefore, it is
+
+        important for the customer to be able to retrieve his order configuration.
+
+        '
+      example:
+        regularAttributes:
+        - id: itemNumber
+          use: true
+          reference: IID
+          mandatory: true
+          partOfHeader: false
+          partOfKey: true
+          category: itemIdentification
+        - id: color
+          use: true
+          reference: COL
+          mandatory: true
+          partOfHeader: true
+          partOfKey: false
+          category: itemAttributes
+        - id: size
+          use: true
+          reference: SZ
+          mandatory: false
+          partOfHeader: false
+          partOfKey: false
+          category: itemAttributes
+    Attribute:
+      type: object
+      description: 'The Attribute object describes the use of an order attribute in the customer''s
+
+        order configuration.
+
+        '
+      allOf:
+      - $ref: '#/components/schemas/CommonAttributeProperties'
+      - type: object
+        properties:
+          partOfKey:
+            type: boolean
+            description: 'Each line of an order can be identified by a specified subset of its attributes, called
+
+              key attributes. Exactly for such attributes partOfKey is true. Key attributes are always
+
+              mandatory and must be part of the order lines.
+
+              '
     CustomerCode:
       pattern: ^[A-Z]{5}[0-9]{2}$
       type: string
       description: Unique identifier assigned to a customer
+  parameters:
+    CustomerCodeParam:
+      name: customerCode
+      in: path
+      description: The unique key identifying the customer
+      required: true
+      style: simple
+      explode: false
+      schema:
+        $ref: '#/components/schemas/CustomerCode'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

@@ -98,14 +98,15 @@ paths:
       x-throttling-tier: Unlimited
 components:
   schemas:
-    TimeFrame:
-      type: string
-      enum:
-      - day
-      - week
-      - month
-      - year
-      title: TimeFrame
+    HTTPValidationError:
+      type: object
+      properties:
+        detail:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+      title: HTTPValidationError
     ValidationError:
       type: object
       properties:
@@ -175,15 +176,14 @@ components:
       - total_requests
       - workspace_id
       title: UsageStatisticsResponse
-    HTTPValidationError:
-      type: object
-      properties:
-        detail:
-          type: array
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-      title: HTTPValidationError
+    TimeFrame:
+      type: string
+      enum:
+      - day
+      - week
+      - month
+      - year
+      title: TimeFrame
   securitySchemes:
     default:
       type: oauth2

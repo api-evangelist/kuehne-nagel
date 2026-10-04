@@ -345,21 +345,96 @@ paths:
       x-throttling-tier: Unlimited
 components:
   schemas:
-    DeleteQuotaResponse:
+    QuotaUsageInfo:
       type: object
-      description: Response model for quota deletion.
+      description: Information about quota usage for a specific processing type.
       properties:
-        success:
-          type: boolean
-          title: Success
-        quota_id:
-          type: string
-          format: uuid
-          title: Quota Id
+        daily_limit:
+          type: integer
+          title: Daily Limit
+        monthly_limit:
+          type: integer
+          title: Monthly Limit
+        daily_usage:
+          type: integer
+          title: Daily Usage
+        monthly_usage:
+          type: integer
+          title: Monthly Usage
+        daily_remaining:
+          type: integer
+          title: Daily Remaining
+        monthly_remaining:
+          type: integer
+          title: Monthly Remaining
       required:
-      - quota_id
-      - success
-      title: DeleteQuotaResponse
+      - daily_limit
+      - daily_remaining
+      - daily_usage
+      - monthly_limit
+      - monthly_remaining
+      - monthly_usage
+      title: QuotaUsageInfo
+    ValidationError:
+      type: object
+      properties:
+        loc:
+          type: array
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    TierQuotaUsageInfo:
+      type: object
+      description: Information about quota usage for a specific model tier.
+      properties:
+        tier:
+          type: string
+          title: Tier
+        daily_limit:
+          type: integer
+          title: Daily Limit
+        monthly_limit:
+          type: integer
+          title: Monthly Limit
+        daily_usage:
+          type: integer
+          title: Daily Usage
+        monthly_usage:
+          type: integer
+          title: Monthly Usage
+        daily_remaining:
+          type: integer
+          title: Daily Remaining
+        monthly_remaining:
+          type: integer
+          title: Monthly Remaining
+      required:
+      - daily_limit
+      - daily_remaining
+      - daily_usage
+      - monthly_limit
+      - monthly_remaining
+      - monthly_usage
+      - tier
+      title: TierQuotaUsageInfo
     HTTPValidationError:
       type: object
       properties:
@@ -369,6 +444,20 @@ components:
             $ref: '#/components/schemas/ValidationError'
           title: Detail
       title: HTTPValidationError
+    TierQuotaLimits:
+      type: object
+      description: Quota limits for a specific model tier.
+      properties:
+        daily_limit:
+          type: integer
+          title: Daily Limit
+        monthly_limit:
+          type: integer
+          title: Monthly Limit
+      required:
+      - daily_limit
+      - monthly_limit
+      title: TierQuotaLimits
     QuotaLimitsResponse:
       type: object
       description: 'Response model for workspace quota limits.
@@ -428,6 +517,21 @@ components:
       - updated_by
       - workspace_id
       title: QuotaLimitsResponse
+    DeleteQuotaResponse:
+      type: object
+      description: Response model for quota deletion.
+      properties:
+        success:
+          type: boolean
+          title: Success
+        quota_id:
+          type: string
+          format: uuid
+          title: Quota Id
+      required:
+      - quota_id
+      - success
+      title: DeleteQuotaResponse
     Body_update_workspace_quota_limits_v3_workspaces__workspace_id__quota_put:
       type: object
       properties:
@@ -502,36 +606,6 @@ components:
           example: 30000
           title: Monthly Async Limit
       title: Body_update_workspace_quota_limits_v3_workspaces__workspace_id__quota_put
-    QuotaUsageInfo:
-      type: object
-      description: Information about quota usage for a specific processing type.
-      properties:
-        daily_limit:
-          type: integer
-          title: Daily Limit
-        monthly_limit:
-          type: integer
-          title: Monthly Limit
-        daily_usage:
-          type: integer
-          title: Daily Usage
-        monthly_usage:
-          type: integer
-          title: Monthly Usage
-        daily_remaining:
-          type: integer
-          title: Daily Remaining
-        monthly_remaining:
-          type: integer
-          title: Monthly Remaining
-      required:
-      - daily_limit
-      - daily_remaining
-      - daily_usage
-      - monthly_limit
-      - monthly_remaining
-      - monthly_usage
-      title: QuotaUsageInfo
     QuotaStatusResponse:
       type: object
       description: 'Response model for workspace quota status.
@@ -568,80 +642,6 @@ components:
       - tier_usage
       - workspace_id
       title: QuotaStatusResponse
-    ValidationError:
-      type: object
-      properties:
-        loc:
-          type: array
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    TierQuotaLimits:
-      type: object
-      description: Quota limits for a specific model tier.
-      properties:
-        daily_limit:
-          type: integer
-          title: Daily Limit
-        monthly_limit:
-          type: integer
-          title: Monthly Limit
-      required:
-      - daily_limit
-      - monthly_limit
-      title: TierQuotaLimits
-    TierQuotaUsageInfo:
-      type: object
-      description: Information about quota usage for a specific model tier.
-      properties:
-        tier:
-          type: string
-          title: Tier
-        daily_limit:
-          type: integer
-          title: Daily Limit
-        monthly_limit:
-          type: integer
-          title: Monthly Limit
-        daily_usage:
-          type: integer
-          title: Daily Usage
-        monthly_usage:
-          type: integer
-          title: Monthly Usage
-        daily_remaining:
-          type: integer
-          title: Daily Remaining
-        monthly_remaining:
-          type: integer
-          title: Monthly Remaining
-      required:
-      - daily_limit
-      - daily_remaining
-      - daily_usage
-      - monthly_limit
-      - monthly_remaining
-      - monthly_usage
-      - tier
-      title: TierQuotaUsageInfo
   securitySchemes:
     default:
       type: oauth2

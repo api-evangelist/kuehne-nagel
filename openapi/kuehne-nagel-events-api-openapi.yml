@@ -78,159 +78,8 @@ paths:
       x-throttling-tier: 10KPerMin
 components:
   schemas:
-    vessel:
-      required:
-      - vesselImoNumber
-      type: object
-      properties:
-        vesselImoNumber:
-          maxLength: 7
-          type: string
-          description: 'The unique reference for a registered Vessel. The reference is the International Maritime Organisation (IMO) number, also sometimes known as the Lloyd''s register code, which does not change during the lifetime of the vessel
-
-            '
-          example: '9321483'
-        name:
-          maxLength: 35
-          type: string
-          description: 'The name of the Vessel given by the Vessel Operator and registered with IMO.
-
-            '
-          example: King of the Seas
-        flag:
-          maxLength: 2
-          type: string
-          description: 'The flag of the nation whose laws the vessel is registered under. This is the ISO 3166 two-letter country code
-
-            '
-          example: DE
-        callSign:
-          maxLength: 10
-          type: string
-          description: 'A unique alphanumeric identity that belongs to the vessel and is assigned by the International Telecommunication Union (ITU). It consists of a threeletter alphanumeric prefix that indicates nationality, followed by one to four characters to identify the individual vessel. For instance, vessels registered under Denmark are assigned the prefix ranges 5PA-5QZ, OUAOZZ, and XPA-XPZ. The Call Sign changes whenever a vessel changes its flag.
-
-            '
-          example: NCVV
-        operatorCarrierCode:
-          maxLength: 10
-          type: string
-          description: 'The carrier who is in charge of the vessel operation based on either the SCAC code lists
-
-            '
-          example: MAEU
-        operatorCarrierCodeListProvider:
-          type: string
-          description: Identifies the code list provider used for the operator and partner carriercodes.
-          example: NMFTA
-          enum:
-          - NMFTA
-      description: 'A floating, sea going structure (mother vessels and feeder vessels) with either an internal or external mode of propulsion designed for the transport of cargo and/or passengers.
-
-        '
-    publisher:
-      required:
-      - carrierCode
-      - carrierCodeListProvider
-      - partyName
-      type: object
-      properties:
-        partyName:
-          maxLength: 100
-          type: string
-          description: Name of the party.
-          example: Asseco Denmark
-        carrierCode:
-          maxLength: 4
-          pattern: ^\S+(\s+\S+)*$
-          type: string
-          description: 'The code containing the SCAC code to specify the issuing carrier.  Details about the issuer can be given in the Document Parties entity using the party function code MS.
-
-            '
-          example: MMCU
-        carrierCodeListProvider:
-          type: string
-          description: 'The provider used for identifying the issuer Code. Possible values are: - NMFTA (National Motor Freight Traffic Association) _includes SPLC (Standard Point Location Code)_
-
-            '
-          example: NMFTA
-          enum:
-          - NMFTA
-      description: 'The party sending the event
-
-        '
-    equipmentEvent:
-      required:
-      - metadata
-      - payload
-      type: object
-      description: 'The `EquipmentEvent` is a specialized event to handle all events related to equipment (containers).
-
-        '
-      allOf:
-      - type: object
-        properties:
-          metadata:
-            description: 'The `metadata` of the `EquipmentEvent` - includes all non-business related attributes
-
-              '
-            allOf:
-            - $ref: '#/components/schemas/metadata'
-            - type: object
-              properties:
-                eventId:
-                  maxLength: 100
-                  type: string
-                  description: 'The unique identifier for this event (*the message - not the source*).
-
-                    '
-                  example: 3cecb101-7a1a-43a4-9d62-e88a131651e2
-            - type: object
-              properties:
-                eventCreatedDateTime:
-                  type: string
-                  description: 'The timestamp of when the event was created.
-
-                    '
-                  format: date-time
-                  example: '2021-01-09T14:12:56+01:00'
-            - type: object
-              properties:
-                eventType:
-                  type: string
-                  description: 'The type of the Event - in case of a `EquipmentEvent` it must be `EQUIPMENT`
-
-                    '
-                  example: EQUIPMENT
-                  enum:
-                  - EQUIPMENT
-      - type: object
-        properties:
-          payload:
-            $ref: '#/components/schemas/equipmentEventPayload'
-    errorDetail:
-      required:
-      - detail
-      - title
-      type: object
-      properties:
-        title:
-          type: string
-          description: High level error message.
-          example: invalidQuery
-        detail:
-          type: string
-          description: Detailed error message.
-          example: The request did not contain one of the required query parameters.
-    carrierExportVoyageNumber:
-      maxLength: 50
-      pattern: ^\S+(\s+\S+)*$
-      type: string
-      description: 'The identifier of an export voyage. The carrier-specific identifier of the export Voyage.
-
-        '
-      example: 2103S
-    bargeTransportCall:
-      title: Barge Transport Call
+    railTransportCall:
+      title: Rail Transport Call
       required:
       - modeOfTransport
       - transportCallReference
@@ -238,176 +87,76 @@ components:
       properties:
         modeOfTransport:
           type: string
-          description: 'The mode of transport as defined by DCSA. For the `BargeTransportCall` this needs to be `BARGE`
+          description: 'The mode of transport as defined by DCSA. For the `RailTransportCall` this needs to be `RAIL`
 
             '
-          example: BARGE
+          example: RAIL
           enum:
-          - BARGE
-        portVisitReference:
-          $ref: '#/components/schemas/portVisitReference'
-        carrierServiceCode:
-          $ref: '#/components/schemas/carrierServiceCode'
-        universalServiceReference:
-          $ref: '#/components/schemas/universalServiceReference'
-        carrierExportVoyageNumber:
-          $ref: '#/components/schemas/carrierExportVoyageNumber'
-        universalExportVoyageReference:
-          $ref: '#/components/schemas/universalExportVoyageReference'
-        carrierImportVoyageNumber:
-          $ref: '#/components/schemas/carrierImportVoyageNumber'
-        universalImportVoyageReference:
-          $ref: '#/components/schemas/universalImportVoyageReference'
-        barge:
-          $ref: '#/components/schemas/barge'
-      description: 'A Transport Call used for Barge
+          - RAIL
+        railCar:
+          maxLength: 50
+          type: string
+          description: 'A railcar is a type of railway vehicle that is designed to transport freight or passengers on a railway track. They are also known as rail vehicles, railcars, or rolling stock. Railcars can be powered by an on-board locomotive or they can be pulled by a separate locomotive.
+
+            '
+        railService:
+          maxLength: 50
+          type: string
+          description: 'A rail service number is a unique identifying number assigned to a specific rail service or train.
+
+            '
+        departureId:
+          maxLength: 100
+          type: string
+          description: 'A departure ID (also known as a departure reference number) is a unique identifying number or code that is assigned to a specific departure of a rail
+
+            '
+      description: 'A Transport Call used for Rail
 
         '
-    universalImportVoyageReference:
-      pattern: ^\d{2}[0-9A-Z]{2}[NEWS]$
-      type: string
-      description: 'A global unique voyage reference for the import Voyage, as per DCSA standard, agreed by VSA partners for the voyage. The voyage reference must match the regular expression pattern: `\d{2}[0-9A-Z]{2}[NEWS]` - `2 digits` for the year - `2 alphanumeric characters` for the sequence number of the voyage - `1 character` for the direction/haul (`N`orth, `E`ast, `W`est or `S`outh).
-
-        '
-      example: 2103N
-    UnLocationCode:
-      maxLength: 5
-      type: string
-      description: The UN Location code specifying where the place is located.
-      example: FRPAR
-    barge:
-      required:
-      - name
-      type: object
-      properties:
-        vesselImoNumber:
-          maxLength: 7
-          type: string
-          description: 'The unique reference for a registered Vessel. The reference is the International Maritime Organisation (IMO) number, also sometimes known as the Lloyd''s register code, which does not change during the lifetime of the vessel
-
-            '
-          example: '9321483'
-        name:
-          maxLength: 35
-          pattern: ^\S+(\s+\S+)*$
-          type: string
-          description: 'The name of the Barge. If the name is not known `TBD` (To Be Decided) should be used
-
-            '
-          example: King of the Seas
-        flag:
-          maxLength: 2
-          pattern: ^[A-Z]{2}$
-          type: string
-          description: 'The flag of the nation whose laws the barge is registered under. This is the ISO 3166 two-letter country code
-
-            '
-          example: DE
-        callSign:
-          maxLength: 10
-          type: string
-          description: 'A unique alphanumeric identity that belongs to the barge and is assigned by the International Telecommunication Union (ITU). It consists of a three letter alphanumeric prefix that indicates nationality, followed by one to four characters to identify the individual vessel. For instance, vessels registered under Denmark are assigned the prefix ranges 5PA-5QZ, OUAOZZ, and XPA-XPZ. The Call Sign changes whenever a barge changes its flag.
-
-            '
-          example: NCVV
-        operatorCarrierCode:
-          maxLength: 10
-          pattern: ^\S+(\s+\S+)*$
-          type: string
-          description: 'The carrier who is in charge of the Barge operation based on either the SCAC code lists
-
-            '
-          example: MAEU
-        operatorCarrierCodeListProvider:
-          type: string
-          description: 'Identifies the code list provider used for the barge operator carriercodes. Possible values are: - NMFTA (National Motor Freight Traffic Association)
-
-            '
-          example: NMFTA
-          enum:
-          - NMFTA
-      description: 'A flat-bottomed floating structure built mainly for transport of cargo/equipment at coastal areas, rivers, canals or on open sea. A barge may or may not be self-propelled.
-
-        '
-    portVisitReference:
-      maxLength: 50
-      pattern: ^\S+(\s+\S+)*$
-      type: string
-      description: 'The unique reference that can be used to link different `transportCallReferences` to the same port visit. The reference is provided by the port to uniquely identify a port call
-
-        '
-      example: NLRTM1234589
-    unLocationLocation:
-      required:
-      - locationType
-      - unLocationCode
-      type: object
-      properties:
-        locationName:
-          $ref: '#/components/schemas/locationName'
-        locationType:
-          type: string
-          description: 'Discriminator used to identify this as a `UNLocation` location interface
-
-            '
-          example: UNLO
-          enum:
-          - UNLO
-        unLocationCode:
-          $ref: '#/components/schemas/UnLocationCode'
-      description: 'An interface used to express a location using a `Un Location Code`
-
-        '
-    relatedDocumentReferences:
+    references:
       type: array
-      description: 'A list of key-value (`type`-`value`) pairs representing links to objects relevant to the event. The `type`-field is used to describe where the `value`-field is pointing to.   `TRD` (Transport Document / OBL) is **mandatory**, all other documents are optional.
+      description: 'References provided by the shipper or freight forwarder at the time of booking or at the time of providing shipping instruction. Carriers share it back when providing track and trace event updates, some are also printed on the B/L. Customers can use these references to track shipments in their internal systems. In addition to the References provided by the shipper or freight forwarder - the carrier can provide an extra `type` called `EQ` which is a reference to an Equipment.
 
         '
       example:
-      - type: BKG
-        value: ABC123059
-      - type: TRD
-        value: '85943567'
+      - type: EQ
+        value: APZU4812090
       items:
+        required:
+        - type
+        - value
         type: object
         properties:
           type:
             type: string
-            description: 'The `type` is used to identify the type of information `value` points to. Can be one of the following values - CBR (Carrier Booking Request) - BKG (Booking) - SHI (Shipping Instruction) - TRD (Transport Document) - DEI (Delivery Instructions) - DEO (Delivery Order) - TRO (Transport Order) - CRO (Container Release Order) - ARN (Arrival Notice) - VGM (Verified Gross Mass) - CAS (Cargo Survey) - CUC (Customs Clearance) - DGD (Dangerous Goods Declaration) - OOG (Out of Gauge) - CQU (Contract Quotation) - INV (Invoice) - HCE (Health Certificate) - PCE (Phytosanitary Certificate) - VCE (Veterinary Certificate) - FCE (Fumigation Certificate) - ICE (Inspection Certificate) - CEA (Certificate of Analysis) - CEO (Certificate of Origin) More details can be found on [GitHub](https://github.com/dcsaorg/DCSA-Information-Model/blob/master/datamodel/referencedata.d/documenttypecodes.csv)
+            description: 'The reference type codes defined by DCSA.
+
+              - FF (Freight Forwarder’s Reference)
+
+              - SI (Shipper’s Reference)
+
+              - PO (Purchase Order Reference)
+
+              - CR (Customer’s Reference)
+
+              - AAO (Consignee’s Reference)
+
+              - EQ (Equipment Reference)
 
               '
-            example: TRD
+            example: FF
             enum:
-            - CBR
-            - BKG
-            - SHI
-            - TRD
-            - DEI
-            - DEO
-            - TRO
-            - CRO
-            - ARN
-            - VGM
-            - CAS
-            - CUC
-            - DGD
-            - OOG
-            - CQU
-            - INV
-            - HCE
-            - PCE
-            - VCE
-            - FCE
-            - ICE
-            - CEA
-            - CEO
+            - FF
+            - SI
+            - PO
+            - CR
+            - AAO
+            - EQ
           value:
             maxLength: 100
             type: string
-            description: 'The reference to the object described by `type`
-
-              '
-            example: 123e4567e89b
+            description: The actual value of the reference.
     baseEquipmentEvent:
       required:
       - emptyIndicatorCode
@@ -496,6 +245,58 @@ components:
       description: 'The `EquipmentEvent` is a specialized event to handle all events related to transportation.
 
         '
+    unLocationLocation:
+      required:
+      - locationType
+      - unLocationCode
+      type: object
+      properties:
+        locationName:
+          $ref: '#/components/schemas/locationName'
+        locationType:
+          type: string
+          description: 'Discriminator used to identify this as a `UNLocation` location interface
+
+            '
+          example: UNLO
+          enum:
+          - UNLO
+        unLocationCode:
+          $ref: '#/components/schemas/UnLocationCode'
+      description: 'An interface used to express a location using a `Un Location Code`
+
+        '
+    publisher:
+      required:
+      - carrierCode
+      - carrierCodeListProvider
+      - partyName
+      type: object
+      properties:
+        partyName:
+          maxLength: 100
+          type: string
+          description: Name of the party.
+          example: Asseco Denmark
+        carrierCode:
+          maxLength: 4
+          pattern: ^\S+(\s+\S+)*$
+          type: string
+          description: 'The code containing the SCAC code to specify the issuing carrier.  Details about the issuer can be given in the Document Parties entity using the party function code MS.
+
+            '
+          example: MMCU
+        carrierCodeListProvider:
+          type: string
+          description: 'The provider used for identifying the issuer Code. Possible values are: - NMFTA (National Motor Freight Traffic Association) _includes SPLC (Standard Point Location Code)_
+
+            '
+          example: NMFTA
+          enum:
+          - NMFTA
+      description: 'The party sending the event
+
+        '
     error:
       required:
       - errorDateTime
@@ -548,8 +349,8 @@ components:
           description: The date and time (in ISO 8601 format) the error occurred.
           format: date-time
           example: '2019-11-12T07:41:00+08:30'
-    railTransportCall:
-      title: Rail Transport Call
+    bargeTransportCall:
+      title: Barge Transport Call
       required:
       - modeOfTransport
       - transportCallReference
@@ -557,55 +358,73 @@ components:
       properties:
         modeOfTransport:
           type: string
-          description: 'The mode of transport as defined by DCSA. For the `RailTransportCall` this needs to be `RAIL`
+          description: 'The mode of transport as defined by DCSA. For the `BargeTransportCall` this needs to be `BARGE`
 
             '
-          example: RAIL
+          example: BARGE
           enum:
-          - RAIL
-        railCar:
-          maxLength: 50
-          type: string
-          description: 'A railcar is a type of railway vehicle that is designed to transport freight or passengers on a railway track. They are also known as rail vehicles, railcars, or rolling stock. Railcars can be powered by an on-board locomotive or they can be pulled by a separate locomotive.
-
-            '
-        railService:
-          maxLength: 50
-          type: string
-          description: 'A rail service number is a unique identifying number assigned to a specific rail service or train.
-
-            '
-        departureId:
-          maxLength: 100
-          type: string
-          description: 'A departure ID (also known as a departure reference number) is a unique identifying number or code that is assigned to a specific departure of a rail
-
-            '
-      description: 'A Transport Call used for Rail
+          - BARGE
+        portVisitReference:
+          $ref: '#/components/schemas/portVisitReference'
+        carrierServiceCode:
+          $ref: '#/components/schemas/carrierServiceCode'
+        universalServiceReference:
+          $ref: '#/components/schemas/universalServiceReference'
+        carrierExportVoyageNumber:
+          $ref: '#/components/schemas/carrierExportVoyageNumber'
+        universalExportVoyageReference:
+          $ref: '#/components/schemas/universalExportVoyageReference'
+        carrierImportVoyageNumber:
+          $ref: '#/components/schemas/carrierImportVoyageNumber'
+        universalImportVoyageReference:
+          $ref: '#/components/schemas/universalImportVoyageReference'
+        barge:
+          $ref: '#/components/schemas/barge'
+      description: 'A Transport Call used for Barge
 
         '
-    carrierImportVoyageNumber:
-      maxLength: 50
-      pattern: ^\S+(\s+\S+)*$
-      type: string
-      description: 'The identifier of an import voyage. The carrier-specific identifier of the import Voyage.
-
-        '
-      example: 2103N
-    carrierServiceCode:
+    UnLocationCode:
       maxLength: 5
       type: string
-      description: 'The code of the service for which the schedule details are published.
+      description: The UN Location code specifying where the place is located.
+      example: FRPAR
+    seal:
+      required:
+      - number
+      type: object
+      properties:
+        number:
+          maxLength: 15
+          type: string
+          description: Identifies a seal affixed to the container.
+        source:
+          type: string
+          description: 'The source of the seal, namely who has affixed the seal. This attribute links to the Seal Source ID defined in the Seal Source reference data entity. - CAR (Carrier) - SHI (Shipper) - PHY (Phytosanitary) - VET (Veterinary) - CUS (Customs)
 
-        '
-      example: FE1
-    universalExportVoyageReference:
-      pattern: ^\d{2}[0-9A-Z]{2}[NEWS]$
+            '
+          example: CUS
+          enum:
+          - CAR
+          - SHI
+          - PHY
+          - VET
+          - CUS
+        type:
+          type: string
+          description: 'The type of seal. This attribute links to the Seal Type ID defined in the Seal Type reference data entity. - KLP (Keyless padlock) - BLT (Bolt) - WIR (Wire)
+
+            '
+          example: WIR
+          enum:
+          - KLP
+          - BLT
+          - WIR
+      description: Addresses the seal-related information associated with the shipment equipment. A seal is put on a shipment equipment once it is loaded. This seal is meant to stay on until the shipment equipment reaches its final destination.
+    locationName:
+      maxLength: 100
       type: string
-      description: 'A global unique voyage reference for the export Voyage, as per DCSA standard, agreed by VSA partners for the voyage. The voyage reference must match the regular expression pattern: `\d{2}[0-9A-Z]{2}[NEWS]` - `2 digits` for the year - `2 alphanumeric characters` for the sequence number of the voyage - `1 character` for the direction/haul (`N`orth, `E`ast, `W`est or `S`outh).
-
-        '
-      example: 2103N
+      description: The name of the location.
+      example: Eiffel Tower
     equipmentEventMetadata:
       type: object
       description: 'The `metadata` of the `EquipmentEvent` - includes all non-business related attributes
@@ -623,6 +442,213 @@ components:
             example: EQUIPMENT
             enum:
             - EQUIPMENT
+    baseEvent:
+      required:
+      - eventClassifierCode
+      - eventDateTime
+      type: object
+      properties:
+        eventClassifierCode:
+          type: string
+          description: 'Code for the event classifier. Values can vary depending on eventType
+
+            '
+        eventDateTime:
+          type: string
+          description: 'The local date and time, when the event took place or when the event will take place, in [ISO8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+
+            '
+          format: date-time
+          example: '2019-11-12T07:41:00+08:30'
+      description: 'The Event entity is described as a generalization of all the specific event categories. An event always takes place in relation to a shipment and can additionally be linked to a transport or an equipment
+
+        '
+    metadata:
+      required:
+      - eventCreatedDateTime
+      - eventId
+      - eventType
+      - publisher
+      - publisherRole
+      type: object
+      description: 'The metadata of the event
+
+        '
+      allOf:
+      - type: object
+        properties:
+          publisher:
+            $ref: '#/components/schemas/publisher'
+      - type: object
+        properties:
+          publisherRole:
+            type: string
+            description: 'The party function code of the publisher. The values are divided into 2 categories: #### Carrier - CA (Carrier) - AG (Carrier local agent) #### Service Provider - VSP (Visibility Service Provider) - SVP (Any other service provider) More details can be found on <a href="https://github.com/dcsaorg/DCSA-Information-Model/blob/master/datamodel/referencedata.d/publisherrole.csv">GitHub</a>
+
+              '
+            example: SVP
+            enum:
+            - CA
+            - AG
+            - VSP
+            - SVP
+    portVisitReference:
+      maxLength: 50
+      pattern: ^\S+(\s+\S+)*$
+      type: string
+      description: 'The unique reference that can be used to link different `transportCallReferences` to the same port visit. The reference is provided by the port to uniquely identify a port call
+
+        '
+      example: NLRTM1234589
+    truckTransportCall:
+      title: Truck Transport Call
+      required:
+      - modeOfTransport
+      - transportCallReference
+      type: object
+      properties:
+        modeOfTransport:
+          type: string
+          description: 'The mode of transport as defined by DCSA. For the `TruckTransportCall` this needs to be `TRUCK`
+
+            '
+          example: TRUCK
+          enum:
+          - TRUCK
+        licencePlate:
+          maxLength: 15
+          type: string
+          description: 'A license plate is a  tag that is attached to a vehicle and displays a unique number or code assigned to the vehicle. The format, design, and issuing authority for license plates vary by country, state, and province.
+
+            '
+        chassisLicencePlate:
+          maxLength: 15
+          type: string
+          description: 'A chassis number is a unique identifying number or code assigned to the chassis of a vehicle.It may also be referred to as a "vehicle identification number" (VIN) or "frame number.
+
+            '
+      description: 'A Transport Call used for Truck
+
+        '
+    vesselTransportCall:
+      title: Vessel Transport Call
+      required:
+      - modeOfTransport
+      - transportCallReference
+      type: object
+      properties:
+        modeOfTransport:
+          type: string
+          description: 'The mode of transport as defined by DCSA. For the `VesselTransportCall` this needs to be `VESSEL`
+
+            '
+          example: VESSEL
+          enum:
+          - VESSEL
+        portVisitReference:
+          $ref: '#/components/schemas/portVisitReference'
+        carrierServiceCode:
+          $ref: '#/components/schemas/carrierServiceCode'
+        universalServiceReference:
+          $ref: '#/components/schemas/universalServiceReference'
+        carrierExportVoyageNumber:
+          $ref: '#/components/schemas/carrierExportVoyageNumber'
+        universalExportVoyageReference:
+          $ref: '#/components/schemas/universalExportVoyageReference'
+        carrierImportVoyageNumber:
+          $ref: '#/components/schemas/carrierImportVoyageNumber'
+        universalImportVoyageReference:
+          $ref: '#/components/schemas/universalImportVoyageReference'
+        vessel:
+          $ref: '#/components/schemas/vessel'
+      description: 'A Transport Call used for Vessels
+
+        '
+    equipmentEventPayload:
+      type: object
+      description: 'The business attributes related to the `EquipmentEvent`.
+
+        '
+      allOf:
+      - $ref: '#/components/schemas/baseEvent'
+      - $ref: '#/components/schemas/baseEquipmentEvent'
+    equipmentEvent:
+      required:
+      - metadata
+      - payload
+      type: object
+      description: 'The `EquipmentEvent` is a specialized event to handle all events related to equipment (containers).
+
+        '
+      allOf:
+      - type: object
+        properties:
+          metadata:
+            description: 'The `metadata` of the `EquipmentEvent` - includes all non-business related attributes
+
+              '
+            allOf:
+            - $ref: '#/components/schemas/metadata'
+            - type: object
+              properties:
+                eventId:
+                  maxLength: 100
+                  type: string
+                  description: 'The unique identifier for this event (*the message - not the source*).
+
+                    '
+                  example: 3cecb101-7a1a-43a4-9d62-e88a131651e2
+            - type: object
+              properties:
+                eventCreatedDateTime:
+                  type: string
+                  description: 'The timestamp of when the event was created.
+
+                    '
+                  format: date-time
+                  example: '2021-01-09T14:12:56+01:00'
+            - type: object
+              properties:
+                eventType:
+                  type: string
+                  description: 'The type of the Event - in case of a `EquipmentEvent` it must be `EQUIPMENT`
+
+                    '
+                  example: EQUIPMENT
+                  enum:
+                  - EQUIPMENT
+      - type: object
+        properties:
+          payload:
+            $ref: '#/components/schemas/equipmentEventPayload'
+    equipmentEventRequest:
+      required:
+      - metadata
+      - payload
+      type: object
+      properties:
+        metadata:
+          $ref: '#/components/schemas/equipmentEventMetadata'
+        payload:
+          $ref: '#/components/schemas/equipmentEventPayload'
+      description: 'The `EquipmentEvent` is a specialized event to handle all events related to equipment (containers).
+
+        '
+    universalImportVoyageReference:
+      pattern: ^\d{2}[0-9A-Z]{2}[NEWS]$
+      type: string
+      description: 'A global unique voyage reference for the import Voyage, as per DCSA standard, agreed by VSA partners for the voyage. The voyage reference must match the regular expression pattern: `\d{2}[0-9A-Z]{2}[NEWS]` - `2 digits` for the year - `2 alphanumeric characters` for the sequence number of the voyage - `1 character` for the direction/haul (`N`orth, `E`ast, `W`est or `S`outh).
+
+        '
+      example: 2103N
+    carrierImportVoyageNumber:
+      maxLength: 50
+      pattern: ^\S+(\s+\S+)*$
+      type: string
+      description: 'The identifier of an import voyage. The carrier-specific identifier of the import Voyage.
+
+        '
+      example: 2103N
     transportCall:
       required:
       - location
@@ -694,221 +720,173 @@ components:
             - BARGE
             - RAIL
             - TRUCK
-    truckTransportCall:
-      title: Truck Transport Call
-      required:
-      - modeOfTransport
-      - transportCallReference
-      type: object
-      properties:
-        modeOfTransport:
-          type: string
-          description: 'The mode of transport as defined by DCSA. For the `TruckTransportCall` this needs to be `TRUCK`
-
-            '
-          example: TRUCK
-          enum:
-          - TRUCK
-        licencePlate:
-          maxLength: 15
-          type: string
-          description: 'A license plate is a  tag that is attached to a vehicle and displays a unique number or code assigned to the vehicle. The format, design, and issuing authority for license plates vary by country, state, and province.
-
-            '
-        chassisLicencePlate:
-          maxLength: 15
-          type: string
-          description: 'A chassis number is a unique identifying number or code assigned to the chassis of a vehicle.It may also be referred to as a "vehicle identification number" (VIN) or "frame number.
-
-            '
-      description: 'A Transport Call used for Truck
-
-        '
-    equipmentEventRequest:
-      required:
-      - metadata
-      - payload
-      type: object
-      properties:
-        metadata:
-          $ref: '#/components/schemas/equipmentEventMetadata'
-        payload:
-          $ref: '#/components/schemas/equipmentEventPayload'
-      description: 'The `EquipmentEvent` is a specialized event to handle all events related to equipment (containers).
-
-        '
-    baseEvent:
-      required:
-      - eventClassifierCode
-      - eventDateTime
-      type: object
-      properties:
-        eventClassifierCode:
-          type: string
-          description: 'Code for the event classifier. Values can vary depending on eventType
-
-            '
-        eventDateTime:
-          type: string
-          description: 'The local date and time, when the event took place or when the event will take place, in [ISO8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-
-            '
-          format: date-time
-          example: '2019-11-12T07:41:00+08:30'
-      description: 'The Event entity is described as a generalization of all the specific event categories. An event always takes place in relation to a shipment and can additionally be linked to a transport or an equipment
-
-        '
-    metadata:
-      required:
-      - eventCreatedDateTime
-      - eventId
-      - eventType
-      - publisher
-      - publisherRole
-      type: object
-      description: 'The metadata of the event
-
-        '
-      allOf:
-      - type: object
-        properties:
-          publisher:
-            $ref: '#/components/schemas/publisher'
-      - type: object
-        properties:
-          publisherRole:
-            type: string
-            description: 'The party function code of the publisher. The values are divided into 2 categories: #### Carrier - CA (Carrier) - AG (Carrier local agent) #### Service Provider - VSP (Visibility Service Provider) - SVP (Any other service provider) More details can be found on <a href="https://github.com/dcsaorg/DCSA-Information-Model/blob/master/datamodel/referencedata.d/publisherrole.csv">GitHub</a>
-
-              '
-            example: SVP
-            enum:
-            - CA
-            - AG
-            - VSP
-            - SVP
-    seal:
-      required:
-      - number
-      type: object
-      properties:
-        number:
-          maxLength: 15
-          type: string
-          description: Identifies a seal affixed to the container.
-        source:
-          type: string
-          description: 'The source of the seal, namely who has affixed the seal. This attribute links to the Seal Source ID defined in the Seal Source reference data entity. - CAR (Carrier) - SHI (Shipper) - PHY (Phytosanitary) - VET (Veterinary) - CUS (Customs)
-
-            '
-          example: CUS
-          enum:
-          - CAR
-          - SHI
-          - PHY
-          - VET
-          - CUS
-        type:
-          type: string
-          description: 'The type of seal. This attribute links to the Seal Type ID defined in the Seal Type reference data entity. - KLP (Keyless padlock) - BLT (Bolt) - WIR (Wire)
-
-            '
-          example: WIR
-          enum:
-          - KLP
-          - BLT
-          - WIR
-      description: Addresses the seal-related information associated with the shipment equipment. A seal is put on a shipment equipment once it is loaded. This seal is meant to stay on until the shipment equipment reaches its final destination.
-    vesselTransportCall:
-      title: Vessel Transport Call
-      required:
-      - modeOfTransport
-      - transportCallReference
-      type: object
-      properties:
-        modeOfTransport:
-          type: string
-          description: 'The mode of transport as defined by DCSA. For the `VesselTransportCall` this needs to be `VESSEL`
-
-            '
-          example: VESSEL
-          enum:
-          - VESSEL
-        portVisitReference:
-          $ref: '#/components/schemas/portVisitReference'
-        carrierServiceCode:
-          $ref: '#/components/schemas/carrierServiceCode'
-        universalServiceReference:
-          $ref: '#/components/schemas/universalServiceReference'
-        carrierExportVoyageNumber:
-          $ref: '#/components/schemas/carrierExportVoyageNumber'
-        universalExportVoyageReference:
-          $ref: '#/components/schemas/universalExportVoyageReference'
-        carrierImportVoyageNumber:
-          $ref: '#/components/schemas/carrierImportVoyageNumber'
-        universalImportVoyageReference:
-          $ref: '#/components/schemas/universalImportVoyageReference'
-        vessel:
-          $ref: '#/components/schemas/vessel'
-      description: 'A Transport Call used for Vessels
-
-        '
-    equipmentEventPayload:
-      type: object
-      description: 'The business attributes related to the `EquipmentEvent`.
-
-        '
-      allOf:
-      - $ref: '#/components/schemas/baseEvent'
-      - $ref: '#/components/schemas/baseEquipmentEvent'
-    locationName:
-      maxLength: 100
+    universalExportVoyageReference:
+      pattern: ^\d{2}[0-9A-Z]{2}[NEWS]$
       type: string
-      description: The name of the location.
-      example: Eiffel Tower
-    references:
+      description: 'A global unique voyage reference for the export Voyage, as per DCSA standard, agreed by VSA partners for the voyage. The voyage reference must match the regular expression pattern: `\d{2}[0-9A-Z]{2}[NEWS]` - `2 digits` for the year - `2 alphanumeric characters` for the sequence number of the voyage - `1 character` for the direction/haul (`N`orth, `E`ast, `W`est or `S`outh).
+
+        '
+      example: 2103N
+    relatedDocumentReferences:
       type: array
-      description: 'References provided by the shipper or freight forwarder at the time of booking or at the time of providing shipping instruction. Carriers share it back when providing track and trace event updates, some are also printed on the B/L. Customers can use these references to track shipments in their internal systems. In addition to the References provided by the shipper or freight forwarder - the carrier can provide an extra `type` called `EQ` which is a reference to an Equipment.
+      description: 'A list of key-value (`type`-`value`) pairs representing links to objects relevant to the event. The `type`-field is used to describe where the `value`-field is pointing to.   `TRD` (Transport Document / OBL) is **mandatory**, all other documents are optional.
 
         '
       example:
-      - type: EQ
-        value: APZU4812090
+      - type: BKG
+        value: ABC123059
+      - type: TRD
+        value: '85943567'
       items:
-        required:
-        - type
-        - value
         type: object
         properties:
           type:
             type: string
-            description: 'The reference type codes defined by DCSA.
-
-              - FF (Freight Forwarder’s Reference)
-
-              - SI (Shipper’s Reference)
-
-              - PO (Purchase Order Reference)
-
-              - CR (Customer’s Reference)
-
-              - AAO (Consignee’s Reference)
-
-              - EQ (Equipment Reference)
+            description: 'The `type` is used to identify the type of information `value` points to. Can be one of the following values - CBR (Carrier Booking Request) - BKG (Booking) - SHI (Shipping Instruction) - TRD (Transport Document) - DEI (Delivery Instructions) - DEO (Delivery Order) - TRO (Transport Order) - CRO (Container Release Order) - ARN (Arrival Notice) - VGM (Verified Gross Mass) - CAS (Cargo Survey) - CUC (Customs Clearance) - DGD (Dangerous Goods Declaration) - OOG (Out of Gauge) - CQU (Contract Quotation) - INV (Invoice) - HCE (Health Certificate) - PCE (Phytosanitary Certificate) - VCE (Veterinary Certificate) - FCE (Fumigation Certificate) - ICE (Inspection Certificate) - CEA (Certificate of Analysis) - CEO (Certificate of Origin) More details can be found on [GitHub](https://github.com/dcsaorg/DCSA-Information-Model/blob/master/datamodel/referencedata.d/documenttypecodes.csv)
 
               '
-            example: FF
+            example: TRD
             enum:
-            - FF
-            - SI
-            - PO
-            - CR
-            - AAO
-            - EQ
+            - CBR
+            - BKG
+            - SHI
+            - TRD
+            - DEI
+            - DEO
+            - TRO
+            - CRO
+            - ARN
+            - VGM
+            - CAS
+            - CUC
+            - DGD
+            - OOG
+            - CQU
+            - INV
+            - HCE
+            - PCE
+            - VCE
+            - FCE
+            - ICE
+            - CEA
+            - CEO
           value:
             maxLength: 100
             type: string
-            description: The actual value of the reference.
+            description: 'The reference to the object described by `type`
+
+              '
+            example: 123e4567e89b
+    barge:
+      required:
+      - name
+      type: object
+      properties:
+        vesselImoNumber:
+          maxLength: 7
+          type: string
+          description: 'The unique reference for a registered Vessel. The reference is the International Maritime Organisation (IMO) number, also sometimes known as the Lloyd''s register code, which does not change during the lifetime of the vessel
+
+            '
+          example: '9321483'
+        name:
+          maxLength: 35
+          pattern: ^\S+(\s+\S+)*$
+          type: string
+          description: 'The name of the Barge. If the name is not known `TBD` (To Be Decided) should be used
+
+            '
+          example: King of the Seas
+        flag:
+          maxLength: 2
+          pattern: ^[A-Z]{2}$
+          type: string
+          description: 'The flag of the nation whose laws the barge is registered under. This is the ISO 3166 two-letter country code
+
+            '
+          example: DE
+        callSign:
+          maxLength: 10
+          type: string
+          description: 'A unique alphanumeric identity that belongs to the barge and is assigned by the International Telecommunication Union (ITU). It consists of a three letter alphanumeric prefix that indicates nationality, followed by one to four characters to identify the individual vessel. For instance, vessels registered under Denmark are assigned the prefix ranges 5PA-5QZ, OUAOZZ, and XPA-XPZ. The Call Sign changes whenever a barge changes its flag.
+
+            '
+          example: NCVV
+        operatorCarrierCode:
+          maxLength: 10
+          pattern: ^\S+(\s+\S+)*$
+          type: string
+          description: 'The carrier who is in charge of the Barge operation based on either the SCAC code lists
+
+            '
+          example: MAEU
+        operatorCarrierCodeListProvider:
+          type: string
+          description: 'Identifies the code list provider used for the barge operator carriercodes. Possible values are: - NMFTA (National Motor Freight Traffic Association)
+
+            '
+          example: NMFTA
+          enum:
+          - NMFTA
+      description: 'A flat-bottomed floating structure built mainly for transport of cargo/equipment at coastal areas, rivers, canals or on open sea. A barge may or may not be self-propelled.
+
+        '
+    carrierServiceCode:
+      maxLength: 5
+      type: string
+      description: 'The code of the service for which the schedule details are published.
+
+        '
+      example: FE1
+    vessel:
+      required:
+      - vesselImoNumber
+      type: object
+      properties:
+        vesselImoNumber:
+          maxLength: 7
+          type: string
+          description: 'The unique reference for a registered Vessel. The reference is the International Maritime Organisation (IMO) number, also sometimes known as the Lloyd''s register code, which does not change during the lifetime of the vessel
+
+            '
+          example: '9321483'
+        name:
+          maxLength: 35
+          type: string
+          description: 'The name of the Vessel given by the Vessel Operator and registered with IMO.
+
+            '
+          example: King of the Seas
+        flag:
+          maxLength: 2
+          type: string
+          description: 'The flag of the nation whose laws the vessel is registered under. This is the ISO 3166 two-letter country code
+
+            '
+          example: DE
+        callSign:
+          maxLength: 10
+          type: string
+          description: 'A unique alphanumeric identity that belongs to the vessel and is assigned by the International Telecommunication Union (ITU). It consists of a threeletter alphanumeric prefix that indicates nationality, followed by one to four characters to identify the individual vessel. For instance, vessels registered under Denmark are assigned the prefix ranges 5PA-5QZ, OUAOZZ, and XPA-XPZ. The Call Sign changes whenever a vessel changes its flag.
+
+            '
+          example: NCVV
+        operatorCarrierCode:
+          maxLength: 10
+          type: string
+          description: 'The carrier who is in charge of the vessel operation based on either the SCAC code lists
+
+            '
+          example: MAEU
+        operatorCarrierCodeListProvider:
+          type: string
+          description: Identifies the code list provider used for the operator and partner carriercodes.
+          example: NMFTA
+          enum:
+          - NMFTA
+      description: 'A floating, sea going structure (mother vessels and feeder vessels) with either an internal or external mode of propulsion designed for the transport of cargo and/or passengers.
+
+        '
     universalServiceReference:
       maxLength: 8
       pattern: ^SR\d{5}[A-Z]$
@@ -917,6 +895,28 @@ components:
 
         '
       example: SR12345A
+    errorDetail:
+      required:
+      - detail
+      - title
+      type: object
+      properties:
+        title:
+          type: string
+          description: High level error message.
+          example: invalidQuery
+        detail:
+          type: string
+          description: Detailed error message.
+          example: The request did not contain one of the required query parameters.
+    carrierExportVoyageNumber:
+      maxLength: 50
+      pattern: ^\S+(\s+\S+)*$
+      type: string
+      description: 'The identifier of an export voyage. The carrier-specific identifier of the export Voyage.
+
+        '
+      example: 2103S
   examples:
     arrivedExample:
       summary: ARRI (Arrived)
@@ -974,40 +974,11 @@ components:
           references:
           - type: EQ
             value: APZU4812090
-    gateOutExample:
-      summary: 'GTOT (Gate out)
+    dropExample:
+      summary: 'DROP (Drop-off)
 
         '
-      description: 'This is a `GTOT` (Gate out) example event, the action when a container is removed from a controlled area like a port – or inland terminal. Gate-out has been completed once the possession of the container has been transferred from the operator of the terminal to the entity who is picking up the container.   - an `EquipmentEvent` relating to equipmentReference: `APZU4812090` which has been `GTOT` (Gate out) `ACT` (Actual) at `DEHAM` (Hamburg Port) on `2025-01-05T00:01:00+01:00`
-
-        '
-      value:
-        metadata:
-          eventType: EQUIPMENT
-          publisher:
-            partyName: Mediterranean Shipping Company
-            carrierCode: MSCU
-            carrierCodeListProvider: NMFTA
-          publisherRole: VSP
-        payload:
-          eventClassifierCode: ACT
-          eventDateTime: '2025-01-05T00:01:00+01:00'
-          equipmentEventTypeCode: GTOT
-          equipmentReference: APZU4812090
-          emptyIndicatorCode: LADEN
-          isTransshipmentMove: false
-          eventLocation:
-            locationType: UNLO
-            locationName: Port of Hamburg
-            unLocationCode: DEHAM
-          relatedDocumentReferences:
-          - type: TRD
-            value: '85943567'
-    pickExample:
-      summary: 'PICK (Pick-up)
-
-        '
-      description: 'This is a `PICK` (Pick-up) example event, the action of collecting the container at customer location. - an `EquipmentEvent` relating to equipmentReference: `APZU4812090` which has been `PICK` (Pick-up) `ACT` (Actual) at `FRPAR` (Customer''s Warehouse) on `2025-01-02T07:41:00+08:30`
+      description: 'This is a `DROP` (Drop-off) example event, the action of delivering the container at customer location. - an `EquipmentEvent` relating to equipmentReference: `APZU4812090` which has been `DROP` (Droped-off) `ACT` (Actual) at `NLRAM` (Port of Amsterdam) on `2025-01-12T07:41:00+08:30`
 
         '
       value:
@@ -1020,30 +991,28 @@ components:
           publisherRole: CA
         payload:
           eventClassifierCode: ACT
-          eventDateTime: '2025-01-02T07:41:00+08:30'
-          equipmentEventTypeCode: GTOT
+          eventDateTime: '2025-01-12T07:41:00+08:30'
+          equipmentEventTypeCode: DROP
           equipmentReference: APZU4812090
           isoEquipmentCode: 22GP
           emptyIndicatorCode: LADEN
+          isTransshipmentMove: false
           eventLocation:
             locationType: UNLO
-            locationName: Customer XYZ Warehouse
-            unLocationCode: FRPAR
-          isTransshipmentMove: false
-          transportCall:
-            transportCallReference: '123456'
-            modeOfTransport: TRUCK
-            location:
-              locationType: UNLO
-              locationName: Customer XYZ Warehouse
-              unLocationCode: FRPAR
-            facilityTypeCode: CLOC
-            licensePlate: 983-XZA-483
+            locationName: Port of Amsterdam
+            unLocationCode: NLRAM
           relatedDocumentReferences:
           - type: BKG
             value: ABC123059
           - type: TRD
             value: '85943567'
+          references:
+          - type: EQ
+            value: APZU4812090
+          seals:
+          - number: '133534'
+            source: CUS
+            type: WIR
     loadExample:
       summary: 'LOAD (Load)
 
@@ -1096,45 +1065,35 @@ components:
           relatedDocumentReferences:
           - type: TRD
             value: '85943567'
-    dropExample:
-      summary: 'DROP (Drop-off)
+    gateInExample:
+      summary: 'GTIN (Gate in)
 
         '
-      description: 'This is a `DROP` (Drop-off) example event, the action of delivering the container at customer location. - an `EquipmentEvent` relating to equipmentReference: `APZU4812090` which has been `DROP` (Droped-off) `ACT` (Actual) at `NLRAM` (Port of Amsterdam) on `2025-01-12T07:41:00+08:30`
+      description: 'This is a `GTIN` (Gate in) example event, the action when a container is introduced into a controlled area like a port - or inland terminal. Gate in has been completed once the operator of the area is legally in possession of the container.   - an `EquipmentEvent` relating to equipmentReference: `APZU4812090` which has been `GTIN` (Gate in) `ACT` (Actual) at `DEHAM` (Hamburg Port) on `2025-01-05T00:01:00+01:00`
 
         '
       value:
         metadata:
           eventType: EQUIPMENT
           publisher:
-            partyName: Evergreen Marine Corporation
-            carrierCode: EGLV
+            partyName: DPW
+            carrierCode: MSCU
             carrierCodeListProvider: NMFTA
-          publisherRole: CA
+          publisherRole: VSP
         payload:
           eventClassifierCode: ACT
-          eventDateTime: '2025-01-12T07:41:00+08:30'
-          equipmentEventTypeCode: DROP
+          eventDateTime: '2025-01-05T00:01:00+01:00'
+          equipmentEventTypeCode: GTIN
           equipmentReference: APZU4812090
-          isoEquipmentCode: 22GP
           emptyIndicatorCode: LADEN
           isTransshipmentMove: false
           eventLocation:
             locationType: UNLO
-            locationName: Port of Amsterdam
-            unLocationCode: NLRAM
+            locationName: Port of Hamburg
+            unLocationCode: DEHAM
           relatedDocumentReferences:
-          - type: BKG
-            value: ABC123059
           - type: TRD
             value: '85943567'
-          references:
-          - type: EQ
-            value: APZU4812090
-          seals:
-          - number: '133534'
-            source: CUS
-            type: WIR
     discExample:
       summary: 'DISC (Discharge)
 
@@ -1186,25 +1145,66 @@ components:
           relatedDocumentReferences:
           - type: TRD
             value: '85943567'
-    gateInExample:
-      summary: 'GTIN (Gate in)
+    pickExample:
+      summary: 'PICK (Pick-up)
 
         '
-      description: 'This is a `GTIN` (Gate in) example event, the action when a container is introduced into a controlled area like a port - or inland terminal. Gate in has been completed once the operator of the area is legally in possession of the container.   - an `EquipmentEvent` relating to equipmentReference: `APZU4812090` which has been `GTIN` (Gate in) `ACT` (Actual) at `DEHAM` (Hamburg Port) on `2025-01-05T00:01:00+01:00`
+      description: 'This is a `PICK` (Pick-up) example event, the action of collecting the container at customer location. - an `EquipmentEvent` relating to equipmentReference: `APZU4812090` which has been `PICK` (Pick-up) `ACT` (Actual) at `FRPAR` (Customer''s Warehouse) on `2025-01-02T07:41:00+08:30`
 
         '
       value:
         metadata:
           eventType: EQUIPMENT
           publisher:
-            partyName: DPW
+            partyName: Evergreen Marine Corporation
+            carrierCode: EGLV
+            carrierCodeListProvider: NMFTA
+          publisherRole: CA
+        payload:
+          eventClassifierCode: ACT
+          eventDateTime: '2025-01-02T07:41:00+08:30'
+          equipmentEventTypeCode: GTOT
+          equipmentReference: APZU4812090
+          isoEquipmentCode: 22GP
+          emptyIndicatorCode: LADEN
+          eventLocation:
+            locationType: UNLO
+            locationName: Customer XYZ Warehouse
+            unLocationCode: FRPAR
+          isTransshipmentMove: false
+          transportCall:
+            transportCallReference: '123456'
+            modeOfTransport: TRUCK
+            location:
+              locationType: UNLO
+              locationName: Customer XYZ Warehouse
+              unLocationCode: FRPAR
+            facilityTypeCode: CLOC
+            licensePlate: 983-XZA-483
+          relatedDocumentReferences:
+          - type: BKG
+            value: ABC123059
+          - type: TRD
+            value: '85943567'
+    gateOutExample:
+      summary: 'GTOT (Gate out)
+
+        '
+      description: 'This is a `GTOT` (Gate out) example event, the action when a container is removed from a controlled area like a port – or inland terminal. Gate-out has been completed once the possession of the container has been transferred from the operator of the terminal to the entity who is picking up the container.   - an `EquipmentEvent` relating to equipmentReference: `APZU4812090` which has been `GTOT` (Gate out) `ACT` (Actual) at `DEHAM` (Hamburg Port) on `2025-01-05T00:01:00+01:00`
+
+        '
+      value:
+        metadata:
+          eventType: EQUIPMENT
+          publisher:
+            partyName: Mediterranean Shipping Company
             carrierCode: MSCU
             carrierCodeListProvider: NMFTA
           publisherRole: VSP
         payload:
           eventClassifierCode: ACT
           eventDateTime: '2025-01-05T00:01:00+01:00'
-          equipmentEventTypeCode: GTIN
+          equipmentEventTypeCode: GTOT
           equipmentReference: APZU4812090
           emptyIndicatorCode: LADEN
           isTransshipmentMove: false

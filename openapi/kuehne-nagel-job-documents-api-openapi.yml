@@ -101,13 +101,6 @@ paths:
       x-throttling-tier: Unlimited
 components:
   schemas:
-    CountryCode:
-      maxLength: 5
-      type: string
-      description: 'Unique country identifier for a specific Kuehne+Nagel Operating Company.
-
-        '
-      example: DE
     RequestId:
       maxLength: 36
       type: string
@@ -116,6 +109,9 @@ components:
         '
       format: uuid
       example: 019a1641-02a3-7a08-a83b-de93c338ed0e
+    JobDocumentsResponse:
+      type: string
+      format: binary
     Problem:
       required:
       - detail
@@ -150,9 +146,13 @@ components:
           description: A URI reference that identifies the specific occurrence of the problem, e.g. by adding a fragment identifier or sub-path to the problem type. May be used to locate the root of this problem in the source code.\n
           format: uri-reference
           example: /problem/connection-error#token-info-read-timed-out
-    JobDocumentsResponse:
+    CountryCode:
+      maxLength: 5
       type: string
-      format: binary
+      description: 'Unique country identifier for a specific Kuehne+Nagel Operating Company.
+
+        '
+      example: DE
   securitySchemes:
     default:
       type: oauth2
