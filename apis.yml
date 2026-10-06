@@ -51,7 +51,7 @@ tags:
 - Standards
 - Freight
 created: '2026-07-30'
-modified: '2026-07-30'
+modified: '2026-10-06'
 specificationVersion: '0.23'
 apis:
 - aid: kuehne-nagel:kuehne-nagel-administration-layer-api
@@ -2316,6 +2316,8 @@ apis:
     url: >-
       https://portal.api.kuehne-nagel.com/devportal/apis/d2822b95-abc5-40f8-b8a6-62e3914a844a/documents
 common:
+- url: https://www.kuehne-nagel.com/stories
+  type: Blog
 - type: CapabilityMap
   url: capabilities/kuehne-nagel-capability-edges.yml
   name: Kuehne+Nagel Business Capability Map
