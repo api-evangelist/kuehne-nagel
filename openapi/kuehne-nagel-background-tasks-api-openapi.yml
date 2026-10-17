@@ -62,15 +62,6 @@ paths:
       x-throttling-tier: Unlimited
 components:
   schemas:
-    HTTPValidationError:
-      type: object
-      properties:
-        detail:
-          type: array
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-      title: HTTPValidationError
     ValidationError:
       type: object
       properties:
@@ -161,6 +152,15 @@ components:
       - tasks
       - total_tasks
       title: TaskStatusResponse
+    HTTPValidationError:
+      type: object
+      properties:
+        detail:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+      title: HTTPValidationError
   securitySchemes:
     default:
       type: oauth2

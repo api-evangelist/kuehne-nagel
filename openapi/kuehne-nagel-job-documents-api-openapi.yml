@@ -109,9 +109,6 @@ components:
         '
       format: uuid
       example: 019a1641-02a3-7a08-a83b-de93c338ed0e
-    JobDocumentsResponse:
-      type: string
-      format: binary
     Problem:
       required:
       - detail
@@ -153,6 +150,9 @@ components:
 
         '
       example: DE
+    JobDocumentsResponse:
+      type: string
+      format: binary
   securitySchemes:
     default:
       type: oauth2

@@ -123,36 +123,7 @@ paths:
     servers:
     - url: https://gateway.api.kuehne-nagel.com/transport/execution/documentation/shipment/v3
 components:
-  responses:
-    default:
-      description: An error occurred - please see the HTTP status code and the problem object for more information.
-      content:
-        application/problem+json:
-          schema:
-            $ref: '#/components/schemas/Problem'
   schemas:
-    DocumentTypeCode:
-      maxLength: 3
-      minLength: 3
-      type: string
-      description: 'Code of a document type according to the Kuehne+Nagel specific classification.
-
-
-        The document types allowed for uploading a document can be retrieved via the operation `/shipments/{uniqueShipmentReference}/uploadable-document-types`.
-
-
-        Often uploaded document types:
-
-        * 380 (Commercial Invoice)
-
-        * 271 (Packing List)
-
-        * 944 (Customs Documents)
-
-        * 833 (Export Declaration)
-
-        '
-      example: '380'
     Problem:
       required:
       - detail
@@ -198,12 +169,41 @@ components:
           example: /problem/connection-error
           default: about:blank
       description: A problem details object as defined by RFC 7807, used to carry error information in HTTP API responses.
+    DocumentTypeCode:
+      maxLength: 3
+      minLength: 3
+      type: string
+      description: 'Code of a document type according to the Kuehne+Nagel specific classification.
+
+
+        The document types allowed for uploading a document can be retrieved via the operation `/shipments/{uniqueShipmentReference}/uploadable-document-types`.
+
+
+        Often uploaded document types:
+
+        * 380 (Commercial Invoice)
+
+        * 271 (Packing List)
+
+        * 944 (Customs Documents)
+
+        * 833 (Export Declaration)
+
+        '
+      example: '380'
     DocumentId:
       maxLength: 255
       minLength: 1
       type: string
       description: Unique identifier of a shipment document.
       example: Q1234S56
+  responses:
+    default:
+      description: An error occurred - please see the HTTP status code and the problem object for more information.
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Problem'
   parameters:
     uniqueShipmentReferenceParameter:
       name: uniqueShipmentReference

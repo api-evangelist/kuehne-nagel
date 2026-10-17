@@ -725,6 +725,182 @@ paths:
       x-throttling-tier: 50KPerMin
 components:
   schemas:
+    CountryCode:
+      maxLength: 5
+      type: string
+      format: iso-3166
+    CustomerCode:
+      maxLength: 7
+      pattern: ^[A-Z]{5}[0-9]{2}$
+      type: string
+      description: Unique identifier assigned to a customer
+    BusinessParty:
+      required:
+      - partyCode
+      type: object
+      properties:
+        partyCode:
+          maxLength: 255
+          type: string
+        address:
+          $ref: '#/components/schemas/Address'
+    ItemIdentificationKeyAttributes:
+      type: object
+      properties:
+        europeanArticleNumber:
+          maxLength: 255
+          type: string
+        lotNumber:
+          maxLength: 255
+          type: string
+        catalogueNumber:
+          maxLength: 255
+          type: string
+        partNumber:
+          maxLength: 255
+          type: string
+        packUniversalProductCode:
+          maxLength: 255
+          type: string
+        materialNumber:
+          maxLength: 255
+          type: string
+        productNumber:
+          maxLength: 255
+          type: string
+        lineNumber:
+          maxLength: 255
+          type: string
+        itemNumber:
+          maxLength: 255
+          type: string
+        factoryItemNumber:
+          maxLength: 255
+          type: string
+        supplierItemNumber:
+          maxLength: 255
+          type: string
+        articleNumber:
+          maxLength: 255
+          type: string
+        barcode:
+          maxLength: 255
+          type: string
+        stockKeepingUnitNumber:
+          maxLength: 255
+          type: string
+        globalLocationNumber:
+          maxLength: 255
+          type: string
+        batchNumber:
+          maxLength: 255
+          type: string
+        universalProductCode:
+          maxLength: 255
+          type: string
+    AdditionalParty:
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/AdditionalPartyAddress'
+    ItemAttributesKeyAttributes:
+      type: object
+      properties:
+        style:
+          maxLength: 255
+          type: string
+        color:
+          maxLength: 255
+          type: string
+        shade:
+          maxLength: 255
+          type: string
+        size:
+          maxLength: 255
+          type: string
+        hsCode:
+          maxLength: 255
+          type: string
+        hsCodeOrigin:
+          maxLength: 255
+          type: string
+        hsCodeDestination:
+          maxLength: 255
+          type: string
+        commodity:
+          maxLength: 4000
+          type: string
+        countryOfOrigin:
+          $ref: '#/components/schemas/CountryCode'
+    ShippingDetails:
+      type: object
+      properties:
+        shipmentType:
+          maxLength: 3
+          type: string
+          x-extensible-enum:
+          - LCL
+          - FCL
+          - BCM
+        masterShipmentNumber:
+          maxLength: 255
+          type: string
+          description: The Master Shipment Number, provided to track BCM shipments
+          example: SHP1234567890
+        bookingNumber:
+          maxLength: 255
+          type: string
+        containerNumber:
+          maxLength: 255
+          type: string
+          description: Container Number
+          example: ABCD1234657
+        loadingSequence:
+          type: integer
+          format: int64
+        knOriginReference:
+          maxLength: 255
+          type: string
+          description: K+N reference
+          example: 1234-5678-019.111
+        trackingNumber:
+          maxLength: 255
+          type: string
+          description: K+N Tracking Number
+          example: TRN1234567890
+        hbl:
+          maxLength: 255
+          type: string
+          description: House Bill of Lading issued by KN (Blue Anchor Line)
+          example: ASC1234567890
+        mbl:
+          maxLength: 255
+          type: string
+          description: Master Bill of Lading
+          example: ASC12345678019111
+        quantity:
+          type: integer
+          description: Quantity on container
+          format: int64
+          example: 222
+      description: Provides order shipping details
+    PostalAddress:
+      type: object
+      properties:
+        address1:
+          maxLength: 255
+          type: string
+        address2:
+          maxLength: 255
+          type: string
+        zipCode:
+          maxLength: 255
+          type: string
+        city:
+          maxLength: 255
+          type: string
+        countryCode:
+          $ref: '#/components/schemas/CountryCode'
     OrderIdentificationKeyAttributes:
       type: object
       properties:
@@ -827,141 +1003,40 @@ components:
         supplierOrderNumber:
           maxLength: 255
           type: string
-    ItemIdentificationKeyAttributes:
-      type: object
-      properties:
-        europeanArticleNumber:
-          maxLength: 255
-          type: string
-        lotNumber:
-          maxLength: 255
-          type: string
-        catalogueNumber:
-          maxLength: 255
-          type: string
-        partNumber:
-          maxLength: 255
-          type: string
-        packUniversalProductCode:
-          maxLength: 255
-          type: string
-        materialNumber:
-          maxLength: 255
-          type: string
-        productNumber:
-          maxLength: 255
-          type: string
-        lineNumber:
-          maxLength: 255
-          type: string
-        itemNumber:
-          maxLength: 255
-          type: string
-        factoryItemNumber:
-          maxLength: 255
-          type: string
-        supplierItemNumber:
-          maxLength: 255
-          type: string
-        articleNumber:
-          maxLength: 255
-          type: string
-        barcode:
-          maxLength: 255
-          type: string
-        stockKeepingUnitNumber:
-          maxLength: 255
-          type: string
-        globalLocationNumber:
-          maxLength: 255
-          type: string
-        batchNumber:
-          maxLength: 255
-          type: string
-        universalProductCode:
-          maxLength: 255
-          type: string
-    AmountAndUnit:
+    OrderTrackingRequest:
       required:
-      - amount
+      - customerCode
       type: object
       properties:
-        amount:
-          minimum: 0
-          type: number
-          format: decimal
-        unit:
-          maxLength: 3
-          type: string
-    Address:
-      allOf:
-      - $ref: '#/components/schemas/PostalAddress'
-      - type: object
-        properties:
-          name:
-            maxLength: 255
-            type: string
-          state:
-            maxLength: 255
-            type: string
-          stateCode:
-            maxLength: 255
-            type: string
-          postBox:
-            maxLength: 255
-            type: string
-    ShippingDetails:
-      type: object
-      properties:
-        shipmentType:
-          maxLength: 3
-          type: string
-          x-extensible-enum:
-          - LCL
-          - FCL
-          - BCM
-        masterShipmentNumber:
+        customerCode:
+          $ref: '#/components/schemas/CustomerCode'
+        purchaseOrderNumber:
           maxLength: 255
           type: string
-          description: The Master Shipment Number, provided to track BCM shipments
-          example: SHP1234567890
-        bookingNumber:
-          maxLength: 255
-          type: string
-        containerNumber:
-          maxLength: 255
-          type: string
-          description: Container Number
-          example: ABCD1234657
-        loadingSequence:
+        parties:
+          $ref: '#/components/schemas/Parties'
+        attributes:
+          $ref: '#/components/schemas/OrderAttributes'
+        additionalReferences:
+          maxItems: 999
+          type: array
+          items:
+            $ref: '#/components/schemas/AdditionalReference'
+        pageSize:
+          maximum: 10
+          minimum: 1
           type: integer
-          format: int64
-        knOriginReference:
-          maxLength: 255
-          type: string
-          description: K+N reference
-          example: 1234-5678-019.111
-        trackingNumber:
-          maxLength: 255
-          type: string
-          description: K+N Tracking Number
-          example: TRN1234567890
-        hbl:
-          maxLength: 255
-          type: string
-          description: House Bill of Lading issued by KN (Blue Anchor Line)
-          example: ASC1234567890
-        mbl:
-          maxLength: 255
-          type: string
-          description: Master Bill of Lading
-          example: ASC12345678019111
-        quantity:
+          description: Number of results returned on single page
+          format: int32
+          example: 5
+          default: 5
+        page:
           type: integer
-          description: Quantity on container
-          format: int64
-          example: 222
-      description: Provides order shipping details
+          description: Requested page
+          format: int32
+          example: 1
+          default: 1
+      description: Request in JSON format
     OrderTrackingResponse:
       required:
       - currentPage
@@ -997,106 +1072,82 @@ components:
           type: integer
           format: int32
           example: 1
-    UnLocationCode:
-      maxLength: 5
-      pattern: '[A-Z]{2}[A-Z0-9]{3}'
-      type: string
-      description: Standardized code for trade and transport locations including seaports and airports
-    BusinessParty:
-      required:
-      - partyCode
+    Status:
       type: object
       properties:
-        partyCode:
+        name:
           maxLength: 255
           type: string
-        address:
-          $ref: '#/components/schemas/Address'
-    ResponsePurchaseOrder:
-      required:
-      - purchaseOrderNumber
+          description: Status longname
+          example: Allocated
+        code:
+          maxLength: 255
+          type: string
+          description: Status code
+          example: '0110'
+        milestone:
+          maxLength: 255
+          type: string
+          description: Order line subprocess
+          example: Gate In
+        statusDate:
+          type: string
+          description: Status Date
+          format: date-time
+          example: '2022-12-29T01:33:00Z'
+        quantity:
+          type: integer
+          description: Quantity being related to the status
+          format: int64
+          example: 222
+      description: Status of the order line
+    Parties:
       type: object
       properties:
-        purchaseOrderNumber:
-          maxLength: 255
-          type: string
-        parties:
-          $ref: '#/components/schemas/Parties'
-        orderHeader:
-          $ref: '#/components/schemas/OrderAttributes'
-        orderLines:
+        customer:
+          $ref: '#/components/schemas/BusinessParty'
+        supplier:
+          $ref: '#/components/schemas/BusinessParty'
+        factory:
+          $ref: '#/components/schemas/BusinessParty'
+        additionalParties:
           maxItems: 999
           type: array
           items:
-            allOf:
-            - $ref: '#/components/schemas/OrderAttributes'
-            - required:
-              - state
-              type: object
-              properties:
-                state:
-                  maxLength: 10
-                  type: string
-                  x-extensible-enum:
-                  - ACTIVE
-                  - INCOMPLETE
-                  - CANCELLED
-                status:
-                  maxItems: 999
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/Status'
-                shippingDetails:
-                  maxItems: 999
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/ShippingDetails'
-                additionalReferences:
-                  maxItems: 999
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/AdditionalReference'
-    PurchaseOrderResponse:
+            $ref: '#/components/schemas/AdditionalParty'
+    AdditionalPartyAddress:
+      allOf:
+      - $ref: '#/components/schemas/Address'
+      - type: object
+        properties:
+          addressType:
+            maxLength: 2
+            type: string
+            description: Address Type Code
+            example: FF
+    AdditionalReference:
       required:
-      - purchaseOrder
+      - code
+      - values
       type: object
       properties:
-        purchaseOrder:
-          $ref: '#/components/schemas/ResponsePurchaseOrder'
-    OrderTrackingRequest:
-      required:
-      - customerCode
-      type: object
-      properties:
-        customerCode:
-          $ref: '#/components/schemas/CustomerCode'
-        purchaseOrderNumber:
+        code:
           maxLength: 255
           type: string
-        parties:
-          $ref: '#/components/schemas/Parties'
-        attributes:
-          $ref: '#/components/schemas/OrderAttributes'
-        additionalReferences:
+          description: Reference code
+          example: 'ON'
+        values:
           maxItems: 999
+          minItems: 1
           type: array
+          description: Reference values
+          example:
+          - ON-123456
+          - ON-654321
           items:
-            $ref: '#/components/schemas/AdditionalReference'
-        pageSize:
-          maximum: 10
-          minimum: 1
-          type: integer
-          description: Number of results returned on single page
-          format: int32
-          example: 5
-          default: 5
-        page:
-          type: integer
-          description: Requested page
-          format: int32
-          example: 1
-          default: 1
-      description: Request in JSON format
+            maxLength: 255
+            type: string
+      description: reference code-values pair
     Problem:
       required:
       - detail
@@ -1143,128 +1194,6 @@ components:
             '
           format: uri-reference
           example: /problem/connection-error#token-info-read-timed-out
-    AdditionalParty:
-      type: object
-      properties:
-        address:
-          $ref: '#/components/schemas/AdditionalPartyAddress'
-    PostalAddress:
-      type: object
-      properties:
-        address1:
-          maxLength: 255
-          type: string
-        address2:
-          maxLength: 255
-          type: string
-        zipCode:
-          maxLength: 255
-          type: string
-        city:
-          maxLength: 255
-          type: string
-        countryCode:
-          $ref: '#/components/schemas/CountryCode'
-    AdditionalPartyAddress:
-      allOf:
-      - $ref: '#/components/schemas/Address'
-      - type: object
-        properties:
-          addressType:
-            maxLength: 2
-            type: string
-            description: Address Type Code
-            example: FF
-    ItemAttributesKeyAttributes:
-      type: object
-      properties:
-        style:
-          maxLength: 255
-          type: string
-        color:
-          maxLength: 255
-          type: string
-        shade:
-          maxLength: 255
-          type: string
-        size:
-          maxLength: 255
-          type: string
-        hsCode:
-          maxLength: 255
-          type: string
-        hsCodeOrigin:
-          maxLength: 255
-          type: string
-        hsCodeDestination:
-          maxLength: 255
-          type: string
-        commodity:
-          maxLength: 4000
-          type: string
-        countryOfOrigin:
-          $ref: '#/components/schemas/CountryCode'
-    DateWindow:
-      type: object
-      properties:
-        startDate:
-          type: string
-          format: date
-        endDate:
-          type: string
-          format: date
-    Status:
-      type: object
-      properties:
-        name:
-          maxLength: 255
-          type: string
-          description: Status longname
-          example: Allocated
-        code:
-          maxLength: 255
-          type: string
-          description: Status code
-          example: '0110'
-        milestone:
-          maxLength: 255
-          type: string
-          description: Order line subprocess
-          example: Gate In
-        statusDate:
-          type: string
-          description: Status Date
-          format: date-time
-          example: '2022-12-29T01:33:00Z'
-        quantity:
-          type: integer
-          description: Quantity being related to the status
-          format: int64
-          example: 222
-      description: Status of the order line
-    AdditionalReference:
-      required:
-      - code
-      - values
-      type: object
-      properties:
-        code:
-          maxLength: 255
-          type: string
-          description: Reference code
-          example: 'ON'
-        values:
-          maxItems: 999
-          minItems: 1
-          type: array
-          description: Reference values
-          example:
-          - ON-123456
-          - ON-654321
-          items:
-            maxLength: 255
-            type: string
-      description: reference code-values pair
     Incoterm:
       maxLength: 3
       type: string
@@ -1295,7 +1224,40 @@ components:
       - FOT
       - PRC
       - PUO
-    Money:
+    DateWindow:
+      type: object
+      properties:
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+    Address:
+      allOf:
+      - $ref: '#/components/schemas/PostalAddress'
+      - type: object
+        properties:
+          name:
+            maxLength: 255
+            type: string
+          state:
+            maxLength: 255
+            type: string
+          stateCode:
+            maxLength: 255
+            type: string
+          postBox:
+            maxLength: 255
+            type: string
+    PurchaseOrderResponse:
+      required:
+      - purchaseOrder
+      type: object
+      properties:
+        purchaseOrder:
+          $ref: '#/components/schemas/ResponsePurchaseOrder'
+    AmountAndUnit:
       required:
       - amount
       type: object
@@ -1304,10 +1266,9 @@ components:
           minimum: 0
           type: number
           format: decimal
-        currency:
+        unit:
           maxLength: 3
           type: string
-          format: iso-4217
     OrderAttributes:
       properties:
         orderIdentification:
@@ -1757,29 +1718,68 @@ components:
             order attributes as defined by the customer''s order configuration.
 
             '
-    CustomerCode:
-      maxLength: 7
-      pattern: ^[A-Z]{5}[0-9]{2}$
-      type: string
-      description: Unique identifier assigned to a customer
-    CountryCode:
-      maxLength: 5
-      type: string
-      format: iso-3166
-    Parties:
+    ResponsePurchaseOrder:
+      required:
+      - purchaseOrderNumber
       type: object
       properties:
-        customer:
-          $ref: '#/components/schemas/BusinessParty'
-        supplier:
-          $ref: '#/components/schemas/BusinessParty'
-        factory:
-          $ref: '#/components/schemas/BusinessParty'
-        additionalParties:
+        purchaseOrderNumber:
+          maxLength: 255
+          type: string
+        parties:
+          $ref: '#/components/schemas/Parties'
+        orderHeader:
+          $ref: '#/components/schemas/OrderAttributes'
+        orderLines:
           maxItems: 999
           type: array
           items:
-            $ref: '#/components/schemas/AdditionalParty'
+            allOf:
+            - $ref: '#/components/schemas/OrderAttributes'
+            - required:
+              - state
+              type: object
+              properties:
+                state:
+                  maxLength: 10
+                  type: string
+                  x-extensible-enum:
+                  - ACTIVE
+                  - INCOMPLETE
+                  - CANCELLED
+                status:
+                  maxItems: 999
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Status'
+                shippingDetails:
+                  maxItems: 999
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/ShippingDetails'
+                additionalReferences:
+                  maxItems: 999
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/AdditionalReference'
+    UnLocationCode:
+      maxLength: 5
+      pattern: '[A-Z]{2}[A-Z0-9]{3}'
+      type: string
+      description: Standardized code for trade and transport locations including seaports and airports
+    Money:
+      required:
+      - amount
+      type: object
+      properties:
+        amount:
+          minimum: 0
+          type: number
+          format: decimal
+        currency:
+          maxLength: 3
+          type: string
+          format: iso-4217
   responses:
     default:
       description: Default Response for Error Cases

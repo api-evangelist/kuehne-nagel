@@ -93,14 +93,13 @@ paths:
       x-throttling-tier: Unlimited
 components:
   schemas:
-    JobStatusResponse:
-      type: object
-      properties:
-        message:
-          maxLength: 500
-          type: string
-          description: Details of the job status.
-          example: Job status updated successfully
+    CountryCode:
+      maxLength: 5
+      type: string
+      description: 'Unique country identifier for a specific Kuehne+Nagel Operating Company.
+
+        '
+      example: DE
     Problem:
       required:
       - detail
@@ -143,13 +142,6 @@ components:
         '
       format: uuid
       example: 019a1641-02a3-7a08-a83b-de93c338ed0e
-    CountryCode:
-      maxLength: 5
-      type: string
-      description: 'Unique country identifier for a specific Kuehne+Nagel Operating Company.
-
-        '
-      example: DE
     JobStatusRequest:
       required:
       - senderUniqueShortName
@@ -259,6 +251,14 @@ components:
                 type: string
                 description: Reference related to specific waypoint.
                 example: Pin:123456
+    JobStatusResponse:
+      type: object
+      properties:
+        message:
+          maxLength: 500
+          type: string
+          description: Details of the job status.
+          example: Job status updated successfully
   securitySchemes:
     default:
       type: oauth2

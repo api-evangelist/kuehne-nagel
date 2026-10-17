@@ -104,6 +104,22 @@ paths:
       x-throttling-tier: Unlimited
 components:
   schemas:
+    HTTPValidationError:
+      type: object
+      properties:
+        detail:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+      title: HTTPValidationError
+    ToolSource:
+      type: string
+      description: Source of a tool (native or MCP).
+      enum:
+      - native
+      - mcp
+      title: ToolSource
     ValidationError:
       type: object
       properties:
@@ -142,15 +158,6 @@ components:
       required:
       - tools
       title: ToolsListResponse
-    HTTPValidationError:
-      type: object
-      properties:
-        detail:
-          type: array
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-      title: HTTPValidationError
     ToolInfo:
       type: object
       description: Information about an individual tool.
@@ -186,13 +193,6 @@ components:
       - module
       - name
       title: ToolInfo
-    ToolSource:
-      type: string
-      description: Source of a tool (native or MCP).
-      enum:
-      - native
-      - mcp
-      title: ToolSource
   securitySchemes:
     default:
       type: oauth2

@@ -375,89 +375,6 @@ components:
       - monthly_remaining
       - monthly_usage
       title: QuotaUsageInfo
-    ValidationError:
-      type: object
-      properties:
-        loc:
-          type: array
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    TierQuotaUsageInfo:
-      type: object
-      description: Information about quota usage for a specific model tier.
-      properties:
-        tier:
-          type: string
-          title: Tier
-        daily_limit:
-          type: integer
-          title: Daily Limit
-        monthly_limit:
-          type: integer
-          title: Monthly Limit
-        daily_usage:
-          type: integer
-          title: Daily Usage
-        monthly_usage:
-          type: integer
-          title: Monthly Usage
-        daily_remaining:
-          type: integer
-          title: Daily Remaining
-        monthly_remaining:
-          type: integer
-          title: Monthly Remaining
-      required:
-      - daily_limit
-      - daily_remaining
-      - daily_usage
-      - monthly_limit
-      - monthly_remaining
-      - monthly_usage
-      - tier
-      title: TierQuotaUsageInfo
-    HTTPValidationError:
-      type: object
-      properties:
-        detail:
-          type: array
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-      title: HTTPValidationError
-    TierQuotaLimits:
-      type: object
-      description: Quota limits for a specific model tier.
-      properties:
-        daily_limit:
-          type: integer
-          title: Daily Limit
-        monthly_limit:
-          type: integer
-          title: Monthly Limit
-      required:
-      - daily_limit
-      - monthly_limit
-      title: TierQuotaLimits
     QuotaLimitsResponse:
       type: object
       description: 'Response model for workspace quota limits.
@@ -517,6 +434,111 @@ components:
       - updated_by
       - workspace_id
       title: QuotaLimitsResponse
+    QuotaStatusResponse:
+      type: object
+      description: 'Response model for workspace quota status.
+
+
+        Note: standard_processing and async_processing are deprecated.
+
+        Use tier_usage for tier-based quota information.'
+      properties:
+        workspace_id:
+          type: string
+          title: Workspace Id
+        tier_usage:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/TierQuotaUsageInfo'
+          title: Tier Usage
+        standard_processing:
+          $ref: '#/components/schemas/QuotaUsageInfo'
+        async_processing:
+          $ref: '#/components/schemas/QuotaUsageInfo'
+        period_info:
+          type: object
+          additionalProperties: true
+          title: Period Info
+        last_updated:
+          type: string
+          title: Last Updated
+      required:
+      - async_processing
+      - last_updated
+      - period_info
+      - standard_processing
+      - tier_usage
+      - workspace_id
+      title: QuotaStatusResponse
+    TierQuotaUsageInfo:
+      type: object
+      description: Information about quota usage for a specific model tier.
+      properties:
+        tier:
+          type: string
+          title: Tier
+        daily_limit:
+          type: integer
+          title: Daily Limit
+        monthly_limit:
+          type: integer
+          title: Monthly Limit
+        daily_usage:
+          type: integer
+          title: Daily Usage
+        monthly_usage:
+          type: integer
+          title: Monthly Usage
+        daily_remaining:
+          type: integer
+          title: Daily Remaining
+        monthly_remaining:
+          type: integer
+          title: Monthly Remaining
+      required:
+      - daily_limit
+      - daily_remaining
+      - daily_usage
+      - monthly_limit
+      - monthly_remaining
+      - monthly_usage
+      - tier
+      title: TierQuotaUsageInfo
+    HTTPValidationError:
+      type: object
+      properties:
+        detail:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+      title: HTTPValidationError
+    ValidationError:
+      type: object
+      properties:
+        loc:
+          type: array
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     DeleteQuotaResponse:
       type: object
       description: Response model for quota deletion.
@@ -532,6 +554,20 @@ components:
       - quota_id
       - success
       title: DeleteQuotaResponse
+    TierQuotaLimits:
+      type: object
+      description: Quota limits for a specific model tier.
+      properties:
+        daily_limit:
+          type: integer
+          title: Daily Limit
+        monthly_limit:
+          type: integer
+          title: Monthly Limit
+      required:
+      - daily_limit
+      - monthly_limit
+      title: TierQuotaLimits
     Body_update_workspace_quota_limits_v3_workspaces__workspace_id__quota_put:
       type: object
       properties:
@@ -606,42 +642,6 @@ components:
           example: 30000
           title: Monthly Async Limit
       title: Body_update_workspace_quota_limits_v3_workspaces__workspace_id__quota_put
-    QuotaStatusResponse:
-      type: object
-      description: 'Response model for workspace quota status.
-
-
-        Note: standard_processing and async_processing are deprecated.
-
-        Use tier_usage for tier-based quota information.'
-      properties:
-        workspace_id:
-          type: string
-          title: Workspace Id
-        tier_usage:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/TierQuotaUsageInfo'
-          title: Tier Usage
-        standard_processing:
-          $ref: '#/components/schemas/QuotaUsageInfo'
-        async_processing:
-          $ref: '#/components/schemas/QuotaUsageInfo'
-        period_info:
-          type: object
-          additionalProperties: true
-          title: Period Info
-        last_updated:
-          type: string
-          title: Last Updated
-      required:
-      - async_processing
-      - last_updated
-      - period_info
-      - standard_processing
-      - tier_usage
-      - workspace_id
-      title: QuotaStatusResponse
   securitySchemes:
     default:
       type: oauth2

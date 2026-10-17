@@ -125,91 +125,74 @@ paths:
       x-throttling-tier: Unlimited
 components:
   schemas:
-    ModelType:
-      type: string
-      enum:
-      - flash_25_lite
-      - flash_25_low
-      - flash_25
-      - flash_3
-      - flash_35
-      - pro_25
-      - pro_31
-      - claude_haiku_45
-      - claude_sonnet_46
-      - claude_sonnet_46_low
-      - claude_opus_46
-      - claude_opus_46_low
-      - nova_2_lite
-      - nova_2_pro_preview
-      - nova_2_pro_preview_low
-      title: ModelType
-    ExtractFileResponse:
+    ExtractAsyncJobResponse:
       type: object
       properties:
-        filename:
+        tracking_id:
+          type: string
+          format: uuid
+          title: Tracking Id
+        status:
+          type: string
+          title: Status
+        job_type:
+          type: string
+          title: Job Type
+        result:
           anyOf:
-          - type: string
+          - $ref: '#/components/schemas/ExtractFileResponse'
+          - $ref: '#/components/schemas/ExtractZipResponse'
           - type: 'null'
-          title: Filename
-        data:
-          anyOf:
-          - type: array
-            items: {}
-          - type: object
-            additionalProperties: true
-          - type: string
-          - type: 'null'
-          title: Data
-        metadata:
-          anyOf:
-          - $ref: '#/components/schemas/FileMetadata'
-          - type: 'null'
+          title: Result
         error:
           anyOf:
           - type: string
           - type: 'null'
           title: Error
-      title: ExtractFileResponse
-    ValidationError:
+      required:
+      - job_type
+      - status
+      - tracking_id
+      title: ExtractAsyncJobResponse
+    HTTPValidationError:
       type: object
       properties:
-        loc:
+        detail:
           type: array
           items:
-            anyOf:
-            - type: string
-            - type: integer
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    ExtractZipFileResult:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+      title: HTTPValidationError
+    ZipMetadata:
       type: object
       properties:
-        filename:
+        total_files:
+          type: integer
+          title: Total Files
+        processed_files:
+          type: integer
+          title: Processed Files
+        errors:
+          type: integer
+          title: Errors
+        started_at:
+          type: string
+          title: Started At
+        completed_at:
+          type: string
+          title: Completed At
+        processing_time_ms:
           anyOf:
-          - type: string
+          - type: integer
           - type: 'null'
-          title: Filename
-        result:
-          $ref: '#/components/schemas/ExtractZipResult'
+          title: Processing Time Ms
       required:
-      - result
-      title: ExtractZipFileResult
+      - completed_at
+      - errors
+      - processed_files
+      - started_at
+      - total_files
+      title: ZipMetadata
     FileMetadata:
       type: object
       properties:
@@ -270,12 +253,66 @@ components:
       - processed_at
       - token_costs
       title: FileMetadata
-    ExtractZipResult:
+    ValidationError:
       type: object
       properties:
+        loc:
+          type: array
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    ModelType:
+      type: string
+      enum:
+      - flash_25_lite
+      - flash_25_low
+      - flash_25
+      - flash_3
+      - flash_35
+      - pro_25
+      - pro_31
+      - claude_haiku_45
+      - claude_sonnet_46
+      - claude_sonnet_46_low
+      - claude_opus_46
+      - claude_opus_46_low
+      - nova_2_lite
+      - nova_2_pro_preview
+      - nova_2_pro_preview_low
+      title: ModelType
+    ExtractFileResponse:
+      type: object
+      properties:
+        filename:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Filename
         data:
           anyOf:
-          - {}
+          - type: array
+            items: {}
+          - type: object
+            additionalProperties: true
+          - type: string
           - type: 'null'
           title: Data
         metadata:
@@ -287,75 +324,7 @@ components:
           - type: string
           - type: 'null'
           title: Error
-      title: ExtractZipResult
-    ZipMetadata:
-      type: object
-      properties:
-        total_files:
-          type: integer
-          title: Total Files
-        processed_files:
-          type: integer
-          title: Processed Files
-        errors:
-          type: integer
-          title: Errors
-        started_at:
-          type: string
-          title: Started At
-        completed_at:
-          type: string
-          title: Completed At
-        processing_time_ms:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Processing Time Ms
-      required:
-      - completed_at
-      - errors
-      - processed_files
-      - started_at
-      - total_files
-      title: ZipMetadata
-    ExtractAsyncJobResponse:
-      type: object
-      properties:
-        tracking_id:
-          type: string
-          format: uuid
-          title: Tracking Id
-        status:
-          type: string
-          title: Status
-        job_type:
-          type: string
-          title: Job Type
-        result:
-          anyOf:
-          - $ref: '#/components/schemas/ExtractFileResponse'
-          - $ref: '#/components/schemas/ExtractZipResponse'
-          - type: 'null'
-          title: Result
-        error:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Error
-      required:
-      - job_type
-      - status
-      - tracking_id
-      title: ExtractAsyncJobResponse
-    HTTPValidationError:
-      type: object
-      properties:
-        detail:
-          type: array
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-      title: HTTPValidationError
+      title: ExtractFileResponse
     ExtractZipResponse:
       type: object
       properties:
@@ -376,6 +345,37 @@ components:
           - type: 'null'
           title: Error
       title: ExtractZipResponse
+    ExtractZipFileResult:
+      type: object
+      properties:
+        filename:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Filename
+        result:
+          $ref: '#/components/schemas/ExtractZipResult'
+      required:
+      - result
+      title: ExtractZipFileResult
+    ExtractZipResult:
+      type: object
+      properties:
+        data:
+          anyOf:
+          - {}
+          - type: 'null'
+          title: Data
+        metadata:
+          anyOf:
+          - $ref: '#/components/schemas/FileMetadata'
+          - type: 'null'
+        error:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Error
+      title: ExtractZipResult
   securitySchemes:
     default:
       type: oauth2

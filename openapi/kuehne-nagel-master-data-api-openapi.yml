@@ -175,22 +175,6 @@ components:
           maxLength: 250
           type: string
           example: cubic metre
-    MasterDataCategory:
-      required:
-      - name
-      - values
-      type: object
-      properties:
-        name:
-          maxLength: 20
-          minLength: 1
-          type: string
-          example: reference-types
-        values:
-          maxLength: 200
-          minLength: 1
-          type: string
-          example: '.../master-data-categories/<category-name>/values'
     MasterDataValues:
       required:
       - items
@@ -239,6 +223,22 @@ components:
             minLength: 1
             type: string
             example: reference-types
+    MasterDataCategory:
+      required:
+      - name
+      - values
+      type: object
+      properties:
+        name:
+          maxLength: 20
+          minLength: 1
+          type: string
+          example: reference-types
+        values:
+          maxLength: 200
+          minLength: 1
+          type: string
+          example: '.../master-data-categories/<category-name>/values'
   securitySchemes:
     default:
       type: oauth2

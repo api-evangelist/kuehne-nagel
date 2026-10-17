@@ -57,15 +57,6 @@ paths:
       x-throttling-tier: Unlimited
 components:
   schemas:
-    HTTPValidationError:
-      type: object
-      properties:
-        detail:
-          type: array
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-      title: HTTPValidationError
     ValidationError:
       type: object
       properties:
@@ -92,6 +83,15 @@ components:
       - msg
       - type
       title: ValidationError
+    HTTPValidationError:
+      type: object
+      properties:
+        detail:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+      title: HTTPValidationError
     Body_export_json_to_excel_v3_v3_workspaces__workspace_id__export_json_to_excel_post:
       type: object
       properties:

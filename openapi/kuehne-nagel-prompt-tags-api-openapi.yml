@@ -536,6 +536,105 @@ paths:
       x-throttling-tier: Unlimited
 components:
   schemas:
+    ? Body_remove_tag_from_version_api_key_v3_api_key_auth_workspaces__workspace_id__prompts__prompt_id__versions__version_id__tags__tag_id__delete
+    : type: object
+      properties:
+        hard_delete:
+          type: boolean
+          default: false
+          title: Hard Delete
+      title: Body_remove_tag_from_version_api_key_v3_api_key_auth_workspaces__workspace_id__prompts__prompt_id__versions__version_id__tags__tag_id__delete
+    PromptVersionDetail:
+      type: object
+      properties:
+        version_id:
+          type: string
+          format: uuid
+          title: Version Id
+        prompt_content:
+          type: string
+          title: Prompt Content
+        schema_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Schema Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/TagListItem'
+          title: Tags
+      required:
+      - created_at
+      - prompt_content
+      - schema_id
+      - tags
+      - updated_at
+      - version_id
+      title: PromptVersionDetail
+    HTTPValidationError:
+      type: object
+      properties:
+        detail:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+      title: HTTPValidationError
+    TagListResponse:
+      type: object
+      properties:
+        tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/TagListItem'
+          title: Tags
+      required:
+      - tags
+      title: TagListResponse
+    ValidationError:
+      type: object
+      properties:
+        loc:
+          type: array
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    Body_remove_tag_from_version_v3_workspaces__workspace_id__prompts__prompt_id__versions__version_id__tags__tag_id__delete:
+      type: object
+      properties:
+        hard_delete:
+          type: boolean
+          default: false
+          title: Hard Delete
+      title: Body_remove_tag_from_version_v3_workspaces__workspace_id__prompts__prompt_id__versions__version_id__tags__tag_id__delete
     TagAssignmentResponse:
       type: object
       description: Response model for tag assignment operations.
@@ -565,40 +664,24 @@ components:
       - tag_name
       - version_id
       title: TagAssignmentResponse
-    ValidationError:
+    TagListItem:
       type: object
       properties:
-        loc:
-          type: array
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          title: Location
-        msg:
+        name:
           type: string
-          title: Message
-        type:
+          title: Name
+        tag_id:
           type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    ? Body_remove_tag_from_version_api_key_v3_api_key_auth_workspaces__workspace_id__prompts__prompt_id__versions__version_id__tags__tag_id__delete
-    : type: object
-      properties:
-        hard_delete:
+          format: uuid
+          title: Tag Id
+        is_system:
           type: boolean
-          default: false
-          title: Hard Delete
-      title: Body_remove_tag_from_version_api_key_v3_api_key_auth_workspaces__workspace_id__prompts__prompt_id__versions__version_id__tags__tag_id__delete
+          title: Is System
+      required:
+      - is_system
+      - name
+      - tag_id
+      title: TagListItem
     PromptDetailResponse:
       type: object
       properties:
@@ -660,89 +743,6 @@ components:
       - versions
       - workspace_id
       title: PromptDetailResponse
-    TagListResponse:
-      type: object
-      properties:
-        tags:
-          type: array
-          items:
-            $ref: '#/components/schemas/TagListItem'
-          title: Tags
-      required:
-      - tags
-      title: TagListResponse
-    HTTPValidationError:
-      type: object
-      properties:
-        detail:
-          type: array
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-      title: HTTPValidationError
-    Body_remove_tag_from_version_v3_workspaces__workspace_id__prompts__prompt_id__versions__version_id__tags__tag_id__delete:
-      type: object
-      properties:
-        hard_delete:
-          type: boolean
-          default: false
-          title: Hard Delete
-      title: Body_remove_tag_from_version_v3_workspaces__workspace_id__prompts__prompt_id__versions__version_id__tags__tag_id__delete
-    TagListItem:
-      type: object
-      properties:
-        name:
-          type: string
-          title: Name
-        tag_id:
-          type: string
-          format: uuid
-          title: Tag Id
-        is_system:
-          type: boolean
-          title: Is System
-      required:
-      - is_system
-      - name
-      - tag_id
-      title: TagListItem
-    PromptVersionDetail:
-      type: object
-      properties:
-        version_id:
-          type: string
-          format: uuid
-          title: Version Id
-        prompt_content:
-          type: string
-          title: Prompt Content
-        schema_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Schema Id
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        updated_at:
-          type: string
-          format: date-time
-          title: Updated At
-        tags:
-          type: array
-          items:
-            $ref: '#/components/schemas/TagListItem'
-          title: Tags
-      required:
-      - created_at
-      - prompt_content
-      - schema_id
-      - tags
-      - updated_at
-      - version_id
-      title: PromptVersionDetail
   securitySchemes:
     default:
       type: oauth2

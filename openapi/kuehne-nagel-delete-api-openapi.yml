@@ -40,13 +40,6 @@ paths:
       summary: Delete document
       x-summary-source: derived
 components:
-  responses:
-    default:
-      description: An error occurred - please see the HTTP status code and the problem object for more information.
-      content:
-        application/problem+json:
-          schema:
-            $ref: '#/components/schemas/Problem'
   schemas:
     Problem:
       required:
@@ -121,6 +114,13 @@ components:
       explode: false
       schema:
         $ref: '#/components/schemas/DocumentId'
+  responses:
+    default:
+      description: An error occurred - please see the HTTP status code and the problem object for more information.
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Problem'
   securitySchemes:
     default:
       type: oauth2
