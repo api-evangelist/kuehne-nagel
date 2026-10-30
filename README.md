@@ -1,4 +1,4 @@
-# Kuehne+Nagel (kuehne-nagel)
+# Kuehne+Nagel
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,397 +66,148 @@
 
 Kuehne+Nagel International AG is a Swiss freight forwarder and contract logistics provider headquartered in Schindellegi, Switzerland, and one of the largest forwarders in the world across sea logistics, air logistics, road logistics and contract logistics. As a forwarder it sits in the intermediation layer of the supply chain — between shippers on one side and ocean carriers, airlines, hauliers, terminals and customs authorities on the other — and most of the data it exposes is carrier and terminal data it aggregates rather than originates. Its API posture is honest but conditional: a real WSO2-based developer portal at portal.api.kuehne-nagel.com lists 17 published APIs and serves every OpenAPI definition anonymously, but every subscription is customer-contract gated — a myKN account, a Kuehne+Nagel customer ID (CID) and an account manager who completes the "customer setup" are stated pre-requisites, so nobody outside a commercial relationship can call the gateway. Underneath the REST veneer the company's own connectivity page still advertises EDIFACT, ANSI X.12, Tradacoms, RosettaNet, iDOC, GS1 and CargoImp over AS2, OFTP-2, (S)FTP and VAN as the primary integration path, and its one customs "EDI" API is an unschematized pass-through. One surface — OceanEventInbox v1 — is explicitly built to the DCSA equipment-event standard, which makes Kuehne+Nagel a non-member implementer of a carrier standards body; the other sixteen APIs are proprietary Kuehne+Nagel contracts.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/kuehne-nagel/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/kuehne-nagel/refs/heads/main/apis.yml)
-
-## Tags
-
-- Logistics
-- Supply Chain
-- Switzerland
-- Freight Forwarding
-- Ocean Freight
-- Container Shipping
-- Air Cargo
-- Road Freight
-- Customs
-- Trade Compliance
-- Track and Trace
-- Contract Logistics
-- Standards
-
-## Timestamps
-
-- **Created:** 2026-07-30
-- **Modified:** 2026-07-30
-
-## APIs
-
-### Kuehne+Nagel ShipmentTracking API
-
-Find and show details of the customer's shipments, with contents reflecting the visibility configured in myKN. Search shipments, load a single shipment by unique reference, and read history records. Read-only polling; no webhook or callback is published.
-
-- **Human URL:** [https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview](https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/overview)
-- **Base URL:** `https://gateway.api.kuehne-nagel.com/track-trace/shipment/v2`
-
-#### Tags
-
-- Track and Trace
-- Shipments
-- Ocean Freight
-- Air Cargo
-
-#### Properties
-
-- [OpenAPI](openapi/kuehne-nagel-shipment-tracking-v2-openapi.json) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/kuehne-nagel-shipment-tracking-v2.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/kuehne-nagel-shipment-tracking-v2.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Documentation](https://portal.api.kuehne-nagel.com/devportal/apis/6b98ae4c-ef06-4f72-acba-616584ee7f0f/documents)
-- [Developer Portal](https://portal.api.kuehne-nagel.com/devportal/)
-
-### Kuehne+Nagel ContainerTracking API
-
-Find and show details of the customer's seafreight containers, reflecting myKN visibility. Container search plus a per-container read keyed on the Kuehne+Nagel unique shipment reference and container sequence number.
-
-- **Human URL:** [https://portal.api.kuehne-nagel.com/devportal/apis/bf506fea-4c34-4072-bc1c-aa6d1e6f0ca8/overview](https://portal.api.kuehne-nagel.com/devportal/apis/bf506fea-4c34-4072-bc1c-aa6d1e6f0ca8/overview)
-- **Base URL:** `https://gateway.api.kuehne-nagel.com/track-trace/container/v2`
-
-#### Tags
-
-- Track and Trace
-- Container Shipping
-- Ocean Freight
-
-#### Properties
-
-- [OpenAPI](openapi/kuehne-nagel-container-tracking-v2-openapi.json) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/kuehne-nagel-container-tracking-v2.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/kuehne-nagel-container-tracking-v2.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Documentation](https://portal.api.kuehne-nagel.com/devportal/apis/bf506fea-4c34-4072-bc1c-aa6d1e6f0ca8/documents)
-- [Developer Portal](https://portal.api.kuehne-nagel.com/devportal/)
-
-### Kuehne+Nagel OrderTracking API
-
-A service for consumers to receive order data information, searched by order attributes. Carries UN/LOCODE port fields, HS codes, EORI numbers and a GS1 global location number field on item attributes.
-
-- **Human URL:** [https://portal.api.kuehne-nagel.com/devportal/apis/24f13980-9857-41ef-a3e5-3cd7844da5d6/overview](https://portal.api.kuehne-nagel.com/devportal/apis/24f13980-9857-41ef-a3e5-3cd7844da5d6/overview)
-- **Base URL:** `https://gateway.api.kuehne-nagel.com/track-trace/order/v2`
-
-#### Tags
-
-- Track and Trace
-- Order Management
-- Supply Chain
-
-#### Properties
-
-- [OpenAPI](openapi/kuehne-nagel-order-tracking-v2-openapi.json) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/kuehne-nagel-order-tracking-v2.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/kuehne-nagel-order-tracking-v2.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Documentation](https://portal.api.kuehne-nagel.com/devportal/apis/24f13980-9857-41ef-a3e5-3cd7844da5d6/documents)
-- [Developer Portal](https://portal.api.kuehne-nagel.com/devportal/)
-
-### Kuehne+Nagel RealTimeVisibility-Tracking API
-
-Read cargo items and their telemetry readings for real-time visibility. Two GET operations, polled; no subscription or push channel is published.
-
-- **Human URL:** [https://portal.api.kuehne-nagel.com/devportal/apis/d17c2f11-d4db-4edf-b4e0-b78406cfbb7f/overview](https://portal.api.kuehne-nagel.com/devportal/apis/d17c2f11-d4db-4edf-b4e0-b78406cfbb7f/overview)
-- **Base URL:** `https://gateway.api.kuehne-nagel.com/real-time-visibility/tracking/v1`
-
-#### Tags
-
-- Track and Trace
-- Telematics
-- Visibility
-
-#### Properties
-
-- [OpenAPI](openapi/kuehne-nagel-real-time-visibility-tracking-v1-openapi.json) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/kuehne-nagel-real-time-visibility-tracking-v1.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/kuehne-nagel-real-time-visibility-tracking-v1.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Documentation](https://portal.api.kuehne-nagel.com/devportal/apis/d17c2f11-d4db-4edf-b4e0-b78406cfbb7f/documents)
-- [Developer Portal](https://portal.api.kuehne-nagel.com/devportal/)
-
-### Kuehne+Nagel BookingAir API
-
-A service for consumers to book an air shipment, optionally applying product prices supplied via the Airfreight Quote API. Carries IATA three-letter airport codes, air waybill and HAWB service types, HS codes and IATA dangerous-goods flags.
-
-- **Human URL:** [https://portal.api.kuehne-nagel.com/devportal/apis/bfc135f0-875b-4421-b203-e56f91aa0e66/overview](https://portal.api.kuehne-nagel.com/devportal/apis/bfc135f0-875b-4421-b203-e56f91aa0e66/overview)
-- **Base URL:** `https://gateway.api.kuehne-nagel.com/booking/air/v2`
-
-#### Tags
-
-- Air Cargo
-- Booking
-- Freight Forwarding
-
-#### Properties
-
-- [OpenAPI](openapi/kuehne-nagel-booking-air-v2-openapi.json) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/kuehne-nagel-booking-air-v2.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/kuehne-nagel-booking-air-v2.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Documentation](https://portal.api.kuehne-nagel.com/devportal/apis/bfc135f0-875b-4421-b203-e56f91aa0e66/documents)
-- [Developer Portal](https://portal.api.kuehne-nagel.com/devportal/)
-
-### Kuehne+Nagel BookingRoad API
-
-A service for consumers to book road shipments, with master-data category lookups and a document upload operation alongside booking creation.
-
-- **Human URL:** [https://portal.api.kuehne-nagel.com/devportal/apis/f3ca4f89-d159-4a5f-bedc-68a2eb7b483c/overview](https://portal.api.kuehne-nagel.com/devportal/apis/f3ca4f89-d159-4a5f-bedc-68a2eb7b483c/overview)
-- **Base URL:** `https://gateway.api.kuehne-nagel.com/booking/road/v1`
-
-#### Tags
-
-- Road Freight
-- Booking
-- Freight Forwarding
-
-#### Properties
-
-- [OpenAPI](openapi/kuehne-nagel-booking-road-v1-openapi.json) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/kuehne-nagel-booking-road-v1.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/kuehne-nagel-booking-road-v1.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Documentation](https://portal.api.kuehne-nagel.com/devportal/apis/f3ca4f89-d159-4a5f-bedc-68a2eb7b483c/documents)
-- [Developer Portal](https://portal.api.kuehne-nagel.com/devportal/)
-
-### Kuehne+Nagel OrderBooking API
-
-Create and update order bookings by shipper's reference and poll a process state. Discriminated booking bodies for AIR, FCL and LCL, with UN/LOCODE-typed ports and airports.
-
-- **Human URL:** [https://portal.api.kuehne-nagel.com/devportal/apis/e520b7b7-44ff-4546-ad46-5c75d35041cc/overview](https://portal.api.kuehne-nagel.com/devportal/apis/e520b7b7-44ff-4546-ad46-5c75d35041cc/overview)
-- **Base URL:** `https://gateway.api.kuehne-nagel.com/order-management/order-booking/v1`
-
-#### Tags
-
-- Booking
-- Order Management
-- Ocean Freight
-- Air Cargo
-
-#### Properties
-
-- [OpenAPI](openapi/kuehne-nagel-order-booking-v1-openapi.json) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/kuehne-nagel-order-booking-v1.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/kuehne-nagel-order-booking-v1.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Developer Portal](https://portal.api.kuehne-nagel.com/devportal/)
-
-### Kuehne+Nagel PurchaseOrderManagement API
-
-Create, patch, search and cancel purchase orders scoped to a Kuehne+Nagel customer code. UN/LOCODE ports, HS codes and EORI numbers appear on the order model.
-
-- **Human URL:** [https://portal.api.kuehne-nagel.com/devportal/apis/79670bfa-841d-4d9f-bbee-5a5d737f7d21/overview](https://portal.api.kuehne-nagel.com/devportal/apis/79670bfa-841d-4d9f-bbee-5a5d737f7d21/overview)
-- **Base URL:** `https://gateway.api.kuehne-nagel.com/order-management/purchase-order/v3`
-
-#### Tags
-
-- Order Management
-- Supply Chain
-- Purchase Orders
-
-#### Properties
-
-- [OpenAPI](openapi/kuehne-nagel-purchase-order-management-v3-openapi.json) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/kuehne-nagel-purchase-order-management-v3.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/kuehne-nagel-purchase-order-management-v3.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Documentation](https://portal.api.kuehne-nagel.com/devportal/apis/79670bfa-841d-4d9f-bbee-5a5d737f7d21/documents)
-- [Developer Portal](https://portal.api.kuehne-nagel.com/devportal/)
-
-### Kuehne+Nagel eSOPPurchaseOrderConfiguration API
-
-Read the purchase-order configuration for a given Kuehne+Nagel customer code. The devportal publishes only an internal gateway environment for this API; no external endpoint URL is advertised.
-
-- **Human URL:** [https://portal.api.kuehne-nagel.com/devportal/apis/98eed3c9-1f7a-4d40-8852-f0eb452f315e/overview](https://portal.api.kuehne-nagel.com/devportal/apis/98eed3c9-1f7a-4d40-8852-f0eb452f315e/overview)
-
-#### Tags
-
-- Order Management
-- Configuration
-
-#### Properties
-
-- [OpenAPI](openapi/kuehne-nagel-esop-purchase-order-configuration-v1-openapi.json) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/kuehne-nagel-esop-purchase-order-configuration-v1.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/kuehne-nagel-esop-purchase-order-configuration-v1.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Developer Portal](https://portal.api.kuehne-nagel.com/devportal/)
-
-### Kuehne+Nagel OceanEventInbox API
-
-Lets service providers submit container equipment events for shipments booked with Kuehne+Nagel, following Digital Container Shipping Association (DCSA) standards. Inbound only — Kuehne+Nagel receives events here rather than publishing them. Equipment references follow BIC ISO 6346, locations use UN/LOCODE, and carriers are identified by SCAC or SMDG code lists.
-
-- **Human URL:** [https://portal.api.kuehne-nagel.com/devportal/apis/ea0d3ea0-3825-4175-bb54-875068074dca/overview](https://portal.api.kuehne-nagel.com/devportal/apis/ea0d3ea0-3825-4175-bb54-875068074dca/overview)
-- **Base URL:** `https://gateway.api.kuehne-nagel.com/integration/external/event/container/v1`
-
-#### Tags
-
-- Standards
-- DCSA
-- Container Shipping
-- Events
-- Track and Trace
-
-#### Properties
-
-- [OpenAPI](openapi/kuehne-nagel-ocean-event-inbox-v1-openapi.json) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/kuehne-nagel-ocean-event-inbox-v1.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/kuehne-nagel-ocean-event-inbox-v1.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Documentation](https://portal.api.kuehne-nagel.com/devportal/apis/ea0d3ea0-3825-4175-bb54-875068074dca/documents)
-- [Developer Portal](https://portal.api.kuehne-nagel.com/devportal/)
-
-### Kuehne+Nagel ShipmentEventIntegration API
-
-Validates and accepts incoming shipment event entries from third parties. Inbound only; the specification names a third-party application as the intended publisher.
-
-- **Human URL:** [https://portal.api.kuehne-nagel.com/devportal/apis/fe5ed9e7-67cb-471f-a679-7bdade8d6850/overview](https://portal.api.kuehne-nagel.com/devportal/apis/fe5ed9e7-67cb-471f-a679-7bdade8d6850/overview)
-- **Base URL:** `https://gateway.api.kuehne-nagel.com/integration/event/shipment/event-integration/v1`
-
-#### Tags
-
-- Events
-- Integration
-- Track and Trace
-
-#### Properties
-
-- [OpenAPI](openapi/kuehne-nagel-shipment-event-integration-v1-openapi.json) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/kuehne-nagel-shipment-event-integration-v1.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/kuehne-nagel-shipment-event-integration-v1.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Documentation](https://portal.api.kuehne-nagel.com/devportal/apis/fe5ed9e7-67cb-471f-a679-7bdade8d6850/documents)
-- [Developer Portal](https://portal.api.kuehne-nagel.com/devportal/)
-
-### Kuehne+Nagel ExternalShipmentIntegration API
-
-Upsert or delete an externally-sourced shipment against a Kuehne+Nagel customer code and shipment number — the surface through which non-Kuehne+Nagel shipments are fed into Kuehne+Nagel visibility.
-
-- **Human URL:** [https://portal.api.kuehne-nagel.com/devportal/apis/e4e7a568-9c87-4346-ae85-50e6a9ad0b00/overview](https://portal.api.kuehne-nagel.com/devportal/apis/e4e7a568-9c87-4346-ae85-50e6a9ad0b00/overview)
-- **Base URL:** `https://gateway.api.kuehne-nagel.com/integration/external/shipment/v1`
-
-#### Tags
-
-- Integration
-- Shipments
-- Visibility
-
-#### Properties
-
-- [OpenAPI](openapi/kuehne-nagel-external-shipment-integration-v1-openapi.json) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/kuehne-nagel-external-shipment-integration-v1.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/kuehne-nagel-external-shipment-integration-v1.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Documentation](https://portal.api.kuehne-nagel.com/devportal/apis/e4e7a568-9c87-4346-ae85-50e6a9ad0b00/documents)
-- [Developer Portal](https://portal.api.kuehne-nagel.com/devportal/)
-
-### Kuehne+Nagel IntermodalTransportExecution API
-
-Carrier-facing pickup-and-delivery execution for sea intermodal legs — list assigned consignments, pull job documents, post job status, post GPS tracking and post proof of delivery per waypoint. Uses UN/LOCODE ports of loading and discharge and SCAC carrier codes.
-
-- **Human URL:** [https://portal.api.kuehne-nagel.com/devportal/apis/d2822b95-abc5-40f8-b8a6-62e3914a844a/overview](https://portal.api.kuehne-nagel.com/devportal/apis/d2822b95-abc5-40f8-b8a6-62e3914a844a/overview)
-- **Base URL:** `https://gateway.api.kuehne-nagel.com/transport/execution/pickup-and-delivery/sea/v1`
-
-#### Tags
-
-- Road Freight
-- Ocean Freight
-- Telematics
-- Proof of Delivery
-
-#### Properties
-
-- [OpenAPI](openapi/kuehne-nagel-intermodal-transport-execution-v1-openapi.json) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/kuehne-nagel-intermodal-transport-execution-v1.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/kuehne-nagel-intermodal-transport-execution-v1.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Documentation](https://portal.api.kuehne-nagel.com/devportal/apis/d2822b95-abc5-40f8-b8a6-62e3914a844a/documents)
-- [Developer Portal](https://portal.api.kuehne-nagel.com/devportal/)
-
-### Kuehne+Nagel ShipmentDocumentManagement API v3
-
-List, download, add and delete shipment-related documents against a Kuehne+Nagel unique shipment reference, plus a lookup of uploadable document types. The current version for new integrations.
-
-- **Human URL:** [https://portal.api.kuehne-nagel.com/devportal/apis/e25ce18f-bfe5-47f7-ba14-b6d4acb0c085/overview](https://portal.api.kuehne-nagel.com/devportal/apis/e25ce18f-bfe5-47f7-ba14-b6d4acb0c085/overview)
-- **Base URL:** `https://gateway.api.kuehne-nagel.com/transport/execution/documentation/shipment/v3`
-
-#### Tags
-
-- Documents
-- Shipments
-- Trade Compliance
-
-#### Properties
-
-- [OpenAPI](openapi/kuehne-nagel-shipment-document-management-v3-openapi.json) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/kuehne-nagel-shipment-document-management-v3.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/kuehne-nagel-shipment-document-management-v3.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Developer Portal](https://portal.api.kuehne-nagel.com/devportal/)
-
-### Kuehne+Nagel ShipmentDocumentManagement API v2
-
-Legacy document management for shipment documents, limited to adding and downloading documents. Marked in the developer portal as legacy and intended for existing integrations only; v3 is directed for new work.
-
-- **Human URL:** [https://portal.api.kuehne-nagel.com/devportal/apis/76b61307-7289-474d-a2e7-06b6ee10ab12/overview](https://portal.api.kuehne-nagel.com/devportal/apis/76b61307-7289-474d-a2e7-06b6ee10ab12/overview)
-- **Base URL:** `https://gateway.api.kuehne-nagel.com/transport/execution/documentation/shipment/v2`
-
-#### Tags
-
-- Documents
-- Shipments
-- Deprecated
-
-#### Properties
-
-- [OpenAPI](openapi/kuehne-nagel-shipment-document-management-v2-openapi.json) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/kuehne-nagel-shipment-document-management-v2.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/kuehne-nagel-shipment-document-management-v2.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Developer Portal](https://portal.api.kuehne-nagel.com/devportal/)
-
-### Kuehne+Nagel B2B-CustomsEDI API
-
-Described in the developer portal as being for bespoke customs integrations with customers. The published OpenAPI declares two POST operations, /order and /document, with no request schemas, no response schemas and no operation descriptions — an unschematized EDI pass-through rather than a modelled customs API.
-
-- **Human URL:** [https://portal.api.kuehne-nagel.com/devportal/apis/d687d921-913e-429b-a95e-e7bbbd16658c/overview](https://portal.api.kuehne-nagel.com/devportal/apis/d687d921-913e-429b-a95e-e7bbbd16658c/overview)
-- **Base URL:** `https://gateway.api.kuehne-nagel.com/b2b/customs/edi/v1`
-
-#### Tags
-
-- Customs
-- Trade Compliance
-- EDI
-
-#### Properties
-
-- [OpenAPI](openapi/kuehne-nagel-b2b-customs-edi-v1-openapi.json) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/kuehne-nagel-b2b-customs-edi-v1.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/kuehne-nagel-b2b-customs-edi-v1.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Developer Portal](https://portal.api.kuehne-nagel.com/devportal/)
-
-### Kuehne+Nagel KAI Document Extract API
-
-Published in the developer portal as B2B-OldKAIExtractAPI — extract structured information from documents, with workspace management, synchronous and asynchronous file and zip processing, prompt-driven extraction and per-workspace API keys. The largest published surface at 92 paths.
-
-- **Human URL:** [https://portal.api.kuehne-nagel.com/devportal/apis/84ffd55f-61ba-4918-8105-887fdcb88ff6/overview](https://portal.api.kuehne-nagel.com/devportal/apis/84ffd55f-61ba-4918-8105-887fdcb88ff6/overview)
-- **Base URL:** `https://gateway.api.kuehne-nagel.com/oldkaiextractapi/0.1.0`
-
-#### Tags
-
-- Documents
-- AI
-- Document Extraction
-
-#### Properties
-
-- [OpenAPI](openapi/kuehne-nagel-kai-document-extract-v0-1-0-openapi.json) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/kuehne-nagel-kai-document-extract-v0-1-0.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/kuehne-nagel-kai-document-extract-v0-1-0.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Developer Portal](https://portal.api.kuehne-nagel.com/devportal/)
-
-## Common Properties
+**Areas:** Logistics · Supply Chain · Switzerland · Freight Forwarding · Ocean Freight · Container Shipping · Air Cargo · Road Freight · Customs · Trade Compliance · Track and Trace · Contract Logistics
+
+## Kuehne+Nagel on APIs.io
+
+Everything profiled for Kuehne+Nagel is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/kuehne-nagel/](https://apis.io/providers/kuehne-nagel/)** — or go straight to one of the APIs or properties below.
+
+### APIs (48)
+
+- [Kuehne+Nagel Administration Layer API](https://apis.io/apis/kuehne-nagel/kuehne-nagel-administration-layer-api/) — The administration-layer API from Kuehne+Nagel — 1 operation(s) for administration-layer.
+- [Kuehne+Nagel API Keys API](https://apis.io/apis/kuehne-nagel/kuehne-nagel-api-keys-api/) — Management of API keys for workspace authentication.
+- [Kuehne+Nagel Assigned Consignments API](https://apis.io/apis/kuehne-nagel/kuehne-nagel-assigned-consignments-api/) — The Assigned Consignments API from Kuehne+Nagel — 1 operation(s) for assigned consignments.
+- [Kuehne+Nagel Background Tasks API](https://apis.io/apis/kuehne-nagel/kuehne-nagel-background-tasks-api/) — Monitor and manage background scheduled tasks.
+- [Kuehne+Nagel Booking API](https://apis.io/apis/kuehne-nagel/kuehne-nagel-booking-api/) — The booking API from Kuehne+Nagel — 2 operation(s) for booking.
+- [Kuehne+Nagel Booking Requests API](https://apis.io/apis/kuehne-nagel/kuehne-nagel-booking-requests-api/) — The Booking Requests API from Kuehne+Nagel — 1 operation(s) for booking requests.
+- [Kuehne+Nagel Cargo Items API](https://apis.io/apis/kuehne-nagel/kuehne-nagel-cargoitems-api/) — Assets (possible types are PACKAGE, CONTAINER and UNKNOWN) belonging to a shipment.
+- [Kuehne+Nagel Config API](https://apis.io/apis/kuehne-nagel/kuehne-nagel-config-api/) — API configuration and metadata endpoints.
+- [Kuehne+Nagel Container API](https://apis.io/apis/kuehne-nagel/kuehne-nagel-container-api/) — The container API from Kuehne+Nagel — 2 operation(s) for container.
+- [Kuehne+Nagel Delete API](https://apis.io/apis/kuehne-nagel/kuehne-nagel-delete-api/) — Operations to delete shipment documents.
+- [Kuehne+Nagel Document API](https://apis.io/apis/kuehne-nagel/kuehne-nagel-document-api/) — The Document API from Kuehne+Nagel — 1 operation(s) for document.
+- [Kuehne+Nagel Document Request API](https://apis.io/apis/kuehne-nagel/kuehne-nagel-document-request-api/) — The Document Request API from Kuehne+Nagel — 1 operation(s) for document request.
+- [Kuehne+Nagel Documents API](https://apis.io/apis/kuehne-nagel/kuehne-nagel-documents-api/) — The documents API from Kuehne+Nagel — 4 operation(s) for documents.
+- [Kuehne+Nagel Download API](https://apis.io/apis/kuehne-nagel/kuehne-nagel-download-api/) — Operations to download shipment documents.
+- [Kuehne+Nagel Esp Order Track API](https://apis.io/apis/kuehne-nagel/kuehne-nagel-esp-order-track-api/) — The esp-order-track API from Kuehne+Nagel — 1 operation(s) for esp-order-track.
+- [Kuehne+Nagel Events API](https://apis.io/apis/kuehne-nagel/kuehne-nagel-events-api/) — Event operations
+- [Kuehne+Nagel Export API](https://apis.io/apis/kuehne-nagel/kuehne-nagel-export-api/) — The export API from Kuehne+Nagel — 1 operation(s) for export.
+- [Kuehne+Nagel External Shipment API](https://apis.io/apis/kuehne-nagel/kuehne-nagel-externalshipment-api/) — The ExternalShipment API from Kuehne+Nagel — 1 operation(s) for externalshipment.
+- [Kuehne+Nagel GPS Tracking API](https://apis.io/apis/kuehne-nagel/kuehne-nagel-gps-tracking-api/) — The GPS Tracking API from Kuehne+Nagel — 1 operation(s) for gps tracking.
+- [Kuehne+Nagel Health API](https://apis.io/apis/kuehne-nagel/kuehne-nagel-health-api/) — The Health API from Kuehne+Nagel — 1 operation(s) for health.
+- [Kuehne+Nagel Healthz API](https://apis.io/apis/kuehne-nagel/kuehne-nagel-healthz-api/) — The Healthz API from Kuehne+Nagel — 1 operation(s) for healthz.
+- [Kuehne+Nagel Job Documents API](https://apis.io/apis/kuehne-nagel/kuehne-nagel-job-documents-api/) — The Job Documents API from Kuehne+Nagel — 1 operation(s) for job documents.
+- [Kuehne+Nagel Job Status API](https://apis.io/apis/kuehne-nagel/kuehne-nagel-job-status-api/) — The Job Status API from Kuehne+Nagel — 1 operation(s) for job status.
+- [Kuehne+Nagel Jobs API](https://apis.io/apis/kuehne-nagel/kuehne-nagel-jobs-api/) — Operations for monitoring and managing asynchronous extraction jobs.
+- [Kuehne+Nagel List API](https://apis.io/apis/kuehne-nagel/kuehne-nagel-list-api/) — Operations to list shipment documents.
+- [Kuehne+Nagel Master Data API](https://apis.io/apis/kuehne-nagel/kuehne-nagel-master-data-api/) — The Master Data API from Kuehne+Nagel — 3 operation(s) for master data.
+- [Kuehne+Nagel Metrics API](https://apis.io/apis/kuehne-nagel/kuehne-nagel-metrics-api/) — The Metrics API from Kuehne+Nagel — 1 operation(s) for metrics.
+- [Kuehne+Nagel Order API](https://apis.io/apis/kuehne-nagel/kuehne-nagel-order-api/) — The Order API from Kuehne+Nagel — 1 operation(s) for order.
+- [Kuehne+Nagel Post event API](https://apis.io/apis/kuehne-nagel/kuehne-nagel-post-event-api/) — Post event description
+- [Kuehne+Nagel Process File API](https://apis.io/apis/kuehne-nagel/kuehne-nagel-process-file-api/) — Process individual files using LLM extraction with prompt templates.
+- [Kuehne+Nagel Process State API](https://apis.io/apis/kuehne-nagel/kuehne-nagel-process-state-api/) — The process-state API from Kuehne+Nagel — 1 operation(s) for process-state.
+- [Kuehne+Nagel Process Zip API](https://apis.io/apis/kuehne-nagel/kuehne-nagel-process-zip-api/) — Process ZIP archives containing multiple files using LLM extraction.
+- [Kuehne+Nagel Prompt Tags API](https://apis.io/apis/kuehne-nagel/kuehne-nagel-prompt-tags-api/) — Assign and manage tags for specific prompt versions.
+- [Kuehne+Nagel Prompts API](https://apis.io/apis/kuehne-nagel/kuehne-nagel-prompts-api/) — Manage prompts for workspaces.
+- [Kuehne+Nagel Proof of Delivery API](https://apis.io/apis/kuehne-nagel/kuehne-nagel-proof-of-delivery-api/) — The Proof of Delivery API from Kuehne+Nagel — 1 operation(s) for proof of delivery.
+- [Kuehne+Nagel Purchase Order Layer API](https://apis.io/apis/kuehne-nagel/kuehne-nagel-purchase-order-layer-api/) — The purchase-order-layer API from Kuehne+Nagel — 3 operation(s) for purchase-order-layer.
+- [Kuehne+Nagel Quotas API](https://apis.io/apis/kuehne-nagel/kuehne-nagel-quotas-api/) — Manage workspace processing quotas and limits.
+- [Kuehne+Nagel Schemas API](https://apis.io/apis/kuehne-nagel/kuehne-nagel-schemas-api/) — Manage schemas for workspaces.
+- [Kuehne+Nagel Shipment API](https://apis.io/apis/kuehne-nagel/kuehne-nagel-shipment-api/) — The shipment API from Kuehne+Nagel — 4 operation(s) for shipment.
+- [Kuehne+Nagel Tags API](https://apis.io/apis/kuehne-nagel/kuehne-nagel-tags-api/) — Manage tags for workspaces and prompts.
+- [Kuehne+Nagel Telemetry API](https://apis.io/apis/kuehne-nagel/kuehne-nagel-telemetry-api/) — Telemetry assigned to a cargo item (PACKAGE/CONTAINER/UNKNOWN).
+- [Kuehne+Nagel Test Cases API](https://apis.io/apis/kuehne-nagel/kuehne-nagel-test-cases-api/) — Manage test cases for prompt evaluation.
+- [Kuehne+Nagel Test Sets API](https://apis.io/apis/kuehne-nagel/kuehne-nagel-test-sets-api/) — The test-sets API from Kuehne+Nagel — 8 operation(s) for test-sets.
+- [Kuehne+Nagel Tools API](https://apis.io/apis/kuehne-nagel/kuehne-nagel-tools-api/) — Manage and discover available LLM tools for function calling. Includes both local tools and tools from registered MCP servers.
+- [Kuehne+Nagel Upload API](https://apis.io/apis/kuehne-nagel/kuehne-nagel-upload-api/) — Operations to upload shipment documents.
+- [Kuehne+Nagel Usage Statistics API](https://apis.io/apis/kuehne-nagel/kuehne-nagel-usage-statistics-api/) — The usage-statistics API from Kuehne+Nagel — 1 operation(s) for usage-statistics.
+- [Kuehne+Nagel Users API](https://apis.io/apis/kuehne-nagel/kuehne-nagel-users-api/) — The users API from Kuehne+Nagel — 4 operation(s) for users.
+- [Kuehne+Nagel Workspaces API](https://apis.io/apis/kuehne-nagel/kuehne-nagel-workspaces-api/) — Manage workspaces.
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### Collections (17)
+
+Postman and Open Collection request collections.
+
+- [B2B-CustomsEDI](https://apis.io/collections/kuehne-nagel/open-kuehne-nagel-b2b-customs-edi-v1/)
+- [BookingAir](https://apis.io/collections/kuehne-nagel/open-kuehne-nagel-booking-air-v2/)
+- [BookingRoad](https://apis.io/collections/kuehne-nagel/open-kuehne-nagel-booking-road-v1/)
+- [ContainerTracking](https://apis.io/collections/kuehne-nagel/open-kuehne-nagel-container-tracking-v2/)
+- [eSOPPurchaseOrderConfiguration](https://apis.io/collections/kuehne-nagel/open-kuehne-nagel-esop-purchase-order-configuration-v1/)
+- [ExternalShipmentIntegration](https://apis.io/collections/kuehne-nagel/open-kuehne-nagel-external-shipment-integration-v1/)
+- [IntermodalTransportExecution](https://apis.io/collections/kuehne-nagel/open-kuehne-nagel-intermodal-transport-execution-v1/)
+- [B2B-OldKAIExtractAPI](https://apis.io/collections/kuehne-nagel/open-kuehne-nagel-kai-document-extract-v0-1-0/)
+- [OceanEventInbox](https://apis.io/collections/kuehne-nagel/open-kuehne-nagel-ocean-event-inbox-v1/)
+- [OrderBooking](https://apis.io/collections/kuehne-nagel/open-kuehne-nagel-order-booking-v1/)
+- [OrderTracking](https://apis.io/collections/kuehne-nagel/open-kuehne-nagel-order-tracking-v2/)
+- [PurchaseOrderManagement](https://apis.io/collections/kuehne-nagel/open-kuehne-nagel-purchase-order-management-v3/)
+- [RealTimeVisibility-Tracking](https://apis.io/collections/kuehne-nagel/open-kuehne-nagel-real-time-visibility-tracking-v1/)
+- [ShipmentDocumentManagement](https://apis.io/collections/kuehne-nagel/open-kuehne-nagel-shipment-document-management-v2/)
+- [ShipmentDocumentManagement](https://apis.io/collections/kuehne-nagel/open-kuehne-nagel-shipment-document-management-v3/)
+- [ShipmentEventIntegration](https://apis.io/collections/kuehne-nagel/open-kuehne-nagel-shipment-event-integration-v1/)
+- [ShipmentTracking](https://apis.io/collections/kuehne-nagel/open-kuehne-nagel-shipment-tracking-v2/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://www.kuehne-nagel.com/)
-- [Developer Portal](https://portal.api.kuehne-nagel.com/devportal/)
 - [Documentation](https://www.kuehne-nagel.com/digital-services/data-integration)
-- [Documentation](https://mykn.kuehne-nagel.com/help-center/connectivity)
-- [Portal](https://mykn.kuehne-nagel.com/)
-- [Sign Up](https://www.kuehne-nagel.com/contact/digital-data-integration)
-- [GitHub Organization](https://github.com/kuehne-nagel)
-- [LinkedIn](https://www.linkedin.com/company/kuehne-nagel)
+- [Sign up](https://www.kuehne-nagel.com/contact/digital-data-integration)
+- [Blog](https://www.kuehne-nagel.com/stories)
+- [GitHub](https://github.com/kuehne-nagel)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 21.3** — emerging · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 71.4 |
+| Contract quality | 47.0 |
+| Contract governance | 0.0 |
+| Operational transparency | 2.6 |
+| Developer ergonomics | 11.9 |
+| Access clarity | 13.2 |
+
+**Agent readiness 28.1** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | verified |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | — |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 0.0** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/kuehne-nagel/](https://apis.io/providers/kuehne-nagel/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Kuehne+Nagel: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/kuehne-nagel/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
